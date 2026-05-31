@@ -10,8 +10,8 @@ Change your GNOME Shell and GTK accent colors dynamically based on your wallpape
 ### Manual Installation
 
 ```bash
-git clone https://github.com/Fabito02/User-Accent-Colors.git
-mv User-Accent-Colors ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02
+git clone https://github.com/Fabito02/user-accent-colors.git
+mv user-accent-colors ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02
 glib-compile-schemas ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02/schemas/
 gnome-extensions enable user-accent-colors@fabito02
 ```
