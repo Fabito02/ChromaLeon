@@ -6,7 +6,7 @@ Change your GNOME Shell and GTK accent colors dynamically based on your wallpape
 
 <div align="center">
 
-![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02.svg) ![GitHub License](https://img.shields.io/github/license/fabito02/user-accent-colors)
+![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?cacheSeconds=60) ![GitHub License](https://img.shields.io/github/license/fabito02/user-accent-colors)
 [![Stars](https://img.shields.io/github/stars/Fabito02/user-accent-colors?style=social)](https://github.com/Fabito02/user-accent-colors/stargazers)
 
 </div>
