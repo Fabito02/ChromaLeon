@@ -32,39 +32,37 @@ export default class CustomAccentExtension extends Extension {
   }
 
   enable() {
-    this._settings = this.getSettings();
-    this._updateStyles();
-    this._changedId = this._settings.connect(
-      "changed::accent-color",
-      this._updateStyles.bind(this),
-    );
-    this._bgSettings = new Gio.Settings({
-      schema_id: "org.gnome.desktop.background",
-    });
-    this._bgChangedId = this._bgSettings.connect(
-      "changed::picture-uri-dark",
-      () => {
-        this._autoApplyWallpaperColor();
-      },
-    );
-  }
-
-  disable() {
-    // Necessary to keep accent colors consistent when unlocking the session
-    if (this._changedId) {
-      this._settings.disconnect(this._changedId);
-      this._changedId = null;
+      this._settings = this.getSettings();
+      this._updateStyles();
+      
+      this._settings.connectObject(
+        "changed::accent-color",
+        () => this._updateStyles(),
+        this
+      );
+  
+      this._bgSettings = new Gio.Settings({
+        schema_id: "org.gnome.desktop.background",
+      });
+      
+      this._bgSettings.connectObject(
+        "changed::picture-uri-dark",
+        () => this._autoApplyWallpaperColor(),
+        this
+      );
     }
-    if (this._bgChangedId) {
-      this._bgSettings.disconnect(this._bgChangedId);
-      this._bgChangedId = null;
+  
+    disable() {
+      // Necessary to keep accent colors consistent when unlocking the session
+      this._settings?.disconnectObject(this);
+      this._bgSettings?.disconnectObject(this);
+  
+      this._removeShellStylesheet();
+      this._removeGtkStylesheet();
+      
+      this._settings = null;
+      this._bgSettings = null;
     }
-
-    this._removeShellStylesheet();
-    this._removeGtkStylesheet();
-    this._settings = null;
-    this._bgSettings = null;
-  }
 
   _autoApplyWallpaperColor() {
     let uri = this._bgSettings.get_string("picture-uri-dark");
