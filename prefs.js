@@ -86,11 +86,9 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
 
     this._applyTheme();
 
-    this._settings.connectObject(
-      "changed::accent-color",
-      () => this._applyTheme(),
-      this,
-    );
+    this._settingsId = this._settings.connect("changed::accent-color", () => {
+      this._applyTheme();
+    });
 
     colorButton.connect("color-set", () => {
       const newRgba = colorButton.get_rgba();
@@ -179,12 +177,16 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     this._bgChangedId = this._bgSettings.connect(
       "changed::picture-uri-dark",
       () => this._updateWallpaperUI(),
-      this,
     );
 
     window.connect("close-request", () => {
-      this._settings?.disconnectObject(this);
-      this._bgSettings?.disconnectObject(this);
+      if (this._settingsId) {
+        this._settings.disconnect(this._settingsId);
+      }
+      if (this._bgChangedId) {
+        this._bgSettings.disconnect(this._bgChangedId);
+      }
+      
       this._settings = null;
       this._bgSettings = null;
     });
