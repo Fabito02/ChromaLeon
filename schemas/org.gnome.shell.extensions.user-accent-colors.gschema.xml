@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.user-accent-colors"
+          path="/org/gnome/shell/extensions/user-accent-colors/">
+    <key name="accent-color" type="s">
+      <default>'#785ef0'</default>
+      <summary>Accent color</summary>
+      <description>The custom color applied to GNOME Shell and GTK elements.</description>
+    </key>
+  </schema>
+</schemalist>

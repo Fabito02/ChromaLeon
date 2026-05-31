@@ -1,0 +1,8 @@
+{
+  "name": "User Accent Colors",
+  "description": "Applies custom accent color themes for Gnome Shell, Adwaita, and adw-gtk3.",
+  "uuid": "user-accent-colors@fabito02",
+  "shell-version": ["47", "48", "49", "50"],
+  "session-modes": ["user", "unlock-dialog", "login-dialog"],
+  "settings-schema": "org.gnome.shell.extensions.user-accent-colors"
+}
