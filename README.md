@@ -16,4 +16,14 @@ glib-compile-schemas ~/.local/share/gnome-shell/extensions/user-accent-colors@fa
 gnome-extensions enable user-accent-colors@fabito02
 ```
 
+
+### Support the Project
+
+<div align="center">
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-yellow?style=for-the-badge&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/fabito02)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-red?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/fabito02)
+
+</div>
+
 > Note: After enabling, restart GNOME Shell to apply changes (on X11, press `Alt+F2`, type `r`, and hit `Enter`. On Wayland, log out and log back in).
