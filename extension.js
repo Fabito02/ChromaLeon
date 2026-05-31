@@ -50,6 +50,7 @@ export default class CustomAccentExtension extends Extension {
   }
 
   disable() {
+    // Necessary to keep accent colors consistent when unlocking the session
     if (this._changedId) {
       this._settings.disconnect(this._changedId);
       this._changedId = null;
@@ -199,23 +200,25 @@ export default class CustomAccentExtension extends Extension {
       }
       let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
       if (mainFile.query_exists(null)) {
-        try {
-          let [ok, contents] = mainFile.load_contents(null);
-          if (ok) {
-            let mainContent = new TextDecoder().decode(contents);
-            let newContent = mainContent.replace(
-              /@import url\("custom-accent\.css"\);\n?/g,
-              "",
-            );
-            mainFile.replace_contents(
-              newContent,
-              null,
-              false,
-              Gio.FileCreateFlags.REPLACE_DESTINATION,
-              null,
-            );
-          }
-        } catch (e) {}
+        mainFile.load_contents_async(null, (file, res) => {
+          try {
+            let [ok, contents] = file.load_contents_finish(res);
+            if (ok) {
+              let mainContent = new TextDecoder().decode(contents);
+              let newContent = mainContent.replace(
+                /@import url\("custom-accent\.css"\);\n?/g,
+                "",
+              );
+              file.replace_contents(
+                newContent,
+                null,
+                false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION,
+                null,
+              );
+            }
+          } catch (e) {}
+        });
       }
     });
   }
@@ -230,29 +233,36 @@ export default class CustomAccentExtension extends Extension {
     let templateFile = Gio.File.new_for_path(
       this.path + "/stylesheet.template.css",
     );
-    let [ok, contents] = templateFile.load_contents(null);
-    if (!ok) return;
+    
+    templateFile.load_contents_async(null, (file, res) => {
+      try {
+        let [ok, contents] = file.load_contents_finish(res);
+        if (!ok) return;
 
-    let template = new TextDecoder().decode(contents);
-    let css = template.replace(/@@ACCENT@@/g, color);
+        let template = new TextDecoder().decode(contents);
+        let css = template.replace(/@@ACCENT@@/g, color);
 
-    let cacheDir = GLib.get_user_cache_dir();
-    let file = Gio.File.new_for_path(cacheDir + "/user-accent-colors.css");
-    file.replace_contents(
-      css,
-      null,
-      false,
-      Gio.FileCreateFlags.REPLACE_DESTINATION,
-      null,
-    );
+        let cacheDir = GLib.get_user_cache_dir();
+        let outputFile = Gio.File.new_for_path(cacheDir + "/user-accent-colors.css");
+        outputFile.replace_contents(
+          css,
+          null,
+          false,
+          Gio.FileCreateFlags.REPLACE_DESTINATION,
+          null,
+        );
 
-    this._removeShellStylesheet();
+        this._removeShellStylesheet();
 
-    let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
-    if (theme) {
-      theme.load_stylesheet(file);
-      this._generatedCssFile = file;
-    }
+        let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+        if (theme) {
+          theme.load_stylesheet(outputFile);
+          this._generatedCssFile = outputFile;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
   }
 
   _updateGtkStylesheet(color) {
@@ -285,16 +295,29 @@ export default class CustomAccentExtension extends Extension {
       } catch (e) {}
 
       let importLine = `@import url("custom-accent.css");\n`;
-      let mainContent = "";
+      
       if (mainFile.query_exists(null)) {
-        let [ok, contents] = mainFile.load_contents(null);
-        if (ok) mainContent = new TextDecoder().decode(contents);
-      }
-      if (!mainContent.includes("custom-accent.css")) {
-        mainContent = importLine + mainContent;
+        mainFile.load_contents_async(null, (file, res) => {
+          try {
+            let [ok, contents] = file.load_contents_finish(res);
+            let mainContent = ok ? new TextDecoder().decode(contents) : "";
+            
+            if (!mainContent.includes("custom-accent.css")) {
+              mainContent = importLine + mainContent;
+              file.replace_contents(
+                mainContent,
+                null,
+                false,
+                Gio.FileCreateFlags.REPLACE_DESTINATION,
+                null,
+              );
+            }
+          } catch (e) {}
+        });
+      } else {
         try {
           mainFile.replace_contents(
-            mainContent,
+            importLine,
             null,
             false,
             Gio.FileCreateFlags.REPLACE_DESTINATION,

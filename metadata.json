@@ -4,6 +4,6 @@
   "uuid": "user-accent-colors@fabito02",
   "url": "https://github.com/Fabito02/user-accent-colors",
   "shell-version": ["47", "48", "49", "50"],
-  "session-modes": ["user", "unlock-dialog", "login-dialog"],
+  "session-modes": ["user", "unlock-dialog"],
   "settings-schema": "org.gnome.shell.extensions.user-accent-colors"
 }
