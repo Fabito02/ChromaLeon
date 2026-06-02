@@ -2,7 +2,7 @@
 
 # User Accent Colors
 
-<img width="250" alt="Gnome Extensions Icon" src="https://github.com/user-attachments/assets/f10ebf50-b4b4-4131-88c2-5551abb765a1" />
+<img width="250" alt="Gnome Extension Icon" src="https://github.com/user-attachments/assets/6449b7fd-4eb8-49e3-a43c-21a5d23341fd" />
 
 <br><br>
 
