@@ -6,7 +6,7 @@
 
 <br><br>
 
-Change your GNOME Shell, GTK, and adw-gtk3 accent colors dynamically based on your wallpaper.
+Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based on your wallpaper.
 
 ---
 
