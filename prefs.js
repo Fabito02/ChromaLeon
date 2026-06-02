@@ -4,10 +4,10 @@ import { buildUI } from "./ui.js";
 
 export default class CustomAccentPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
-    const settings = this.getSettings();zzzzzzz
+    const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
     window.add(page);
     
-    buildUI(window, page, settings);
+    buildUI(window, page, settings, this.dir.get_path());
   }
 }
