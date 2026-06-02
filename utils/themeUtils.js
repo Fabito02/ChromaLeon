@@ -1,0 +1,158 @@
+import St from "gi://St";
+import Gio from "gi://Gio";
+import GLib from "gi://GLib";
+
+const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
+const REGEX_MARKER =
+  /\/\* CustomAccentExtension Start \*\/[\s\S]*?\/\* CustomAccentExtension End \*\/\n?/g;
+const START_MARKER = "/* CustomAccentExtension Start */";
+const END_MARKER = "/* CustomAccentExtension End */";
+
+export function removeShellStylesheet(generatedCssFile) {
+  let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+  if (theme && generatedCssFile) {
+    theme.unload_stylesheet(generatedCssFile);
+  }
+  return null
+}
+
+export function removeGtkStylesheet() {
+  const configDir = GLib.get_user_config_dir();
+
+  GTK_VERSIONS.forEach((version) => {
+    let dirPath = `${configDir}/${version}`;
+
+    let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    if (accentFile.query_exists(null)) {
+      try {
+        accentFile.delete(null);
+      } catch (e) {
+        console.error(`Error deleting custom-accent.css: ${e}`);
+      }
+    }
+
+    let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    if (mainFile.query_exists(null)) {
+      mainFile.load_contents_async(null, (file, res) => {
+        try {
+          let [ok, contents] = file.load_contents_finish(res);
+          if (!ok) return;
+
+          let mainContent = new TextDecoder().decode(contents);
+          let newContent = mainContent.replace(REGEX_MARKER, "").trim();
+
+          file.replace_contents(
+            newContent,
+            null,
+            false,
+            Gio.FileCreateFlags.REPLACE_DESTINATION,
+            null,
+          );
+        } catch (e) {
+          console.error(`Error cleaning gtk.css: ${e}`);
+        }
+      });
+    }
+  });
+}
+
+export function updateShellStylesheet(
+  extensionPath,
+  color,
+  currentCssFile,
+  onUpdated,
+) {
+  let templateFile = Gio.File.new_for_path(
+    `${extensionPath}/stylesheet.template.css`,
+  );
+
+  templateFile.load_contents_async(null, (file, res) => {
+    try {
+      let [ok, contents] = file.load_contents_finish(res);
+      if (!ok) return;
+
+      let template = new TextDecoder().decode(contents);
+      let css = template.replace(/@@ACCENT@@/g, color);
+
+      let cacheDir = GLib.get_user_cache_dir();
+      let outputFile = Gio.File.new_for_path(
+        `${cacheDir}/user-accent-colors.css`,
+      );
+
+      outputFile.replace_contents(
+        css,
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+      );
+
+      removeShellStylesheet(currentCssFile);
+
+      let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+      if (theme) {
+        theme.load_stylesheet(outputFile);
+        if (onUpdated) onUpdated(outputFile);
+      }
+    } catch (e) {
+      console.error(`Error updating Shell stylesheet: ${e}`);
+    }
+  });
+}
+
+export function updateGtkStylesheet(color) {
+  const configDir = GLib.get_user_config_dir();
+  const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
+  const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
+
+  GTK_VERSIONS.forEach((version) => {
+    let dirPath = `${configDir}/${version}`;
+    let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+
+    try {
+      accentFile.replace_contents(
+        cssVars,
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+      );
+    } catch (e) {
+      console.error(`Error writing custom-accent.css: ${e}`);
+    }
+
+    if (mainFile.query_exists(null)) {
+      mainFile.load_contents_async(null, (file, res) => {
+        try {
+          let [ok, contents] = file.load_contents_finish(res);
+          let mainContent = ok ? new TextDecoder().decode(contents) : "";
+          let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
+          let newContent = `${cleanContent}\n\n${cssBlock}\n`;
+
+          file.replace_contents(
+            newContent,
+            null,
+            false,
+            Gio.FileCreateFlags.REPLACE_DESTINATION,
+            null,
+          );
+        } catch (e) {
+          console.error(`Error updating main gtk.css: ${e}`);
+        }
+      });
+    } else {
+      try {
+        mainFile.replace_contents(
+          `${cssBlock}\n`,
+          null,
+          false,
+          Gio.FileCreateFlags.REPLACE_DESTINATION,
+          null,
+        );
+      } catch (e) {
+        console.error(`Error creating gtk.css: ${e}`);
+      }
+    }
+  });
+}

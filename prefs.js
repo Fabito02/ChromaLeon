@@ -4,6 +4,7 @@ import Gtk from "gi://Gtk";
 import Gio from "gi://Gio";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+import { rgbToHsl } from "./utils/colorUtils.js";
 
 export default class CustomAccentPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
@@ -42,10 +43,10 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     });
     page.add(wallpaperGroup);
 
-    const flatpakGroup = new Adw.PreferencesGroup({
-      title: "Flatpak Support",
+    const miscellaneousGroup = new Adw.PreferencesGroup({
+      title: "Miscellaneous",
     });
-    page.add(flatpakGroup);
+    page.add(miscellaneousGroup);
 
     const flatpakRow = new Adw.ActionRow({
       title: "Apply to Flatpaks",
@@ -57,7 +58,27 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     });
 
     flatpakRow.add_suffix(flatpakSwitch);
-    flatpakGroup.add(flatpakRow);
+    miscellaneousGroup.add(flatpakRow);
+
+    const shortcutRow = new Adw.ActionRow({
+      title: "Enable shortcut",
+      subtitle: "Create a shortcut in the app grid by adding a .desktop file.",
+    });
+
+    const shortcutSwitch = new Gtk.Switch({
+      valign: Gtk.Align.CENTER,
+    });
+
+    shortcutRow.add_suffix(shortcutSwitch);
+    miscellaneousGroup.add(shortcutRow);
+
+    const settings = this.getSettings();
+    settings.bind(
+      "create-shortcut",
+      shortcutSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
 
     this._applyTheme = () => {
       const hex = this._settings.get_string("accent-color");
@@ -69,15 +90,19 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
       const cssProvider = new Gtk.CssProvider();
       cssProvider.load_from_data(
         `
-          switch:checked {
-              background-color: ${hex};
-              border-color: ${hex};
-          }
-        `,
+              switch:checked {
+                  background-color: ${hex};
+                  border-color: ${hex};
+              }
+            `,
         -1,
       );
 
       flatpakSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+      shortcutSwitch
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
@@ -120,15 +145,35 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
 
     flatpakSwitch.connect("notify::active", () => {
       const isActive = flatpakSwitch.get_active();
-      
+
       const commands = isActive
         ? [
-            ["flatpak", "override", "--user", "--filesystem=xdg-config/gtk-3.0"],
-            ["flatpak", "override", "--user", "--filesystem=xdg-config/gtk-4.0"],
+            [
+              "flatpak",
+              "override",
+              "--user",
+              "--filesystem=xdg-config/gtk-3.0",
+            ],
+            [
+              "flatpak",
+              "override",
+              "--user",
+              "--filesystem=xdg-config/gtk-4.0",
+            ],
           ]
         : [
-            ["flatpak", "override", "--user", "--nofilesystem=xdg-config/gtk-3.0"],
-            ["flatpak", "override", "--user", "--nofilesystem=xdg-config/gtk-4.0"],
+            [
+              "flatpak",
+              "override",
+              "--user",
+              "--nofilesystem=xdg-config/gtk-3.0",
+            ],
+            [
+              "flatpak",
+              "override",
+              "--user",
+              "--nofilesystem=xdg-config/gtk-4.0",
+            ],
           ];
 
       commands.forEach((cmd) => {
@@ -186,7 +231,7 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
       if (this._bgChangedId) {
         this._bgSettings.disconnect(this._bgChangedId);
       }
-      
+
       this._settings = null;
       this._bgSettings = null;
     });
@@ -302,7 +347,7 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
             g = pixels[offset + 1],
             b = pixels[offset + 2];
 
-          let [h, s, l] = this._rgbToHsl(r, g, b);
+          let [h, s, l] = rgbToHsl(r, g, b);
 
           let step = 24;
           let qr = Math.min(255, Math.floor(r / step) * step + step / 2);
@@ -378,36 +423,5 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     } catch (e) {
       return [];
     }
-  }
-
-  _rgbToHsl(r, g, b) {
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    let max = Math.max(r, g, b),
-      min = Math.min(r, g, b);
-    let h,
-      s,
-      l = (max + min) / 2;
-
-    if (max === min) {
-      h = s = 0;
-    } else {
-      let d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch (max) {
-        case r:
-          h = (g - b) / d + (g < b ? 6 : 0);
-          break;
-        case g:
-          h = (b - r) / d + 2;
-          break;
-        case b:
-          h = (r - g) / d + 4;
-          break;
-      }
-      h /= 6;
-    }
-    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
   }
 }

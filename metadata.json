@@ -1,13 +1,13 @@
 {
-  "name": "User Accent Colors",
-  "description": "Applies custom accent color themes for Gnome Shell, Adwaita, and adw-gtk3.",
+  "name": "ChromaLeon",
+  "description": "Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based on your wallpaper.",
   "uuid": "user-accent-colors@fabito02",
   "url": "https://github.com/Fabito02/user-accent-colors",
   "shell-version": ["47", "48", "49", "50"],
   "session-modes": ["user", "unlock-dialog"],
   "settings-schema": "org.gnome.shell.extensions.user-accent-colors",
   "donations": {
-  	"github": "Fabito02",
+    "github": "Fabito02",
     "kofi": "fabito02"
   }
 }

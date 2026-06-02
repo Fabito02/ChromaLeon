@@ -7,5 +7,10 @@
       <summary>Accent color</summary>
       <description>The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
+    <key name="create-shortcut" type="b">
+      <default>true</default>
+      <summary>Create shortcut</summary>
+      <description>Create a shortcut in the app grid by adding a .desktop file.</description>
+    </key>
   </schema>
 </schemalist>
