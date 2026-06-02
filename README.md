@@ -12,7 +12,9 @@ Change your GNOME Shell, GTK, and adw-gtk3 accent colors dynamically based on yo
 
 <br>
 
-<img width="1366" alt="User Accent Colors Preview" src="https://github.com/user-attachments/assets/66a9b288-2770-4fd1-a358-3da4d14a850a" />
+| | |
+| :--- | :--- |
+| <img width="250" src="https://github.com/user-attachments/assets/ed6a47e0-b6c1-4ad2-888b-2e15a1fce10d" /> | <img width="800" src="https://github.com/user-attachments/assets/66a9b288-2770-4fd1-a358-3da4d14a850a" /> |
 
 </div>
 
