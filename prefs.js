@@ -1,6 +1,6 @@
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
 import Adw from "gi://Adw";
-import { buildUI } from "./ui.js";
+import { buildUI } from "./chromaleon.js";
 
 export default class CustomAccentPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {

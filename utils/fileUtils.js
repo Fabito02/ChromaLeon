@@ -28,7 +28,7 @@ export function createDesktopFile(path) {
     Comment[de]=Passen Sie die Systemfarben wie ein Chamäleon an
     Comment[it]=Adatta i colori del sistema come un camaleonte
     Comment[ru]=Адаптируйте цвета системы, как хамелеон
-    Exec=sh -c "cd '${path}' && GSETTINGS_SCHEMA_DIR=./schemas gjs -m chromaleon.js"
+    Exec=sh -c "cd '${path}' && GSETTINGS_SCHEMA_DIR=./schemas CHROMALEON_LAUNCH=1 gjs -m chromaleon.js"
     Icon=${iconPath}
     StartupWMClass=com.github.fabito02.chromaleon`
 

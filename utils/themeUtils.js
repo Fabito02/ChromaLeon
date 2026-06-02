@@ -13,7 +13,7 @@ export function removeShellStylesheet(generatedCssFile) {
   if (theme && generatedCssFile) {
     theme.unload_stylesheet(generatedCssFile);
   }
-  return null
+  return null;
 }
 
 export function removeGtkStylesheet() {
@@ -26,9 +26,7 @@ export function removeGtkStylesheet() {
     if (accentFile.query_exists(null)) {
       try {
         accentFile.delete(null);
-      } catch (e) {
-        console.error(`Error deleting custom-accent.css: ${e}`);
-      }
+      } catch (e) {}
     }
 
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
@@ -48,9 +46,7 @@ export function removeGtkStylesheet() {
             Gio.FileCreateFlags.REPLACE_DESTINATION,
             null,
           );
-        } catch (e) {
-          console.error(`Error cleaning gtk.css: ${e}`);
-        }
+        } catch (e) {}
       });
     }
   });
@@ -94,9 +90,7 @@ export function updateShellStylesheet(
         theme.load_stylesheet(outputFile);
         if (onUpdated) onUpdated(outputFile);
       }
-    } catch (e) {
-      console.error(`Error updating Shell stylesheet: ${e}`);
-    }
+    } catch (e) {}
   });
 }
 
@@ -118,9 +112,7 @@ export function updateGtkStylesheet(color) {
         Gio.FileCreateFlags.REPLACE_DESTINATION,
         null,
       );
-    } catch (e) {
-      console.error(`Error writing custom-accent.css: ${e}`);
-    }
+    } catch (e) {}
 
     if (mainFile.query_exists(null)) {
       mainFile.load_contents_async(null, (file, res) => {
@@ -137,9 +129,7 @@ export function updateGtkStylesheet(color) {
             Gio.FileCreateFlags.REPLACE_DESTINATION,
             null,
           );
-        } catch (e) {
-          console.error(`Error updating main gtk.css: ${e}`);
-        }
+        } catch (e) {}
       });
     } else {
       try {
@@ -150,9 +140,7 @@ export function updateGtkStylesheet(color) {
           Gio.FileCreateFlags.REPLACE_DESTINATION,
           null,
         );
-      } catch (e) {
-        console.error(`Error creating gtk.css: ${e}`);
-      }
+      } catch (e) {}
     }
   });
 }

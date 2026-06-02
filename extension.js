@@ -36,7 +36,7 @@ export default class CustomAccentExtension extends Extension {
 
     this._updateStyles();
 
-    this._settings.connect("changed::accent-color", () => {
+    this._settingsId = this._settings.connect("changed::accent-color", () => {
       this._updateStyles();
     });
 
@@ -76,6 +76,11 @@ export default class CustomAccentExtension extends Extension {
     if (this._configId) {
       this._settings.disconnect(this._configId);
       this._configId = null;
+    }
+
+    if (this._settingsId) {
+      this._settings.disconnect(this._settingsId);
+      this._settingsId = null;
     }
 
     FileUtils.removeDesktopFile();
