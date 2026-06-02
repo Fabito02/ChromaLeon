@@ -59,7 +59,7 @@ export function updateShellStylesheet(
   onUpdated,
 ) {
   let templateFile = Gio.File.new_for_path(
-    `${extensionPath}/stylesheet.template.css`,
+    `${extensionPath}/shell_accent.template.css`,
   );
 
   templateFile.load_contents_async(null, (file, res) => {
