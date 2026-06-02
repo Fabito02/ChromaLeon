@@ -11,8 +11,8 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 ---
 
 ![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?cacheSeconds=60&logo=gnome&logoColor=white&color=3f86e3)
-![GitHub License](https://img.shields.io/github/license/fabito02/user-accent-colors?color=50fa7b)
-[![Stars](https://img.shields.io/github/stars/Fabito02/user-accent-colors?style=social)](https://github.com/Fabito02/user-accent-colors/stargazers)
+![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?color=50fa7b)
+[![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=social)](https://github.com/Fabito02/ChromaLeon/stargazers)
 
 <br>
 
@@ -46,10 +46,10 @@ If you prefer to install it manually from source, run the following commands in 
 
 ```bash
 # Clone the repository
-git clone [https://github.com/Fabito02/user-accent-colors.git](https://github.com/Fabito02/user-accent-colors.git)
+git clone [https://github.com/Fabito02/user-accent-colors.git](https://github.com/Fabito02/ChromaLeon.git)
 
 # Move it to the extensions directory
-mv user-accent-colors ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02
+mv ChromaLeon ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02
 
 # Compile the GSettings schemas
 glib-compile-schemas ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02/schemas/

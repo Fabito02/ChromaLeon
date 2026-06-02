@@ -33,7 +33,12 @@ export default class CustomAccentExtension extends Extension {
 
   enable() {
     this._settings = this.getSettings();
+
     this._updateStyles();
+
+    this._settings.connect("changed::accent-color", () => {
+      this._updateStyles();
+    });
 
     this._settings.connectObject(
       "changed::accent-color",

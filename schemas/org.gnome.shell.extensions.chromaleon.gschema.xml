@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="org.gnome.shell.extensions.user-accent-colors"
-          path="/org/gnome/shell/extensions/user-accent-colors/">
+  <schema id="org.gnome.shell.extensions.chromaleon" path="/org/gnome/shell/extensions/chromaleon/">
     <key name="accent-color" type="s">
       <default>'#785ef0'</default>
       <summary>Accent color</summary>

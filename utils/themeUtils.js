@@ -76,7 +76,7 @@ export function updateShellStylesheet(
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
-        `${cacheDir}/user-accent-colors.css`,
+        `${cacheDir}/chromaleon-shell.css`,
       );
 
       outputFile.replace_contents(
