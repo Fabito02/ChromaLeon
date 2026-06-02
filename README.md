@@ -1,6 +1,6 @@
 <div align="center">
 
-# User Accent Colors
+# ChromaLeon
 
 <img width="250" alt="Gnome Extensions Icon" src="https://github.com/user-attachments/assets/a5c0c8e1-d11f-42c7-9a19-06746e26468b" />
 
