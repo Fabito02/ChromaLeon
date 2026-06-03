@@ -61,15 +61,15 @@ export function updateShellStylesheet(
   tinted,
 ) {
   const shellAccentTemplate = Gio.File.new_for_path(
-    `${extensionPath}/shell_accent.template.css`,
+    `${extensionPath}/templates/shell_accent.template.css`,
   );
 
   const tintedDarkTemplate = Gio.File.new_for_path(
-    `${extensionPath}/tinted_dark.template.css`,
+    `${extensionPath}/templates/tinted_dark.template.css`,
   );
 
   const tintedStyle = Gio.File.new_for_path(
-    `${extensionPath}/tinted_light.template.css`,
+    `${extensionPath}/templates/tinted_light.template.css`,
   );
 
   let tintedTemplate = isDark ? tintedDarkTemplate : tintedStyle;
@@ -118,7 +118,7 @@ export function updateGtkStylesheet(extensionPath, color, tinted) {
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
     const tintedAdwaitaStyle = Gio.File.new_for_path(
-      `${extensionPath}/adwaita_tinted.template.css`,
+      `${extensionPath}/templates/adwaita_tinted.template.css`,
     );
 
     if (tinted) {
