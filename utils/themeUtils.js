@@ -24,9 +24,11 @@ export function removeGtkStylesheet() {
 
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
     if (accentFile.query_exists(null)) {
-      try {
-        accentFile.delete(null);
-      } catch (e) {}
+      accentFile.delete_async(GLib.PRIORITY_DEFAULT, null, (f, res) => {
+        try {
+          f.delete_finish(res);
+        } catch (e) {}
+      });
     }
 
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
@@ -39,12 +41,17 @@ export function removeGtkStylesheet() {
           let mainContent = new TextDecoder().decode(contents);
           let newContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-          file.replace_contents(
-            newContent,
+          file.replace_contents_async(
+            new TextEncoder().encode(newContent),
             null,
             false,
             Gio.FileCreateFlags.REPLACE_DESTINATION,
             null,
+            (f, r) => {
+              try {
+                f.replace_contents_finish(r);
+              } catch (e) {}
+            }
           );
         } catch (e) {}
       });
@@ -88,21 +95,25 @@ export function updateShellStylesheet(
         `${cacheDir}/chromaleon-shell.css`,
       );
 
-      outputFile.replace_contents(
-        css,
+      outputFile.replace_contents_async(
+        new TextEncoder().encode(css),
         null,
         false,
         Gio.FileCreateFlags.REPLACE_DESTINATION,
         null,
+        (f, r) => {
+          try {
+            f.replace_contents_finish(r);
+            removeShellStylesheet(currentCssFile);
+
+            let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+            if (theme) {
+              theme.load_stylesheet(outputFile);
+              if (onUpdated) onUpdated(outputFile);
+            }
+          } catch (e) {}
+        }
       );
-
-      removeShellStylesheet(currentCssFile);
-
-      let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
-      if (theme) {
-        theme.load_stylesheet(outputFile);
-        if (onUpdated) onUpdated(outputFile);
-      }
     } catch (e) {}
   });
 }
@@ -111,7 +122,6 @@ export function updateGtkStylesheet(extensionPath, color, tinted) {
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
-  let finalCss = "";
 
   GTK_VERSIONS.forEach((version) => {
     let dirPath = `${configDir}/${version}`;
@@ -121,40 +131,50 @@ export function updateGtkStylesheet(extensionPath, color, tinted) {
       `${extensionPath}/templates/adwaita_tinted.template.css`,
     );
 
+    const writeAccentFile = (content) => {
+      accentFile.replace_contents_async(
+        new TextEncoder().encode(content),
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+        (f, r) => {
+          try {
+            f.replace_contents_finish(r);
+          } catch (e) {}
+        }
+      );
+    };
+
     if (tinted) {
       tintedAdwaitaStyle.load_contents_async(null, (file, res) => {
         try {
           let [ok, contents] = file.load_contents_finish(res);
           if (!ok) return;
-    
+
           let template = new TextDecoder().decode(contents);
           let css = template.replace(/@@ACCENT@@/g, color);
-  
-          finalCss = `${cssVars}\n${css}`;
-
-          try {
-            accentFile.replace_contents(
-              finalCss,
-              null,
-              false,
-              Gio.FileCreateFlags.REPLACE_DESTINATION,
-              null,
-            );
-          } catch (e) {}
+          writeAccentFile(`${cssVars}\n${css}`);
         } catch (e) {}
-      }, null);
+      });
     } else {
-      finalCss = cssVars;
-      try {
-        accentFile.replace_contents(
-          finalCss,
-          null,
-          false,
-          Gio.FileCreateFlags.REPLACE_DESTINATION,
-          null,
-        );
-      } catch (e) {}
+      writeAccentFile(cssVars);
     }
+
+    const writeMainFile = (content) => {
+      mainFile.replace_contents_async(
+        new TextEncoder().encode(content),
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        null,
+        (f, r) => {
+          try {
+            f.replace_contents_finish(r);
+          } catch (e) {}
+        }
+      );
+    };
 
     if (mainFile.query_exists(null)) {
       mainFile.load_contents_async(null, (file, res) => {
@@ -162,27 +182,12 @@ export function updateGtkStylesheet(extensionPath, color, tinted) {
           let [ok, contents] = file.load_contents_finish(res);
           let mainContent = ok ? new TextDecoder().decode(contents) : "";
           let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
-          let newContent = `${cleanContent}\n\n${cssBlock}\n`;
-
-          file.replace_contents(
-            newContent,
-            null,
-            false,
-            Gio.FileCreateFlags.REPLACE_DESTINATION,
-            null,
-          );
+          
+          writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
         } catch (e) {}
       });
     } else {
-      try {
-        mainFile.replace_contents(
-          `${cssBlock}\n`,
-          null,
-          false,
-          Gio.FileCreateFlags.REPLACE_DESTINATION,
-          null,
-        );
-      } catch (e) {}
+      writeMainFile(`${cssBlock}\n`);
     }
   });
 }

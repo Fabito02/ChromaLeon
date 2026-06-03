@@ -14,6 +14,15 @@ class ChromaLeonUI {
       schema_id: "org.gnome.desktop.background",
     });
 
+    this._interfaceSettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.interface",
+    });
+
+    this._settingsId = null;
+    this._bgChangedId1 = null;
+    this._bgChangedId2 = null;
+    this._colorSchemeId = null;
+
     const group = new Adw.PreferencesGroup({
       title: "Accent Color",
       description: "New colors only apply when apps are reopened.",
@@ -159,9 +168,10 @@ class ChromaLeonUI {
           ["flatpak", "override", "--user", "--show"],
           Gio.SubprocessFlags.STDOUT_PIPE,
         );
-        const [success, stdout] = proc.communicate_utf8(null, null);
+
+        let stdoutData = proc.communicate_utf8(null, null)[1];
         return (
-          (stdout || "")
+          (stdoutData || "")
             .split("filesystems=")[1]
             ?.split(";")
             ?.includes("xdg-config/gtk-3.0") || false
@@ -240,20 +250,32 @@ class ChromaLeonUI {
 
     this._updateWallpaperUI();
 
-    this._bgChangedId = this._bgSettings.connect(
+    this._colorSchemeId = this._interfaceSettings.connect(
+      "changed::color-scheme",
+      () => this._updateWallpaperUI(),
+    );
+
+    this._bgChangedId1 = this._bgSettings.connect(
       "changed::picture-uri-dark",
       () => this._updateWallpaperUI(),
     );
 
+    this._bgChangedId2 = this._bgSettings.connect("changed::picture-uri", () =>
+      this._updateWallpaperUI(),
+    );
+
     window.connect("close-request", () => {
       if (this._settingsId) this._settings.disconnect(this._settingsId);
-      if (this._bgChangedId) this._bgSettings.disconnect(this._bgChangedId);
+      if (this._bgChangedId1) this._bgSettings.disconnect(this._bgChangedId1);
+      if (this._bgChangedId2) this._bgSettings.disconnect(this._bgChangedId2);
+      if (this._colorSchemeId)
+        this._interfaceSettings.disconnect(this._colorSchemeId);
       this._settings = null;
       this._bgSettings = null;
     });
   }
 
-  _updateWallpaperUI() {
+  async _updateWallpaperUI() {
     while (this._previewContainer.get_first_child())
       this._previewContainer.remove(this._previewContainer.get_first_child());
     if (this._colorBox) {
@@ -261,7 +283,12 @@ class ChromaLeonUI {
         this._colorBox.remove(this._colorBox.get_first_child());
     }
 
-    let uri = this._bgSettings.get_string("picture-uri-dark");
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
+    let uri =
+      colorScheme === "prefer-dark"
+        ? this._bgSettings.get_string("picture-uri-dark")
+        : this._bgSettings.get_string("picture-uri");
+
     if (uri.startsWith("file://")) {
       let file = Gio.File.new_for_uri(uri);
       let preview = new Gtk.Picture({
@@ -283,8 +310,10 @@ class ChromaLeonUI {
       this._previewContainer.append(aspectFrame);
     }
 
-    const colors = this._getWallpaperColors();
-    if (colors.length > 0) {
+    const colors = await this._getWallpaperColorsAsync(uri);
+
+    if (colors && colors.length > 0) {
+      this._colorsRow.set_subtitle("");
       colors.forEach((hexColor) => {
         let btn = new Gtk.Button({
           valign: Gtk.Align.CENTER,
@@ -310,95 +339,118 @@ class ChromaLeonUI {
     }
   }
 
-  _getWallpaperColors() {
-    let uri = this._bgSettings.get_string("picture-uri-dark");
-    if (!uri.startsWith("file://")) return [];
-    let file = Gio.File.new_for_uri(uri);
-    try {
-      let pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-        file.get_path(),
-        64,
-        64,
-        true,
-      );
-      let pixels = pixbuf.get_pixels(),
-        rowstride = pixbuf.get_rowstride(),
-        channels = pixbuf.get_n_channels();
-      let width = pixbuf.get_width(),
-        height = pixbuf.get_height();
-      let colorMap = new Map();
+  _getWallpaperColorsAsync(uri) {
+    return new Promise((resolve) => {
+      if (!uri || !uri.startsWith("file://")) {
+        resolve([]);
+        return;
+      }
 
-      for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-          let offset = y * rowstride + x * channels;
-          let r = pixels[offset],
-            g = pixels[offset + 1],
-            b = pixels[offset + 2];
-          let [h, s, l] = rgbToHsl(r, g, b);
-          let step = 24;
-          let qr = Math.min(255, Math.floor(r / step) * step + step / 2);
-          let qg = Math.min(255, Math.floor(g / step) * step + step / 2);
-          let qb = Math.min(255, Math.floor(b / step) * step + step / 2);
-          let hex = `#${Math.floor(qr).toString(16).padStart(2, "0")}${Math.floor(qg).toString(16).padStart(2, "0")}${Math.floor(qb).toString(16).padStart(2, "0")}`;
+      let file = Gio.File.new_for_uri(uri);
 
-          if (!colorMap.has(hex))
-            colorMap.set(hex, { count: 0, h: h, s: s, l: l });
-          colorMap.get(hex).count += 1;
+      file.read_async(GLib.PRIORITY_DEFAULT, null, (source, res) => {
+        try {
+          let stream = source.read_finish(res);
+
+          GdkPixbuf.Pixbuf.new_from_stream_at_scale_async(
+            stream,
+            64,
+            64,
+            true,
+            null,
+            (obj, asyncRes) => {
+              try {
+                let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
+                stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
+
+                let finalColors = this._extractColorsFromPixbuf(pixbuf);
+                resolve(finalColors);
+              } catch (e) {
+                resolve([]);
+              }
+            },
+          );
+        } catch (e) {
+          resolve([]);
         }
-      }
-
-      let colorsList = [];
-      for (let [hex, data] of colorMap.entries()) {
-        colorsList.push({
-          hex: hex,
-          count: data.count,
-          h: data.h,
-          s: data.s,
-          l: data.l,
-        });
-      }
-
-      let vibrantRanking = [...colorsList].sort((a, b) => {
-        let scoreA =
-          a.s * a.s * (1 - Math.abs(a.l - 50) / 50) * Math.log(a.count + 1);
-        let scoreB =
-          b.s * b.s * (1 - Math.abs(b.l - 50) / 50) * Math.log(b.count + 1);
-        return scoreB - scoreA;
       });
+    });
+  }
 
-      let finalColors = [],
-        usedHues = [];
-      for (let color of vibrantRanking) {
-        if (color.s < 15 || color.l < 15 || color.l > 85) continue;
-        let isTooSimilar = false;
-        for (let usedHue of usedHues) {
-          let hueDiff = Math.abs(color.h - usedHue);
-          if (hueDiff > 180) hueDiff = 360 - hueDiff;
-          if (hueDiff < 25) {
-            isTooSimilar = true;
-            break;
-          }
-        }
-        if (!isTooSimilar) {
-          finalColors.push(color.hex);
-          usedHues.push(color.h);
-        }
-        if (finalColors.length >= 10) break;
-      }
+  _extractColorsFromPixbuf(pixbuf) {
+    let pixels = pixbuf.get_pixels(),
+      rowstride = pixbuf.get_rowstride(),
+      channels = pixbuf.get_n_channels();
+    let width = pixbuf.get_width(),
+      height = pixbuf.get_height();
+    let colorMap = new Map();
 
-      if (finalColors.length < 10) {
-        let frequencyRanking = [...colorsList].sort(
-          (a, b) => b.count - a.count,
-        );
-        for (let color of frequencyRanking) {
-          if (finalColors.length >= 10) break;
-          if (!finalColors.includes(color.hex)) finalColors.push(color.hex);
-        }
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let offset = y * rowstride + x * channels;
+        let r = pixels[offset],
+          g = pixels[offset + 1],
+          b = pixels[offset + 2];
+        let [h, s, l] = rgbToHsl(r, g, b);
+        let step = 24;
+        let qr = Math.min(255, Math.floor(r / step) * step + step / 2);
+        let qg = Math.min(255, Math.floor(g / step) * step + step / 2);
+        let qb = Math.min(255, Math.floor(b / step) * step + step / 2);
+        let hex = `#${Math.floor(qr).toString(16).padStart(2, "0")}${Math.floor(qg).toString(16).padStart(2, "0")}${Math.floor(qb).toString(16).padStart(2, "0")}`;
+
+        if (!colorMap.has(hex))
+          colorMap.set(hex, { count: 0, h: h, s: s, l: l });
+        colorMap.get(hex).count += 1;
       }
-      return finalColors;
-    } catch (e) {
-      return [];
     }
+
+    let colorsList = [];
+    for (let [hex, data] of colorMap.entries()) {
+      colorsList.push({
+        hex: hex,
+        count: data.count,
+        h: data.h,
+        s: data.s,
+        l: data.l,
+      });
+    }
+
+    let vibrantRanking = [...colorsList].sort((a, b) => {
+      let scoreA =
+        a.s * a.s * (1 - Math.abs(a.l - 50) / 50) * Math.log(a.count + 1);
+      let scoreB =
+        b.s * b.s * (1 - Math.abs(b.l - 50) / 50) * Math.log(b.count + 1);
+      return scoreB - scoreA;
+    });
+
+    let finalColors = [],
+      usedHues = [];
+    for (let color of vibrantRanking) {
+      if (color.s < 15 || color.l < 15 || color.l > 85) continue;
+      let isTooSimilar = false;
+      for (let usedHue of usedHues) {
+        let hueDiff = Math.abs(color.h - usedHue);
+        if (hueDiff > 180) hueDiff = 360 - hueDiff;
+        if (hueDiff < 25) {
+          isTooSimilar = true;
+          break;
+        }
+      }
+      if (!isTooSimilar) {
+        finalColors.push(color.hex);
+        usedHues.push(color.h);
+      }
+      if (finalColors.length >= 10) break;
+    }
+
+    if (finalColors.length < 10) {
+      let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
+      for (let color of frequencyRanking) {
+        if (finalColors.length >= 10) break;
+        if (!finalColors.includes(color.hex)) finalColors.push(color.hex);
+      }
+    }
+    return finalColors;
   }
 }
 

@@ -52,7 +52,7 @@ export default class CustomAccentExtension extends Extension {
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      () => this._updateStyles(),
+      () => this._autoApplyWallpaperColor(),
       this,
     );
 
@@ -62,6 +62,8 @@ export default class CustomAccentExtension extends Extension {
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
+      () => this._autoApplyWallpaperColor(),
+      "changed::picture-uri",
       () => this._autoApplyWallpaperColor(),
       this,
     );
@@ -105,13 +107,19 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  _autoApplyWallpaperColor() {
-    let uri = this._bgSettings.get_string("picture-uri-dark");
-    let color = ColorUtils.calculateVibrantColor(uri);
+  async _autoApplyWallpaperColor() {
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
+    let uri =
+      colorScheme === "prefer-dark"
+        ? this._bgSettings.get_string("picture-uri-dark")
+        : this._bgSettings.get_string("picture-uri");
 
+    let color = await ColorUtils.calculateVibrantColor(uri);
     if (color) {
       this._settings.set_string("accent-color", color);
     }
+
+    this._updateStyles();
   }
 
   _updateStyles() {
