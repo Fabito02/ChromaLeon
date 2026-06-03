@@ -36,14 +36,24 @@ export default class CustomAccentExtension extends Extension {
 
     this._updateStyles();
 
-    this._settingsId = this._settings.connect("changed::accent-color", () => {
-      this._updateStyles();
-    });
-
     this._settings.connectObject(
-      "changed::accent-color",
-      () => this._updateStyles(),
-      this,
+       "changed::accent-color",
+       () => this._updateStyles(),
+       "changed::tint-shell",
+       () => this._updateStyles(),
+       "changed::tint-apps",
+       () => this._updateStyles(),
+       this,
+     );
+
+    this._interfaceSettings = new Gio.Settings({
+        schema_id: "org.gnome.desktop.interface",
+    });
+    
+    this._interfaceSettings.connectObject(
+        "changed::color-scheme",
+        () => this._updateStyles(),
+        this
     );
 
     this._bgSettings = new Gio.Settings({
@@ -110,6 +120,15 @@ export default class CustomAccentExtension extends Extension {
   _updateStyles() {
     let color = this._settings.get_string("accent-color");
 
+    let interfaceSettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.interface",
+    });
+    let colorScheme = interfaceSettings.get_string("color-scheme");
+    let isDark = colorScheme === "prefer-dark";
+
+    const tintShell = this._settings.get_boolean("tint-shell");
+    const tintApps = this._settings.get_boolean("tint-apps");
+
     ThemeUtils.updateShellStylesheet(
       this.path,
       color,
@@ -117,8 +136,10 @@ export default class CustomAccentExtension extends Extension {
       (file) => {
         this._generatedCssFile = file;
       },
+      isDark,
+      tintShell,
     );
 
-    ThemeUtils.updateGtkStylesheet(color);
+    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps);
   }
 }

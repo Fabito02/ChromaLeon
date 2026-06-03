@@ -1,15 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <schemalist>
-  <schema id="org.gnome.shell.extensions.chromaleon" path="/org/gnome/shell/extensions/chromaleon/">
+  <schema
+        id="org.gnome.shell.extensions.chromaleon"
+        path="/org/gnome/shell/extensions/chromaleon/"
+    >
     <key name="accent-color" type="s">
       <default>'#785ef0'</default>
       <summary>Accent color</summary>
-      <description>The custom color applied to GNOME Shell and GTK elements.</description>
+      <description
+            >The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
     <key name="create-shortcut" type="b">
       <default>true</default>
       <summary>Create shortcut</summary>
-      <description>Create a shortcut in the app grid by adding a .desktop file.</description>
+      <description
+            >Create a shortcut in the app grid by adding a .desktop file.</description>
+    </key>
+    <key name="tint-shell" type="b">
+      <default>false</default>
+      <summary>Tint shell</summary>
+      <description
+            >Tints the Gnome Shell with the color of your choice.</description>
+    </key>
+    <key name="tint-apps" type="b">
+      <default>false</default>
+      <summary>Tint Apps</summary>
+      <description
+            >Tints the LibAdwaita applications with the color of your choice.</description>
     </key>
   </schema>
 </schemalist>

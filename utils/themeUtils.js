@@ -57,12 +57,25 @@ export function updateShellStylesheet(
   color,
   currentCssFile,
   onUpdated,
+  isDark,
+  tinted,
 ) {
-  let templateFile = Gio.File.new_for_path(
+  const shellAccentTemplate = Gio.File.new_for_path(
     `${extensionPath}/shell_accent.template.css`,
   );
 
-  templateFile.load_contents_async(null, (file, res) => {
+  const tintedDarkTemplate = Gio.File.new_for_path(
+    `${extensionPath}/tinted_dark.template.css`,
+  );
+
+  const tintedStyle = Gio.File.new_for_path(
+    `${extensionPath}/tinted_light.template.css`,
+  );
+
+  let tintedTemplate = isDark ? tintedDarkTemplate : tintedStyle;
+  let finalTemplate = tinted ? tintedTemplate : shellAccentTemplate;
+
+  finalTemplate.load_contents_async(null, (file, res) => {
     try {
       let [ok, contents] = file.load_contents_finish(res);
       if (!ok) return;
@@ -94,25 +107,54 @@ export function updateShellStylesheet(
   });
 }
 
-export function updateGtkStylesheet(color) {
+export function updateGtkStylesheet(extensionPath, color, tinted) {
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
+  let finalCss = "";
 
   GTK_VERSIONS.forEach((version) => {
     let dirPath = `${configDir}/${version}`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    const tintedAdwaitaStyle = Gio.File.new_for_path(
+      `${extensionPath}/adwaita_tinted.template.css`,
+    );
 
-    try {
-      accentFile.replace_contents(
-        cssVars,
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
-      );
-    } catch (e) {}
+    if (tinted) {
+      tintedAdwaitaStyle.load_contents_async(null, (file, res) => {
+        try {
+          let [ok, contents] = file.load_contents_finish(res);
+          if (!ok) return;
+    
+          let template = new TextDecoder().decode(contents);
+          let css = template.replace(/@@ACCENT@@/g, color);
+  
+          finalCss = `${cssVars}\n${css}`;
+
+          try {
+            accentFile.replace_contents(
+              finalCss,
+              null,
+              false,
+              Gio.FileCreateFlags.REPLACE_DESTINATION,
+              null,
+            );
+          } catch (e) {}
+        } catch (e) {}
+      }, null);
+    } else {
+      finalCss = cssVars;
+      try {
+        accentFile.replace_contents(
+          finalCss,
+          null,
+          false,
+          Gio.FileCreateFlags.REPLACE_DESTINATION,
+          null,
+        );
+      } catch (e) {}
+    }
 
     if (mainFile.query_exists(null)) {
       mainFile.load_contents_async(null, (file, res) => {

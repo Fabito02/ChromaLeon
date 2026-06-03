@@ -14,7 +14,10 @@ class ChromaLeonUI {
       schema_id: "org.gnome.desktop.background",
     });
 
-    const group = new Adw.PreferencesGroup({ title: "Accent Color" });
+    const group = new Adw.PreferencesGroup({
+      title: "Accent Color",
+      description: "New colors only apply when apps are reopened.",
+    });
     this._page.add(group);
 
     const colorRow = new Adw.ActionRow({ title: "Main color" });
@@ -33,10 +36,49 @@ class ChromaLeonUI {
     });
     this._page.add(wallpaperGroup);
 
+    const tintGnomeGroup = new Adw.PreferencesGroup({
+      title: "Tint Gnome",
+      description: "Based on Tint my Gnome",
+    });
+    this._page.add(tintGnomeGroup);
+
     const miscellaneousGroup = new Adw.PreferencesGroup({
       title: "Miscellaneous",
     });
     this._page.add(miscellaneousGroup);
+
+    const TintShellRow = new Adw.ActionRow({
+      title: "Tint shell",
+      subtitle: "Tints the Gnome Shell with the color of your choice.",
+    });
+
+    const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    TintShellRow.add_suffix(TintShellSwitch);
+    tintGnomeGroup.add(TintShellRow);
+
+    const TintAppsRow = new Adw.ActionRow({
+      title: "Tint apps",
+      subtitle:
+        "Tints the LibAdwaita applications with the color of your choice.",
+    });
+
+    const TintAppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    TintAppsRow.add_suffix(TintAppsSwitch);
+    tintGnomeGroup.add(TintAppsRow);
+
+    this._settings.bind(
+      "tint-shell",
+      TintShellSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "tint-apps",
+      TintAppsSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
 
     const flatpakRow = new Adw.ActionRow({
       title: "Apply to Flatpaks",
@@ -78,6 +120,14 @@ class ChromaLeonUI {
         -1,
       );
 
+      TintAppsSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
+      TintShellSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
       flatpakSwitch
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -420,29 +470,29 @@ export function buildUI(window, page, settings, extensionPath) {
 }
 
 if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
-    GLib.set_application_name("ChromaLeon");
+  GLib.set_application_name("ChromaLeon");
 
-    const app = new Adw.Application({
-        application_id: "com.github.fabito02.chromaleon",
+  const app = new Adw.Application({
+    application_id: "com.github.fabito02.chromaleon",
+  });
+
+  app.connect("activate", (app) => {
+    const window = new Adw.PreferencesWindow({ application: app });
+    window.set_default_size(600, 635);
+    window.set_title("ChromaLeon");
+
+    const page = new Adw.PreferencesPage();
+    window.add(page);
+
+    const settings = new Gio.Settings({
+      schema_id: "org.gnome.shell.extensions.chromaleon",
+      path: "/org/gnome/shell/extensions/chromaleon/",
     });
 
-    app.connect("activate", (app) => {
-        const window = new Adw.PreferencesWindow({ application: app });
-        window.set_default_size(600, 635);
-        window.set_title("ChromaLeon");
+    buildUI(window, page, settings, GLib.get_current_dir());
 
-        const page = new Adw.PreferencesPage();
-        window.add(page);
+    window.present();
+  });
 
-        const settings = new Gio.Settings({
-            schema_id: "org.gnome.shell.extensions.chromaleon",
-            path: "/org/gnome/shell/extensions/chromaleon/",
-        });
-
-        buildUI(window, page, settings, GLib.get_current_dir());
-
-        window.present();
-    });
-
-    app.run(ARGV);
+  app.run(ARGV);
 }
