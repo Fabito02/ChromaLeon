@@ -37,23 +37,23 @@ export default class CustomAccentExtension extends Extension {
     this._updateStyles();
 
     this._settings.connectObject(
-       "changed::accent-color",
-       () => this._updateStyles(),
-       "changed::tint-shell",
-       () => this._updateStyles(),
-       "changed::tint-apps",
-       () => this._updateStyles(),
-       this,
-     );
+      "changed::accent-color",
+      () => this._updateStyles(),
+      "changed::tint-shell",
+      () => this._updateStyles(),
+      "changed::tint-apps",
+      () => this._updateStyles(),
+      this,
+    );
 
     this._interfaceSettings = new Gio.Settings({
-        schema_id: "org.gnome.desktop.interface",
+      schema_id: "org.gnome.desktop.interface",
     });
-    
+
     this._interfaceSettings.connectObject(
-        "changed::color-scheme",
-        () => this._updateStyles(),
-        this
+      "changed::color-scheme",
+      () => this._updateStyles(),
+      this,
     );
 
     this._bgSettings = new Gio.Settings({
@@ -77,6 +77,7 @@ export default class CustomAccentExtension extends Extension {
     // Necessary to keep accent colors consistent when unlocking the session
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
+    this._interfaceSettings?.disconnectObject(this);
 
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
       this._generatedCssFile,
@@ -88,15 +89,11 @@ export default class CustomAccentExtension extends Extension {
       this._configId = null;
     }
 
-    if (this._settingsId) {
-      this._settings.disconnect(this._settingsId);
-      this._settingsId = null;
-    }
-
     FileUtils.removeDesktopFile();
 
     this._settings = null;
     this._bgSettings = null;
+    this._interfaceSettings = null;
   }
 
   _updateDesktopFile() {
