@@ -95,7 +95,7 @@ msgstr "Por que apoiar o ChromaLeon?"
 
 #: chromaleon.js:493
 msgid "Developing free software requires time, energy, and dedication. Your donation directly supports the project and helps keep it alive!"
-msgstr "Desenvolvendo software livre requer tempo, energia e dedicação. Sua doação apoia diretamente o projeto e ajuda a mantê-lo vivo!"
+msgstr "Desenvolver software livre requer tempo, energia e dedicação. Sua doação apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
 #: chromaleon.js:497
 msgid "Cancel"

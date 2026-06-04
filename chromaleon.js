@@ -8,25 +8,17 @@ import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
 
 if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
-    const localeDir = GLib.get_current_dir() + '/locale';
-    Gettext.bindtextdomain("chromaleon", localeDir);
+  const localeDir = GLib.get_current_dir() + "/locale";
+  Gettext.bindtextdomain("chromaleon", localeDir);
 }
 
 const _ = (str) => {
-    try {
-        return Gettext.dgettext("chromaleon", str);
-    } catch (e) {
-        return str;
-    }
-};
-
-if (typeof window !== "undefined" && window.__environment__) {
   try {
-    const Prefs =
-      await import("resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js");
-    _ = Prefs.gettext;
-  } catch (e) {}
-}
+    return Gettext.dgettext("chromaleon", str);
+  } catch (e) {
+    return str;
+  }
+};
 
 class ChromaLeonUI {
   constructor(window, page, settings) {
@@ -59,6 +51,18 @@ class ChromaLeonUI {
     });
     colorRow.add_suffix(colorButton);
     group.add(colorRow);
+
+    colorButton.connect("color-set", () => {
+      const { red, green, blue } = colorButton.get_rgba();
+
+      const toHex = (val) =>
+        Math.round(val * 255)
+          .toString(16)
+          .padStart(2, "0");
+      const hex = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
+
+      this._settings.set_string("accent-color", hex);
+    });
 
     const wallpaperGroup = new Adw.PreferencesGroup({
       title: _("Wallpaper Colors"),
@@ -179,16 +183,6 @@ class ChromaLeonUI {
     this._settingsId = this._settings.connect("changed::accent-color", () =>
       this._applyTheme(),
     );
-
-    colorButton.connect("color-set", () => {
-      const newRgba = colorButton.get_rgba();
-      const hex = "#%02x%02x%02x".format(
-        Math.round(newRgba.red * 255),
-        Math.round(newRgba.green * 255),
-        Math.round(newRgba.blue * 255),
-      );
-      this._settings.set_string("accent-color", hex);
-    });
 
     const checkFlatpakPermissions = () => {
       try {
