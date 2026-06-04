@@ -6,6 +6,7 @@
   "shell-version": ["47", "48", "49", "50"],
   "session-modes": ["user", "unlock-dialog"],
   "settings-schema": "org.gnome.shell.extensions.chromaleon",
+  "gettext-domain": "chromaleon",
   "donations": {
     "github": "Fabito02",
     "kofi": "fabito02"

@@ -1,0 +1,108 @@
+# Translation template for ChromaLeon.
+# Copyright (C) 2026 fabito02
+# This file is distributed under the same license as the ChromaLeon package.
+# fabito02 <fabianojuniorlimaba2@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ChromaLeon\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-04 13:18-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: chromaleon.js:30
+msgid "Accent Color"
+msgstr ""
+
+#: chromaleon.js:31
+msgid "New colors only apply when apps are reopened."
+msgstr ""
+
+#: chromaleon.js:35
+msgid "Main color"
+msgstr ""
+
+#: chromaleon.js:45
+msgid "Wallpaper Colors"
+msgstr ""
+
+#: chromaleon.js:47
+msgid ""
+"The system automatically updates the accent color based on your wallpaper."
+msgstr ""
+
+#: chromaleon.js:53
+msgid "Tint Gnome"
+msgstr ""
+
+#: chromaleon.js:54
+msgid "Based on Tint my Gnome"
+msgstr ""
+
+#: chromaleon.js:59
+msgid "Miscellaneous"
+msgstr ""
+
+#: chromaleon.js:64
+msgid "Tint shell"
+msgstr ""
+
+#: chromaleon.js:65
+msgid "Tints the Gnome Shell with the color of your choice."
+msgstr ""
+
+#: chromaleon.js:73
+msgid "Tint apps"
+msgstr ""
+
+#: chromaleon.js:75
+msgid "Tints the LibAdwaita applications with the color of your choice."
+msgstr ""
+
+#: chromaleon.js:98
+msgid "Apply to Flatpaks"
+msgstr ""
+
+__EXPLICIT_REMOVAL_OR_SUBSTITUTION_DUE_TO_POLICY__
+msgid "Allow Flatpaks to access your custom accent color variables."
+msgstr ""
+
+#: chromaleon.js:108
+msgid "Enable shortcut"
+msgstr ""
+
+#: chromaleon.js:110
+msgid "Create a shortcut in the app grid by adding a .desktop file."
+msgstr ""
+
+#: chromaleon.js:348
+msgid "Unable to load colors."
+msgstr ""
+
+#: chromaleon.js:479
+msgid "Support the project"
+msgstr ""
+
+#: chromaleon.js:491
+msgid "Why support ChromaLeon?"
+msgstr ""
+
+#: chromaleon.js:493
+msgid ""
+"Developing free software requires time, energy, and dedication. Your "
+"donation directly supports the project and helps keep it alive!"
+msgstr ""
+
+#: chromaleon.js:497
+msgid "Cancel"
+msgstr ""
+
+#: chromaleon.js:498
+msgid "Support"
+msgstr ""

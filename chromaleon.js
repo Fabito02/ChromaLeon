@@ -5,6 +5,7 @@ import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
+import { gettext as _ } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
 
 class ChromaLeonUI {
   constructor(window, page, settings) {
@@ -24,12 +25,12 @@ class ChromaLeonUI {
     this._colorSchemeId = null;
 
     const group = new Adw.PreferencesGroup({
-      title: "Accent Color",
-      description: "New colors only apply when apps are reopened.",
+      title: _("Accent Color"),
+      description: _("New colors only apply when apps are reopened."),
     });
     this._page.add(group);
 
-    const colorRow = new Adw.ActionRow({ title: "Main color" });
+    const colorRow = new Adw.ActionRow({ title: _("Main color") });
     const colorButton = new Gtk.ColorButton({
       valign: Gtk.Align.CENTER,
       halign: Gtk.Align.CENTER,
@@ -39,26 +40,27 @@ class ChromaLeonUI {
     group.add(colorRow);
 
     const wallpaperGroup = new Adw.PreferencesGroup({
-      title: "Wallpaper Colors",
-      description:
+      title: _("Wallpaper Colors"),
+      description: _(
         "The system automatically updates the accent color based on your wallpaper.",
+      ),
     });
     this._page.add(wallpaperGroup);
 
     const tintGnomeGroup = new Adw.PreferencesGroup({
-      title: "Tint Gnome",
-      description: "Based on Tint my Gnome",
+      title: _("Tint Gnome"),
+      description: _("Based on Tint my Gnome"),
     });
     this._page.add(tintGnomeGroup);
 
     const miscellaneousGroup = new Adw.PreferencesGroup({
-      title: "Miscellaneous",
+      title: _("Miscellaneous"),
     });
     this._page.add(miscellaneousGroup);
 
     const TintShellRow = new Adw.ActionRow({
-      title: "Tint shell",
-      subtitle: "Tints the Gnome Shell with the color of your choice.",
+      title: _("Tint shell"),
+      subtitle: _("Tints the Gnome Shell with the color of your choice."),
     });
 
     const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
@@ -66,9 +68,10 @@ class ChromaLeonUI {
     tintGnomeGroup.add(TintShellRow);
 
     const TintAppsRow = new Adw.ActionRow({
-      title: "Tint apps",
-      subtitle:
+      title: _("Tint apps"),
+      subtitle: _(
         "Tints the LibAdwaita applications with the color of your choice.",
+      ),
     });
 
     const TintAppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
@@ -90,16 +93,20 @@ class ChromaLeonUI {
     );
 
     const flatpakRow = new Adw.ActionRow({
-      title: "Apply to Flatpaks",
-      subtitle: "Allow Flatpaks to access your custom accent color variables.",
+      title: _("Apply to Flatpaks"),
+      subtitle: _(
+        "Allow Flatpaks to access your custom accent color variables.",
+      ),
     });
     const flatpakSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
     flatpakRow.add_suffix(flatpakSwitch);
     miscellaneousGroup.add(flatpakRow);
 
     const shortcutRow = new Adw.ActionRow({
-      title: "Enable shortcut",
-      subtitle: "Create a shortcut in the app grid by adding a .desktop file.",
+      title: _("Enable shortcut"),
+      subtitle: _(
+        "Create a shortcut in the app grid by adding a .desktop file.",
+      ),
     });
     const shortcutSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
     shortcutRow.add_suffix(shortcutSwitch);
@@ -173,8 +180,8 @@ class ChromaLeonUI {
         return (
           (stdoutData || "")
             .split("filesystems=")[1]
-            ?.split(";")
-            ?.includes("xdg-config/gtk-3.0") || false
+            .split(";")
+            .includes("xdg-config/gtk-3.0") || false
         );
       } catch (e) {
         return false;
@@ -336,7 +343,7 @@ class ChromaLeonUI {
         this._colorBox.append(btn);
       });
     } else {
-      this._colorsRow.set_subtitle("Unable to load colors.");
+      this._colorsRow.set_subtitle(_("Unable to load colors."));
     }
   }
 
@@ -467,7 +474,7 @@ function setupCustomHeader(window, extensionPath) {
   const donateButton = new Gtk.Button({ valign: Gtk.Align.CENTER });
   donateButton.set_child(donateIcon);
   donateButton.add_css_class("flat");
-  donateButton.set_tooltip_text("Support the project");
+  donateButton.set_tooltip_text(_("Support the project"));
   donateButton.add_css_class("heart-button");
 
   const cssProvider = new Gtk.CssProvider();
@@ -479,12 +486,14 @@ function setupCustomHeader(window, extensionPath) {
   donateButton.connect("clicked", () => {
     const dialog = new Adw.MessageDialog({
       transient_for: window,
-      heading: "Why support ChromaLeon?",
-      body: "Developing free software requires time, energy, and dedication. Your donation directly supports the project and helps keep it alive!",
+      heading: _("Why support ChromaLeon?"),
+      body: _(
+        "Developing free software requires time, energy, and dedication. Your donation directly supports the project and helps keep it alive!",
+      ),
       close_response: "cancel",
     });
-    dialog.add_response("cancel", "Cancel");
-    dialog.add_response("donate", "Support");
+    dialog.add_response("cancel", _("Cancel"));
+    dialog.add_response("donate", _("Support"));
     dialog.set_response_appearance("donate", Adw.ResponseAppearance.SUGGESTED);
     dialog.connect("response", (d, response) => {
       if (response === "donate") {
