@@ -6,6 +6,7 @@
 
 <br><br>
 
+### Adapt the system's colors like a chameleon
 Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based on your wallpaper.
 
 ---
@@ -16,7 +17,11 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 
 <br>
 
-<img width="auto" src="https://github.com/user-attachments/assets/66a9b288-2770-4fd1-a358-3da4d14a850a" />
+| **Dark** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-52" src="https://github.com/user-attachments/assets/24cb2727-ea1a-4ee1-874d-61a9a4a89de5" /> |
+| :--- | :--- |
+| **Light** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-08-05" src="https://github.com/user-attachments/assets/a98faeaf-ea8f-4184-9b19-a3623c099368" /> |
+| **Tinted Dark** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-06" src="https://github.com/user-attachments/assets/b6359185-9cd3-470c-9c92-7a1f0ef855d0" /> |
+| **Tinted Light** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-19" src="https://github.com/user-attachments/assets/cbca3758-0050-4edd-ae03-a62df74eca26" /> |
 
 </div>
 
@@ -25,6 +30,7 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 * **Dynamic Extraction:** Automatically extracts accent colors from your current wallpaper.
 * **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and local `GTK 3.0` / `GTK 4.0` apps.
 * **Flatpak Support:** Syncs color variables so your sandboxed Flatpak applications match the rest of the system.
+* **Tint:** Tints all system elements with accent colors
 
 ---
 
