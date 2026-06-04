@@ -1,108 +1,109 @@
-# Translation template for ChromaLeon.
-# Copyright (C) 2026 fabito02
-# This file is distributed under the same license as the ChromaLeon package.
-# fabito02 <fabianojuniorlimaba2@gmail.com>, 2026.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ChromaLeon\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-04 13:18-0300\n"
+"POT-Creation-Date: 2026-06-04 15:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chromaleon.js:30
+#: chromaleon.js:43
 msgid "Accent Color"
 msgstr ""
 
-#: chromaleon.js:31
+#: chromaleon.js:44
 msgid "New colors only apply when apps are reopened."
 msgstr ""
 
-#: chromaleon.js:35
+#: chromaleon.js:48
 msgid "Main color"
 msgstr ""
 
-#: chromaleon.js:45
+#: chromaleon.js:58
 msgid "Wallpaper Colors"
 msgstr ""
 
-#: chromaleon.js:47
+#: chromaleon.js:60
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr ""
 
-#: chromaleon.js:53
+#: chromaleon.js:66
 msgid "Tint Gnome"
 msgstr ""
 
-#: chromaleon.js:54
+#: chromaleon.js:67
 msgid "Based on Tint my Gnome"
 msgstr ""
 
-#: chromaleon.js:59
+#: chromaleon.js:72
 msgid "Miscellaneous"
 msgstr ""
 
-#: chromaleon.js:64
+#: chromaleon.js:77
 msgid "Tint shell"
 msgstr ""
 
-#: chromaleon.js:65
+#: chromaleon.js:78
 msgid "Tints the Gnome Shell with the color of your choice."
 msgstr ""
 
-#: chromaleon.js:73
+#: chromaleon.js:86
 msgid "Tint apps"
 msgstr ""
 
-#: chromaleon.js:75
+#: chromaleon.js:88
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr ""
 
-#: chromaleon.js:98
+#: chromaleon.js:111
 msgid "Apply to Flatpaks"
 msgstr ""
 
-__EXPLICIT_REMOVAL_OR_SUBSTITUTION_DUE_TO_POLICY__
+#: chromaleon.js:113
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
-#: chromaleon.js:108
+#: chromaleon.js:121
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:110
+#: chromaleon.js:123
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:348
+#: chromaleon.js:361
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:479
+#: chromaleon.js:492
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:491
+#: chromaleon.js:504
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:493
+#: chromaleon.js:506
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 
-#: chromaleon.js:497
+#: chromaleon.js:510
 msgid "Cancel"
 msgstr ""
 
-#: chromaleon.js:498
+#: chromaleon.js:511
 msgid "Support"
 msgstr ""
