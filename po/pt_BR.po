@@ -47,7 +47,7 @@ msgstr "Baseado em Tint my Gnome"
 
 #: chromaleon.js:59
 msgid "Miscellaneous"
-msgstr "Variados"
+msgstr "Diversos"
 
 #: chromaleon.js:64
 msgid "Tint shell"
