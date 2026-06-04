@@ -311,6 +311,12 @@ class ChromaLeonUI {
     }
 
     const colors = await this._getWallpaperColorsAsync(uri);
+    
+    if (this._colorBox) {
+      while (this._colorBox.get_first_child()) {
+        this._colorBox.remove(this._colorBox.get_first_child());
+      }
+    }
 
     if (colors && colors.length > 0) {
       this._colorsRow.set_subtitle("");
