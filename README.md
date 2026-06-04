@@ -31,7 +31,7 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 * **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and local `GTK 3.0` / `GTK 4.0` apps.
 * **Flatpak Support:** Syncs color variables so your sandboxed Flatpak applications match the rest of the system.
 * **Tint:** Tints all system elements with accent colors.
-* **Shortcut** Create a shortcut in the app grid to use this as an app.
+* **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
 ---
 
