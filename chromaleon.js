@@ -5,7 +5,22 @@ import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
-import { gettext as _ } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+
+let _ = (str) => {
+  try {
+    return GLib.dgettext("chromaleon", str);
+  } catch (e) {
+    return str;
+  }
+};
+
+if (typeof window !== "undefined" && window.__environment__) {
+  try {
+    const Prefs =
+      await import("resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js");
+    _ = Prefs.gettext;
+  } catch (e) {}
+}
 
 class ChromaLeonUI {
   constructor(window, page, settings) {
