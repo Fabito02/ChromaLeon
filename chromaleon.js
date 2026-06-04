@@ -226,9 +226,6 @@ class ChromaLeonUI {
       margin_bottom: 16,
       margin_start: 16,
       margin_end: 16,
-      hexpand: true,
-      halign: Gtk.Align.FILL,
-      valign: Gtk.Align.START,
     });
     previewRow.set_child(this._previewContainer);
     wallpaperGroup.add(previewRow);
@@ -242,8 +239,6 @@ class ChromaLeonUI {
       spacing: 8,
       valign: Gtk.Align.CENTER,
       halign: Gtk.Align.CENTER,
-      margin_top: 10,
-      margin_bottom: 10,
     });
     this._colorsRow.add_suffix(this._colorBox);
     wallpaperGroup.add(this._colorsRow);
@@ -305,13 +300,13 @@ class ChromaLeonUI {
         hexpand: true,
         halign: Gtk.Align.FILL,
         valign: Gtk.Align.START,
-        height_request: 240,
+        height_request: 255,
       });
       this._previewContainer.append(aspectFrame);
     }
 
     const colors = await this._getWallpaperColorsAsync(uri);
-    
+
     if (this._colorBox) {
       while (this._colorBox.get_first_child()) {
         this._colorBox.remove(this._colorBox.get_first_child());
@@ -446,13 +441,14 @@ class ChromaLeonUI {
         finalColors.push(color.hex);
         usedHues.push(color.h);
       }
-      if (finalColors.length >= 10) break;
+
+      if (finalColors.length >= 12) break;
     }
 
-    if (finalColors.length < 10) {
+    if (finalColors.length < 12) {
       let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
       for (let color of frequencyRanking) {
-        if (finalColors.length >= 10) break;
+        if (finalColors.length >= 12) break;
         if (!finalColors.includes(color.hex)) finalColors.push(color.hex);
       }
     }
