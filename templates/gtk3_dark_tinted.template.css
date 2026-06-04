@@ -1,0 +1,65 @@
+/* =========================================
+ * Dark Mode
+ * ========================================= */
+@define-color window_bg_color mix(#222226, @@ACCENT@@, 0.05);
+@define-color view_bg_color mix(#1d1d20, @@ACCENT@@, 0.05);
+@define-color headerbar_bg_color mix(#2e2e32, @@ACCENT@@, 0.05);
+@define-color headerbar_backdrop_color mix(#222226, @@ACCENT@@, 0.05);
+@define-color popover_bg_color mix(#36363a, @@ACCENT@@, 0.05);
+@define-color dialog_bg_color mix(#36363a, @@ACCENT@@, 0.05);
+@define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, 0.05);
+@define-color sidebar_bg_color mix(#2e2e32, @@ACCENT@@, 0.05);
+@define-color sidebar_backdrop_color mix(#28282c, @@ACCENT@@, 0.05);
+@define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, 0.05);
+@define-color secondary_sidebar_bg_color mix(#28282c, @@ACCENT@@, 0.05);
+@define-color secondary_sidebar_backdrop_color mix(#252529, @@ACCENT@@, 0.05);
+@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, 0.05);
+
+@define-color panel_bg_color @window_bg_color;
+@define-color panel_button_bg_color transparent;
+@define-color panel_hover_bg_color @card_bg_color;
+
+@define-color theme_bg_color @window_bg_color;
+@define-color theme_base_color @view_bg_color;
+@define-color theme_selected_bg_color @@ACCENT@@;
+
+/* =========================================
+ * Element Styling Rules
+ * ========================================= */
+
+window,
+.window,
+dialog {
+    background-color: @window_bg_color !important;
+    color: @theme_fg_color !important;
+}
+
+view,
+textview text {
+    background-color: @view_bg_color !important;
+    color: @theme_text_color !important;
+}
+
+headerbar {
+    background-color: @headerbar_bg_color !important;
+    color: @theme_fg_color !important;
+}
+
+.sidebar,
+stacksidebar {
+    background-color: @sidebar_bg_color !important;
+    color: @theme_fg_color !important;
+}
+
+toast {
+    background-color: mix(#505053, @@ACCENT @@, 0.05) !important;
+    color: #ffffff !important;
+}
+
+toggle:checked {
+    background-color: @card_bg_color !important;
+}
+
+.inline {
+    background-color: rgba(0, 0, 0, 0) !important;
+}

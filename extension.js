@@ -145,6 +145,6 @@ export default class CustomAccentExtension extends Extension {
       tintShell,
     );
 
-    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps);
+    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark);
   }
 }
