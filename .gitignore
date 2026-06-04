@@ -1,0 +1,5 @@
+# GNOME Shell compilation and build artifacts
+gschemas.compiled
+
+# Package distribution files
+*.zip
