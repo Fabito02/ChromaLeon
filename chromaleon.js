@@ -3,15 +3,21 @@ import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
+import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
 
-let _ = (str) => {
-  try {
-    return GLib.dgettext("chromaleon", str);
-  } catch (e) {
-    return str;
-  }
+if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
+    const localeDir = GLib.get_current_dir() + '/locale';
+    Gettext.bindtextdomain("chromaleon", localeDir);
+}
+
+const _ = (str) => {
+    try {
+        return Gettext.dgettext("chromaleon", str);
+    } catch (e) {
+        return str;
+    }
 };
 
 if (typeof window !== "undefined" && window.__environment__) {
