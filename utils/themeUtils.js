@@ -64,7 +64,7 @@ export function updateShellStylesheet(
   color,
   currentCssFile,
   onUpdated,
-  isDark,
+  isLight,
   tinted,
 ) {
   const shellAccentTemplate = Gio.File.new_for_path(
@@ -75,11 +75,11 @@ export function updateShellStylesheet(
     `${extensionPath}/templates/tinted_dark.template.css`,
   );
 
-  const tintedStyle = Gio.File.new_for_path(
+  const tintedLightTemplate = Gio.File.new_for_path(
     `${extensionPath}/templates/tinted_light.template.css`,
   );
 
-  let tintedTemplate = isDark ? tintedDarkTemplate : tintedStyle;
+  let tintedTemplate = isLight ? tintedLightTemplate : tintedDarkTemplate;
   let finalTemplate = tinted ? tintedTemplate : shellAccentTemplate;
 
   finalTemplate.load_contents_async(null, (file, res) => {
