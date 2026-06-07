@@ -17,7 +17,7 @@
  */
 import Gio from "gi://Gio";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
-import { sessionMode } from 'resource:///org/gnome/shell/ui/main.js';
+import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
@@ -63,9 +63,15 @@ export default class CustomAccentExtension extends Extension {
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
-      () => this._autoApplyWallpaperColor(),
+      () => {
+        this._settings.set_boolean("custom-color", false);
+        this._autoApplyWallpaperColor();
+      },
       "changed::picture-uri",
-      () => this._autoApplyWallpaperColor(),
+      () => {
+        this._settings.set_boolean("custom-color", false);
+        this._autoApplyWallpaperColor();
+      },
       this,
     );
 
@@ -109,7 +115,13 @@ export default class CustomAccentExtension extends Extension {
   }
 
   async _autoApplyWallpaperColor() {
+    if (this._settings.get_boolean("custom-color")) {
+      this._updateStyles();
+      return;
+    }
+    
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
+
     let uri =
       colorScheme === "prefer-dark"
         ? this._bgSettings.get_string("picture-uri-dark")
@@ -130,13 +142,15 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.interface",
     });
     let colorScheme = interfaceSettings.get_string("color-scheme");
-    
+
     const lightStyle = sessionMode.colorScheme;
-    
+
     let isDark = colorScheme === "prefer-dark";
     let isLight = false;
-    
-    lightStyle === "prefer-light" && colorScheme === "default" ? isLight = true : null;
+
+    lightStyle === "prefer-light" && colorScheme === "default"
+      ? (isLight = true)
+      : null;
 
     const tintShell = this._settings.get_boolean("tint-shell");
     const tintApps = this._settings.get_boolean("tint-apps");

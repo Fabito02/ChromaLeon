@@ -62,6 +62,7 @@ class ChromaLeonUI {
       const hex = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
 
       this._settings.set_string("accent-color", hex);
+      this._settings.set_boolean("custom-color", true);
     });
 
     const wallpaperGroup = new Adw.PreferencesGroup({
@@ -352,9 +353,10 @@ class ChromaLeonUI {
         btn
           .get_style_context()
           .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        btn.connect("clicked", () =>
-          this._settings.set_string("accent-color", hexColor),
-        );
+        btn.connect("clicked", () => {
+          this._settings.set_string("accent-color", hexColor);
+          this._settings.set_boolean("custom-color", true);
+        });
         this._colorBox.append(btn);
       });
     } else {

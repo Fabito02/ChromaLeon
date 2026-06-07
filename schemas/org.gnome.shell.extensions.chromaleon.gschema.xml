@@ -11,7 +11,7 @@
             >The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
     <key name="create-shortcut" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Create shortcut</summary>
       <description
             >Create a shortcut in the app grid by adding a .desktop file.</description>
@@ -27,6 +27,12 @@
       <summary>Tint Apps</summary>
       <description
             >Tints the LibAdwaita applications with the color of your choice.</description>
+    </key>
+    <key name="custom-color" type="b">
+      <default>false</default>
+      <summary>Custom Color</summary>
+      <description
+            >Controls the status of applied colors, in case the user has applied a custom color.</description>
     </key>
   </schema>
 </schemalist>
