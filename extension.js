@@ -26,14 +26,22 @@ export default class CustomAccentExtension extends Extension {
   constructor(metadata) {
     super(metadata);
     this._settings = null;
-    this._generatedCssFile = null;
-    this._changedId = null;
     this._bgSettings = null;
-    this._bgChangedId = null;
+    this._interfaceSettings = null;
+    this._generatedCssFile = null;
+    this._configId = null;
   }
 
   enable() {
     this._settings = this.getSettings();
+
+    this._interfaceSettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.interface",
+    });
+
+    this._bgSettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.background",
+    });
 
     this._updateStyles();
 
@@ -47,19 +55,21 @@ export default class CustomAccentExtension extends Extension {
       this,
     );
 
-    this._interfaceSettings = new Gio.Settings({
-      schema_id: "org.gnome.desktop.interface",
-    });
+    this._settings.connectObject(
+      "changed::recolor-folders",
+      () => this._updateIconPack(),
+      "changed::recolor-apps",
+      () => this._updateIconPack(),
+      "changed::morewaita",
+      () => this._updateIconPack(),
+      this,
+    );
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
       () => this._autoApplyWallpaperColor(),
       this,
     );
-
-    this._bgSettings = new Gio.Settings({
-      schema_id: "org.gnome.desktop.background",
-    });
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
@@ -83,20 +93,19 @@ export default class CustomAccentExtension extends Extension {
   }
 
   disable() {
-    // Necessary to keep accent colors consistent when unlocking the session
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
+
+    if (this._configId) {
+      this._settings?.disconnect(this._configId);
+      this._configId = null;
+    }
 
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
       this._generatedCssFile,
     );
     ThemeUtils.removeGtkStylesheet();
-
-    if (this._configId) {
-      this._settings.disconnect(this._configId);
-      this._configId = null;
-    }
 
     FileUtils.removeDesktopFile();
 
@@ -135,22 +144,30 @@ export default class CustomAccentExtension extends Extension {
     this._updateStyles();
   }
 
+  _updateIconPack() {
+    let iconFolders = this._settings.get_boolean("recolor-folders");
+
+    if (!iconFolders) {
+      this._settings.set_boolean("recolor-apps", false);
+      this._settings.set_boolean("morewaita", false);
+    }
+
+    let iconApps = this._settings.get_boolean("recolor-apps");
+    let morewaita = this._settings.get_boolean("morewaita");
+
+    let accent = this._settings.get_string("accent-color");
+
+    ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita);
+  }
+
   _updateStyles() {
     let color = this._settings.get_string("accent-color");
-
-    let interfaceSettings = new Gio.Settings({
-      schema_id: "org.gnome.desktop.interface",
-    });
-    let colorScheme = interfaceSettings.get_string("color-scheme");
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
     const lightStyle = sessionMode.colorScheme;
 
     let isDark = colorScheme === "prefer-dark";
-    let isLight = false;
-
-    lightStyle === "prefer-light" && colorScheme === "default"
-      ? (isLight = true)
-      : null;
+    let isLight = lightStyle === "prefer-light" && colorScheme === "default";
 
     const tintShell = this._settings.get_boolean("tint-shell");
     const tintApps = this._settings.get_boolean("tint-apps");
@@ -167,5 +184,7 @@ export default class CustomAccentExtension extends Extension {
     );
 
     ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark);
+
+    this._updateIconPack();
   }
 }

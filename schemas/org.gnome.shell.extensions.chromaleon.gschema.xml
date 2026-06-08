@@ -6,19 +6,19 @@
     >
     <key name="accent-color" type="s">
       <default>'#785ef0'</default>
-      <summary>Accent color</summary>
+      <summary>Accent Color</summary>
       <description
             >The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
     <key name="create-shortcut" type="b">
       <default>false</default>
-      <summary>Create shortcut</summary>
+      <summary>Create Shortcut</summary>
       <description
             >Create a shortcut in the app grid by adding a .desktop file.</description>
     </key>
     <key name="tint-shell" type="b">
       <default>false</default>
-      <summary>Tint shell</summary>
+      <summary>Tint Shell</summary>
       <description
             >Tints the Gnome Shell with the color of your choice.</description>
     </key>
@@ -33,6 +33,22 @@
       <summary>Custom Color</summary>
       <description
             >Controls the status of applied colors, in case the user has applied a custom color.</description>
+    </key>
+    <key name="recolor-folders" type="b">
+      <default>false</default>
+      <summary>Recolor Folders</summary>
+      <description>Applies the accent color to folder icons.</description>
+    </key>
+    <key name="recolor-apps" type="b">
+      <default>false</default>
+      <summary>Recolor Apps</summary>
+      <description>Applies the accent color to some app icons.</description>
+    </key>
+    <key name="morewaita" type="b">
+      <default>false</default>
+      <summary>MoreWaita</summary>
+      <description
+            >Applies integration with the MoreWaita icon pack.</description>
     </key>
   </schema>
 </schemalist>

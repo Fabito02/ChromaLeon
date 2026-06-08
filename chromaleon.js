@@ -3,6 +3,7 @@ import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
+import GObject from "gi://GObject";
 import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
@@ -78,6 +79,74 @@ class ChromaLeonUI {
       description: _("Based on Tint my Gnome"),
     });
     this._page.add(tintGnomeGroup);
+
+    const iconThemeGroup = new Adw.PreferencesGroup({
+      title: _("Icon Theme"),
+    });
+    this._page.add(iconThemeGroup);
+
+    const iconThemeFolderRow = new Adw.ActionRow({
+      title: _("Folder icon theme"),
+      subtitle: _("Applies the accent color to folder icons."),
+    });
+
+    const iconThemeFolderSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    iconThemeFolderRow.add_suffix(iconThemeFolderSwitch);
+    iconThemeGroup.add(iconThemeFolderRow);
+
+    const iconThemeAppRow = new Adw.ActionRow({
+      title: _("Application icon theme"),
+      subtitle: _("Applies the accent color to some app icons."),
+    });
+
+    const iconThemeAppSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    iconThemeAppRow.add_suffix(iconThemeAppSwitch);
+    iconThemeGroup.add(iconThemeAppRow);
+
+    const morewaitaRow = new Adw.ActionRow({
+      title: _("MoreWaita"),
+      subtitle: _("Applies integration with the MoreWaita icon pack."),
+    });
+    iconThemeGroup.add(morewaitaRow);
+
+    const morewaitaSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    morewaitaRow.add_suffix(morewaitaSwitch);
+    iconThemeGroup.add(morewaitaRow);
+
+    this._settings.bind(
+      "recolor-folders",
+      iconThemeFolderSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "recolor-apps",
+      iconThemeAppSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "morewaita",
+      morewaitaSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    iconThemeFolderSwitch.bind_property(
+      "active",
+      iconThemeAppRow,
+      "sensitive",
+      GObject.BindingFlags.SYNC_CREATE,
+    );
+
+    iconThemeFolderSwitch.bind_property(
+      "active",
+      morewaitaRow,
+      "sensitive",
+      GObject.BindingFlags.SYNC_CREATE,
+    );
 
     const miscellaneousGroup = new Adw.PreferencesGroup({
       title: _("Miscellaneous"),
@@ -176,6 +245,13 @@ class ChromaLeonUI {
       shortcutSwitch
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      iconThemeFolderSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      iconThemeAppSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
       colorRow.set_subtitle(hex);
 
       if (this._wallpaperButtons) {
@@ -394,7 +470,7 @@ class ChromaLeonUI {
                   outline-offset: 3px;
                 }
                 button:focus {
-                  outline: 3px solid ${hexColor}60;
+                  outline: 3px solid ${hexColor}70;
                 }`
               : `button {
                   background-color: ${hexColor};

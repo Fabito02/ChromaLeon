@@ -1,6 +1,7 @@
 import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
+import { applyAccentTheme } from "./recolorUtils.js";
 
 const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
 const REGEX_MARKER =
@@ -278,4 +279,22 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
 
   gtk4();
   gtk3();
+}
+
+export async function updateIconPack(hex, iconFolders, iconApps, morewaita) {
+  const settings = new Gio.Settings({
+    schema_id: "org.gnome.desktop.interface",
+  });
+
+  if (!iconFolders) {
+    settings.set_string("icon-theme", "Adwaita");
+    return;
+  }
+
+  try {
+    await applyAccentTheme(hex, {
+      applyApps: iconApps,
+      useMoreWaita: morewaita,
+    });
+  } catch (error) {}
 }
