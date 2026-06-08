@@ -95,6 +95,7 @@ export default class CustomAccentExtension extends Extension {
   }
 
   disable() {
+    // Necessary to keep accent colors consistent when unlocking the session
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
@@ -146,8 +147,10 @@ export default class CustomAccentExtension extends Extension {
     let color = await ColorUtils.calculateVibrantColor(uri);
     let updateIcons = true;
 
-    color === this._settings.get_string("accent-color") ? updateIcons = false : updateIcons = true;
-    
+    color === this._settings.get_string("accent-color")
+      ? (updateIcons = false)
+      : (updateIcons = true);
+
     if (updateIcons) {
       this._settings.set_string("accent-color", color);
     }
@@ -172,7 +175,7 @@ export default class CustomAccentExtension extends Extension {
       GLib.Source.remove(this._timeoutId);
       this._timeoutId = null;
     }
-    
+
     ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita, this);
   }
 
