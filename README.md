@@ -17,11 +17,12 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 
 <br>
 
-| **Dark** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-52" src="https://github.com/user-attachments/assets/24cb2727-ea1a-4ee1-874d-61a9a4a89de5" /> |
-| :--- | :--- |
-| **Light** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-08-05" src="https://github.com/user-attachments/assets/a98faeaf-ea8f-4184-9b19-a3623c099368" /> |
-| **Tinted Dark** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-06" src="https://github.com/user-attachments/assets/b6359185-9cd3-470c-9c92-7a1f0ef855d0" /> |
-| **Tinted Light** | <img width="1366" height="768" alt="Captura de tela de 2026-06-03 22-07-19" src="https://github.com/user-attachments/assets/cbca3758-0050-4edd-ae03-a62df74eca26" /> |
+| Base Style | Dark Mode Example | Light Mode Example |
+| :--- | :--- | :--- |
+| **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/7321ff87-9164-4508-91e1-7b4eb9464594" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/cb17365b-72d0-4946-bcad-5af305f61244" /> |
+| **Tinted** | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/22e9993a-8509-476f-8146-cecb61bcb9a5" /> | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/5fc70122-91b3-42c6-9c90-f9fe334dfe06" /> |
+| **Folders and Apps** |  |  |
+
 
 </div>
 
