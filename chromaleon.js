@@ -177,6 +177,10 @@ class ChromaLeonUI {
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       colorRow.set_subtitle(hex);
+
+      if (this._wallpaperButtons) {
+        this._wallpaperButtons.forEach((item) => item.updateStyle(hex));
+      }
     };
 
     this._applyTheme();
@@ -245,26 +249,50 @@ class ChromaLeonUI {
 
     const previewRow = new Adw.PreferencesRow({ activatable: false });
     this._previewContainer = new Gtk.Box({
-      margin_top: 16,
-      margin_bottom: 16,
-      margin_start: 16,
-      margin_end: 16,
+      orientation: Gtk.Orientation.VERTICAL,
+      hexpand: true,
+      halign: Gtk.Align.FILL,
+      margin_top: 12,
+      margin_bottom: 12,
+      margin_start: 12,
+      margin_end: 12,
     });
     previewRow.set_child(this._previewContainer);
     wallpaperGroup.add(previewRow);
 
-    this._colorsRow = new Adw.ActionRow({
-      valign: Gtk.Align.CENTER,
+    this._colorsRow = new Adw.ActionRow();
+
+    this._mainColorBox = new Gtk.Box({
+      spacing: 12,
+      homogeneous: true,
       halign: Gtk.Align.CENTER,
+      hexpand: true,
     });
-    this._colorBox = new Gtk.Box({
-      orientation: Gtk.Orientation.HORIZONTAL,
-      spacing: 8,
-      valign: Gtk.Align.CENTER,
-      halign: Gtk.Align.CENTER,
+
+    this._moreColors = new Adw.ExpanderRow({
+      title: _("More colors"),
     });
-    this._colorsRow.add_suffix(this._colorBox);
+
+    this._moreColorBox = new Adw.WrapBox({
+      child_spacing: 12,
+      line_spacing: 12,
+      align: 0.5,
+      margin_top: 12,
+      margin_bottom: 12,
+      line_homogeneous: true,
+    });
+
+    const colorRowWrapper = new Gtk.ListBoxRow({
+      activatable: false,
+      selectable: false,
+      child: this._moreColorBox,
+    });
+
+    this._moreColors.add_row(colorRowWrapper);
+    this._colorsRow.add_suffix(this._mainColorBox);
+
     wallpaperGroup.add(this._colorsRow);
+    wallpaperGroup.add(this._moreColors);
 
     this._updateWallpaperUI();
 
@@ -296,9 +324,14 @@ class ChromaLeonUI {
   async _updateWallpaperUI() {
     while (this._previewContainer.get_first_child())
       this._previewContainer.remove(this._previewContainer.get_first_child());
-    if (this._colorBox) {
-      while (this._colorBox.get_first_child())
-        this._colorBox.remove(this._colorBox.get_first_child());
+
+    if (this._mainColorBox) {
+      while (this._mainColorBox.get_first_child())
+        this._mainColorBox.remove(this._mainColorBox.get_first_child());
+    }
+    if (this._moreColorBox) {
+      while (this._moreColorBox.get_first_child())
+        this._moreColorBox.remove(this._moreColorBox.get_first_child());
     }
 
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
@@ -309,46 +342,86 @@ class ChromaLeonUI {
 
     if (uri.startsWith("file://")) {
       let file = Gio.File.new_for_uri(uri);
+
       let preview = new Gtk.Picture({
         file: file,
         can_shrink: true,
         content_fit: Gtk.ContentFit.COVER,
+        hexpand: true,
+        halign: Gtk.Align.FILL,
+        height_request: 220,
       });
       preview.add_css_class("card");
 
-      let aspectFrame = new Gtk.AspectFrame({
-        ratio: 16.0 / 9.0,
-        child: preview,
-        obey_child: false,
-        hexpand: true,
-        halign: Gtk.Align.FILL,
-        valign: Gtk.Align.START,
-        height_request: 255,
-      });
-      this._previewContainer.append(aspectFrame);
+      this._previewContainer.append(preview);
     }
 
     const colors = await this._getWallpaperColorsAsync(uri);
 
-    if (this._colorBox) {
-      while (this._colorBox.get_first_child()) {
-        this._colorBox.remove(this._colorBox.get_first_child());
-      }
-    }
-
     if (colors && colors.length > 0) {
       this._colorsRow.set_subtitle("");
-      colors.forEach((hexColor) => {
+      this._wallpaperButtons = [];
+
+      this._moreColors.set_visible(colors.length > 10);
+
+      while (this._mainColorBox.get_first_child()) {
+        this._mainColorBox.remove(this._mainColorBox.get_first_child());
+      }
+
+      while (this._moreColorBox.get_first_child()) {
+        this._moreColorBox.remove(this._moreColorBox.get_first_child());
+      }
+
+      colors.forEach((hexColor, index) => {
         let btn = new Gtk.Button({
           valign: Gtk.Align.CENTER,
           halign: Gtk.Align.CENTER,
         });
-        let cssProvider = new Gtk.CssProvider();
-        let cssString = `button { background-color: ${hexColor}; min-width: 30px; min-height: 30px; border-radius: 50%; padding: 0; }`;
 
-        if (cssProvider.load_from_string)
-          cssProvider.load_from_string(cssString);
-        else cssProvider.load_from_data(cssString, -1);
+        let cssProvider = new Gtk.CssProvider();
+
+        const updateButtonStyle = (currentAccentColor) => {
+          let cssString =
+            currentAccentColor === hexColor
+              ? `button {
+                  background-color: ${hexColor};
+                  min-width: 20px;
+                  min-height: 20px;
+                  border-radius: 50%;
+                  padding: 0;
+                  margin: 5px;
+                  outline: 3px solid ${hexColor};
+                  outline-offset: 3px;
+                }
+                button:focus {
+                  outline: 3px solid ${hexColor}60;
+                }`
+              : `button {
+                  background-color: ${hexColor};
+                  min-width: 30px;
+                  min-height: 30px;
+                  border-radius: 50%;
+                  padding: 0;
+                  margin: 0px;
+                  outline: none;
+                }
+                button:focus {
+                  min-width: 20px;
+                  min-height: 20px;
+                  margin: 5px;
+                  outline: 3px solid ${hexColor}60;
+                  outline-offset: 3px;
+                }`;
+
+          if (cssProvider.load_from_string)
+            cssProvider.load_from_string(cssString);
+          else cssProvider.load_from_data(cssString, -1);
+        };
+
+        let currentColor = this._settings.get_string("accent-color");
+        updateButtonStyle(currentColor);
+
+        this._wallpaperButtons.push({ updateStyle: updateButtonStyle });
 
         btn
           .get_style_context()
@@ -357,10 +430,16 @@ class ChromaLeonUI {
           this._settings.set_string("accent-color", hexColor);
           this._settings.set_boolean("custom-color", true);
         });
-        this._colorBox.append(btn);
+
+        if (index < 10) {
+          this._mainColorBox.append(btn);
+        } else {
+          this._moreColorBox.append(btn);
+        }
       });
     } else {
       this._colorsRow.set_subtitle(_("Unable to load colors."));
+      this._moreColors.set_visible(false);
     }
   }
 
@@ -448,35 +527,44 @@ class ChromaLeonUI {
       return scoreB - scoreA;
     });
 
-    let finalColors = [],
-      usedHues = [];
-    for (let color of vibrantRanking) {
-      if (color.s < 15 || color.l < 15 || color.l > 85) continue;
-      let isTooSimilar = false;
-      for (let usedHue of usedHues) {
-        let hueDiff = Math.abs(color.h - usedHue);
+    let finalColors = [];
+    let usedColorsData = [];
+
+    const isTooSimilarToExisting = (color) => {
+      for (let used of usedColorsData) {
+        let hueDiff = Math.abs(color.h - used.h);
         if (hueDiff > 180) hueDiff = 360 - hueDiff;
-        if (hueDiff < 25) {
-          isTooSimilar = true;
-          break;
+
+        let satDiff = Math.abs(color.s - used.s);
+        let lightDiff = Math.abs(color.l - used.l);
+
+        if (hueDiff < 25 && satDiff < 20 && lightDiff < 20) {
+          return true;
         }
       }
-      if (!isTooSimilar) {
+      return false;
+    };
+
+    for (let color of vibrantRanking) {
+      if (color.s < 15 || color.l < 15 || color.l > 85) continue;
+
+      if (!isTooSimilarToExisting(color)) {
         finalColors.push(color.hex);
-        usedHues.push(color.h);
-      }
-
-      if (finalColors.length >= 12) break;
-    }
-
-    if (finalColors.length < 12) {
-      let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
-      for (let color of frequencyRanking) {
-        if (finalColors.length >= 12) break;
-        if (!finalColors.includes(color.hex)) finalColors.push(color.hex);
+        usedColorsData.push({ h: color.h, s: color.s, l: color.l });
       }
     }
-    return finalColors;
+
+    let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
+    for (let color of frequencyRanking) {
+      if (color.l < 10 || color.l > 90) continue;
+
+      if (!finalColors.includes(color.hex) && !isTooSimilarToExisting(color)) {
+        finalColors.push(color.hex);
+        usedColorsData.push({ h: color.h, s: color.s, l: color.l });
+      }
+    }
+    
+    return finalColors.slice(0, 60);
   }
 }
 
