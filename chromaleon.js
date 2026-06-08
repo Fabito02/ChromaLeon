@@ -251,6 +251,9 @@ class ChromaLeonUI {
       iconThemeAppSwitch
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      morewaitaSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
       colorRow.set_subtitle(hex);
 
