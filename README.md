@@ -21,7 +21,7 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 | :--- | :--- | :--- |
 | **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/7321ff87-9164-4508-91e1-7b4eb9464594" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/cb17365b-72d0-4946-bcad-5af305f61244" /> |
 | **Tinted** | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/22e9993a-8509-476f-8146-cecb61bcb9a5" /> | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/5fc70122-91b3-42c6-9c90-f9fe334dfe06" /> |
-| **Folders and Apps** |  |  |
+| **Folders and Apps** | <img width="1366" height="768" alt="Folders and Apps Dark" src="https://github.com/user-attachments/assets/92cbd9ed-615c-4677-b927-3515a2e7554a" /> | <img width="1366" height="768" alt="Folders and Apps Light" src="https://github.com/user-attachments/assets/86c1ca57-a606-423a-ac48-ebe375435280" /> |
 
 
 </div>
@@ -32,6 +32,8 @@ Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based o
 * **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and local `GTK 3.0` / `GTK 4.0` apps.
 * **Flatpak Support:** Syncs color variables so your sandboxed Flatpak applications match the rest of the system.
 * **Tint:** Tints all system elements with accent colors.
+* **Accent Colors in Folders :** Applies the accent color to the folders.
+* **Accent Colors in Apps :** Applies the accent color to some app icons.
 * **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
 ---
