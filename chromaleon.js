@@ -270,7 +270,7 @@ class ChromaLeonUI {
     });
 
     this._moreColors = new Adw.ExpanderRow({
-      title: _("More colors"),
+      title: _("Additional colors"),
     });
 
     this._moreColorBox = new Adw.WrapBox({
@@ -563,7 +563,7 @@ class ChromaLeonUI {
         usedColorsData.push({ h: color.h, s: color.s, l: color.l });
       }
     }
-    
+
     return finalColors.slice(0, 60);
   }
 }

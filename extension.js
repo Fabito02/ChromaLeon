@@ -119,7 +119,7 @@ export default class CustomAccentExtension extends Extension {
       this._updateStyles();
       return;
     }
-    
+
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
     let uri =

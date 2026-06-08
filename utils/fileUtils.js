@@ -30,7 +30,7 @@ export function createDesktopFile(path) {
     Comment[ru]=Адаптируйте цвета системы, как хамелеон
     Exec=sh -c "cd '${path}' && GSETTINGS_SCHEMA_DIR=./schemas CHROMALEON_LAUNCH=1 gjs -m chromaleon.js"
     Icon=${iconPath}
-    StartupWMClass=com.github.fabito02.chromaleon`
+    StartupWMClass=com.github.fabito02.chromaleon`;
 
     const encoder = new TextEncoder();
     const bytes = encoder.encode(content);
