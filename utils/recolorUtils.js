@@ -1,27 +1,6 @@
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 
-async function runShellAsync(command) {
-  return new Promise((resolve) => {
-    try {
-      let proc = Gio.Subprocess.new(
-        ["bash", "-c", command],
-        Gio.SubprocessFlags.NONE,
-      );
-      proc.wait_async(null, (obj, res) => {
-        try {
-          proc.wait_finish(res);
-          resolve(proc.get_successful());
-        } catch (e) {
-          resolve(false);
-        }
-      });
-    } catch (e) {
-      resolve(false);
-    }
-  });
-}
-
 function modifyColor(hex, lMod, sMod) {
   hex = hex.replace("#", "");
   if (hex.length === 3)
@@ -109,16 +88,16 @@ async function recolorSvgAsync(file, colorMap) {
           }
 
           if (modified) {
-            let bytes = new GLib.Bytes(new TextEncoder().encode(svgText));
-            file.replace_contents_bytes_async(
-              bytes,
+            let encoded = new TextEncoder().encode(svgText);
+            file.replace_contents_async(
+              encoded,
               null,
               false,
               Gio.FileCreateFlags.REPLACE_DESTINATION,
               null,
               (obj2, res2) => {
                 try {
-                  file.replace_contents_finish(res2);
+                  obj2.replace_contents_finish(res2);
                 } catch (e) {}
                 resolve();
               },
@@ -142,7 +121,7 @@ async function processDirectoryAsync(dirPath, colorMap) {
 
   let enumerator = dir.enumerate_children(
     "standard::name,standard::type",
-    Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+    Gio.FileQueryInfoFlags.NONE,
     null,
   );
 
@@ -173,14 +152,15 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   if (!baseColor) return "ERR_MISSING_COLOR";
 
-  const darkAccent = modifyColor(baseColor, -0.15, 0.0);
+  const darkAccent = modifyColor(baseColor, -0.08, 0.0);
+  const moreDarkAccent = modifyColor(baseColor, -0.12, 0.0);
   const medAccent = modifyColor(baseColor, 0.0, 0.0);
   const lightAccent = modifyColor(baseColor, 0.08, 0.0);
   const bgSoft = modifyColor(baseColor, 0.25, 0.12);
   const intenseGlow = modifyColor(baseColor, 0.3, 0.1);
   const bgDiffuse = modifyColor(baseColor, 0.28, -0.2);
 
-  const deepShadow = modifyColor(baseColor, -0.2, -0.05);
+  const deepShadow = modifyColor(baseColor, -0.16, -0.05);
   const extremeLight = modifyColor(baseColor, 0.15, 0.05);
   const superLight = modifyColor(baseColor, 0.4, 0.05);
 
@@ -195,6 +175,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
     "1a5fb4": darkAccent,
     "1c71d8": modifyColor(baseColor, -0.02, 0.0),
     DEEP_SHADOW: deepShadow,
+    MORE_DARK: moreDarkAccent,
     EXTREME_LIGHT: extremeLight,
     "99c1f1": modifyColor(baseColor, 0.25, 0.05),
     c3e5e7: extremeLight,
@@ -216,6 +197,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   const homeDir = GLib.get_home_dir();
   const targetDir = `${homeDir}/.local/share/icons/Adwaita-Dynamic`;
+  const targetDirFile = Gio.File.new_for_path(targetDir);
   const sysAdwaita = "/usr/share/icons/Adwaita";
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 
@@ -223,21 +205,124 @@ export async function applyAccentTheme(baseColor, options = {}) {
     return "ERR_NO_ADWAITA";
   }
 
-  await runShellAsync(`rm -rf "${targetDir}"`);
-  await runShellAsync(
-    `mkdir -p "${targetDir}/scalable/places" "${targetDir}/scalable/status" "${targetDir}/scalable/mimetypes"`,
+  try {
+    let proc = Gio.Subprocess.new(
+      ["rm", "-rf", targetDir],
+      Gio.SubprocessFlags.NONE,
+    );
+    await new Promise((res) => {
+      proc.wait_async(null, (obj, r) => {
+        try {
+          obj.wait_finish(r);
+        } catch (e) {}
+        res();
+      });
+    });
+  } catch (e) {}
+
+  try {
+    if (!targetDirFile.query_exists(null)) {
+      targetDirFile.make_directory_with_parents(null);
+    }
+  } catch (e) {}
+
+  async function copyFolderContentAsync(srcPath, destPath) {
+    const srcFile = Gio.File.new_for_path(srcPath);
+    const destFile = Gio.File.new_for_path(destPath);
+
+    if (!srcFile.query_exists(null)) return;
+
+    if (!destFile.query_exists(null)) {
+      try {
+        destFile.make_directory_with_parents(null);
+      } catch (e) {}
+    }
+
+    try {
+      const enumerator = await new Promise((res) => {
+        srcFile.enumerate_children_async(
+          "standard::name,standard::type",
+          Gio.FileQueryInfoFlags.NONE,
+          GLib.PRIORITY_DEFAULT,
+          null,
+          (obj, r) => {
+            try {
+              res(obj.enumerate_children_finish(r));
+            } catch (e) {
+              res(null);
+            }
+          },
+        );
+      });
+
+      if (!enumerator) return;
+
+      while (true) {
+        const infos = await new Promise((res) => {
+          enumerator.next_files_async(
+            100,
+            GLib.PRIORITY_DEFAULT,
+            null,
+            (obj, r) => {
+              try {
+                res(obj.next_files_finish(r));
+              } catch (e) {
+                res([]);
+              }
+            },
+          );
+        });
+
+        if (!infos || infos.length === 0) break;
+
+        for (const info of infos) {
+          const childName = info.get_name();
+          const childSrc = srcFile.get_child(childName);
+          const childDest = destFile.get_child(childName);
+
+          if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+            await copyFolderContentAsync(
+              childSrc.get_path(),
+              childDest.get_path(),
+            );
+          } else {
+            await new Promise((res) => {
+              childSrc.copy_async(
+                childDest,
+                Gio.FileCopyFlags.OVERWRITE,
+                GLib.PRIORITY_DEFAULT,
+                null,
+                null,
+                (obj, r) => {
+                  try {
+                    obj.copy_finish(r);
+                  } catch (e) {}
+                  res();
+                },
+              );
+            });
+          }
+        }
+      }
+      enumerator.close(null);
+    } catch (err) {}
+  }
+
+  await copyFolderContentAsync(
+    `${sysAdwaita}/scalable/places`,
+    `${targetDir}/scalable/places`,
   );
-  await runShellAsync(
-    `cp -r "${sysAdwaita}/scalable/places/"* "${targetDir}/scalable/places/" 2>/dev/null || true`,
+  await copyFolderContentAsync(
+    `${sysAdwaita}/scalable/status`,
+    `${targetDir}/scalable/status`,
   );
-  await runShellAsync(
-    `cp -r "${sysAdwaita}/scalable/status/"* "${targetDir}/scalable/status/" 2>/dev/null || true`,
-  );
+
   if (
     GLib.file_test(`${sysAdwaita}/scalable/mimetypes`, GLib.FileTest.IS_DIR)
   ) {
-    await runShellAsync(
-      `cp -rL "${sysAdwaita}/scalable/mimetypes/"* "${targetDir}/scalable/mimetypes/" 2>/dev/null || true`,
+    await copyFolderContentAsync(
+      `${sysAdwaita}/scalable/mimetypes`,
+      `${targetDir}/scalable/mimetypes`,
     );
   }
 
@@ -261,16 +346,42 @@ export async function applyAccentTheme(baseColor, options = {}) {
   ];
 
   if (applyApps) {
-    await runShellAsync(`mkdir -p "${targetDir}/scalable/apps"`);
+    const appsDestDir = Gio.File.new_for_path(`${targetDir}/scalable/apps`);
+
+    if (!appsDestDir.query_exists(null)) {
+      try {
+        appsDestDir.make_directory_with_parents(null);
+      } catch (e) {}
+    }
+
     for (let app of appsToRecolor) {
-      if (GLib.file_test(`${userHicolorApps}/${app}`, GLib.FileTest.EXISTS)) {
-        await runShellAsync(
-          `cp "${userHicolorApps}/${app}" "${targetDir}/scalable/apps/" 2>/dev/null || true`,
-        );
-      } else {
-        await runShellAsync(
-          `cp "${hicolorApps}/${app}" "${targetDir}/scalable/apps/" 2>/dev/null || true`,
-        );
+      const userAppFile = Gio.File.new_for_path(`${userHicolorApps}/${app}`);
+      const sysAppFile = Gio.File.new_for_path(`${hicolorApps}/${app}`);
+      const destFile = appsDestDir.get_child(app);
+
+      let sourceFile = null;
+      if (userAppFile.query_exists(null)) {
+        sourceFile = userAppFile;
+      } else if (sysAppFile.query_exists(null)) {
+        sourceFile = sysAppFile;
+      }
+
+      if (sourceFile) {
+        await new Promise((res) => {
+          sourceFile.copy_async(
+            destFile,
+            Gio.FileCopyFlags.OVERWRITE,
+            GLib.PRIORITY_DEFAULT,
+            null,
+            null,
+            (obj, r) => {
+              try {
+                obj.copy_finish(r);
+              } catch (e) {}
+              res();
+            },
+          );
+        });
       }
     }
   }
@@ -288,16 +399,20 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
     if (moreWaitaDir) {
       inheritsChain = `MoreWaita,${inheritsChain}`;
-      await runShellAsync(
-        `cp -rL "${moreWaitaDir}/scalable/mimetypes/"* "${targetDir}/scalable/mimetypes/" 2>/dev/null || true`,
+
+      await copyFolderContentAsync(
+        `${moreWaitaDir}/scalable/mimetypes`,
+        `${targetDir}/scalable/mimetypes`,
       );
-      await runShellAsync(
-        `cp -r "${moreWaitaDir}/scalable/places/"* "${targetDir}/scalable/places/" 2>/dev/null || true`,
+      await copyFolderContentAsync(
+        `${moreWaitaDir}/scalable/places`,
+        `${targetDir}/scalable/places`,
       );
 
       if (applyApps) {
-        await runShellAsync(
-          `cp -r "${moreWaitaDir}/scalable/apps/"* "${targetDir}/scalable/apps/" 2>/dev/null || true`,
+        await copyFolderContentAsync(
+          `${moreWaitaDir}/scalable/apps`,
+          `${targetDir}/scalable/apps`,
         );
       }
     } else {
@@ -325,11 +440,11 @@ export async function applyAccentTheme(baseColor, options = {}) {
     "org.gnome.Geary.svg": {
       f6d32d: colorMap["438de6"],
       f5c211: colorMap["62a0ea"],
-      e5a50a: colorMap["3f8ae5"],
+      e5a50a: colorMap["1a5fb4"],
       c18b08: colorMap["DEEP_SHADOW"],
-      cc920a: colorMap["DEEP_SHADOW"],
-      ce9508: colorMap["DEEP_SHADOW"],
-      ce9708: colorMap["DEEP_SHADOW"],
+      cc920a: colorMap["MORE_DARK"],
+      ce9508: colorMap["1a5fb4"],
+      ce9708: colorMap["1a5fb4"],
     },
     "com.mattjakeman.ExtensionManager.svg": {
       "0055d4": colorMap["438de6"],
@@ -355,6 +470,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
       "1c8454": colorMap["DEEP_SHADOW"],
       "8ff0a4": colorMap["99c1f1"],
       e1ff6c: colorMap["SUPER_LIGHT"],
+      "2c604e": colorMap["DEEP_SHADOW"],
     },
   };
 
@@ -418,28 +534,39 @@ Type=Scalable
 
   await new Promise((resolve) => {
     let indexFile = Gio.File.new_for_path(`${targetDir}/index.theme`);
-    let bytes = new GLib.Bytes(new TextEncoder().encode(indexContent));
-    indexFile.replace_contents_bytes_async(
-      bytes,
+    let encodedIndex = new TextEncoder().encode(indexContent);
+    indexFile.replace_contents_async(
+      encodedIndex,
       null,
       false,
       Gio.FileCreateFlags.REPLACE_DESTINATION,
       null,
       (obj, res) => {
         try {
-          indexFile.replace_contents_finish(res);
+          obj.replace_contents_finish(res);
         } catch (e) {}
         resolve();
       },
     );
   });
 
-  await runShellAsync(`gtk-update-icon-cache -qf "${targetDir}"`);
+  try {
+    let cacheProc = Gio.Subprocess.new(
+      ["gtk-update-icon-cache", "-qf", targetDir],
+      Gio.SubprocessFlags.NONE,
+    );
+    await new Promise((res) => {
+      cacheProc.wait_async(null, (obj, r) => {
+        try {
+          obj.wait_finish(r);
+        } catch (e) {}
+        res();
+      });
+    });
+  } catch (e) {}
 
   await new Promise((resolve) => {
-    const settings = new Gio.Settings({
-      schema_id: "org.gnome.desktop.interface",
-    });
+    const settings = Gio.Settings.new("org.gnome.desktop.interface");
 
     if (settings.get_string("icon-theme") === "Adwaita-Dynamic") {
       settings.set_string("icon-theme", "Adwaita");
