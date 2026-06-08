@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 import Gio from "gi://Gio";
+import GLib from "gi://GLib";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
 import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
@@ -30,6 +31,7 @@ export default class CustomAccentExtension extends Extension {
     this._interfaceSettings = null;
     this._generatedCssFile = null;
     this._configId = null;
+    this._timeoutId = null;
   }
 
   enable() {
@@ -93,7 +95,6 @@ export default class CustomAccentExtension extends Extension {
   }
 
   disable() {
-    // Necessary to keep accent colors consistent when unlocking the session
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
@@ -101,6 +102,11 @@ export default class CustomAccentExtension extends Extension {
     if (this._configId) {
       this._settings?.disconnect(this._configId);
       this._configId = null;
+    }
+
+    if (this._timeoutId) {
+      GLib.Source.remove(this._timeoutId);
+      this._timeoutId = null;
     }
 
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
@@ -162,7 +168,12 @@ export default class CustomAccentExtension extends Extension {
 
     let accent = this._settings.get_string("accent-color");
 
-    ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita);
+    if (this._timeoutId) {
+      GLib.Source.remove(this._timeoutId);
+      this._timeoutId = null;
+    }
+    
+    ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita, this);
   }
 
   _updateStyles(updateIcons) {

@@ -281,7 +281,13 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
   gtk3();
 }
 
-export async function updateIconPack(hex, iconFolders, iconApps, morewaita) {
+export async function updateIconPack(
+  hex,
+  iconFolders,
+  iconApps,
+  morewaita,
+  extInstance = null,
+) {
   const settings = new Gio.Settings({
     schema_id: "org.gnome.desktop.interface",
   });
@@ -292,9 +298,13 @@ export async function updateIconPack(hex, iconFolders, iconApps, morewaita) {
   }
 
   try {
-    await applyAccentTheme(hex, {
-      applyApps: iconApps,
-      useMoreWaita: morewaita,
-    });
+    await applyAccentTheme(
+      hex,
+      {
+        applyApps: iconApps,
+        useMoreWaita: morewaita,
+      },
+      extInstance,
+    );
   } catch (error) {}
 }
