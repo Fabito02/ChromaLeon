@@ -173,10 +173,10 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   if (!baseColor) return "ERR_MISSING_COLOR";
 
-  const darkAccent = modifyColor(baseColor, -0.1, 0.0);
+  const darkAccent = modifyColor(baseColor, -0.15, 0.0);
   const medAccent = modifyColor(baseColor, 0.0, 0.0);
   const lightAccent = modifyColor(baseColor, 0.08, 0.0);
-  const bgSoft = modifyColor(baseColor, 0.22, -0.10);
+  const bgSoft = modifyColor(baseColor, 0.25, 0.12);
   const intenseGlow = modifyColor(baseColor, 0.3, 0.1);
   const bgDiffuse = modifyColor(baseColor, 0.28, -0.2);
 
@@ -209,7 +209,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
     cc920a: darkAccent,
     ce9508: darkAccent,
     ce9708: darkAccent,
-    "98c1f1": modifyColor(baseColor, 0.3, 0.07),
+    "98c1f1": modifyColor(baseColor, 0.23, 0.0),
     d3e3f9: modifyColor(baseColor, 0.4, -0.15),
     "4a86cf": medAccent,
   };
