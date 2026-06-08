@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 01:31-0300\n"
+"POT-Creation-Date: 2026-06-08 13:10-0300\n"
 "PO-Revision-Date: 2026-06-04 13:23-0300\n"
 "Last-Translator: Fabiano Júnior <fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-"
@@ -18,92 +18,120 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: chromaleon.js:41
+#: chromaleon.js:42
 msgid "Accent Color"
 msgstr "Cor de destaque"
 
-#: chromaleon.js:42
+#: chromaleon.js:43
 msgid "New colors only apply when apps are reopened."
 msgstr "Novas cores só aplicam quando os aplicativos são reiniciados."
 
-#: chromaleon.js:46
+#: chromaleon.js:47
 msgid "Main color"
 msgstr "Cor principal"
 
-#: chromaleon.js:69
+#: chromaleon.js:70
 msgid "Wallpaper Colors"
 msgstr "Cores do wallpaper"
 
-#: chromaleon.js:71
+#: chromaleon.js:72
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr ""
 "O sistema atualiza automaticamente a cor de destaque com base no wallpaper."
 
-#: chromaleon.js:77
+#: chromaleon.js:78
 msgid "Tint Gnome"
 msgstr "Tingir o Gnome"
 
-#: chromaleon.js:78
+#: chromaleon.js:79
 msgid "Based on Tint my Gnome"
 msgstr "Baseado em Tint my Gnome"
 
-#: chromaleon.js:83
+#: chromaleon.js:84
+msgid "Icon Theme"
+msgstr "Tema de ícones"
+
+#: chromaleon.js:89
+msgid "Folder icon theme"
+msgstr "Tema de ícones em pastas"
+
+#: chromaleon.js:90
+msgid "Applies the accent color to folder icons."
+msgstr "Aplica a cor de destaque a ícones de pastas."
+
+#: chromaleon.js:98
+msgid "Application icon theme"
+msgstr "Tema de ícones em aplicativos"
+
+#: chromaleon.js:99
+msgid "Applies the accent color to some app icons."
+msgstr "Aplica a cor de destaque a alguns ícones de aplicativos."
+
+#: chromaleon.js:107
+msgid "MoreWaita"
+msgstr "MoreWaita"
+
+#: chromaleon.js:108
+msgid "Applies integration with the MoreWaita icon pack."
+msgstr "Aplica a integração com o pacote de ícones MoreWaita."
+
+#: chromaleon.js:152
 msgid "Miscellaneous"
 msgstr "Diversos"
 
-#: chromaleon.js:88
+#: chromaleon.js:157
 msgid "Tint shell"
 msgstr "Tingir o shell"
 
-#: chromaleon.js:89
+#: chromaleon.js:158
 msgid "Tints the Gnome Shell with the color of your choice."
 msgstr "Tingir o shell com a cor de sua escolha."
 
-#: chromaleon.js:97
+#: chromaleon.js:166
 msgid "Tint apps"
 msgstr "Tingir aplicativos"
 
-#: chromaleon.js:99
+#: chromaleon.js:168
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Tingir os aplicativos LibAdwaita com a cor de sua escolha."
 
-#: chromaleon.js:122
+#: chromaleon.js:191
 msgid "Apply to Flatpaks"
 msgstr "Aplicar em Flatpaks"
 
-#: chromaleon.js:124
+#: chromaleon.js:193
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 "Permitir que os Flatpaks acessem suas variáveis de cor de destaque "
 "personalizadas."
 
-#: chromaleon.js:132
+#: chromaleon.js:201
 msgid "Enable shortcut"
 msgstr "Habilitar atalho"
 
-#: chromaleon.js:134
+#: chromaleon.js:203
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
-#: chromaleon.js:273
+#: chromaleon.js:352
 msgid "Additional colors"
 msgstr "Cores adicionais"
 
-#: chromaleon.js:441
+#: chromaleon.js:520
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:582
+#: chromaleon.js:661
 msgid "Support the project"
 msgstr "Apoie o projeto"
 
-#: chromaleon.js:594
+#: chromaleon.js:673
 msgid "Why support ChromaLeon?"
 msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:596
+#: chromaleon.js:675
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -111,10 +139,10 @@ msgstr ""
 "Desenvolver software livre requer tempo, energia e dedicação. Sua doação "
 "apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
-#: chromaleon.js:600
+#: chromaleon.js:679
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: chromaleon.js:601
+#: chromaleon.js:680
 msgid "Support"
 msgstr "Apoiar"

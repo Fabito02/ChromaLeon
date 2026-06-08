@@ -142,7 +142,7 @@ export default class CustomAccentExtension extends Extension {
 
     color === this._settings.get_string("accent-color") ? updateIcons = false : updateIcons = true;
     
-    if (color) {
+    if (updateIcons) {
       this._settings.set_string("accent-color", color);
     }
 

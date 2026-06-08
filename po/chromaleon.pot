@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 01:43-0300\n"
+"POT-Creation-Date: 2026-06-08 13:10-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,97 +17,125 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chromaleon.js:41
+#: chromaleon.js:42
 msgid "Accent Color"
 msgstr ""
 
-#: chromaleon.js:42
+#: chromaleon.js:43
 msgid "New colors only apply when apps are reopened."
 msgstr ""
 
-#: chromaleon.js:46
+#: chromaleon.js:47
 msgid "Main color"
 msgstr ""
 
-#: chromaleon.js:69
+#: chromaleon.js:70
 msgid "Wallpaper Colors"
 msgstr ""
 
-#: chromaleon.js:71
+#: chromaleon.js:72
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr ""
 
-#: chromaleon.js:77
+#: chromaleon.js:78
 msgid "Tint Gnome"
 msgstr ""
 
-#: chromaleon.js:78
+#: chromaleon.js:79
 msgid "Based on Tint my Gnome"
 msgstr ""
 
-#: chromaleon.js:83
-msgid "Miscellaneous"
-msgstr ""
-
-#: chromaleon.js:88
-msgid "Tint shell"
+#: chromaleon.js:84
+msgid "Icon Theme"
 msgstr ""
 
 #: chromaleon.js:89
-msgid "Tints the Gnome Shell with the color of your choice."
+msgid "Folder icon theme"
 msgstr ""
 
-#: chromaleon.js:97
-msgid "Tint apps"
+#: chromaleon.js:90
+msgid "Applies the accent color to folder icons."
+msgstr ""
+
+#: chromaleon.js:98
+msgid "Application icon theme"
 msgstr ""
 
 #: chromaleon.js:99
+msgid "Applies the accent color to some app icons."
+msgstr ""
+
+#: chromaleon.js:107
+msgid "MoreWaita"
+msgstr ""
+
+#: chromaleon.js:108
+msgid "Applies integration with the MoreWaita icon pack."
+msgstr ""
+
+#: chromaleon.js:152
+msgid "Miscellaneous"
+msgstr ""
+
+#: chromaleon.js:157
+msgid "Tint shell"
+msgstr ""
+
+#: chromaleon.js:158
+msgid "Tints the Gnome Shell with the color of your choice."
+msgstr ""
+
+#: chromaleon.js:166
+msgid "Tint apps"
+msgstr ""
+
+#: chromaleon.js:168
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr ""
 
-#: chromaleon.js:122
+#: chromaleon.js:191
 msgid "Apply to Flatpaks"
 msgstr ""
 
-#: chromaleon.js:124
+#: chromaleon.js:193
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
-#: chromaleon.js:132
+#: chromaleon.js:201
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:134
+#: chromaleon.js:203
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:273
+#: chromaleon.js:352
 msgid "Additional colors"
 msgstr ""
 
-#: chromaleon.js:441
+#: chromaleon.js:520
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:582
+#: chromaleon.js:661
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:594
+#: chromaleon.js:673
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:596
+#: chromaleon.js:675
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 
-#: chromaleon.js:600
+#: chromaleon.js:679
 msgid "Cancel"
 msgstr ""
 
-#: chromaleon.js:601
+#: chromaleon.js:680
 msgid "Support"
 msgstr ""
