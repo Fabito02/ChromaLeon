@@ -43,7 +43,7 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.background",
     });
 
-    this._updateStyles();
+    this._updateShellStyles();
 
     this._settings.connectObject(
       "changed::accent-color",
@@ -137,11 +137,15 @@ export default class CustomAccentExtension extends Extension {
         : this._bgSettings.get_string("picture-uri");
 
     let color = await ColorUtils.calculateVibrantColor(uri);
+    let updateIcons = true;
+
+    color === this._settings.get_string("accent-color") ? updateIcons = false : updateIcons = true;
+    
     if (color) {
       this._settings.set_string("accent-color", color);
     }
 
-    this._updateStyles();
+    this._updateStyles(updateIcons);
   }
 
   _updateIconPack() {
@@ -160,7 +164,7 @@ export default class CustomAccentExtension extends Extension {
     ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita);
   }
 
-  _updateStyles() {
+  _updateStyles(updateIcons) {
     let color = this._settings.get_string("accent-color");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
@@ -185,6 +189,28 @@ export default class CustomAccentExtension extends Extension {
 
     ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark);
 
-    this._updateIconPack();
+    updateIcons && this._updateIconPack();
+  }
+
+  _updateShellStyles() {
+    let color = this._settings.get_string("accent-color");
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
+
+    const lightStyle = sessionMode.colorScheme;
+
+    let isLight = lightStyle === "prefer-light" && colorScheme === "default";
+
+    const tintShell = this._settings.get_boolean("tint-shell");
+
+    ThemeUtils.updateShellStylesheet(
+      this.path,
+      color,
+      this._generatedCssFile,
+      (file) => {
+        this._generatedCssFile = file;
+      },
+      isLight,
+      tintShell,
+    );
   }
 }

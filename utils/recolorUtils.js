@@ -159,7 +159,7 @@ async function processDirectoryAsync(dirPath, colorMap) {
     if (item.type === Gio.FileType.DIRECTORY) {
       await processDirectoryAsync(item.child.get_path(), colorMap);
     } else if (
-      item.type === Gio.FileType.REGULAR &&
+      (item.type === Gio.FileType.REGULAR || item.type === Gio.FileType.SYMBOLIC_LINK) &&
       item.name.endsWith(".svg")
     ) {
       await recolorSvgAsync(item.child, colorMap);
@@ -172,20 +172,21 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   if (!baseColor) return "ERR_MISSING_COLOR";
 
-  const darkAccent = modifyColor(baseColor, -0.05, 0.0);
+  const darkAccent = modifyColor(baseColor, -0.10, 0.0);
   const medAccent = modifyColor(baseColor, 0.0, 0.0);
   const lightAccent = modifyColor(baseColor, 0.08, 0.0);
   const bgSoft = modifyColor(baseColor, 0.25, -0.15);
   const intenseGlow = modifyColor(baseColor, 0.3, 0.1);
   const bgDiffuse = modifyColor(baseColor, 0.28, -0.2);
 
-  const deepShadow = modifyColor(baseColor, -0.15, -0.05);
+  const deepShadow = modifyColor(baseColor, -0.20, -0.05);
   const extremeLight = modifyColor(baseColor, 0.15, 0.05);
+  const superLight = modifyColor(baseColor, 0.40, 0.05);
 
   const colorMap = {
     "3f8ae5": darkAccent,
     "438de6": medAccent,
-    "62a0ea": lightAccent,
+    "62a0ea": extremeLight,
     a4caee: bgSoft,
     afd4ff: intenseGlow,
     c0d5ea: bgDiffuse,
@@ -194,6 +195,22 @@ export async function applyAccentTheme(baseColor, options = {}) {
     "1c71d8": modifyColor(baseColor, -0.02, 0.0),
     DEEP_SHADOW: deepShadow,
     EXTREME_LIGHT: extremeLight,
+    "99c1f1": modifyColor(baseColor, 0.25, 0.05),
+    c3e5e7: extremeLight,
+    "14498a": deepShadow,
+    "1e77e1": darkAccent,
+    "1966c2": deepShadow,
+    d7e8fc: modifyColor(baseColor, 0.45, 0.05),
+    b3d3f9: modifyColor(baseColor, 0.35, 0.05),
+    SUPER_LIGHT: superLight,
+    "cc9c54": darkAccent,
+    "d5ae73": lightAccent,
+    "cc920a": darkAccent,
+    "ce9508": darkAccent,
+    "ce9708": darkAccent,
+    "98c1f1": modifyColor(baseColor, 0.30, 0.07),
+    "d3e3f9": modifyColor(baseColor, 0.40, -0.15),
+    "4a86cf": medAccent,
   };
 
   const homeDir = GLib.get_home_dir();
@@ -207,7 +224,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   await runShellAsync(`rm -rf "${targetDir}"`);
   await runShellAsync(
-    `mkdir -p "${targetDir}/scalable/places" "${targetDir}/scalable/status"`,
+    `mkdir -p "${targetDir}/scalable/places" "${targetDir}/scalable/status" "${targetDir}/scalable/mimetypes"`,
   );
   await runShellAsync(
     `cp -r "${sysAdwaita}/scalable/places/"* "${targetDir}/scalable/places/" 2>/dev/null || true`,
@@ -215,8 +232,15 @@ export async function applyAccentTheme(baseColor, options = {}) {
   await runShellAsync(
     `cp -r "${sysAdwaita}/scalable/status/"* "${targetDir}/scalable/status/" 2>/dev/null || true`,
   );
+  if (GLib.file_test(`${sysAdwaita}/scalable/mimetypes`, GLib.FileTest.IS_DIR)) {
+    await runShellAsync(
+      `cp -rL "${sysAdwaita}/scalable/mimetypes/"* "${targetDir}/scalable/mimetypes/" 2>/dev/null || true`,
+    );
+  }
 
   const hicolorApps = "/usr/share/icons/hicolor/scalable/apps";
+  const userHicolorApps = `${homeDir}/.local/share/icons/hicolor/scalable/apps`;
+
   const appsToRecolor = [
     "org.gnome.Calculator.svg",
     "org.gnome.Calendar.svg",
@@ -236,9 +260,15 @@ export async function applyAccentTheme(baseColor, options = {}) {
   if (applyApps) {
     await runShellAsync(`mkdir -p "${targetDir}/scalable/apps"`);
     for (let app of appsToRecolor) {
-      await runShellAsync(
-        `cp "${hicolorApps}/${app}" "${targetDir}/scalable/apps/" 2>/dev/null || true`,
-      );
+      if (GLib.file_test(`${userHicolorApps}/${app}`, GLib.FileTest.EXISTS)) {
+        await runShellAsync(
+          `cp "${userHicolorApps}/${app}" "${targetDir}/scalable/apps/" 2>/dev/null || true`,
+        );
+      } else {
+        await runShellAsync(
+          `cp "${hicolorApps}/${app}" "${targetDir}/scalable/apps/" 2>/dev/null || true`,
+        );
+      }
     }
   }
 
@@ -255,9 +285,8 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
     if (moreWaitaDir) {
       inheritsChain = `MoreWaita,${inheritsChain}`;
-      await runShellAsync(`mkdir -p "${targetDir}/scalable/mimetypes"`);
       await runShellAsync(
-        `cp -r "${moreWaitaDir}/scalable/mimetypes/"* "${targetDir}/scalable/mimetypes/" 2>/dev/null || true`,
+        `cp -rL "${moreWaitaDir}/scalable/mimetypes/"* "${targetDir}/scalable/mimetypes/" 2>/dev/null || true`,
       );
       await runShellAsync(
         `cp -r "${moreWaitaDir}/scalable/places/"* "${targetDir}/scalable/places/" 2>/dev/null || true`,
@@ -299,7 +328,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
     "com.mattjakeman.ExtensionManager.svg": {
       "0055d4": colorMap["438de6"],
       "003380": colorMap["3f8ae5"],
-      "55ddff": colorMap["EXTREME_LIGHT"],
+      "55ddff": colorMap["99c1f1"],
       "80b3ff": colorMap["62a0ea"],
       "0066ff": colorMap["3f8ae5"],
     },
@@ -315,17 +344,16 @@ export async function applyAccentTheme(baseColor, options = {}) {
       "99c1f1": colorMap["EXTREME_LIGHT"],
     },
     "io.github.Fabito02.chromaleon.svg": {
-      "33e281": colorMap["438de6"],
-      "2da964": colorMap["3f8ae5"],
+      "33e281": colorMap["EXTREME_LIGHT"],
+      "2da964": colorMap["438de6"],
       "1c8454": colorMap["DEEP_SHADOW"],
-      "8ff0a4": colorMap["62a0ea"],
+      "8ff0a4": colorMap["99c1f1"],
+      "e1ff6c": colorMap["SUPER_LIGHT"],
     },
   };
 
   await processDirectoryAsync(`${targetDir}/scalable/places`, colorMap);
-  if (useMoreWaita) {
-    await processDirectoryAsync(`${targetDir}/scalable/mimetypes`, colorMap);
-  }
+  await processDirectoryAsync(`${targetDir}/scalable/mimetypes`, colorMap);
 
   if (applyApps) {
     for (let appName of appsToRecolor) {
@@ -339,30 +367,10 @@ export async function applyAccentTheme(baseColor, options = {}) {
         );
       }
     }
-
-    const extDir = GLib.FileFactory
-      ? GLib.FileFactory.new_for_path(import.meta.url)
-          .get_parent()
-          .get_path()
-      : `${homeDir}/.local/share/gnome-shell/extensions/`;
-    let extIconFile = Gio.File.new_for_path(
-      `${extDir}/org.gnome.Adwaita-Dynamic.svg`,
-    );
-    if (!extIconFile.query_exists(null)) {
-      extIconFile = Gio.File.new_for_path(`${extDir}/icon.svg`);
-    }
-
-    if (extIconFile.query_exists(null)) {
-      await recolorSvgAsync(
-        extIconFile,
-        rebelApps["io.github.Fabito02.chromaleon.svg"],
-      );
-    }
   }
 
-  let directories = ["scalable/places", "scalable/status"];
+  let directories = ["scalable/places", "scalable/status", "scalable/mimetypes"];
   if (applyApps) directories.push("scalable/apps");
-  if (useMoreWaita) directories.push("scalable/mimetypes");
 
   let indexContent = `[Icon Theme]
 Name=Adwaita-Dynamic
@@ -385,13 +393,17 @@ Size=128
 MinSize=8
 MaxSize=512
 Type=Scalable
+
+[scalable/mimetypes]
+Context=MimeTypes
+Size=128
+MinSize=8
+MaxSize=512
+Type=Scalable
 `;
 
   if (applyApps) {
     indexContent += `\n[scalable/apps]\nContext=Applications\nSize=128\nMinSize=8\nMaxSize=512\nType=Scalable\n`;
-  }
-  if (useMoreWaita) {
-    indexContent += `\n[scalable/mimetypes]\nContext=MimeTypes\nSize=128\nMinSize=8\nMaxSize=512\nType=Scalable\n`;
   }
 
   await new Promise((resolve) => {
