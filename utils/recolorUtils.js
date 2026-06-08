@@ -176,7 +176,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
   const darkAccent = modifyColor(baseColor, -0.1, 0.0);
   const medAccent = modifyColor(baseColor, 0.0, 0.0);
   const lightAccent = modifyColor(baseColor, 0.08, 0.0);
-  const bgSoft = modifyColor(baseColor, 0.25, -0.15);
+  const bgSoft = modifyColor(baseColor, 0.22, -0.10);
   const intenseGlow = modifyColor(baseColor, 0.3, 0.1);
   const bgDiffuse = modifyColor(baseColor, 0.28, -0.2);
 
