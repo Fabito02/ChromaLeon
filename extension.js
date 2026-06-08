@@ -47,7 +47,7 @@ export default class CustomAccentExtension extends Extension {
 
     this._settings.connectObject(
       "changed::accent-color",
-      () => this._updateStyles(),
+      () => this._updateStyles(true),
       "changed::tint-shell",
       () => this._updateStyles(),
       "changed::tint-apps",
