@@ -134,18 +134,26 @@ async function processDirectoryAsync(dirPath, colorMap) {
     filesToProcess.push({ type, child, name });
   }
 
-  for (let item of filesToProcess) {
-    if (item.type === Gio.FileType.DIRECTORY) {
-      await processDirectoryAsync(item.child.get_path(), colorMap);
-    } else if (
-      (item.type === Gio.FileType.REGULAR ||
-        item.type === Gio.FileType.SYMBOLIC_LINK) &&
-      item.name.endsWith(".svg")
-    ) {
-      await recolorSvgAsync(item.child, colorMap);
-    }
+  const chunkSize = 50;
+  for (let i = 0; i < filesToProcess.length; i += chunkSize) {
+    const chunk = filesToProcess.slice(i, i + chunkSize);
+    await Promise.all(
+      chunk.map(async (item) => {
+        if (item.type === Gio.FileType.DIRECTORY) {
+          await processDirectoryAsync(item.child.get_path(), colorMap);
+        } else if (
+          (item.type === Gio.FileType.REGULAR ||
+            item.type === Gio.FileType.SYMBOLIC_LINK) &&
+          item.name.endsWith(".svg")
+        ) {
+          await recolorSvgAsync(item.child, colorMap);
+        }
+      }),
+    );
   }
 }
+
+Gio._promisify(Gio.Subprocess.prototype, "wait_async", "wait_finish");
 
 export async function applyAccentTheme(baseColor, options = {}) {
   const { applyApps = false, useMoreWaita = false } = options;
@@ -205,10 +213,15 @@ export async function applyAccentTheme(baseColor, options = {}) {
     return "ERR_NO_ADWAITA";
   }
 
+  // Gio.Subprocess is necessary because Gio.File.delete() is unable to delete folders that are not empty.
   try {
-    targetDirFile.query_exists(null)
-      ? await targetDirFile.delete_async(GLib.PRIORITY_DEFAULT, null)
-      : null;
+    if (targetDirFile.query_exists(null)) {
+      let proc = Gio.Subprocess.new(
+        ["rm", "-rf", targetDir],
+        Gio.SubprocessFlags.NONE,
+      );
+      await proc.wait_async(null);
+    }
   } catch (e) {}
 
   try {
@@ -266,7 +279,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
         if (!infos || infos.length === 0) break;
 
-        for (const info of infos) {
+        const copyPromises = infos.map(async (info) => {
           const childName = info.get_name();
           const childSrc = srcFile.get_child(childName);
           const childDest = destFile.get_child(childName);
@@ -293,7 +306,9 @@ export async function applyAccentTheme(baseColor, options = {}) {
               );
             });
           }
-        }
+        });
+
+        await Promise.all(copyPromises);
       }
       enumerator.close(null);
     } catch (err) {}
@@ -547,7 +562,7 @@ Type=Scalable
     if (settings.get_string("icon-theme") === "Adwaita-Dynamic") {
       settings.set_string("icon-theme", "Adwaita");
 
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 200, () => {
         settings.set_string("icon-theme", "Adwaita-Dynamic");
         resolve();
         return GLib.SOURCE_REMOVE;
