@@ -1,6 +1,8 @@
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 
+let timeoutId = null;
+
 function modifyColor(hex, lMod, sMod) {
   hex = hex.replace("#", "");
   if (hex.length === 3)
@@ -559,11 +561,17 @@ Type=Scalable
   await new Promise((resolve) => {
     const settings = Gio.Settings.new("org.gnome.desktop.interface");
 
+    if (timeoutId !== null) {
+      GLib.source_remove(timeoutId);
+      timeoutId = null;
+    }
+
     if (settings.get_string("icon-theme") === "Adwaita-Dynamic") {
       settings.set_string("icon-theme", "Adwaita");
 
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 200, () => {
+      timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 200, () => {
         settings.set_string("icon-theme", "Adwaita-Dynamic");
+        timeoutId = null;
         resolve();
         return GLib.SOURCE_REMOVE;
       });
@@ -574,4 +582,11 @@ Type=Scalable
   });
 
   return "SUCCESS";
+}
+
+export function clearRecolorTimeout() {
+  if (timeoutId !== null) {
+    GLib.source_remove(timeoutId);
+    timeoutId = null;
+  }
 }
