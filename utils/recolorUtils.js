@@ -155,7 +155,81 @@ async function processDirectoryAsync(dirPath, colorMap) {
   }
 }
 
-Gio._promisify(Gio.Subprocess.prototype, "wait_async", "wait_finish");
+async function deleteRecursiveAsync(file) {
+  if (!file.query_exists(null)) return;
+
+  try {
+    const info = await new Promise((res, rej) => {
+      file.query_info_async(
+        "standard::type",
+        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        GLib.PRIORITY_DEFAULT,
+        null,
+        (obj, r) => {
+          try {
+            res(obj.query_info_finish(r));
+          } catch (e) {
+            rej(e);
+          }
+        },
+      );
+    });
+
+    if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+      const iter = await new Promise((res, rej) => {
+        file.enumerate_children_async(
+          "standard::name",
+          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+          GLib.PRIORITY_DEFAULT,
+          null,
+          (obj, r) => {
+            try {
+              res(obj.enumerate_children_finish(r));
+            } catch (e) {
+              rej(e);
+            }
+          },
+        );
+      });
+
+      if (iter) {
+        while (true) {
+          const infos = await new Promise((res) => {
+            iter.next_files_async(50, GLib.PRIORITY_DEFAULT, null, (obj, r) => {
+              try {
+                res(obj.next_files_finish(r));
+              } catch (e) {
+                res([]);
+              }
+            });
+          });
+
+          if (!infos || infos.length === 0) break;
+
+          const branches = infos.map((childInfo) => {
+            const child = iter.get_child(childInfo);
+            return deleteRecursiveAsync(child);
+          });
+
+          await Promise.all(branches);
+        }
+
+        try {
+          iter.close(null);
+        } catch (e) {}
+      }
+    }
+
+    await new Promise((res) => {
+      file.delete_async(GLib.PRIORITY_DEFAULT, null, (obj, r) => {
+        try {
+          obj.delete_finish(r);
+        } catch (e) {}
+        res();
+      });
+    });
+  } catch (e) {}
+}
 
 export async function applyAccentTheme(baseColor, options = {}) {
   const { applyApps = false, useMoreWaita = false } = options;
@@ -215,16 +289,9 @@ export async function applyAccentTheme(baseColor, options = {}) {
     return "ERR_NO_ADWAITA";
   }
 
-  // Gio.Subprocess is necessary because Gio.File.delete() is unable to delete folders that are not empty.
-  try {
-    if (targetDirFile.query_exists(null)) {
-      let proc = Gio.Subprocess.new(
-        ["rm", "-rf", targetDir],
-        Gio.SubprocessFlags.NONE,
-      );
-      await proc.wait_async(null);
-    }
-  } catch (e) {}
+  if (targetDirFile.query_exists(null)) {
+    await deleteRecursiveAsync(targetDirFile);
+  }
 
   try {
     if (!targetDirFile.query_exists(null)) {
