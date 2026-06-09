@@ -206,18 +206,9 @@ export async function applyAccentTheme(baseColor, options = {}) {
   }
 
   try {
-    let proc = Gio.Subprocess.new(
-      ["rm", "-rf", targetDir],
-      Gio.SubprocessFlags.NONE,
-    );
-    await new Promise((res) => {
-      proc.wait_async(null, (obj, r) => {
-        try {
-          obj.wait_finish(r);
-        } catch (e) {}
-        res();
-      });
-    });
+    targetDirFile.query_exists(null)
+      ? await targetDirFile.delete_async(GLib.PRIORITY_DEFAULT, null)
+      : null;
   } catch (e) {}
 
   try {
@@ -549,21 +540,6 @@ Type=Scalable
       },
     );
   });
-
-  try {
-    let cacheProc = Gio.Subprocess.new(
-      ["gtk-update-icon-cache", "-qf", targetDir],
-      Gio.SubprocessFlags.NONE,
-    );
-    await new Promise((res) => {
-      cacheProc.wait_async(null, (obj, r) => {
-        try {
-          obj.wait_finish(r);
-        } catch (e) {}
-        res();
-      });
-    });
-  } catch (e) {}
 
   await new Promise((resolve) => {
     const settings = Gio.Settings.new("org.gnome.desktop.interface");
