@@ -97,9 +97,9 @@ export default class CustomAccentExtension extends Extension {
   disable() {
     // Necessary to keep accent colors consistent when unlocking the session
 
-    if (typeof ThemeUtils.clearRecolorTimeout === "function") {
+    try {
       ThemeUtils.clearRecolorTimeout();
-    }
+    } catch (e) {}
 
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
