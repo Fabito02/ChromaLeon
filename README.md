@@ -7,7 +7,7 @@
 <br><br>
 
 ### Adapt the system's colors like a chameleon
-Change your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based on your wallpaper.
+Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors dynamically based on your wallpaper.
 
 ---
 
