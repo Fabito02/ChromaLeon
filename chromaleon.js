@@ -343,6 +343,8 @@ class ChromaLeonUI {
 
     this._mainColorBox = new Gtk.Box({
       spacing: 12,
+      margin_top: 8,
+      margin_bottom: 8,
       homogeneous: true,
       halign: Gtk.Align.CENTER,
       hexpand: true,
@@ -368,7 +370,7 @@ class ChromaLeonUI {
     });
 
     this._moreColors.add_row(colorRowWrapper);
-    this._colorsRow.add_suffix(this._mainColorBox);
+    this._colorsRow.set_child(this._mainColorBox);
 
     wallpaperGroup.add(this._colorsRow);
     wallpaperGroup.add(this._moreColors);
