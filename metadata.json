@@ -1,6 +1,6 @@
 {
   "name": "ChromaLeon",
-  "description": "Adapt the system's colors like a chameleon\n\nChange your GNOME Shell, Adwaita, and adw-gtk3 accent colors dynamically based on your wallpaper.",
+  "description": "Adapt the system's colors like a chameleon\n\nChange your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors dynamically based on your wallpaper.",
   "uuid": "user-accent-colors@fabito02",
   "url": "https://github.com/Fabito02/ChromaLeon",
   "shell-version": ["47", "48", "49", "50"],
