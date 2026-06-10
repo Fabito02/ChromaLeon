@@ -22,6 +22,7 @@ import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
+import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 
 export default class CustomAccentExtension extends Extension {
   constructor(metadata) {
@@ -97,7 +98,7 @@ export default class CustomAccentExtension extends Extension {
   disable() {
     // Necessary to keep accent colors consistent when unlocking the session
 
-    ThemeUtils.clearRecolorTimeout();
+    clearRecolorTimeout();
 
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
