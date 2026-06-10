@@ -50,7 +50,7 @@ export default class CustomAccentExtension extends Extension {
 
     this._settings.connectObject(
       "changed::accent-color",
-      () => this._updateStyles(true),
+      () => this._settings.get_boolean("recolor-folders") ? this._updateStyles(true) : this._updateStyles(),
       "changed::tint-shell",
       () => this._updateStyles(),
       "changed::tint-apps",
