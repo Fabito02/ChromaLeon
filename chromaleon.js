@@ -89,13 +89,15 @@ class ChromaLeonUI {
 
     this._colorsRow = new Adw.ActionRow();
 
-    this._mainColorBox = new Gtk.Box({
-      spacing: 12,
-      margin_top: 8,
-      margin_bottom: 8,
-      homogeneous: true,
-      halign: Gtk.Align.CENTER,
-      hexpand: true,
+    this._mainColorBox = new Adw.WrapBox({
+      child_spacing: 12,
+      line_spacing: 12,
+      align: 0.5,
+      margin_top: 12,
+      margin_bottom: 12,
+      line_homogeneous: true,
+      margin_start: 12,
+      margin_end: 12,
     });
 
     this._moreColors = new Adw.ExpanderRow({
@@ -109,6 +111,8 @@ class ChromaLeonUI {
       margin_top: 12,
       margin_bottom: 12,
       line_homogeneous: true,
+      margin_start: 12,
+      margin_end: 12,
     });
 
     const colorRowWrapper = new Gtk.ListBoxRow({
@@ -430,7 +434,7 @@ class ChromaLeonUI {
         content_fit: Gtk.ContentFit.COVER,
         hexpand: true,
         halign: Gtk.Align.FILL,
-        height_request: 220,
+        height_request: 200,
       });
       preview.add_css_class("card");
 
