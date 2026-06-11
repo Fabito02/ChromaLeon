@@ -74,11 +74,94 @@ class ChromaLeonUI {
     });
     this._page.add(wallpaperGroup);
 
+    const previewRow = new Adw.PreferencesRow({ activatable: false });
+    this._previewContainer = new Gtk.Box({
+      orientation: Gtk.Orientation.VERTICAL,
+      hexpand: true,
+      halign: Gtk.Align.FILL,
+      margin_top: 12,
+      margin_bottom: 12,
+      margin_start: 12,
+      margin_end: 12,
+    });
+    previewRow.set_child(this._previewContainer);
+    wallpaperGroup.add(previewRow);
+
+    this._colorsRow = new Adw.ActionRow();
+
+    this._mainColorBox = new Gtk.Box({
+      spacing: 12,
+      margin_top: 8,
+      margin_bottom: 8,
+      homogeneous: true,
+      halign: Gtk.Align.CENTER,
+      hexpand: true,
+    });
+
+    this._moreColors = new Adw.ExpanderRow({
+      title: _("Additional colors"),
+    });
+
+    this._moreColorBox = new Adw.WrapBox({
+      child_spacing: 12,
+      line_spacing: 12,
+      align: 0.5,
+      margin_top: 12,
+      margin_bottom: 12,
+      line_homogeneous: true,
+    });
+
+    const colorRowWrapper = new Gtk.ListBoxRow({
+      activatable: false,
+      selectable: false,
+      child: this._moreColorBox,
+    });
+
+    this._moreColors.add_row(colorRowWrapper);
+    this._colorsRow.set_child(this._mainColorBox);
+
+    wallpaperGroup.add(this._colorsRow);
+    wallpaperGroup.add(this._moreColors);
+
     const tintGnomeGroup = new Adw.PreferencesGroup({
       title: _("Tint Gnome"),
       description: _("Based on Tint my Gnome"),
     });
     this._page.add(tintGnomeGroup);
+
+    const TintShellRow = new Adw.ActionRow({
+      title: _("Tint shell"),
+      subtitle: _("Tints the Gnome Shell with the color of your choice."),
+    });
+
+    const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    TintShellRow.add_suffix(TintShellSwitch);
+    tintGnomeGroup.add(TintShellRow);
+
+    const TintAppsRow = new Adw.ActionRow({
+      title: _("Tint apps"),
+      subtitle: _(
+        "Tints the LibAdwaita applications with the color of your choice.",
+      ),
+    });
+
+    const TintAppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    TintAppsRow.add_suffix(TintAppsSwitch);
+    tintGnomeGroup.add(TintAppsRow);
+
+    this._settings.bind(
+      "tint-shell",
+      TintShellSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "tint-apps",
+      TintAppsSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
 
     const iconThemeGroup = new Adw.PreferencesGroup({
       title: _("Icon Theme"),
@@ -153,40 +236,6 @@ class ChromaLeonUI {
     });
     this._page.add(miscellaneousGroup);
 
-    const TintShellRow = new Adw.ActionRow({
-      title: _("Tint shell"),
-      subtitle: _("Tints the Gnome Shell with the color of your choice."),
-    });
-
-    const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    TintShellRow.add_suffix(TintShellSwitch);
-    tintGnomeGroup.add(TintShellRow);
-
-    const TintAppsRow = new Adw.ActionRow({
-      title: _("Tint apps"),
-      subtitle: _(
-        "Tints the LibAdwaita applications with the color of your choice.",
-      ),
-    });
-
-    const TintAppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    TintAppsRow.add_suffix(TintAppsSwitch);
-    tintGnomeGroup.add(TintAppsRow);
-
-    this._settings.bind(
-      "tint-shell",
-      TintShellSwitch,
-      "active",
-      Gio.SettingsBindFlags.DEFAULT,
-    );
-
-    this._settings.bind(
-      "tint-apps",
-      TintAppsSwitch,
-      "active",
-      Gio.SettingsBindFlags.DEFAULT,
-    );
-
     const flatpakRow = new Adw.ActionRow({
       title: _("Apply to Flatpaks"),
       subtitle: _(
@@ -212,60 +261,6 @@ class ChromaLeonUI {
       shortcutSwitch,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
-    );
-
-    this._applyTheme = () => {
-      const hex = this._settings.get_string("accent-color");
-      const rgba = new Gdk.RGBA();
-      rgba.parse(hex);
-      colorButton.set_rgba(rgba);
-
-      const cssProvider = new Gtk.CssProvider();
-      cssProvider.load_from_data(
-        `
-                switch:checked {
-                    background-color: ${hex};
-                    border-color: ${hex};
-                }
-            `,
-        -1,
-      );
-
-      TintAppsSwitch.get_style_context().add_provider(
-        cssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-      );
-      TintShellSwitch.get_style_context().add_provider(
-        cssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-      );
-      flatpakSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      shortcutSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      iconThemeFolderSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      iconThemeAppSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      morewaitaSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-      colorRow.set_subtitle(hex);
-
-      if (this._wallpaperButtons) {
-        this._wallpaperButtons.forEach((item) => item.updateStyle(hex));
-      }
-    };
-
-    this._applyTheme();
-
-    this._settingsId = this._settings.connect("changed::accent-color", () =>
-      this._applyTheme(),
     );
 
     const checkFlatpakPermissions = () => {
@@ -326,54 +321,59 @@ class ChromaLeonUI {
       });
     });
 
-    const previewRow = new Adw.PreferencesRow({ activatable: false });
-    this._previewContainer = new Gtk.Box({
-      orientation: Gtk.Orientation.VERTICAL,
-      hexpand: true,
-      halign: Gtk.Align.FILL,
-      margin_top: 12,
-      margin_bottom: 12,
-      margin_start: 12,
-      margin_end: 12,
-    });
-    previewRow.set_child(this._previewContainer);
-    wallpaperGroup.add(previewRow);
+    this._applyTheme = () => {
+      const hex = this._settings.get_string("accent-color");
+      const rgba = new Gdk.RGBA();
+      rgba.parse(hex);
+      colorButton.set_rgba(rgba);
 
-    this._colorsRow = new Adw.ActionRow();
+      const cssProvider = new Gtk.CssProvider();
+      cssProvider.load_from_data(
+        `
+                switch:checked {
+                    background-color: ${hex};
+                    border-color: ${hex};
+                }
+            `,
+        -1,
+      );
 
-    this._mainColorBox = new Gtk.Box({
-      spacing: 12,
-      margin_top: 8,
-      margin_bottom: 8,
-      homogeneous: true,
-      halign: Gtk.Align.CENTER,
-      hexpand: true,
-    });
+      TintAppsSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
+      TintShellSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
+      flatpakSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      shortcutSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      iconThemeFolderSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      iconThemeAppSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      morewaitaSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    this._moreColors = new Adw.ExpanderRow({
-      title: _("Additional colors"),
-    });
+      colorRow.set_subtitle(hex);
 
-    this._moreColorBox = new Adw.WrapBox({
-      child_spacing: 12,
-      line_spacing: 12,
-      align: 0.5,
-      margin_top: 12,
-      margin_bottom: 12,
-      line_homogeneous: true,
-    });
+      if (this._wallpaperButtons) {
+        this._wallpaperButtons.forEach((item) => item.updateStyle(hex));
+      }
+    };
 
-    const colorRowWrapper = new Gtk.ListBoxRow({
-      activatable: false,
-      selectable: false,
-      child: this._moreColorBox,
-    });
+    this._applyTheme();
 
-    this._moreColors.add_row(colorRowWrapper);
-    this._colorsRow.set_child(this._mainColorBox);
-
-    wallpaperGroup.add(this._colorsRow);
-    wallpaperGroup.add(this._moreColors);
+    this._settingsId = this._settings.connect("changed::accent-color", () =>
+      this._applyTheme(),
+    );
 
     this._updateWallpaperUI();
 
