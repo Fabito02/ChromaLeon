@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-12 04:13-0300\n"
+"POT-Creation-Date: 2026-06-12 16:58-0300\n"
 "PO-Revision-Date: 2026-06-12 18:16+0200\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: \n"
@@ -60,23 +60,28 @@ msgid "Wallpapers"
 msgstr "Tła"
 
 #: chromaleon.js:287
-msgid "Tint Gnome"
+#, fuzzy
+msgid "Tint GNOME"
 msgstr "Przyciemnienie powłoki GNOME"
 
 #: chromaleon.js:288
-msgid "Based on Tint my Gnome"
+#, fuzzy
+msgid "Based on Tint my GNOME"
 msgstr "Bazuje na Tint my GNOME"
 
 #: chromaleon.js:293
-msgid "Tint shell"
+#, fuzzy
+msgid "Tint Shell"
 msgstr "Przyciemnij powłokę"
 
 #: chromaleon.js:294
-msgid "Tints the Gnome Shell with the color of your choice."
+#, fuzzy
+msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Przyciemnia powłokę GNOME kolorem, który został wybrany."
 
 #: chromaleon.js:302
-msgid "Tint apps"
+#, fuzzy
+msgid "Tint Apps"
 msgstr "Przyciemnij aplikacje"
 
 #: chromaleon.js:304
