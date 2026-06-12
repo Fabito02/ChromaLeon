@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-12 16:57-0300\n"
-"PO-Revision-Date: 2026-06-12 20:09+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-06-12 20:26+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -62,29 +63,24 @@ msgid "Wallpapers"
 msgstr "Planos de fundo"
 
 #: chromaleon.js:287
-#, fuzzy
 msgid "Tint GNOME"
-msgstr "Tingir o Gnome"
+msgstr "Tingir o GNOME"
 
 #: chromaleon.js:288
-#, fuzzy
 msgid "Based on Tint my GNOME"
-msgstr "Baseado em Tint my Gnome"
+msgstr "Baseado em Tint my GNOME"
 
 #: chromaleon.js:293
-#, fuzzy
 msgid "Tint Shell"
-msgstr "Tingir o shell"
+msgstr "Tingir o Shell"
 
 #: chromaleon.js:294
-#, fuzzy
 msgid "Tints the GNOME Shell with the color of your choice."
-msgstr "Tingir o shell com a cor de sua escolha."
+msgstr "Tingir o GNOME Shell com a cor de sua escolha."
 
 #: chromaleon.js:302
-#, fuzzy
 msgid "Tint Apps"
-msgstr "Tingir aplicativos"
+msgstr "Tingir Aplicativos"
 
 #: chromaleon.js:304
 msgid "Tints the LibAdwaita applications with the color of your choice."
