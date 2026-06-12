@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-12 04:13-0300\n"
+"POT-Creation-Date: 2026-06-12 16:57-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,23 +59,23 @@ msgid "Wallpapers"
 msgstr ""
 
 #: chromaleon.js:287
-msgid "Tint Gnome"
+msgid "Tint GNOME"
 msgstr ""
 
 #: chromaleon.js:288
-msgid "Based on Tint my Gnome"
+msgid "Based on Tint my GNOME"
 msgstr ""
 
 #: chromaleon.js:293
-msgid "Tint shell"
+msgid "Tint Shell"
 msgstr ""
 
 #: chromaleon.js:294
-msgid "Tints the Gnome Shell with the color of your choice."
+msgid "Tints the GNOME Shell with the color of your choice."
 msgstr ""
 
 #: chromaleon.js:302
-msgid "Tint apps"
+msgid "Tint Apps"
 msgstr ""
 
 #: chromaleon.js:304

@@ -284,14 +284,14 @@ class ChromaLeonUI {
     wallpapersList.set_child(this._gridContainer);
 
     const tintGnomeGroup = new Adw.PreferencesGroup({
-      title: _("Tint Gnome"),
-      description: _("Based on Tint my Gnome"),
+      title: _("Tint GNOME"),
+      description: _("Based on Tint my GNOME"),
     });
     this._optionsPage.add(tintGnomeGroup);
 
     const TintShellRow = new Adw.ActionRow({
-      title: _("Tint shell"),
-      subtitle: _("Tints the Gnome Shell with the color of your choice."),
+      title: _("Tint Shell"),
+      subtitle: _("Tints the GNOME Shell with the color of your choice."),
     });
 
     const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
@@ -299,7 +299,7 @@ class ChromaLeonUI {
     tintGnomeGroup.add(TintShellRow);
 
     const TintAppsRow = new Adw.ActionRow({
-      title: _("Tint apps"),
+      title: _("Tint Apps"),
       subtitle: _(
         "Tints the LibAdwaita applications with the color of your choice.",
       ),
