@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-12 16:58-0300\n"
-"PO-Revision-Date: 2026-06-12 20:09+0000\n"
+"PO-Revision-Date: 2026-06-12 20:26+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
 "\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
@@ -22,11 +22,11 @@ msgstr ""
 
 #: chromaleon.js:111
 msgid "Wallpaper"
-msgstr ""
+msgstr "Fondo de pantalla"
 
 #: chromaleon.js:115
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: chromaleon.js:148
 msgid "Accent Color"
@@ -55,35 +55,35 @@ msgstr ""
 
 #: chromaleon.js:213
 msgid "Additional colors"
-msgstr ""
+msgstr "Colores adicionales"
 
 #: chromaleon.js:250
 msgid "Add wallpapers"
-msgstr ""
+msgstr "Añadir fondos de pantalla"
 
 #: chromaleon.js:264
 msgid "Wallpapers"
-msgstr ""
+msgstr "Fondos de pantalla"
 
 #: chromaleon.js:287
 msgid "Tint GNOME"
-msgstr ""
+msgstr "Teñir GNOME"
 
 #: chromaleon.js:288
 msgid "Based on Tint my GNOME"
-msgstr ""
+msgstr "Basado en Tint my GNOME"
 
 #: chromaleon.js:293
 msgid "Tint Shell"
-msgstr ""
+msgstr "Teñir Shell"
 
 #: chromaleon.js:294
 msgid "Tints the GNOME Shell with the color of your choice."
-msgstr ""
+msgstr "Tiñe el GNOME Shell con el color de tu elección."
 
 #: chromaleon.js:302
 msgid "Tint Apps"
-msgstr ""
+msgstr "Teñir Apps"
 
 #: chromaleon.js:304
 msgid "Tints the LibAdwaita applications with the color of your choice."
@@ -91,31 +91,31 @@ msgstr "Tiñe las aplicaciones LibAdwaita con el color de su elección."
 
 #: chromaleon.js:327
 msgid "Icon Theme"
-msgstr ""
+msgstr "Tema de iconos"
 
 #: chromaleon.js:332
 msgid "Folder icon theme"
-msgstr ""
+msgstr "Tema de iconos de carpeta"
 
 #: chromaleon.js:333
 msgid "Applies the accent color to folder icons."
-msgstr ""
+msgstr "Aplica el color de acento a los iconos de las carpetas."
 
 #: chromaleon.js:341
 msgid "Application icon theme"
-msgstr ""
+msgstr "Tema de iconos de aplicaciones"
 
 #: chromaleon.js:342
 msgid "Applies the accent color to some app icons."
-msgstr ""
+msgstr "Aplica el color de acento a algunos iconos de aplicaciones."
 
 #: chromaleon.js:350
 msgid "MoreWaita"
-msgstr ""
+msgstr "MoreWaita"
 
 #: chromaleon.js:351
 msgid "Applies integration with the MoreWaita icon pack."
-msgstr ""
+msgstr "Aplica la integración con el paquete de iconos MoreWaita."
 
 #: chromaleon.js:394
 msgid "Miscellaneous"
@@ -142,35 +142,35 @@ msgstr ""
 
 #: chromaleon.js:576
 msgid "Wallpaper deleted successfully!"
-msgstr ""
+msgstr "¡Fondo de pantalla eliminado correctamente!"
 
 #: chromaleon.js:583
 msgid "Failed to delete wallpaper"
-msgstr ""
+msgstr "No se pudo eliminar el fondo de pantalla"
 
 #: chromaleon.js:590
 msgid "Select a Wallpaper"
-msgstr ""
+msgstr "Seleccione un fondo de pantalla"
 
 #: chromaleon.js:592
 msgid "_Open"
-msgstr ""
+msgstr "_Abrir"
 
 #: chromaleon.js:593
 msgid "_Cancel"
-msgstr ""
+msgstr "_Cancelar"
 
 #: chromaleon.js:598
 msgid "All Images"
-msgstr ""
+msgstr "Todas las imágenes"
 
 #: chromaleon.js:625
 msgid "Wallpaper already exists!"
-msgstr ""
+msgstr "¡El fondo de pantalla ya existe!"
 
 #: chromaleon.js:641
 msgid "Wallpaper added successfully!"
-msgstr ""
+msgstr "¡Fondo de pantalla añadido correctamente!"
 
 #: chromaleon.js:1091
 msgid "Unable to load colors."
