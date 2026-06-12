@@ -1,0 +1,16 @@
+.wallpaper-preview {
+    border-radius: 8px;
+}
+
+button.wallpaper-button {
+    padding: 0;
+    border-radius: 8px;
+}
+
+.heart-button {
+    color: #f66151;
+}
+
+.heart-button:hover {
+    color: #fa6e5f;
+}

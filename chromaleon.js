@@ -7,6 +7,39 @@ import GObject from "gi://GObject";
 import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
 import { rgbToHsl } from "./utils/colorUtils.js";
+import GnomeDesktop from "gi://GnomeDesktop?version=4.0";
+
+Gio._promisify(
+  Gio.File.prototype,
+  "enumerate_children_async",
+  "enumerate_children_finish",
+);
+Gio._promisify(
+  Gio.FileEnumerator.prototype,
+  "next_files_async",
+  "next_files_finish",
+);
+
+Gio._promisify(
+  Gio.File.prototype,
+  "load_contents_async",
+  "load_contents_finish",
+);
+Gio._promisify(Gio.File.prototype, "query_info_async", "query_info_finish");
+
+Gio._promisify(
+  GnomeDesktop.DesktopThumbnailFactory.prototype,
+  "generate_thumbnail_async",
+  "generate_thumbnail_finish",
+);
+
+Gio._promisify(
+  GnomeDesktop.DesktopThumbnailFactory.prototype,
+  "save_thumbnail_async",
+  "save_thumbnail_finish",
+);
+
+Gio._promisify(Gio.File.prototype, "delete_async", "delete_finish");
 
 if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
   const localeDir = GLib.get_current_dir() + "/locale";
@@ -21,10 +54,69 @@ const _ = (str) => {
   }
 };
 
+const currentModulePath = import.meta.url;
+const extensionDirPath = currentModulePath.startsWith("file://")
+  ? Gio.File.new_for_uri(currentModulePath).get_parent().get_path()
+  : GLib.get_current_dir();
+
+const thumbnailFactory = GnomeDesktop.DesktopThumbnailFactory.new(
+  GnomeDesktop.DesktopThumbnailSize.LARGE,
+);
+
+async function getThumbnail(path) {
+  try {
+    const file = Gio.File.new_for_path(path);
+    const uri = file.get_uri();
+
+    const info = await file.query_info_async(
+      "standard::content-type,time::modified",
+      Gio.FileQueryInfoFlags.NONE,
+      GLib.PRIORITY_DEFAULT,
+      null,
+    );
+
+    const mimeType = info.get_content_type();
+    const mtime = info.get_attribute_uint64("time::modified");
+
+    let thumb = thumbnailFactory.lookup(uri, mtime);
+
+    if (thumb) return thumb;
+
+    if (!thumbnailFactory.can_thumbnail(uri, mimeType, mtime)) return path;
+
+    const pixbuf = await thumbnailFactory.generate_thumbnail_async(
+      uri,
+      mimeType,
+      null,
+    );
+
+    if (!pixbuf) return path;
+
+    await thumbnailFactory.save_thumbnail_async(pixbuf, uri, mtime, null);
+
+    thumb = thumbnailFactory.lookup(uri, mtime);
+
+    return thumb ?? path;
+  } catch (e) {
+    console.error(e);
+    return path;
+  }
+}
+
 class ChromaLeonUI {
   constructor(window, page, settings) {
     this._settings = settings;
+
     this._page = page;
+    this._page.set_title(_("Wallpaper"));
+    this._page.set_icon_name("image-round-symbolic");
+
+    this._optionsPage = new Adw.PreferencesPage({
+      title: _("Preferences"),
+      icon_name: "settings-symbolic",
+    });
+    window.add(this._optionsPage);
+
     this._bgSettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.background",
     });
@@ -37,6 +129,20 @@ class ChromaLeonUI {
     this._bgChangedId1 = null;
     this._bgChangedId2 = null;
     this._colorSchemeId = null;
+
+    const iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
+    const assetsPath = `${extensionDirPath}/assets`;
+    iconTheme.add_search_path(assetsPath);
+
+    const cssProvider = new Gtk.CssProvider();
+
+    cssProvider.load_from_path(`${extensionDirPath}/prefs.css`);
+
+    Gtk.StyleContext.add_provider_for_display(
+      Gdk.Display.get_default(),
+      cssProvider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+    );
 
     const group = new Adw.PreferencesGroup({
       title: _("Accent Color"),
@@ -74,7 +180,10 @@ class ChromaLeonUI {
     });
     this._page.add(wallpaperGroup);
 
-    const previewRow = new Adw.PreferencesRow({ activatable: false });
+    const previewRow = new Adw.PreferencesRow({
+      activatable: false,
+      focusable: false,
+    });
     this._previewContainer = new Gtk.Box({
       orientation: Gtk.Orientation.VERTICAL,
       hexpand: true,
@@ -117,6 +226,7 @@ class ChromaLeonUI {
 
     const colorRowWrapper = new Gtk.ListBoxRow({
       activatable: false,
+      focusable: false,
       selectable: false,
       child: this._moreColorBox,
     });
@@ -127,11 +237,57 @@ class ChromaLeonUI {
     wallpaperGroup.add(this._colorsRow);
     wallpaperGroup.add(this._moreColors);
 
+    const addButtonBox = new Gtk.Box({
+      orientation: Gtk.Orientation.HORIZONTAL,
+      spacing: 8,
+    });
+
+    const iconButtonBox = new Gtk.Image({
+      icon_name: "list-add-symbolic",
+    });
+
+    const labelButtonBox = new Gtk.Label({
+      label: _("Add wallpapers"),
+    });
+
+    addButtonBox.append(iconButtonBox);
+    addButtonBox.append(labelButtonBox);
+
+    const addWallpapersButton = new Gtk.Button({
+      child: addButtonBox,
+    });
+
+    addWallpapersButton.add_css_class("flat");
+    addWallpapersButton.connect("clicked", () => this._onAddWallpaperClicked());
+
+    const wallpapersListGroup = new Adw.PreferencesGroup({
+      title: _("Wallpapers"),
+      header_suffix: addWallpapersButton,
+    });
+    this._page.add(wallpapersListGroup);
+
+    const wallpapersList = new Adw.PreferencesRow({
+      activatable: false,
+      focusable: false,
+      selectable: false,
+      margin_top: 12,
+      margin_bottom: 12,
+      margin_start: 12,
+      margin_end: 12,
+    });
+    wallpapersListGroup.add(wallpapersList);
+
+    this._gridContainer = new Gtk.Grid({
+      column_spacing: 12,
+      row_spacing: 12,
+    });
+    wallpapersList.set_child(this._gridContainer);
+
     const tintGnomeGroup = new Adw.PreferencesGroup({
       title: _("Tint Gnome"),
       description: _("Based on Tint my Gnome"),
     });
-    this._page.add(tintGnomeGroup);
+    this._optionsPage.add(tintGnomeGroup);
 
     const TintShellRow = new Adw.ActionRow({
       title: _("Tint shell"),
@@ -170,7 +326,7 @@ class ChromaLeonUI {
     const iconThemeGroup = new Adw.PreferencesGroup({
       title: _("Icon Theme"),
     });
-    this._page.add(iconThemeGroup);
+    this._optionsPage.add(iconThemeGroup);
 
     const iconThemeFolderRow = new Adw.ActionRow({
       title: _("Folder icon theme"),
@@ -198,7 +354,6 @@ class ChromaLeonUI {
 
     const morewaitaSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
     morewaitaRow.add_suffix(morewaitaSwitch);
-    iconThemeGroup.add(morewaitaRow);
 
     this._settings.bind(
       "recolor-folders",
@@ -238,7 +393,7 @@ class ChromaLeonUI {
     const miscellaneousGroup = new Adw.PreferencesGroup({
       title: _("Miscellaneous"),
     });
-    this._page.add(miscellaneousGroup);
+    this._optionsPage.add(miscellaneousGroup);
 
     const flatpakRow = new Adw.ActionRow({
       title: _("Apply to Flatpaks"),
@@ -379,6 +534,7 @@ class ChromaLeonUI {
       this._applyTheme(),
     );
 
+    this._loadWallpapersAsync();
     this._updateWallpaperUI();
 
     this._colorSchemeId = this._interfaceSettings.connect(
@@ -406,7 +562,407 @@ class ChromaLeonUI {
     });
   }
 
+  async _deleteWallpaper(filename) {
+    const file = Gio.File.new_for_path(
+      `${GLib.get_user_data_dir()}/backgrounds/${filename}`,
+    );
+
+    if (!file.query_exists(null)) return;
+
+    try {
+      await file.delete_async(GLib.PRIORITY_DEFAULT, null);
+
+      const toast = new Adw.Toast({
+        title: _("Wallpaper deleted successfully!"),
+      });
+      this._page.get_root().add_toast(toast);
+
+      this._loadWallpapersAsync();
+    } catch (e) {
+      console.error(e);
+      const toast = new Adw.Toast({ title: _("Failed to delete wallpaper") });
+      this._page.get_root().add_toast(toast);
+    }
+  }
+
+  _onAddWallpaperClicked() {
+    const fileChooser = new Gtk.FileChooserNative({
+      title: _("Select a Wallpaper"),
+      action: Gtk.FileChooserAction.OPEN,
+      accept_label: _("_Open"),
+      cancel_label: _("_Cancel"),
+      transient_for: this._page.get_root(),
+    });
+
+    const filter = new Gtk.FileFilter();
+    filter.set_name(_("All Images"));
+    filter.add_mime_type("image/*");
+    fileChooser.add_filter(filter);
+
+    fileChooser.connect("response", (dialog, response) => {
+      if (response === Gtk.ResponseType.ACCEPT) {
+        const file = dialog.get_file();
+        this._copyWallpaperToUserDir(file);
+      }
+      dialog.destroy();
+    });
+
+    fileChooser.show();
+  }
+
+  _copyWallpaperToUserDir(sourceFile) {
+    const destDir = Gio.File.new_for_path(
+      `${GLib.get_user_data_dir()}/backgrounds`,
+    );
+
+    if (!destDir.query_exists(null)) {
+      destDir.make_directory_with_parents(null);
+    }
+
+    const destFile = destDir.get_child(sourceFile.get_basename());
+
+    if (destFile.query_exists(null)) {
+      const toast = new Adw.Toast({ title: _("Wallpaper already exists!") });
+      this._page.get_root().add_toast(toast);
+      return;
+    }
+
+    sourceFile.copy_async(
+      destFile,
+      Gio.FileCopyFlags.OVERWRITE,
+      GLib.PRIORITY_DEFAULT,
+      null,
+      null,
+      (source, res) => {
+        try {
+          source.copy_finish(res);
+          this._loadWallpapersAsync();
+          const toast = new Adw.Toast({
+            title: _("Wallpaper added successfully!"),
+          });
+          this._page.get_root().add_toast(toast);
+        } catch (e) {
+          console.error(e);
+        }
+      },
+    );
+  }
+
+  async _readXmlProperties(xmlFile) {
+    try {
+      const [contents] = await xmlFile.load_contents_async(null);
+      const xmlText = new TextDecoder().decode(contents);
+      const wallpapers = [];
+
+      const blocks = xmlText.split("<wallpaper");
+
+      for (let i = 1; i < blocks.length; i++) {
+        const block = blocks[i];
+
+        let nameMatch = block.match(/<_?name[^>]*>(.*?)<\/_?name>/);
+        let lightMatch = block.match(/<filename[^>]*>(.*?)<\/filename>/);
+        let darkMatch = block.match(
+          /<filename-dark[^>]*>(.*?)<\/filename-dark>/,
+        );
+
+        let pathLight = lightMatch ? lightMatch[1].trim() : null;
+        let pathDark = darkMatch ? darkMatch[1].trim() : null;
+
+        if (pathLight) {
+          wallpapers.push({
+            name: nameMatch ? nameMatch[1] : "",
+            pathLight,
+            pathDark,
+            thumbLight: await getThumbnail(pathLight),
+            thumbDark: pathDark
+              ? await getThumbnail(pathDark)
+              : await getThumbnail(pathLight),
+          });
+        }
+      }
+      return wallpapers;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async _loadWallpapersAsync() {
+    while (this._gridContainer.get_first_child()) {
+      this._gridContainer.remove(this._gridContainer.get_first_child());
+    }
+
+    let nextRow = 0;
+
+    try {
+      const dirUser = Gio.File.new_for_path(
+        `${GLib.get_user_data_dir()}/backgrounds`,
+      );
+
+      if (dirUser.query_exists(null)) {
+        const iter = await dirUser.enumerate_children_async(
+          "standard::name,time::modified",
+          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+          GLib.PRIORITY_DEFAULT,
+          null,
+        );
+
+        let userWallpapers = [];
+
+        while (true) {
+          const fileInfos = await iter.next_files_async(
+            10,
+            GLib.PRIORITY_DEFAULT,
+            null,
+          );
+          if (fileInfos.length === 0) break;
+
+          for (const fileInfo of fileInfos) {
+            const fileChild = dirUser.get_child(fileInfo.get_name());
+
+            userWallpapers.push({
+              name: fileInfo.get_name(),
+              path: fileChild.get_path(),
+              thumbnail: await getThumbnail(fileChild.get_path()),
+              mtime: fileInfo.get_attribute_uint64("time::modified"),
+            });
+          }
+        }
+
+        userWallpapers.sort((a, b) => b.mtime - a.mtime);
+
+        userWallpapers.forEach((file, index) => {
+          const overlay = new Gtk.Overlay();
+
+          const buttonSetWallpaper = new Gtk.Button({
+            overflow: Gtk.Overflow.HIDDEN,
+          });
+          buttonSetWallpaper.add_css_class("wallpaper-button");
+
+          const cardBox = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            height_request: 125,
+            homogeneous: true,
+            overflow: Gtk.Overflow.HIDDEN,
+          });
+          cardBox.add_css_class("wallpaper-preview");
+
+          const preview = new Gtk.Picture({
+            file: Gio.File.new_for_path(file.thumbnail),
+            height_request: 125,
+            content_fit: Gtk.ContentFit.COVER,
+            can_shrink: true,
+            hexpand: true,
+          });
+          cardBox.append(preview);
+          buttonSetWallpaper.set_child(cardBox);
+
+          overlay.set_child(buttonSetWallpaper);
+
+          const deleteBtn = new Gtk.Button({
+            icon_name: "user-trash-symbolic",
+            halign: Gtk.Align.END,
+            valign: Gtk.Align.START,
+            margin_top: 8,
+            margin_end: 8,
+          });
+          deleteBtn.add_css_class("error");
+          deleteBtn.add_css_class("circular");
+
+          const gesture = new Gtk.GestureClick();
+
+          gesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
+
+          gesture.connect("released", (gesture, n_press, x, y) => {
+            gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+            this._deleteWallpaper(file.name);
+          });
+
+          deleteBtn.add_controller(gesture);
+
+          overlay.add_overlay(deleteBtn);
+
+          const fileUri = `${GLib.get_user_data_dir()}/backgrounds/${file.name}`;
+
+          buttonSetWallpaper.connect("clicked", () => {
+            this._bgSettings.set_string(
+              "picture-uri-dark",
+              Gio.file_new_for_path(fileUri).get_uri(),
+            );
+            this._bgSettings.set_string(
+              "picture-uri",
+              Gio.file_new_for_path(fileUri).get_uri(),
+            );
+          });
+
+          const col = index % 2;
+          const row = Math.floor(index / 2);
+
+          this._gridContainer.attach(overlay, col, row, 1, 1);
+        });
+
+        nextRow = Math.ceil(userWallpapers.length / 2);
+
+        if (userWallpapers.length > 0) {
+          this._gridContainer.attach(
+            new Gtk.Separator({
+              orientation: Gtk.Orientation.HORIZONTAL,
+              margin_top: 12,
+              margin_bottom: 12,
+              hexpand: true,
+            }),
+            0,
+            nextRow,
+            2,
+            1,
+          );
+
+          nextRow++;
+        }
+      }
+    } catch (e) {}
+
+    try {
+      const systemDirs = GLib.get_system_data_dirs();
+      let systemXmlDir = null;
+
+      for (const dir of systemDirs) {
+        const testPath = Gio.File.new_for_path(
+          `${dir}/gnome-background-properties`,
+        );
+        if (testPath.query_exists(null)) {
+          systemXmlDir = testPath;
+          break;
+        }
+      }
+
+      if (!systemXmlDir) {
+        systemXmlDir = Gio.File.new_for_path(
+          "/usr/share/gnome-background-properties",
+        );
+      }
+
+      if (systemXmlDir.query_exists(null)) {
+        const iter = await systemXmlDir.enumerate_children_async(
+          "standard::name",
+          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+          GLib.PRIORITY_DEFAULT,
+          null,
+        );
+
+        let systemWallpapers = [];
+
+        while (true) {
+          const fileInfos = await iter.next_files_async(
+            10,
+            GLib.PRIORITY_DEFAULT,
+            null,
+          );
+          if (fileInfos.length === 0) break;
+
+          for (const fileInfo of fileInfos) {
+            const name = fileInfo.get_name();
+
+            if (name.endsWith(".xml")) {
+              const xmlFile = systemXmlDir.get_child(name);
+              const dynamicWallpapers = await this._readXmlProperties(xmlFile);
+              systemWallpapers.push(...dynamicWallpapers);
+            }
+          }
+        }
+
+        systemWallpapers.forEach((file, index) => {
+          const cardBox = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            height_request: 125,
+            homogeneous: true,
+            overflow: Gtk.Overflow.HIDDEN,
+          });
+          cardBox.add_css_class("wallpaper-preview");
+
+          const buttonSetWallpaper = new Gtk.Button({
+            overflow: Gtk.Overflow.HIDDEN,
+          });
+          buttonSetWallpaper.add_css_class("wallpaper-button");
+
+          buttonSetWallpaper.set_child(cardBox);
+
+          buttonSetWallpaper.connect("clicked", () => {
+            this._bgSettings.set_string(
+              "picture-uri-dark",
+              Gio.file_new_for_path(file.pathDark).get_uri(),
+            );
+            this._bgSettings.set_string(
+              "picture-uri",
+              Gio.file_new_for_path(file.pathLight).get_uri(),
+            );
+          });
+
+          try {
+            const pbLight = GdkPixbuf.Pixbuf.new_from_file(file.thumbLight);
+
+            const lightHalfWidth = Math.floor(pbLight.get_width() / 2);
+
+            const picLight = new Gtk.Picture({
+              paintable: Gdk.Texture.new_for_pixbuf(
+                pbLight.new_subpixbuf(
+                  0,
+                  0,
+                  lightHalfWidth,
+                  pbLight.get_height(),
+                ),
+              ),
+              can_shrink: true,
+              content_fit: Gtk.ContentFit.COVER,
+              hexpand: true,
+              vexpand: true,
+            });
+
+            cardBox.append(picLight);
+
+            const darkPath = file.pathDark ? file.thumbDark : file.thumbLight;
+
+            const pbDark = GdkPixbuf.Pixbuf.new_from_file(darkPath);
+
+            const darkHalfWidth = Math.floor(pbDark.get_width() / 2);
+
+            const picDark = new Gtk.Picture({
+              paintable: Gdk.Texture.new_for_pixbuf(
+                pbDark.new_subpixbuf(
+                  darkHalfWidth,
+                  0,
+                  darkHalfWidth,
+                  pbDark.get_height(),
+                ),
+              ),
+              can_shrink: true,
+              content_fit: Gtk.ContentFit.COVER,
+              hexpand: true,
+              vexpand: true,
+            });
+
+            cardBox.append(picDark);
+          } catch (e) {
+            cardBox.append(
+              new Gtk.Picture({
+                file: Gio.File.new_for_path(file.thumbLight),
+                can_shrink: true,
+                content_fit: Gtk.ContentFit.COVER,
+              }),
+            );
+          }
+
+          const col = index % 2;
+          const row = nextRow + Math.floor(index / 2);
+
+          this._gridContainer.attach(buttonSetWallpaper, col, row, 1, 1);
+        });
+      }
+    } catch (e) {}
+  }
+
   async _updateWallpaperUI() {
+    if (!this._previewContainer) return;
+
     while (this._previewContainer.get_first_child())
       this._previewContainer.remove(this._previewContainer.get_first_child());
 
@@ -428,16 +984,25 @@ class ChromaLeonUI {
     if (uri.startsWith("file://")) {
       let file = Gio.File.new_for_uri(uri);
 
-      let preview = new Gtk.Picture({
-        file: file,
+      const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+        file.get_path(),
+        747,
+        420,
+        true,
+      );
+
+      const texture = Gdk.Texture.new_for_pixbuf(pixbuf);
+
+      const preview = new Gtk.Picture({
+        paintable: texture,
         can_shrink: true,
         content_fit: Gtk.ContentFit.COVER,
         hexpand: true,
         halign: Gtk.Align.FILL,
         height_request: 200,
       });
-      preview.add_css_class("card");
 
+      preview.add_css_class("wallpaper-preview");
       this._previewContainer.append(preview);
     }
 
@@ -653,25 +1218,32 @@ class ChromaLeonUI {
   }
 }
 
-function setupCustomHeader(window, extensionPath) {
+function setupCustomHeader(window) {
   window.search_enabled = true;
 
-  const iconPath = extensionPath
-    ? `${extensionPath}/assets/heart-filled-symbolic.svg`
-    : "./assets/heart-filled-symbolic.svg";
-  const donateIcon = Gtk.Image.new_from_file(iconPath);
+  const iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
+  iconTheme.add_search_path(`${GLib.get_current_dir()}/assets`);
 
-  const donateButton = new Gtk.Button({ valign: Gtk.Align.CENTER });
-  donateButton.set_child(donateIcon);
-  donateButton.add_css_class("flat");
+  const box = new Gtk.Box({
+    orientation: Gtk.Orientation.HORIZONTAL,
+    spacing: 6,
+  });
+
+  const donateIcon = Gtk.Image.new_from_icon_name("heart-filled-symbolic");
+  const label = new Gtk.Label({ label: _("Support") });
+
+  box.append(donateIcon);
+  box.append(label);
+
+  const donateButton = new Gtk.Button({
+    valign: Gtk.Align.CENTER,
+    child: box,
+  });
+
+  donateButton.add_css_class("destructive");
+  donateButton.add_css_class("heart-button");
   donateButton.set_tooltip_text(_("Support the project"));
   donateButton.add_css_class("heart-button");
-
-  const cssProvider = new Gtk.CssProvider();
-  cssProvider.load_from_data(`.heart-button:hover { color: #FF5C5C; }`, -1);
-  donateButton
-    .get_style_context()
-    .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   donateButton.connect("clicked", () => {
     const dialog = new Adw.MessageDialog({
@@ -717,8 +1289,8 @@ function setupCustomHeader(window, extensionPath) {
   });
 }
 
-export function buildUI(window, page, settings, extensionPath) {
-  setupCustomHeader(window, extensionPath);
+export function buildUI(window, page, settings) {
+  setupCustomHeader(window);
   new ChromaLeonUI(window, page, settings);
 }
 

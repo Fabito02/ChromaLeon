@@ -8,6 +8,6 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     const page = new Adw.PreferencesPage();
     window.add(page);
     
-    buildUI(window, page, settings, this.dir.get_path());
+    buildUI(window, page, settings);
   }
 }
