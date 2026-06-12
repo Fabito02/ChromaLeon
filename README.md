@@ -14,6 +14,7 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 ![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?cacheSeconds=60&logo=gnome&logoColor=white&color=3f86e3)
 ![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?color=50fa7b)
 [![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=social)](https://github.com/Fabito02/ChromaLeon/stargazers)
+[![Translation Status](https://hosted.weblate.org/widgets/chromaleon/-/svg-badge.svg)](https://hosted.weblate.org/engage/chromaleon/)
 
 <br>
 
@@ -37,6 +38,23 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 * **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
 ---
+
+## Translation
+
+<div align="center">
+  <h3>Help Translate ChromaLeon</h3>
+  <p>Contribute to making the project accessible in your language via Weblate!</p>
+  
+  <br />
+
+  <a href="https://hosted.weblate.org/engage/chromaleon/">
+    <img src="https://github.com/user-attachments/assets/167726c7-481c-4492-bbb4-1c1346ab7c5a" alt="Weblate Logo" width="140" style="vertical-align: middle; margin-right: 20px;" />
+  </a>
+  
+  <a href="https://hosted.weblate.org/engage/chromaleon/">
+    <img src="https://hosted.weblate.org/widget/chromaleon/multi-auto.svg" alt="Translation Status" height="300" style="vertical-align: middle;" />
+  </a>
+</div>
 
 ## Installation
 
