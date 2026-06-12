@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 17:57+0200\n"
-"PO-Revision-Date: 2026-06-08 18:23+0200\n"
+"POT-Creation-Date: 2026-06-12 04:13-0300\n"
+"PO-Revision-Date: 2026-06-12 18:16+0200\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -18,126 +18,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.9\n"
 
-#: chromaleon.js:42 schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:9
+#: chromaleon.js:111
+msgid "Wallpaper"
+msgstr "Tło"
+
+#: chromaleon.js:115
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: chromaleon.js:148
 msgid "Accent Color"
 msgstr "Kolor wyróżnienia"
 
-#: chromaleon.js:43
+#: chromaleon.js:149
 msgid "New colors only apply when apps are reopened."
 msgstr "Nowy kolor zostanie zastosowany, po ponownym otwarciu aplikacji."
 
-#: chromaleon.js:47
+#: chromaleon.js:153
 msgid "Main color"
 msgstr "Kolor główny"
 
-#: chromaleon.js:70
+#: chromaleon.js:176
 msgid "Wallpaper Colors"
 msgstr "Kolory tła"
 
-#: chromaleon.js:72
+#: chromaleon.js:178
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr "System automatycznie zaktualizuje kolor wyróżnienia bazując na tle."
 
-#: chromaleon.js:78
+#: chromaleon.js:213
+msgid "Additional colors"
+msgstr "Dodatkowe kolory"
+
+#: chromaleon.js:250
+msgid "Add wallpapers"
+msgstr "Dodaj tła"
+
+#: chromaleon.js:264
+msgid "Wallpapers"
+msgstr "Tła"
+
+#: chromaleon.js:287
 msgid "Tint Gnome"
 msgstr "Przyciemnienie powłoki GNOME"
 
-#: chromaleon.js:79
+#: chromaleon.js:288
 msgid "Based on Tint my Gnome"
 msgstr "Bazuje na Tint my GNOME"
 
-#: chromaleon.js:84
-msgid "Icon Theme"
-msgstr "Kolory ikon"
-
-#: chromaleon.js:89
-msgid "Folder icon theme"
-msgstr "Kolory katalogów"
-
-#: chromaleon.js:90
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:40
-msgid "Applies the accent color to folder icons."
-msgstr "Stosuje kolor wyróżnienia do ikon katalogów."
-
-#: chromaleon.js:98
-msgid "Application icon theme"
-msgstr "Kolory ikon aplikacji"
-
-#: chromaleon.js:99
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:45
-msgid "Applies the accent color to some app icons."
-msgstr "Zmienia kolory ikon niektórych aplikacji."
-
-#: chromaleon.js:107
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:49
-msgid "MoreWaita"
-msgstr "Ikony MoreWaita"
-
-#: chromaleon.js:108
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:51
-msgid "Applies integration with the MoreWaita icon pack."
-msgstr "Stosuje integrację z paczką ikon MoreWaita."
-
-#: chromaleon.js:152
-msgid "Miscellaneous"
-msgstr "Różne"
-
-#: chromaleon.js:157
+#: chromaleon.js:293
 msgid "Tint shell"
 msgstr "Przyciemnij powłokę"
 
-#: chromaleon.js:158
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:23
+#: chromaleon.js:294
 msgid "Tints the Gnome Shell with the color of your choice."
 msgstr "Przyciemnia powłokę GNOME kolorem, który został wybrany."
 
-#: chromaleon.js:166
+#: chromaleon.js:302
 msgid "Tint apps"
 msgstr "Przyciemnij aplikacje"
 
-#: chromaleon.js:168
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:29
+#: chromaleon.js:304
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr ""
 "Przyciemnia aplikacje bazujące na LibAdwaita kolorem, który został wybrany."
 
-#: chromaleon.js:191
+#: chromaleon.js:327
+msgid "Icon Theme"
+msgstr "Kolory ikon"
+
+#: chromaleon.js:332
+msgid "Folder icon theme"
+msgstr "Kolory katalogów"
+
+#: chromaleon.js:333
+msgid "Applies the accent color to folder icons."
+msgstr "Stosuje kolor wyróżnienia do ikon katalogów."
+
+#: chromaleon.js:341
+msgid "Application icon theme"
+msgstr "Kolory ikon aplikacji"
+
+#: chromaleon.js:342
+msgid "Applies the accent color to some app icons."
+msgstr "Zmienia kolory ikon niektórych aplikacji."
+
+#: chromaleon.js:350
+msgid "MoreWaita"
+msgstr "Ikony MoreWaita"
+
+#: chromaleon.js:351
+msgid "Applies integration with the MoreWaita icon pack."
+msgstr "Stosuje integrację z paczką ikon MoreWaita."
+
+#: chromaleon.js:394
+msgid "Miscellaneous"
+msgstr "Różne"
+
+#: chromaleon.js:399
 msgid "Apply to Flatpaks"
 msgstr "Zastosuj do aplikacji typu Flatpak"
 
-#: chromaleon.js:193
+#: chromaleon.js:401
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 "Zezwól aplikacjom typu Flatpak na dostęp do własnego koloru wyróżnienia."
 
-#: chromaleon.js:201
+#: chromaleon.js:409
 msgid "Enable shortcut"
 msgstr "Włącz skrót"
 
-#: chromaleon.js:203
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:17
+#: chromaleon.js:411
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Tworzy skrót do aplikacji na liście aplikacji poprzez dodanie pliku .desktop."
 
-#: chromaleon.js:352
-msgid "Additional colors"
-msgstr "Dodatkowe kolory"
+#: chromaleon.js:576
+msgid "Wallpaper deleted successfully!"
+msgstr "Pomyślnie usunięto tło!"
 
-#: chromaleon.js:520
+#: chromaleon.js:583
+msgid "Failed to delete wallpaper"
+msgstr "Błąd podczas usuwania tła"
+
+#: chromaleon.js:590
+msgid "Select a Wallpaper"
+msgstr "Wybierz tło"
+
+#: chromaleon.js:592
+msgid "_Open"
+msgstr "Otwórz"
+
+#: chromaleon.js:593
+msgid "_Cancel"
+msgstr "Anuluj"
+
+#: chromaleon.js:598
+msgid "All Images"
+msgstr "Wszystkie obrazy"
+
+#: chromaleon.js:625
+msgid "Wallpaper already exists!"
+msgstr "Tło już istnieje!"
+
+#: chromaleon.js:641
+msgid "Wallpaper added successfully!"
+msgstr "Pomyślnie dodano tło!"
+
+#: chromaleon.js:1091
 msgid "Unable to load colors."
 msgstr "Nie można załadować kolorów."
 
-#: chromaleon.js:661
+#: chromaleon.js:1233 chromaleon.js:1258
+msgid "Support"
+msgstr "Wesprzyj"
+
+#: chromaleon.js:1245
 msgid "Support the project"
 msgstr "Wesprzyj projekt"
 
-#: chromaleon.js:673
+#: chromaleon.js:1251
 msgid "Why support ChromaLeon?"
 msgstr "Dlaczego wesprzeć ChromaLeon?"
 
-#: chromaleon.js:675
+#: chromaleon.js:1253
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -146,46 +191,6 @@ msgstr ""
 "i zaangażowanie deweloperów. Twój datek bezpośrednio wspiera ten projekt, i "
 "pomaga utrzymywać go aktywnym!"
 
-#: chromaleon.js:679
+#: chromaleon.js:1257
 msgid "Cancel"
 msgstr "Anuluj"
-
-#: chromaleon.js:680
-msgid "Support"
-msgstr "Wesprzyj"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:11
-msgid "The custom color applied to GNOME Shell and GTK elements."
-msgstr "Zastosowano własny kolor do Powłoki GNOME i elementów interfejsu GTK."
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:15
-msgid "Create Shortcut"
-msgstr "Stwórz skrót"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:21
-msgid "Tint Shell"
-msgstr "Przyciemnij powłokę"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:27
-msgid "Tint Apps"
-msgstr "Przyciemnij aplikacje"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:33
-msgid "Custom Color"
-msgstr "Własny kolor"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:35
-msgid ""
-"Controls the status of applied colors, in case the user has applied a custom "
-"color."
-msgstr ""
-"Kontroluje stan zastosowanych kolorów, w przypadku gdy użytkownik zastosował "
-"własny kolor."
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:39
-msgid "Recolor Folders"
-msgstr "Zmień kolory katalogów"
-
-#: schemas/org.gnome.shell.extensions.chromaleon.gschema.xml:44
-msgid "Recolor Apps"
-msgstr "Zmień kolory aplikacji"
