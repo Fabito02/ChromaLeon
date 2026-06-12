@@ -42,17 +42,18 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 ## Translation
 
 <div align="center">
-  <h3>Help Translate ChromaLeon</h3>
-  <p>Contribute to making the project accessible in your language via Weblate!</p>
+  <div>
+    <a href="https://hosted.weblate.org/engage/chromaleon/">
+      <img src="https://github.com/user-attachments/assets/167726c7-481c-4492-bbb4-1c1346ab7c5a" alt="Weblate Logo" width="100" style="vertical-align: middle; margin-right: 20px;" />
+    </a>
+    <h3>Help Translate ChromaLeon</h3>
+    <p>Contribute to making the project accessible in your language via Weblate!</p>
+  </div>
   
   <br />
-
-  <a href="https://hosted.weblate.org/engage/chromaleon/">
-    <img src="https://github.com/user-attachments/assets/167726c7-481c-4492-bbb4-1c1346ab7c5a" alt="Weblate Logo" width="140" style="vertical-align: middle; margin-right: 20px;" />
-  </a>
   
   <a href="https://hosted.weblate.org/engage/chromaleon/">
-    <img src="https://hosted.weblate.org/widget/chromaleon/multi-auto.svg" alt="Translation Status" height="300" style="vertical-align: middle;" />
+    <img src="https://hosted.weblate.org/widget/chromaleon/multi-auto.svg" alt="Translation Status" style="vertical-align: middle;" />
   </a>
 </div>
 
