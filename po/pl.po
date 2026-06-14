@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-12 16:58-0300\n"
-"PO-Revision-Date: 2026-06-14 06:01+0000\n"
-"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
+"PO-Revision-Date: 2026-06-14 12:02+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -150,11 +151,11 @@ msgstr "Wybierz tło"
 
 #: chromaleon.js:592
 msgid "_Open"
-msgstr "Otwórz"
+msgstr "_Otwórz"
 
 #: chromaleon.js:593
 msgid "_Cancel"
-msgstr "Anuluj"
+msgstr "_Anuluj"
 
 #: chromaleon.js:598
 msgid "All Images"
