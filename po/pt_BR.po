@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-14 19:33-0300\n"
+"POT-Creation-Date: 2026-06-14 19:49-0300\n"
 "PO-Revision-Date: 2026-06-14 22:51+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -87,8 +87,9 @@ msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Tingir os aplicativos LibAdwaita com a cor de sua escolha."
 
 #: chromaleon.js:313
+#, fuzzy
 msgid ""
-"Also tint the gtk3 apps (the {0} extension and the {1} theme are required to "
+"Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)"
 msgstr ""
 "Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são necessários "
@@ -147,7 +148,8 @@ msgstr "Habilitar atalho"
 
 #: chromaleon.js:447
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
+msgstr ""
+"Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
 #: chromaleon.js:616
 msgid "Wallpaper deleted successfully!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-14 19:33-0300\n"
+"POT-Creation-Date: 2026-06-14 19:49-0300\n"
 "PO-Revision-Date: 2026-06-14 22:43+0000\n"
 "Last-Translator: Hosted Weblate user 154595 "
 "<fz053@users.noreply.hosted.weblate.org>\n"
@@ -34,7 +34,8 @@ msgstr "Akzentfarbe"
 
 #: chromaleon.js:149
 msgid "New colors only apply when apps are reopened."
-msgstr "Neue Farben werden erst bei erneutem Öffnen von Anwendungen angewendet."
+msgstr ""
+"Neue Farben werden erst bei erneutem Öffnen von Anwendungen angewendet."
 
 #: chromaleon.js:153
 msgid "Main color"
@@ -89,7 +90,7 @@ msgstr "Färbt die LibAdwaita-Anwendungen in den von dir gewählten Farben."
 
 #: chromaleon.js:313
 msgid ""
-"Also tint the gtk3 apps (the {0} extension and the {1} theme are required to "
+"Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)"
 msgstr ""
 
@@ -145,8 +146,8 @@ msgstr "Tastenkürzel aktivieren"
 #: chromaleon.js:447
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
-"Erstelle eine Verknüpfung im Anwendungsraster durch das Hinzufügen einer "
-".desktop Datei."
+"Erstelle eine Verknüpfung im Anwendungsraster durch das Hinzufügen "
+"einer .desktop Datei."
 
 #: chromaleon.js:616
 msgid "Wallpaper deleted successfully!"
