@@ -310,7 +310,7 @@ class ChromaLeonUI {
     tintGnomeGroup.add(TintAppsRow);
 
     let msg = _(
-      "Also tint the gtk3 apps (the {0} extension and the {1} theme are required to avoid bugs)",
+      "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to avoid bugs)",
     );
 
     let extension_link =
