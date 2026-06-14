@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-14 19:33-0300\n"
-"PO-Revision-Date: 2026-06-14 22:43+0000\n"
+"PO-Revision-Date: 2026-06-14 22:51+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
 "\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -91,6 +91,8 @@ msgid ""
 "Also tint the gtk3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)"
 msgstr ""
+"Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são necessários "
+"para evitar erros)."
 
 #: chromaleon.js:326
 #, fuzzy
