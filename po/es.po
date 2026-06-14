@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-14 19:49-0300\n"
+"POT-Creation-Date: 2026-06-14 20:01-0300\n"
 "PO-Revision-Date: 2026-06-14 22:43+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa "
 "<fabianojuniorlimaba2@gmail.com>\n"
@@ -92,7 +92,7 @@ msgstr "Tiñe las aplicaciones LibAdwaita con el color de su elección."
 #: chromaleon.js:313
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
-"avoid bugs)"
+"avoid bugs)."
 msgstr ""
 
 #: chromaleon.js:326
