@@ -309,6 +309,28 @@ class ChromaLeonUI {
     TintAppsRow.add_suffix(TintAppsSwitch);
     tintGnomeGroup.add(TintAppsRow);
 
+    let msg = _(
+      "Also tint the gtk3 apps (the {0} extension and the {1} theme are required to avoid bugs)",
+    );
+
+    let extension_link =
+      '<a href="https://extensions.gnome.org/extension/4998/legacy-gtk3-theme-scheme-auto-switcher/">"Legacy (GTK3) Theme Scheme Auto Switcher"</a>';
+    let theme_link =
+      '<a href="https://github.com/lassekongo83/adw-gtk3">"adw-gtk3"</a>';
+
+    let subtitle_gtk3 = msg
+      .replace("{0}", extension_link)
+      .replace("{1}", theme_link);
+
+    const TintGTK3AppsRow = new Adw.ActionRow({
+      title: _("Tint GTK3 Apps"),
+      subtitle: subtitle_gtk3,
+    });
+
+    const TintGTK3AppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    TintGTK3AppsRow.add_suffix(TintGTK3AppsSwitch);
+    tintGnomeGroup.add(TintGTK3AppsRow);
+
     this._settings.bind(
       "tint-shell",
       TintShellSwitch,
@@ -321,6 +343,20 @@ class ChromaLeonUI {
       TintAppsSwitch,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "tint-gtk3",
+      TintGTK3AppsSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    TintAppsSwitch.bind_property(
+      "active",
+      TintGTK3AppsSwitch,
+      "sensitive",
+      GObject.BindingFlags.SYNC_CREATE,
     );
 
     const iconThemeGroup = new Adw.PreferencesGroup({
@@ -502,6 +538,10 @@ class ChromaLeonUI {
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
       );
       TintShellSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
+      TintGTK3AppsSwitch.get_style_context().add_provider(
         cssProvider,
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
       );

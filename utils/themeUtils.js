@@ -119,7 +119,13 @@ export function updateShellStylesheet(
   });
 }
 
-export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
+export function updateGtkStylesheet(
+  extensionPath,
+  color,
+  tinted,
+  isDark,
+  tintGTK3,
+) {
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
@@ -134,25 +140,25 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
     `${extensionPath}/templates/gtk4_tinted.template.css`,
   );
 
+  const writeAccentFile = (accentFile, content) => {
+    accentFile.replace_contents_async(
+      new TextEncoder().encode(content),
+      null,
+      false,
+      Gio.FileCreateFlags.REPLACE_DESTINATION,
+      null,
+      (f, r) => {
+        try {
+          f.replace_contents_finish(r);
+        } catch (e) {}
+      },
+    );
+  };
+
   const gtk4 = () => {
     let dirPath = `${configDir}/gtk-4.0`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-
-    const writeAccentFile = (content) => {
-      accentFile.replace_contents_async(
-        new TextEncoder().encode(content),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
-        (f, r) => {
-          try {
-            f.replace_contents_finish(r);
-          } catch (e) {}
-        },
-      );
-    };
 
     if (tinted) {
       tintedGtk4Style.load_contents_async(null, (file, res) => {
@@ -162,11 +168,11 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
 
           let template = new TextDecoder().decode(contents);
           let css = template.replace(/@@ACCENT@@/g, color);
-          writeAccentFile(`${cssVars}\n${css}`);
+          writeAccentFile(accentFile, `${cssVars}\n${css}`);
         } catch (e) {}
       });
     } else {
-      writeAccentFile(cssVars);
+      writeAccentFile(accentFile, cssVars);
     }
 
     const writeMainFile = (content) => {
@@ -204,22 +210,7 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
 
-    const writeAccentFile = (content) => {
-      accentFile.replace_contents_async(
-        new TextEncoder().encode(content),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
-        (f, r) => {
-          try {
-            f.replace_contents_finish(r);
-          } catch (e) {}
-        },
-      );
-    };
-
-    if (tinted) {
+    if (tinted && tintGTK3) {
       if (isDark) {
         tintedGtk3DarkStyle.load_contents_async(null, (file, res) => {
           try {
@@ -228,7 +219,7 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
 
             let template = new TextDecoder().decode(contents);
             let css = template.replace(/@@ACCENT@@/g, color);
-            writeAccentFile(`${cssVars}\n${css}`);
+            writeAccentFile(accentFile, `${cssVars}\n${css}`);
           } catch (e) {}
         });
       } else {
@@ -238,13 +229,15 @@ export function updateGtkStylesheet(extensionPath, color, tinted, isDark) {
             if (!ok) return;
 
             let template = new TextDecoder().decode(contents);
+
             let css = template.replace(/@@ACCENT@@/g, color);
-            writeAccentFile(`${cssVars}\n${css}`);
+
+            writeAccentFile(accentFile, `${cssVars}\n${css}`);
           } catch (e) {}
         });
       }
     } else {
-      writeAccentFile(cssVars);
+      writeAccentFile(accentFile, cssVars);
     }
 
     const writeMainFile = (content) => {

@@ -28,6 +28,12 @@
       <description
             >Tints the LibAdwaita applications with the color of your choice.</description>
     </key>
+    <key name="tint-gtk3" type="b">
+      <default>false</default>
+      <summary>Tint GTK3 Apps</summary>
+      <description
+            >Tints the GTK3 applications with the color of your choice.</description>
+    </key>
     <key name="custom-color" type="b">
       <default>false</default>
       <summary>Custom Color</summary>

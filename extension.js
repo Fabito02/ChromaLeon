@@ -55,6 +55,8 @@ export default class CustomAccentExtension extends Extension {
       () => this._updateStyles(),
       "changed::tint-apps",
       () => this._updateStyles(),
+      "changed::tint-gtk3",
+      () => this._updateStyles(),
       this,
     );
 
@@ -185,6 +187,7 @@ export default class CustomAccentExtension extends Extension {
 
   _updateStyles(updateIcons) {
     let color = this._settings.get_string("accent-color");
+    let gtk3 = this._settings.get_boolean("tint-gtk3");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
     const lightStyle = sessionMode.colorScheme;
@@ -206,7 +209,7 @@ export default class CustomAccentExtension extends Extension {
       tintShell,
     );
 
-    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark);
+    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3);
 
     updateIcons && this._updateIconPack();
   }
