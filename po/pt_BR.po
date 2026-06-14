@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-14 20:01-0300\n"
-"PO-Revision-Date: 2026-06-14 22:51+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-06-14 23:07+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -87,7 +87,6 @@ msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Tingir os aplicativos LibAdwaita com a cor de sua escolha."
 
 #: chromaleon.js:313
-#, fuzzy
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
@@ -96,9 +95,8 @@ msgstr ""
 "para evitar erros)."
 
 #: chromaleon.js:326
-#, fuzzy
 msgid "Tint GTK3 Apps"
-msgstr "Tingir Aplicativos"
+msgstr "Tingir Aplicativos GTK3"
 
 #: chromaleon.js:363
 msgid "Icon Theme"
