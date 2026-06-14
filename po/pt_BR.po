@@ -210,3 +210,11 @@ msgstr ""
 #: chromaleon.js:1297
 msgid "Cancel"
 msgstr "Cancelar"
+
+#: chromaleon.js:313
+msgid ""
+"Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
+"avoid bugs)"
+msgstr ""
+"Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são necessários "
+"para evitar erros)"
