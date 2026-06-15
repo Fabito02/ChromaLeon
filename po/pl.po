@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-14 20:01-0300\n"
-"PO-Revision-Date: 2026-06-14 22:43+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-06-16 18:01+0000\n"
+"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -92,11 +91,12 @@ msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
+"Przyciemnia również aplikacje GTK3 (rozszerzenie {0} oraz motyw {1} są "
+"wymagane, w celu uniknięcia błędów)."
 
 #: chromaleon.js:326
-#, fuzzy
 msgid "Tint GTK3 Apps"
-msgstr "Przyciemnij aplikacje"
+msgstr "Przyciemnij aplikacje GTK3"
 
 #: chromaleon.js:363
 msgid "Icon Theme"
