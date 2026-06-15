@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-14 20:01-0300\n"
-"PO-Revision-Date: 2026-06-14 22:43+0000\n"
+"PO-Revision-Date: 2026-06-15 17:32+0000\n"
 "Last-Translator: Hosted Weblate user 154595 "
 "<fz053@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
@@ -93,10 +93,12 @@ msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
+"Auch GTK3-Anwendungen einfärben (die {0}-Erweiterung und das {1}-Design "
+"werden benötigt um Fehler zu verhindern)."
 
 #: chromaleon.js:326
 msgid "Tint GTK3 Apps"
-msgstr ""
+msgstr "GTK3-Anwendungen einfärben"
 
 #: chromaleon.js:363
 msgid "Icon Theme"
