@@ -444,7 +444,7 @@ class ChromaLeonUI {
     const firefoxRow = new Adw.ActionRow({
       title: _("Enable Firefox support"),
       subtitle: _(
-        "Matches Firefox and some derivatives colors with your system accent color instead of GNOME defaults",
+        "Matches Firefox and some derivatives colors with your system accent color instead of GNOME defaults.",
       ),
     });
 
