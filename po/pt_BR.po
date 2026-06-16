@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-14 20:01-0300\n"
+"POT-Creation-Date: 2026-06-16 18:46-0300\n"
 "PO-Revision-Date: 2026-06-14 23:07+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -141,63 +141,91 @@ msgstr ""
 "personalizadas."
 
 #: chromaleon.js:445
+msgid "Enable Firefox support"
+msgstr ""
+
+#: chromaleon.js:447
+msgid ""
+"Matches Firefox and some derivatives colors with your system accent color "
+"instead of GNOME defaults"
+msgstr ""
+
+#: chromaleon.js:472
+msgid "Disable Firefox accent theme?"
+msgstr ""
+
+#: chromaleon.js:474
+msgid ""
+"Firefox needs to close to apply this change. Please ensure any unsaved work "
+"is saved."
+msgstr ""
+
+#: chromaleon.js:478 chromaleon.js:1356
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: chromaleon.js:479
+msgid "Continue"
+msgstr ""
+
+#: chromaleon.js:500
 msgid "Enable shortcut"
 msgstr "Habilitar atalho"
 
-#: chromaleon.js:447
+#: chromaleon.js:502
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
-#: chromaleon.js:616
+#: chromaleon.js:675
 msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo deletado com sucesso!"
 
-#: chromaleon.js:623
+#: chromaleon.js:682
 msgid "Failed to delete wallpaper"
 msgstr "Falha ao deletar plano de fundo"
 
-#: chromaleon.js:630
+#: chromaleon.js:689
 msgid "Select a Wallpaper"
 msgstr "Selecionar um plano de fundo"
 
-#: chromaleon.js:632
+#: chromaleon.js:691
 msgid "_Open"
 msgstr "Abrir"
 
-#: chromaleon.js:633
+#: chromaleon.js:692
 msgid "_Cancel"
 msgstr "Cancelar"
 
-#: chromaleon.js:638
+#: chromaleon.js:697
 msgid "All Images"
 msgstr "Todas as imagens"
 
-#: chromaleon.js:665
+#: chromaleon.js:724
 msgid "Wallpaper already exists!"
 msgstr "Plano de fundo já existe!"
 
-#: chromaleon.js:681
+#: chromaleon.js:740
 msgid "Wallpaper added successfully!"
 msgstr "Plano de fundo adicionado com sucesso!"
 
-#: chromaleon.js:1131
+#: chromaleon.js:1190
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:1273 chromaleon.js:1298
+#: chromaleon.js:1332 chromaleon.js:1357
 msgid "Support"
 msgstr "Apoiar"
 
-#: chromaleon.js:1285
+#: chromaleon.js:1344
 msgid "Support the project"
 msgstr "Apoie o projeto"
 
-#: chromaleon.js:1291
+#: chromaleon.js:1350
 msgid "Why support ChromaLeon?"
 msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:1293
+#: chromaleon.js:1352
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -205,14 +233,9 @@ msgstr ""
 "Desenvolver software livre requer tempo, energia e dedicação. Sua doação "
 "apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
-#: chromaleon.js:1297
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: chromaleon.js:313
-msgid ""
-"Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
-"avoid bugs)"
-msgstr ""
-"Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são necessários "
-"para evitar erros)"
+#~ msgid ""
+#~ "Also tint the GTK3 apps (the {0} extension and the {1} theme are required "
+#~ "to avoid bugs)"
+#~ msgstr ""
+#~ "Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são "
+#~ "necessários para evitar erros)"
