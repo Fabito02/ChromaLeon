@@ -403,6 +403,9 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   const hicolorApps = "/usr/share/icons/hicolor/scalable/apps";
   const userHicolorApps = `${homeDir}/.local/share/icons/hicolor/scalable/apps`;
+  const flatpakSysApps =
+    "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps";
+  const flatpakUserApps = `${homeDir}/.local/share/flatpak/exports/share/icons/hicolor/scalable/apps`;
 
   const appsToRecolor = [
     "org.gnome.Calculator.svg",
@@ -432,13 +435,22 @@ export async function applyAccentTheme(baseColor, options = {}) {
     for (let app of appsToRecolor) {
       const userAppFile = Gio.File.new_for_path(`${userHicolorApps}/${app}`);
       const sysAppFile = Gio.File.new_for_path(`${hicolorApps}/${app}`);
+      const flatpakSysFile = Gio.File.new_for_path(`${flatpakSysApps}/${app}`);
+      const flatpakUserFile = Gio.File.new_for_path(
+        `${flatpakUserApps}/${app}`,
+      );
       const destFile = appsDestDir.get_child(app);
 
       let sourceFile = null;
+
       if (userAppFile.query_exists(null)) {
         sourceFile = userAppFile;
       } else if (sysAppFile.query_exists(null)) {
         sourceFile = sysAppFile;
+      } else if (flatpakUserFile.query_exists(null)) {
+        sourceFile = flatpakUserFile;
+      } else if (flatpakSysFile.query_exists(null)) {
+        sourceFile = flatpakSysFile;
       }
 
       if (sourceFile) {

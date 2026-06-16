@@ -22,6 +22,7 @@ import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
+import * as FirefoxUtils from "./utils/firefoxUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 
 export default class CustomAccentExtension extends Extension {
@@ -50,7 +51,10 @@ export default class CustomAccentExtension extends Extension {
 
     this._settings.connectObject(
       "changed::accent-color",
-      () => this._settings.get_boolean("recolor-folders") ? this._updateStyles(true) : this._updateStyles(),
+      () =>
+        this._settings.get_boolean("recolor-folders")
+          ? this._updateStyles(true, true)
+          : this._updateStyles(),
       "changed::tint-shell",
       () => this._updateStyles(),
       "changed::tint-apps",
@@ -67,6 +71,8 @@ export default class CustomAccentExtension extends Extension {
       () => this._updateIconPack(),
       "changed::morewaita",
       () => this._updateIconPack(),
+      "changed::firefox",
+      () => this._updateFirefox(),
       this,
     );
 
@@ -122,6 +128,7 @@ export default class CustomAccentExtension extends Extension {
     ThemeUtils.removeGtkStylesheet();
 
     FileUtils.removeDesktopFile();
+    FirefoxUtils.applyFirefoxThemeState(null, true);
 
     this._settings = null;
     this._bgSettings = null;
@@ -185,7 +192,18 @@ export default class CustomAccentExtension extends Extension {
     ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita, this);
   }
 
-  _updateStyles(updateIcons) {
+  _updateFirefox() {
+    let firefox = this._settings.get_boolean("firefox");
+    let accent = this._settings.get_string("accent-color");
+
+    if (firefox) {
+      FirefoxUtils.applyFirefoxThemeState(accent, false);
+    } else {
+      FirefoxUtils.applyFirefoxThemeState(null, true);
+    }
+  }
+
+  _updateStyles(updateIcons, updateFirefox) {
     let color = this._settings.get_string("accent-color");
     let gtk3 = this._settings.get_boolean("tint-gtk3");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
@@ -212,6 +230,7 @@ export default class CustomAccentExtension extends Extension {
     ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3);
 
     updateIcons && this._updateIconPack();
+    updateFirefox && this._updateFirefox();
   }
 
   _updateShellStyles() {

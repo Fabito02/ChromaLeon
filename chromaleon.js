@@ -441,12 +441,68 @@ class ChromaLeonUI {
     flatpakRow.add_suffix(flatpakSwitch);
     miscellaneousGroup.add(flatpakRow);
 
+    const firefoxRow = new Adw.ActionRow({
+      title: _("Enable Firefox support"),
+      subtitle: _(
+        "Matches Firefox and some derivatives colors with your system accent color instead of GNOME defaults",
+      ),
+    });
+
+    const firefoxSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+
+    let operacaoInterna = false;
+
+    operacaoInterna = true;
+    firefoxSwitch.set_active(this._settings.get_boolean("firefox"));
+    operacaoInterna = false;
+
+    firefoxRow.add_suffix(firefoxSwitch);
+    miscellaneousGroup.add(firefoxRow);
+
+    firefoxSwitch.connect("notify::active", () => {
+      if (operacaoInterna) return;
+
+      let active = firefoxSwitch.active;
+
+      if (active) {
+        this._settings.set_boolean("firefox", true);
+      } else {
+        const dialog = new Adw.MessageDialog({
+          transient_for: window,
+          heading: _("Disable Firefox accent theme?"),
+          body: _(
+            "Firefox needs to close to apply this change. Please ensure any unsaved work is saved.",
+          ),
+          close_response: "cancel",
+        });
+        dialog.add_response("cancel", _("Cancel"));
+        dialog.add_response("continue", _("Continue"));
+        dialog.set_response_appearance(
+          "continue",
+          Adw.ResponseAppearance.SUGGESTED,
+        );
+
+        dialog.connect("response", (d, response) => {
+          if (response === "continue") {
+            this._settings.set_boolean("firefox", false);
+          } else {
+            operacaoInterna = true;
+            firefoxSwitch.set_active(true);
+            operacaoInterna = false;
+          }
+          d.destroy();
+        });
+        dialog.present();
+      }
+    });
+
     const shortcutRow = new Adw.ActionRow({
       title: _("Enable shortcut"),
       subtitle: _(
         "Create a shortcut in the app grid by adding a .desktop file.",
       ),
     });
+
     const shortcutSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
     shortcutRow.add_suffix(shortcutSwitch);
     miscellaneousGroup.add(shortcutRow);
@@ -549,6 +605,9 @@ class ChromaLeonUI {
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       shortcutSwitch
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      firefoxSwitch
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       iconThemeFolderSwitch
