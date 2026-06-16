@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-16 18:55-0300\n"
-"PO-Revision-Date: 2026-06-14 23:07+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-06-17 22:01+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -142,23 +142,27 @@ msgstr ""
 
 #: chromaleon.js:445
 msgid "Enable Firefox support"
-msgstr ""
+msgstr "Habilitar suporte ao Firefox"
 
 #: chromaleon.js:447
 msgid ""
 "Matches Firefox and some derivatives colors with your system accent color "
 "instead of GNOME defaults."
 msgstr ""
+"Combina as cores do Firefox e de alguns derivados com a cor de destaque do "
+"seu sistema em vez dos padrões do GNOME."
 
 #: chromaleon.js:472
 msgid "Disable Firefox accent theme?"
-msgstr ""
+msgstr "Desativar o tema do Firefox com sua cor destaque?"
 
 #: chromaleon.js:474
 msgid ""
 "Firefox needs to close to apply this change. Please ensure any unsaved work "
 "is saved."
 msgstr ""
+"O Firefox precisa fechar par aplicar essa alteração. Por favor, certifique-"
+"se de que seu trabalho esteja salvo."
 
 #: chromaleon.js:478 chromaleon.js:1356
 msgid "Cancel"
@@ -166,7 +170,7 @@ msgstr "Cancelar"
 
 #: chromaleon.js:479
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: chromaleon.js:500
 msgid "Enable shortcut"
