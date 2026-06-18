@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 18:55-0300\n"
+"POT-Creation-Date: 2026-06-18 03:00-0300\n"
 "PO-Revision-Date: 2026-06-16 18:01+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
@@ -140,91 +140,63 @@ msgstr ""
 "Zezwól aplikacjom typu Flatpak na dostęp do własnego koloru wyróżnienia."
 
 #: chromaleon.js:445
-msgid "Enable Firefox support"
-msgstr ""
-
-#: chromaleon.js:447
-msgid ""
-"Matches Firefox and some derivatives colors with your system accent color "
-"instead of GNOME defaults."
-msgstr ""
-
-#: chromaleon.js:472
-msgid "Disable Firefox accent theme?"
-msgstr ""
-
-#: chromaleon.js:474
-msgid ""
-"Firefox needs to close to apply this change. Please ensure any unsaved work "
-"is saved."
-msgstr ""
-
-#: chromaleon.js:478 chromaleon.js:1356
-msgid "Cancel"
-msgstr "Anuluj"
-
-#: chromaleon.js:479
-msgid "Continue"
-msgstr ""
-
-#: chromaleon.js:500
 msgid "Enable shortcut"
 msgstr "Włącz skrót"
 
-#: chromaleon.js:502
+#: chromaleon.js:447
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Tworzy skrót do aplikacji na liście aplikacji poprzez dodanie pliku .desktop."
 
-#: chromaleon.js:675
+#: chromaleon.js:617
 msgid "Wallpaper deleted successfully!"
 msgstr "Pomyślnie usunięto tło!"
 
-#: chromaleon.js:682
+#: chromaleon.js:624
 msgid "Failed to delete wallpaper"
 msgstr "Błąd podczas usuwania tła"
 
-#: chromaleon.js:689
+#: chromaleon.js:631
 msgid "Select a Wallpaper"
 msgstr "Wybierz tło"
 
-#: chromaleon.js:691
+#: chromaleon.js:633
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: chromaleon.js:692
+#: chromaleon.js:634
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: chromaleon.js:697
+#: chromaleon.js:639
 msgid "All Images"
 msgstr "Wszystkie obrazy"
 
-#: chromaleon.js:724
+#: chromaleon.js:666
 msgid "Wallpaper already exists!"
 msgstr "Tło już istnieje!"
 
-#: chromaleon.js:740
+#: chromaleon.js:682
 msgid "Wallpaper added successfully!"
 msgstr "Pomyślnie dodano tło!"
 
-#: chromaleon.js:1190
+#: chromaleon.js:1132
 msgid "Unable to load colors."
 msgstr "Nie można załadować kolorów."
 
-#: chromaleon.js:1332 chromaleon.js:1357
+#: chromaleon.js:1274 chromaleon.js:1299
 msgid "Support"
 msgstr "Wesprzyj"
 
-#: chromaleon.js:1344
+#: chromaleon.js:1286
 msgid "Support the project"
 msgstr "Wesprzyj projekt"
 
-#: chromaleon.js:1350
+#: chromaleon.js:1292
 msgid "Why support ChromaLeon?"
 msgstr "Dlaczego wesprzeć ChromaLeon?"
 
-#: chromaleon.js:1352
+#: chromaleon.js:1294
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -232,3 +204,7 @@ msgstr ""
 "Rozwijanie darmowego oprogramowania to często poświęcony wolny czas, energia "
 "i zaangażowanie deweloperów. Twój datek bezpośrednio wspiera ten projekt, i "
 "pomaga utrzymywać go aktywnym!"
+
+#: chromaleon.js:1298
+msgid "Cancel"
+msgstr "Anuluj"

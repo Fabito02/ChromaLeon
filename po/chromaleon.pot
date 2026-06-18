@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 18:55-0300\n"
+"POT-Creation-Date: 2026-06-18 03:00-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,91 +133,67 @@ msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
 #: chromaleon.js:445
-msgid "Enable Firefox support"
-msgstr ""
-
-#: chromaleon.js:447
-msgid ""
-"Matches Firefox and some derivatives colors with your system accent color "
-"instead of GNOME defaults."
-msgstr ""
-
-#: chromaleon.js:472
-msgid "Disable Firefox accent theme?"
-msgstr ""
-
-#: chromaleon.js:474
-msgid ""
-"Firefox needs to close to apply this change. Please ensure any unsaved work "
-"is saved."
-msgstr ""
-
-#: chromaleon.js:478 chromaleon.js:1356
-msgid "Cancel"
-msgstr ""
-
-#: chromaleon.js:479
-msgid "Continue"
-msgstr ""
-
-#: chromaleon.js:500
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:502
+#: chromaleon.js:447
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:675
+#: chromaleon.js:617
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: chromaleon.js:682
+#: chromaleon.js:624
 msgid "Failed to delete wallpaper"
 msgstr ""
 
-#: chromaleon.js:689
+#: chromaleon.js:631
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: chromaleon.js:691
+#: chromaleon.js:633
 msgid "_Open"
 msgstr ""
 
-#: chromaleon.js:692
+#: chromaleon.js:634
 msgid "_Cancel"
 msgstr ""
 
-#: chromaleon.js:697
+#: chromaleon.js:639
 msgid "All Images"
 msgstr ""
 
-#: chromaleon.js:724
+#: chromaleon.js:666
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: chromaleon.js:740
+#: chromaleon.js:682
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: chromaleon.js:1190
+#: chromaleon.js:1132
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:1332 chromaleon.js:1357
+#: chromaleon.js:1274 chromaleon.js:1299
 msgid "Support"
 msgstr ""
 
-#: chromaleon.js:1344
+#: chromaleon.js:1286
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:1350
+#: chromaleon.js:1292
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:1352
+#: chromaleon.js:1294
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
+msgstr ""
+
+#: chromaleon.js:1298
+msgid "Cancel"
 msgstr ""

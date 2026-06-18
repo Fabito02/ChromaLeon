@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 18:55-0300\n"
+"POT-Creation-Date: 2026-06-18 03:00-0300\n"
 "PO-Revision-Date: 2026-06-17 22:01+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -141,101 +141,96 @@ msgstr ""
 "personalizadas."
 
 #: chromaleon.js:445
-msgid "Enable Firefox support"
-msgstr "Habilitar suporte ao Firefox"
-
-#: chromaleon.js:447
-msgid ""
-"Matches Firefox and some derivatives colors with your system accent color "
-"instead of GNOME defaults."
-msgstr ""
-"Combina as cores do Firefox e de alguns derivados com a cor de destaque do "
-"seu sistema em vez dos padrões do GNOME."
-
-#: chromaleon.js:472
-msgid "Disable Firefox accent theme?"
-msgstr "Desativar o tema do Firefox com sua cor destaque?"
-
-#: chromaleon.js:474
-msgid ""
-"Firefox needs to close to apply this change. Please ensure any unsaved work "
-"is saved."
-msgstr ""
-"O Firefox precisa fechar par aplicar essa alteração. Por favor, certifique-"
-"se de que seu trabalho esteja salvo."
-
-#: chromaleon.js:478 chromaleon.js:1356
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: chromaleon.js:479
-msgid "Continue"
-msgstr "Continuar"
-
-#: chromaleon.js:500
 msgid "Enable shortcut"
 msgstr "Habilitar atalho"
 
-#: chromaleon.js:502
+#: chromaleon.js:447
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
-#: chromaleon.js:675
+#: chromaleon.js:617
 msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo deletado com sucesso!"
 
-#: chromaleon.js:682
+#: chromaleon.js:624
 msgid "Failed to delete wallpaper"
 msgstr "Falha ao deletar plano de fundo"
 
-#: chromaleon.js:689
+#: chromaleon.js:631
 msgid "Select a Wallpaper"
 msgstr "Selecionar um plano de fundo"
 
-#: chromaleon.js:691
+#: chromaleon.js:633
 msgid "_Open"
 msgstr "Abrir"
 
-#: chromaleon.js:692
+#: chromaleon.js:634
 msgid "_Cancel"
 msgstr "Cancelar"
 
-#: chromaleon.js:697
+#: chromaleon.js:639
 msgid "All Images"
 msgstr "Todas as imagens"
 
-#: chromaleon.js:724
+#: chromaleon.js:666
 msgid "Wallpaper already exists!"
 msgstr "Plano de fundo já existe!"
 
-#: chromaleon.js:740
+#: chromaleon.js:682
 msgid "Wallpaper added successfully!"
 msgstr "Plano de fundo adicionado com sucesso!"
 
-#: chromaleon.js:1190
+#: chromaleon.js:1132
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:1332 chromaleon.js:1357
+#: chromaleon.js:1274 chromaleon.js:1299
 msgid "Support"
 msgstr "Apoiar"
 
-#: chromaleon.js:1344
+#: chromaleon.js:1286
 msgid "Support the project"
 msgstr "Apoie o projeto"
 
-#: chromaleon.js:1350
+#: chromaleon.js:1292
 msgid "Why support ChromaLeon?"
 msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:1352
+#: chromaleon.js:1294
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 "Desenvolver software livre requer tempo, energia e dedicação. Sua doação "
 "apoia diretamente o projeto e ajuda a mantê-lo vivo!"
+
+#: chromaleon.js:1298
+msgid "Cancel"
+msgstr "Cancelar"
+
+#~ msgid "Enable Firefox support"
+#~ msgstr "Habilitar suporte ao Firefox"
+
+#~ msgid ""
+#~ "Matches Firefox and some derivatives colors with your system accent color "
+#~ "instead of GNOME defaults."
+#~ msgstr ""
+#~ "Combina as cores do Firefox e de alguns derivados com a cor de destaque "
+#~ "do seu sistema em vez dos padrões do GNOME."
+
+#~ msgid "Disable Firefox accent theme?"
+#~ msgstr "Desativar o tema do Firefox com sua cor destaque?"
+
+#~ msgid ""
+#~ "Firefox needs to close to apply this change. Please ensure any unsaved "
+#~ "work is saved."
+#~ msgstr ""
+#~ "O Firefox precisa fechar par aplicar essa alteração. Por favor, "
+#~ "certifique-se de que seu trabalho esteja salvo."
+
+#~ msgid "Continue"
+#~ msgstr "Continuar"
 
 #~ msgid ""
 #~ "Also tint the GTK3 apps (the {0} extension and the {1} theme are required "
