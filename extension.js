@@ -154,13 +154,12 @@ export default class CustomAccentExtension extends Extension {
         : this._bgSettings.get_string("picture-uri");
 
     let color = await ColorUtils.calculateVibrantColor(uri);
-    let updateIcons = true;
+    const colorChanged = color !== this._settings.get_string("accent-color");
 
-    color === this._settings.get_string("accent-color")
-      ? (updateIcons = false)
-      : (updateIcons = true);
+    let updateIcons =
+      !colorChanged && this._settings.get_boolean("recolor-folders");
 
-    if (updateIcons) {
+    if (colorChanged) {
       this._settings.set_string("accent-color", color);
     }
 

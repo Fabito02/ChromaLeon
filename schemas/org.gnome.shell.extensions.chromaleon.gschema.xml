@@ -56,11 +56,5 @@
       <description
             >Applies integration with the MoreWaita icon pack.</description>
     </key>
-    <key name="firefox" type="b">
-      <default>false</default>
-      <summary>Firefox</summary>
-      <description
-            >Matches Firefox colors with your system accent color instead of GNOME defaults.</description>
-    </key>
   </schema>
 </schemalist>
