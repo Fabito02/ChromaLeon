@@ -50,45 +50,45 @@ export default class CustomAccentExtension extends Extension {
 
     this._settings.connectObject(
       "changed::accent-color",
-      () =>
+      async () =>
         this._settings.get_boolean("recolor-folders")
-          ? this._updateStyles(true, true)
-          : this._updateStyles(),
+          ? await this._updateStyles(true, true)
+          : await this._updateStyles(),
       "changed::tint-shell",
-      () => this._updateStyles(),
+      async () => await this._updateStyles(),
       "changed::tint-apps",
-      () => this._updateStyles(),
+      async () => await this._updateStyles(),
       "changed::tint-gtk3",
-      () => this._updateStyles(),
+      async () => await this._updateStyles(),
       this,
     );
 
     this._settings.connectObject(
       "changed::recolor-folders",
-      () => this._updateIconPack(),
+      async () => await this._updateIconPack(),
       "changed::recolor-apps",
-      () => this._updateIconPack(),
+      async () => await this._updateIconPack(),
       "changed::morewaita",
-      () => this._updateIconPack(),
+      async () => await this._updateIconPack(),
       this,
     );
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      () => this._autoApplyWallpaperColor(),
+      async () => await this._autoApplyWallpaperColor(),
       this,
     );
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
-      () => {
+      async () => {
         this._settings.set_boolean("custom-color", false);
-        this._autoApplyWallpaperColor();
+        await this._autoApplyWallpaperColor();
       },
       "changed::picture-uri",
-      () => {
+      async () => {
         this._settings.set_boolean("custom-color", false);
-        this._autoApplyWallpaperColor();
+        await this._autoApplyWallpaperColor();
       },
       this,
     );
@@ -142,7 +142,7 @@ export default class CustomAccentExtension extends Extension {
 
   async _autoApplyWallpaperColor() {
     if (this._settings.get_boolean("custom-color")) {
-      this._updateStyles();
+      await this._updateStyles();
       return;
     }
 
@@ -163,10 +163,10 @@ export default class CustomAccentExtension extends Extension {
       this._settings.set_string("accent-color", color);
     }
 
-    this._updateStyles(updateIcons);
+    await this._updateStyles(updateIcons);
   }
 
-  _updateIconPack() {
+  async _updateIconPack() {
     let iconFolders = this._settings.get_boolean("recolor-folders");
 
     if (!iconFolders) {
@@ -176,7 +176,6 @@ export default class CustomAccentExtension extends Extension {
 
     let iconApps = this._settings.get_boolean("recolor-apps");
     let morewaita = this._settings.get_boolean("morewaita");
-
     let accent = this._settings.get_string("accent-color");
 
     if (this._timeoutId) {
@@ -184,10 +183,20 @@ export default class CustomAccentExtension extends Extension {
       this._timeoutId = null;
     }
 
-    ThemeUtils.updateIconPack(accent, iconFolders, iconApps, morewaita, this);
+    try {
+      await ThemeUtils.updateIconPack(
+        accent,
+        iconFolders,
+        iconApps,
+        morewaita,
+        this,
+      );
+    } catch (error) {
+      this._settings.set_string("last-error", error.message);
+    }
   }
 
-  _updateStyles(updateIcons) {
+  async _updateStyles(updateIcons) {
     let color = this._settings.get_string("accent-color");
     let gtk3 = this._settings.get_boolean("tint-gtk3");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
@@ -213,7 +222,9 @@ export default class CustomAccentExtension extends Extension {
 
     ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3);
 
-    updateIcons && this._updateIconPack();
+    if (updateIcons) {
+      await this._updateIconPack();
+    }
   }
 
   _updateShellStyles() {

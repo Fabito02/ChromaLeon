@@ -56,5 +56,9 @@
       <description
             >Applies integration with the MoreWaita icon pack.</description>
     </key>
+    <key name="last-error" type="s">
+      <default>""</default>
+      <summary>Last execution error message</summary>
+    </key>
   </schema>
 </schemalist>

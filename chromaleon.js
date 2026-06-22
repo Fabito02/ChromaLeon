@@ -130,6 +130,17 @@ class ChromaLeonUI {
     this._bgChangedId2 = null;
     this._colorSchemeId = null;
 
+    this._settings.connect("changed::last-error", () => {
+      const errorMsg = this._settings.get_string("last-error");
+
+      if (errorMsg && errorMsg !== "") {
+        const toast = new Adw.Toast({ title: _(errorMsg) });
+        this._page.get_root().add_toast(toast);
+
+        this._settings.set_string("last-error", "");
+      }
+    });
+
     const iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
     const assetsPath = `${extensionDirPath}/assets`;
     iconTheme.add_search_path(assetsPath);

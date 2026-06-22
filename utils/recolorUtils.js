@@ -136,7 +136,7 @@ async function processDirectoryAsync(dirPath, colorMap) {
     filesToProcess.push({ type, child, name });
   }
 
-  const chunkSize = 50;
+  const chunkSize = 100;
   for (let i = 0; i < filesToProcess.length; i += chunkSize) {
     const chunk = filesToProcess.slice(i, i + chunkSize);
     await Promise.all(
@@ -234,8 +234,6 @@ async function deleteRecursiveAsync(file) {
 export async function applyAccentTheme(baseColor, options = {}) {
   const { applyApps = false, useMoreWaita = false } = options;
 
-  if (!baseColor) return "ERR_MISSING_COLOR";
-
   const darkAccent = modifyColor(baseColor, -0.08, 0.0);
   const moreDarkAccent = modifyColor(baseColor, -0.12, 0.0);
   const medAccent = modifyColor(baseColor, 0.0, 0.0);
@@ -286,7 +284,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 
   if (!GLib.file_test(`${sysAdwaita}/scalable`, GLib.FileTest.IS_DIR)) {
-    return "ERR_NO_ADWAITA";
+    throw new Error(_("Adwaita icon pack was not found."));
   }
 
   if (targetDirFile.query_exists(null)) {
@@ -348,7 +346,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
         if (!infos || infos.length === 0) break;
 
-        const copyPromises = infos.map(async (info) => {
+        const copyPromises = infos.forEach(async (info) => {
           const childName = info.get_name();
           const childSrc = srcFile.get_child(childName);
           const childDest = destFile.get_child(childName);
@@ -391,15 +389,10 @@ export async function applyAccentTheme(baseColor, options = {}) {
     `${sysAdwaita}/scalable/status`,
     `${targetDir}/scalable/status`,
   );
-
-  if (
-    GLib.file_test(`${sysAdwaita}/scalable/mimetypes`, GLib.FileTest.IS_DIR)
-  ) {
-    await copyFolderContentAsync(
-      `${sysAdwaita}/scalable/mimetypes`,
-      `${targetDir}/scalable/mimetypes`,
-    );
-  }
+  await copyFolderContentAsync(
+    `${sysAdwaita}/scalable/mimetypes`,
+    `${targetDir}/scalable/mimetypes`,
+  );
 
   const hicolorApps = "/usr/share/icons/hicolor/scalable/apps";
   const userHicolorApps = `${homeDir}/.local/share/icons/hicolor/scalable/apps`;
@@ -503,7 +496,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
         );
       }
     } else {
-      return "ERR_NO_MOREWAITA";
+      throw new Error(_("MoreWaita icon pack was not found."));
     }
   }
 
@@ -660,7 +653,7 @@ Type=Scalable
     }
   });
 
-  return "SUCCESS";
+  return;
 }
 
 export function clearRecolorTimeout() {
