@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 03:00-0300\n"
+"POT-Creation-Date: 2026-06-22 12:36-0300\n"
 "PO-Revision-Date: 2026-06-17 22:01+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa "
 "<fabianojuniorlimaba2@gmail.com>\n"
@@ -28,65 +28,65 @@ msgstr "Plano de fundo"
 msgid "Preferences"
 msgstr "Preferências"
 
-#: chromaleon.js:148
+#: chromaleon.js:159
 msgid "Accent Color"
 msgstr "Cor de destaque"
 
-#: chromaleon.js:149
+#: chromaleon.js:160
 msgid "New colors only apply when apps are reopened."
 msgstr "Novas cores só aplicam quando os aplicativos são reiniciados."
 
-#: chromaleon.js:153
+#: chromaleon.js:164
 msgid "Main color"
 msgstr "Cor principal"
 
-#: chromaleon.js:176
+#: chromaleon.js:187
 msgid "Wallpaper Colors"
 msgstr "Cores do plano de fundo"
 
-#: chromaleon.js:178
+#: chromaleon.js:189
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr ""
 "O sistema atualiza automaticamente a cor de destaque com base no wallpaper."
 
-#: chromaleon.js:213
+#: chromaleon.js:224
 msgid "Additional colors"
 msgstr "Cores adicionais"
 
-#: chromaleon.js:250
+#: chromaleon.js:261
 msgid "Add wallpapers"
 msgstr "Adicionar planos de fundo"
 
-#: chromaleon.js:264
+#: chromaleon.js:275
 msgid "Wallpapers"
 msgstr "Planos de fundo"
 
-#: chromaleon.js:287
+#: chromaleon.js:298
 msgid "Tint GNOME"
 msgstr "Tingir o GNOME"
 
-#: chromaleon.js:288
+#: chromaleon.js:299
 msgid "Based on Tint my GNOME"
 msgstr "Baseado em Tint my GNOME"
 
-#: chromaleon.js:293
+#: chromaleon.js:304
 msgid "Tint Shell"
 msgstr "Tingir o Shell"
 
-#: chromaleon.js:294
+#: chromaleon.js:305
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tingir o GNOME Shell com a cor de sua escolha."
 
-#: chromaleon.js:302
+#: chromaleon.js:313
 msgid "Tint Apps"
 msgstr "Tingir Aplicativos"
 
-#: chromaleon.js:304
+#: chromaleon.js:315
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Tingir os aplicativos LibAdwaita com a cor de sua escolha."
 
-#: chromaleon.js:313
+#: chromaleon.js:324
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
@@ -94,110 +94,110 @@ msgstr ""
 "Também, tinja aplicativos GTK3 (a extensão {0} e o tema {1} são necessários "
 "para evitar erros)."
 
-#: chromaleon.js:326
+#: chromaleon.js:337
 msgid "Tint GTK3 Apps"
 msgstr "Tingir Aplicativos GTK3"
 
-#: chromaleon.js:363
+#: chromaleon.js:374
 msgid "Icon Theme"
 msgstr "Tema de ícones"
 
-#: chromaleon.js:368
+#: chromaleon.js:379
 msgid "Folder icon theme"
 msgstr "Tema de ícones em pastas"
 
-#: chromaleon.js:369
+#: chromaleon.js:380
 msgid "Applies the accent color to folder icons."
 msgstr "Aplica a cor de destaque a ícones de pastas."
 
-#: chromaleon.js:377
+#: chromaleon.js:388
 msgid "Application icon theme"
 msgstr "Tema de ícones em aplicativos"
 
-#: chromaleon.js:378
+#: chromaleon.js:389
 msgid "Applies the accent color to some app icons."
 msgstr "Aplica a cor de destaque a alguns ícones de aplicativos."
 
-#: chromaleon.js:386
+#: chromaleon.js:397
 msgid "MoreWaita"
 msgstr "MoreWaita"
 
-#: chromaleon.js:387
+#: chromaleon.js:398
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "Aplica a integração com o pacote de ícones MoreWaita."
 
-#: chromaleon.js:430
+#: chromaleon.js:441
 msgid "Miscellaneous"
 msgstr "Diversos"
 
-#: chromaleon.js:435
+#: chromaleon.js:446
 msgid "Apply to Flatpaks"
 msgstr "Aplicar em Flatpaks"
 
-#: chromaleon.js:437
+#: chromaleon.js:448
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 "Permitir que os Flatpaks acessem suas variáveis de cor de destaque "
 "personalizadas."
 
-#: chromaleon.js:445
+#: chromaleon.js:456
 msgid "Enable shortcut"
 msgstr "Habilitar atalho"
 
-#: chromaleon.js:447
+#: chromaleon.js:458
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
-#: chromaleon.js:617
+#: chromaleon.js:628
 msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo deletado com sucesso!"
 
-#: chromaleon.js:624
+#: chromaleon.js:635
 msgid "Failed to delete wallpaper"
 msgstr "Falha ao deletar plano de fundo"
 
-#: chromaleon.js:631
+#: chromaleon.js:642
 msgid "Select a Wallpaper"
 msgstr "Selecionar um plano de fundo"
 
-#: chromaleon.js:633
+#: chromaleon.js:644
 msgid "_Open"
 msgstr "Abrir"
 
-#: chromaleon.js:634
+#: chromaleon.js:645
 msgid "_Cancel"
 msgstr "Cancelar"
 
-#: chromaleon.js:639
+#: chromaleon.js:650
 msgid "All Images"
 msgstr "Todas as imagens"
 
-#: chromaleon.js:666
+#: chromaleon.js:677
 msgid "Wallpaper already exists!"
 msgstr "Plano de fundo já existe!"
 
-#: chromaleon.js:682
+#: chromaleon.js:693
 msgid "Wallpaper added successfully!"
 msgstr "Plano de fundo adicionado com sucesso!"
 
-#: chromaleon.js:1132
+#: chromaleon.js:1143
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:1274 chromaleon.js:1299
+#: chromaleon.js:1285 chromaleon.js:1310
 msgid "Support"
 msgstr "Apoiar"
 
-#: chromaleon.js:1286
+#: chromaleon.js:1297
 msgid "Support the project"
 msgstr "Apoie o projeto"
 
-#: chromaleon.js:1292
+#: chromaleon.js:1303
 msgid "Why support ChromaLeon?"
 msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:1294
+#: chromaleon.js:1305
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -205,9 +205,17 @@ msgstr ""
 "Desenvolver software livre requer tempo, energia e dedicação. Sua doação "
 "apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
-#: chromaleon.js:1298
+#: chromaleon.js:1309
 msgid "Cancel"
 msgstr "Cancelar"
+
+#: utils/recolorUtils.js:287
+msgid "Adwaita icon pack was not found."
+msgstr ""
+
+#: utils/recolorUtils.js:499
+msgid "MoreWaita icon pack was not found."
+msgstr ""
 
 #~ msgid "Enable Firefox support"
 #~ msgstr "Habilitar suporte ao Firefox"
