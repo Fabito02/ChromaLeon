@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-22 12:36-0300\n"
-"PO-Revision-Date: 2026-06-15 17:32+0000\n"
+"PO-Revision-Date: 2026-06-24 06:01+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -206,8 +206,8 @@ msgstr "Zrušit"
 
 #: utils/recolorUtils.js:287
 msgid "Adwaita icon pack was not found."
-msgstr ""
+msgstr "Balíček ikon Adwaita nebyl nalezen."
 
 #: utils/recolorUtils.js:499
 msgid "MoreWaita icon pack was not found."
-msgstr ""
+msgstr "Balíček ikon MoreWaita nebyl nalezen."
