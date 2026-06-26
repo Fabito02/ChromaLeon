@@ -10,11 +10,11 @@ export function calculateVibrantColor(uri) {
     }
 
     let file = Gio.File.new_for_uri(uri);
-    
+
     file.read_async(GLib.PRIORITY_DEFAULT, null, (source_object, res) => {
       try {
         let stream = source_object.read_finish(res);
-        
+
         GdkPixbuf.Pixbuf.new_from_stream_at_scale_async(
           stream,
           64,
@@ -24,16 +24,16 @@ export function calculateVibrantColor(uri) {
           (obj, asyncRes) => {
             try {
               let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
-              
+
               stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
-              
+
               let color = _processPixbuf(pixbuf);
               resolve(color);
             } catch (e) {
               console.error("Error creating pixbuf:", e);
               resolve(null);
             }
-          }
+          },
         );
       } catch (e) {
         console.error("Error reading file:", e);
@@ -41,6 +41,28 @@ export function calculateVibrantColor(uri) {
       }
     });
   });
+}
+
+export function _getRelativeLuminance(r, g, b) {
+  const adjustChannel = (color) => {
+    return color <= 0.04045
+      ? color / 12.92
+      : Math.pow((color + 0.055) / 1.055, 2.4);
+  };
+
+  return (
+    0.2126 * adjustChannel(r) +
+    0.7152 * adjustChannel(g) +
+    0.0722 * adjustChannel(b)
+  );
+}
+
+export function _getContrastRatio(lum1, lum2) {
+  const brightest = Math.max(lum1, lum2);
+  const darkest = Math.min(lum1, lum2);
+  const ratio = (brightest + 0.05) / (darkest + 0.05);
+
+  return Math.round(ratio * 100) / 100;
 }
 
 function _processPixbuf(pixbuf) {
@@ -93,9 +115,13 @@ function _processPixbuf(pixbuf) {
   let dominantColor = null;
 
   for (let color of vibrantRanking) {
-    if (color.s < 15 || color.l < 15 || color.l > 85) continue;
-    dominantColor = color.hex;
-    break;
+    const { r, g, b } = hslToRgb(color.h, color.s, color.l);
+    const luminance = _getRelativeLuminance(r, g, b);
+
+    if (_getContrastRatio(luminance, 0.91) >= 4.5) {
+      dominantColor = color.hex;
+      break;
+    }
   }
 
   if (!dominantColor && colorsList.length > 0) {
@@ -110,29 +136,46 @@ export function rgbToHsl(r, g, b) {
   r /= 255;
   g /= 255;
   b /= 255;
-  let max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
-  let h,
-    s,
-    l = (max + min) / 2;
 
-  if (max === min) {
-    h = s = 0;
-  } else {
-    let d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = (b - r) / d + 2;
-        break;
-      case b:
-        h = (r - g) / d + 4;
-        break;
-    }
-    h /= 6;
-  }
-  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+
+  if (max === min) return [0, 0, Math.round(l * 100)];
+
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+  let h;
+  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+  else if (max === g) h = (b - r) / d + 2;
+  else h = (r - g) / d + 4;
+
+  return [Math.round((h / 6) * 360), Math.round(s * 100), Math.round(l * 100)];
+}
+
+export function hslToRgb(h, s, l) {
+  h /= 360;
+  s /= 100;
+  l /= 100;
+
+  if (s === 0) return { r: l, g: l, b: l };
+
+  const hueToRgb = (p, q, t) => {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+
+  return {
+    r: hueToRgb(p, q, h + 1 / 3),
+    g: hueToRgb(p, q, h),
+    b: hueToRgb(p, q, h - 1 / 3),
+  };
 }

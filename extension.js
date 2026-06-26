@@ -97,6 +97,13 @@ export default class CustomAccentExtension extends Extension {
       this._updateDesktopFile();
     });
 
+    if (
+      this._interfaceSettings.get_string("icon-theme") === "Adwaita" &&
+      this._settings.get_boolean("recolor-folders")
+    ) {
+      this._interfaceSettings.set_string("icon-theme", "Adwaita-Dynamic");
+    }
+
     this._updateDesktopFile();
   }
 
