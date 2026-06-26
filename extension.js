@@ -126,6 +126,12 @@ export default class CustomAccentExtension extends Extension {
 
     FileUtils.removeDesktopFile();
 
+    if (
+      this._interfaceSettings.get_string("icon-theme") === "Adwaita-Dynamic"
+    ) {
+      this._interfaceSettings.set_string("icon-theme", "Adwaita");
+    }
+
     this._settings = null;
     this._bgSettings = null;
     this._interfaceSettings = null;
