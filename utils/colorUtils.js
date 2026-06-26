@@ -113,12 +113,31 @@ function _processPixbuf(pixbuf) {
   });
 
   let dominantColor = null;
+  const toHex = (val) =>
+    Math.round(val * 255)
+      .toString(16)
+      .padStart(2, "0");
 
   for (let color of vibrantRanking) {
-    const { r, g, b } = hslToRgb(color.h, color.s, color.l);
-    const luminance = _getRelativeLuminance(r, g, b);
+    let { r, g, b } = hslToRgb(color.h, color.s, color.l);
+    let luminance = _getRelativeLuminance(r, g, b);
+    let l = color.l;
 
-    if (_getContrastRatio(luminance, 0.91) >= 4.5) {
+    if (_getContrastRatio(luminance, 0.91) < 3) {
+      while (_getContrastRatio(luminance, 0.91) <= 3) {
+        l--;
+        let rgb = hslToRgb(color.h, color.s, l);
+        luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
+      }
+
+      if (_getContrastRatio(luminance, 0.91) < 3) {
+        continue;
+      }
+
+      const finalRgb = hslToRgb(color.h, color.s, l);
+      dominantColor = `#${toHex(finalRgb.r)}${toHex(finalRgb.g)}${toHex(finalRgb.b)}`;
+      break;
+    } else {
       dominantColor = color.hex;
       break;
     }

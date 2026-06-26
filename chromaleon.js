@@ -1257,20 +1257,19 @@ class ChromaLeonUI {
         .toString(16)
         .padStart(2, "0");
 
-    // Vibrant colors with progressive contrast adjustment
     for (let color of vibrantRanking) {
       let { r, g, b } = hslToRgb(color.h, color.s, color.l);
       let luminance = _getRelativeLuminance(r, g, b);
       let l = color.l;
 
-      if (_getContrastRatio(luminance, 0.91) < 4.5) {
-        while (_getContrastRatio(luminance, 0.91) < 4.5 && l > 15) {
+      if (_getContrastRatio(luminance, 0.91) < 3) {
+        while (_getContrastRatio(luminance, 0.91) <= 3) {
           l--;
           let rgb = hslToRgb(color.h, color.s, l);
           luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
         }
 
-        if (_getContrastRatio(luminance, 0.91) < 4.5) {
+        if (_getContrastRatio(luminance, 0.91) < 3) {
           continue;
         }
 
@@ -1285,21 +1284,20 @@ class ChromaLeonUI {
       }
     }
 
-    // Frequent colors with progressive contrast adjustment
     let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
     for (let color of frequencyRanking) {
       let { r, g, b } = hslToRgb(color.h, color.s, color.l);
       let luminance = _getRelativeLuminance(r, g, b);
       let l = color.l;
 
-      if (_getContrastRatio(luminance, 0.91) < 4.5) {
-        while (_getContrastRatio(luminance, 0.91) < 4.5 && l > 15) {
+      if (_getContrastRatio(luminance, 0.91) < 3) {
+        while (_getContrastRatio(luminance, 0.91) <= 3) {
           l--;
           let rgb = hslToRgb(color.h, color.s, l);
           luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
         }
 
-        if (_getContrastRatio(luminance, 0.91) < 4.5) {
+        if (_getContrastRatio(luminance, 0.91) < 3) {
           continue;
         }
 
