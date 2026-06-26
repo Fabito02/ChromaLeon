@@ -1257,7 +1257,7 @@ class ChromaLeonUI {
         .toString(16)
         .padStart(2, "0");
 
-    // 1º LOOP: Cores Vibrantes (Com ajuste de contraste progressivo)
+    // Vibrant colors with progressive contrast adjustment
     for (let color of vibrantRanking) {
       let { r, g, b } = hslToRgb(color.h, color.s, color.l);
       let luminance = _getRelativeLuminance(r, g, b);
@@ -1285,7 +1285,7 @@ class ChromaLeonUI {
       }
     }
 
-    // 2º LOOP: Cores Frequentes (Com ajuste de contraste progressivo)
+    // Frequent colors with progressive contrast adjustment
     let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
     for (let color of frequencyRanking) {
       let { r, g, b } = hslToRgb(color.h, color.s, color.l);
