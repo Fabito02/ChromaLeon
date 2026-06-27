@@ -7,201 +7,210 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-28 02:21-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2026-06-22 12:36-0300\n"
+"PO-Revision-Date: 2026-06-28 05:14+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/chromaleon/"
+"extension/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
-#: chromaleon.js:138
+#: chromaleon.js:111
 msgid "Wallpaper"
-msgstr ""
+msgstr "Plano de fundo"
 
-#: chromaleon.js:142
+#: chromaleon.js:115
 msgid "Preferences"
-msgstr ""
+msgstr "Preferências"
 
-#: chromaleon.js:186
+#: chromaleon.js:159
 msgid "Accent Color"
-msgstr ""
+msgstr "Cor de destaque"
+
+#: chromaleon.js:160
+msgid "New colors only apply when apps are reopened."
+msgstr "Novas cores só aplicam quando apps são reiniciadas."
+
+#: chromaleon.js:164
+msgid "Main color"
+msgstr "Cor principal"
 
 #: chromaleon.js:187
-msgid "New colors only apply when apps are reopened."
-msgstr ""
-
-#: chromaleon.js:191
-msgid "Main color"
-msgstr ""
-
-#: chromaleon.js:214
 msgid "Wallpaper Colors"
-msgstr ""
+msgstr "Cores do plano de fundo"
 
-#: chromaleon.js:216
+#: chromaleon.js:189
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
 msgstr ""
+"O sistema atualiza automaticamente a cor de destaque com base no wallpaper."
 
-#: chromaleon.js:251
+#: chromaleon.js:224
 msgid "Additional colors"
-msgstr ""
+msgstr "Cores adicionais"
 
-#: chromaleon.js:288
+#: chromaleon.js:261
 msgid "Add wallpapers"
-msgstr ""
+msgstr "Adicionar planos de fundo"
 
-#: chromaleon.js:302
+#: chromaleon.js:275
 msgid "Wallpapers"
-msgstr ""
+msgstr "Planos de fundo"
 
-#: chromaleon.js:325
+#: chromaleon.js:298
 msgid "Tint GNOME"
-msgstr ""
+msgstr "Tingir o GNOME"
 
-#: chromaleon.js:326
+#: chromaleon.js:299
 msgid "Based on Tint my GNOME"
-msgstr ""
+msgstr "Baseado em Tint my GNOME"
 
-#: chromaleon.js:331
+#: chromaleon.js:304
 msgid "Tint Shell"
-msgstr ""
+msgstr "Tingir o Shell"
 
-#: chromaleon.js:332
+#: chromaleon.js:305
 msgid "Tints the GNOME Shell with the color of your choice."
-msgstr ""
+msgstr "Tingir o GNOME Shell com a cor da sua escolha."
 
-#: chromaleon.js:340
+#: chromaleon.js:313
 msgid "Tint Apps"
-msgstr ""
+msgstr "Tingir Apps"
 
-#: chromaleon.js:342
+#: chromaleon.js:315
 msgid "Tints the LibAdwaita applications with the color of your choice."
-msgstr ""
+msgstr "Tingir apps LibAdwaita com a cor da sua escolha."
 
-#: chromaleon.js:351
+#: chromaleon.js:324
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
+"Também, tinja apps GTK3 (a extensão {0} e o tema {1} são necessários para "
+"evitar erros)."
 
-#: chromaleon.js:364
+#: chromaleon.js:337
 msgid "Tint GTK3 Apps"
-msgstr ""
+msgstr "Tingir Apps GTK3"
 
-#: chromaleon.js:401
+#: chromaleon.js:374
 msgid "Icon Theme"
-msgstr ""
+msgstr "Tema de ícones"
 
-#: chromaleon.js:406
+#: chromaleon.js:379
 msgid "Folder icon theme"
-msgstr ""
+msgstr "Tema de ícones em pastas"
 
-#: chromaleon.js:407
+#: chromaleon.js:380
 msgid "Applies the accent color to folder icons."
-msgstr ""
+msgstr "Aplica a cor de destaque a ícones de pastas."
 
-#: chromaleon.js:415
+#: chromaleon.js:388
 msgid "Application icon theme"
-msgstr ""
+msgstr "Tema de ícones em apps"
 
-#: chromaleon.js:416
+#: chromaleon.js:389
 msgid "Applies the accent color to some app icons."
-msgstr ""
+msgstr "Aplica a cor de destaque a alguns ícones de apps."
 
-#: chromaleon.js:424
+#: chromaleon.js:397
 msgid "MoreWaita"
-msgstr ""
+msgstr "MoreWaita"
 
-#: chromaleon.js:425
+#: chromaleon.js:398
 msgid "Applies integration with the MoreWaita icon pack."
-msgstr ""
+msgstr "Aplica a integração com o pacote de ícones MoreWaita."
 
-#: chromaleon.js:468
+#: chromaleon.js:441
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diversos"
 
-#: chromaleon.js:473
+#: chromaleon.js:446
 msgid "Apply to Flatpaks"
-msgstr ""
+msgstr "Aplicar em Flatpaks"
 
-#: chromaleon.js:475
+#: chromaleon.js:448
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
+"Permitir que os Flatpaks acedam as suas variáveis de cor de destaque "
+"personalizadas."
 
-#: chromaleon.js:483
+#: chromaleon.js:456
 msgid "Enable shortcut"
-msgstr ""
+msgstr "Ativar atalho"
 
-#: chromaleon.js:485
+#: chromaleon.js:458
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
+msgstr "Cria um atalho na grade de apps a adicionar um ficheiro .desktop."
 
-#: chromaleon.js:655
+#: chromaleon.js:628
 msgid "Wallpaper deleted successfully!"
-msgstr ""
+msgstr "Plano de fundo apagado com sucesso!"
 
-#: chromaleon.js:662
+#: chromaleon.js:635
 msgid "Failed to delete wallpaper"
-msgstr ""
+msgstr "Falha ao apagar plano de fundo"
 
-#: chromaleon.js:669
+#: chromaleon.js:642
 msgid "Select a Wallpaper"
-msgstr ""
+msgstr "Selecionar um plano de fundo"
 
-#: chromaleon.js:671
+#: chromaleon.js:644
 msgid "_Open"
-msgstr ""
+msgstr "Abrir"
 
-#: chromaleon.js:672
+#: chromaleon.js:645
 msgid "_Cancel"
-msgstr ""
+msgstr "Cancelar"
+
+#: chromaleon.js:650
+msgid "All Images"
+msgstr "Todas as imagens"
 
 #: chromaleon.js:677
-msgid "All Images"
-msgstr ""
-
-#: chromaleon.js:704
 msgid "Wallpaper already exists!"
-msgstr ""
+msgstr "Plano de fundo já existe!"
 
-#: chromaleon.js:720
+#: chromaleon.js:693
 msgid "Wallpaper added successfully!"
-msgstr ""
+msgstr "Plano de fundo adicionado com sucesso!"
 
-#: chromaleon.js:1170
+#: chromaleon.js:1143
 msgid "Unable to load colors."
-msgstr ""
+msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:1353 chromaleon.js:1378
+#: chromaleon.js:1285 chromaleon.js:1310
 msgid "Support"
-msgstr ""
+msgstr "Apoiar"
 
-#: chromaleon.js:1365
+#: chromaleon.js:1297
 msgid "Support the project"
-msgstr ""
+msgstr "Apoie o projeto"
 
-#: chromaleon.js:1371
+#: chromaleon.js:1303
 msgid "Why support ChromaLeon?"
-msgstr ""
+msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:1373
+#: chromaleon.js:1305
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
+"Desenvolver software livre requer tempo, energia e dedicação. A sua doação "
+"apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
-#: chromaleon.js:1377
+#: chromaleon.js:1309
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
-#: utils/recolorUtils.js:309
+#: utils/recolorUtils.js:287
 msgid "Adwaita icon pack was not found."
 msgstr ""
 
-#: utils/recolorUtils.js:521
+#: utils/recolorUtils.js:499
 msgid "MoreWaita icon pack was not found."
 msgstr ""
