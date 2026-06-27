@@ -17,6 +17,8 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 [![Translation Status](https://hosted.weblate.org/widgets/chromaleon/-/svg-badge.svg)](https://hosted.weblate.org/engage/chromaleon/)
 
 <br>
+<img width="2560" height="1440" src="https://github.com/user-attachments/assets/c695c288-5fe6-4dea-b59f-ebd8129702d6" />
+<br>
 
 | Base Style | Dark Mode Example | Light Mode Example |
 | :--- | :--- | :--- |
