@@ -1069,7 +1069,7 @@ class ChromaLeonUI {
       this._colorsRow.set_subtitle("");
       this._wallpaperButtons = [];
 
-      this._moreColors.set_visible(colors.length > 10);
+      this._moreColors.set_visible(colors.length > 8);
 
       while (this._mainColorBox.get_first_child()) {
         this._mainColorBox.remove(this._mainColorBox.get_first_child());
@@ -1138,7 +1138,7 @@ class ChromaLeonUI {
           this._settings.set_boolean("custom-color", true);
         });
 
-        if (index < 10) {
+        if (index < 8) {
           this._mainColorBox.append(btn);
         } else {
           this._moreColorBox.append(btn);
@@ -1401,7 +1401,7 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
 
   app.connect("activate", (app) => {
     const window = new Adw.PreferencesWindow({ application: app });
-    window.set_default_size(600, 635);
+    window.set_default_size(400, 670);
     window.set_title("ChromaLeon");
 
     const page = new Adw.PreferencesPage();
