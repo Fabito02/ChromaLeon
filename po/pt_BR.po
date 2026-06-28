@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-22 12:36-0300\n"
-"PO-Revision-Date: 2026-06-17 22:01+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-06-28 05:14+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -211,11 +211,11 @@ msgstr "Cancelar"
 
 #: utils/recolorUtils.js:287
 msgid "Adwaita icon pack was not found."
-msgstr ""
+msgstr "O tema de ícones Adwaita não foi encontrado."
 
 #: utils/recolorUtils.js:499
 msgid "MoreWaita icon pack was not found."
-msgstr ""
+msgstr "O tema de ícones MoreWaita não foi encontrado."
 
 #~ msgid "Enable Firefox support"
 #~ msgstr "Habilitar suporte ao Firefox"
