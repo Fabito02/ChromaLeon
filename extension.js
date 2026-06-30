@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
- 
+
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
@@ -53,7 +53,7 @@ export default class CustomAccentExtension extends Extension {
       "changed::accent-color",
       async () =>
         this._settings.get_boolean("recolor-folders")
-          ? await this._updateStyles(true, true)
+          ? await this._updateStyles(true)
           : await this._updateStyles(),
       "changed::tint-shell",
       async () => await this._updateStyles(),
@@ -172,8 +172,7 @@ export default class CustomAccentExtension extends Extension {
     let color = await ColorUtils.calculateVibrantColor(uri);
     const colorChanged = color !== this._settings.get_string("accent-color");
 
-    let updateIcons =
-      !colorChanged && this._settings.get_boolean("recolor-folders");
+    let updateIcons = colorChanged && this._settings.get_boolean("recolor-folders");
 
     if (colorChanged) {
       this._settings.set_string("accent-color", color);
@@ -212,7 +211,7 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _updateStyles(updateIcons) {
+  async _updateStyles(updateIcons = false) {
     let color = this._settings.get_string("accent-color");
     let gtk3 = this._settings.get_boolean("tint-gtk3");
     let darker = this._settings.get_boolean("darker");
@@ -248,7 +247,7 @@ export default class CustomAccentExtension extends Extension {
   _updateShellStyles() {
     let color = this._settings.get_string("accent-color");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
-    let darker = this._settings.get_boolean("darker");    
+    let darker = this._settings.get_boolean("darker");
 
     const lightStyle = sessionMode.colorScheme;
 
