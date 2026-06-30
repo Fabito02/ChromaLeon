@@ -89,6 +89,7 @@ export function updateShellStylesheet(
   onUpdated,
   isLight,
   tinted,
+  darker,
 ) {
   const homeDir = GLib.get_home_dir();
 
@@ -108,7 +109,11 @@ export function updateShellStylesheet(
     `${extensionPath}/templates/tinted_light.template.css`,
   );
 
-  let tintedTemplate = isLight ? tintedLightTemplate : tintedDarkTemplate;
+  const tintedDarkerTemplate = Gio.File.new_for_path(
+    `${extensionPath}/templates/tinted_darker.template.css`,
+  );
+
+  let tintedTemplate = isLight ? tintedLightTemplate : darker ? tintedDarkerTemplate : tintedDarkTemplate;
   let finalTemplate = tinted ? tintedTemplate : shellAccentTemplate;
 
   const generateAndApplyFiles = (customCssContents) => {
@@ -204,6 +209,7 @@ export function updateGtkStylesheet(
   tinted,
   isDark,
   tintGTK3,
+  darker,
 ) {
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
@@ -215,9 +221,16 @@ export function updateGtkStylesheet(
   const tintedGtk3DarkStyle = Gio.File.new_for_path(
     `${extensionPath}/templates/gtk3_dark_tinted.template.css`,
   );
+  const tintedGtk3DarkerStyle = Gio.File.new_for_path(
+    `${extensionPath}/templates/gtk3_darker_tinted.template.css`,
+  );
   const tintedGtk4Style = Gio.File.new_for_path(
     `${extensionPath}/templates/gtk4_tinted.template.css`,
   );
+  const tintedGtk4DarkerStyle = Gio.File.new_for_path(
+    `${extensionPath}/templates/gtk4_darker_tinted.template.css`,
+  );
+
 
   const writeAccentFile = (accentFile, content) => {
     accentFile.replace_contents_async(
@@ -240,7 +253,9 @@ export function updateGtkStylesheet(
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
 
     if (tinted) {
-      tintedGtk4Style.load_contents_async(null, (file, res) => {
+      let tintedGtk4Template = tintedGtk4Style;
+      if (darker) tintedGtk4Template = tintedGtk4DarkerStyle;
+      tintedGtk4Template.load_contents_async(null, (file, res) => {
         try {
           let [ok, contents] = file.load_contents_finish(res);
           if (!ok) return;
@@ -291,7 +306,9 @@ export function updateGtkStylesheet(
 
     if (tinted && tintGTK3) {
       if (isDark) {
-        tintedGtk3DarkStyle.load_contents_async(null, (file, res) => {
+        let tintedGtk3Template = tintedGtk3DarkStyle;
+        if (darker) tintedGtk3Template = tintedGtk3DarkerStyle;
+        tintedGtk3Template.load_contents_async(null, (file, res) => {
           try {
             let [ok, contents] = file.load_contents_finish(res);
             if (!ok) return;

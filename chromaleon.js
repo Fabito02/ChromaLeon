@@ -369,6 +369,15 @@ class ChromaLeonUI {
     TintGTK3AppsRow.add_suffix(TintGTK3AppsSwitch);
     tintGnomeGroup.add(TintGTK3AppsRow);
 
+    const darkerRow = new Adw.ActionRow({
+      title: _("Darker Tint"),
+      subtitle: _("Applies a darker tint."),
+    });
+
+    const darkerSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
+    darkerRow.add_suffix(darkerSwitch);
+    tintGnomeGroup.add(darkerRow);
+
     this._settings.bind(
       "tint-shell",
       TintShellSwitch,
@@ -390,9 +399,23 @@ class ChromaLeonUI {
       Gio.SettingsBindFlags.DEFAULT,
     );
 
+    this._settings.bind(
+      "darker",
+      darkerSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
     TintAppsSwitch.bind_property(
       "active",
       TintGTK3AppsSwitch,
+      "sensitive",
+      GObject.BindingFlags.SYNC_CREATE,
+    );
+
+    TintAppsSwitch.bind_property(
+      "active",
+      darkerSwitch,
       "sensitive",
       GObject.BindingFlags.SYNC_CREATE,
     );
@@ -640,6 +663,10 @@ class ChromaLeonUI {
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
       );
       TintGTK3AppsSwitch.get_style_context().add_provider(
+        cssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+      );
+      darkerSwitch.get_style_context().add_provider(
         cssProvider,
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
       );

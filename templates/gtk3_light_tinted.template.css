@@ -23,19 +23,19 @@
 /* =========================================
  * Light Mode
  * ========================================= */
-@define-color window_bg_color mix(#fafafb, @@ACCENT@@, 0.075);
-@define-color view_bg_color mix(#ffffff, @@ACCENT@@, 0.075);
-@define-color headerbar_bg_color mix(#ffffff, @@ACCENT@@, 0.075);
-@define-color headerbar_backdrop_color mix(#fafafb, @@ACCENT@@, 0.075);
-@define-color popover_bg_color mix(#ffffff, @@ACCENT@@, 0.075);
-@define-color dialog_bg_color mix(#fafafb, @@ACCENT@@, 0.075);
-@define-color card_bg_color mix(#ffffff, @@ACCENT@@, 0.04);
-@define-color sidebar_bg_color mix(#ebebed, @@ACCENT@@, 0.075);
-@define-color sidebar_backdrop_color mix(#f2f2f4, @@ACCENT@@, 0.075);
-@define-color sidebar_border_color mix(rgba(0, 0, 6, 0.07), @@ACCENT@@, 0.075);
-@define-color secondary_sidebar_bg_color mix(#f3f3f5, @@ACCENT@@, 0.075);
-@define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @@ACCENT@@, 0.075);
-@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @@ACCENT@@, 0.075);
+@define-color window_bg_color mix(#fafafb, @@ACCENT@@, 0.12);
+@define-color view_bg_color mix(#ffffff, @@ACCENT@@, 0.12);
+@define-color headerbar_bg_color mix(#ffffff, @@ACCENT@@, 0.12);
+@define-color headerbar_backdrop_color mix(#fafafb, @@ACCENT@@, 0.12);
+@define-color popover_bg_color mix(#ffffff, @@ACCENT@@, 0.12);
+@define-color dialog_bg_color mix(#fafafb, @@ACCENT@@, 0.12);
+@define-color card_bg_color mix(#ffffff, @@ACCENT@@, 0.08);
+@define-color sidebar_bg_color mix(#ebebed, @@ACCENT@@, 0.12);
+@define-color sidebar_backdrop_color mix(#f2f2f4, @@ACCENT@@, 0.12);
+@define-color sidebar_border_color mix(rgba(0, 0, 6, 0.07), @@ACCENT@@, 0.12);
+@define-color secondary_sidebar_bg_color mix(#f3f3f5, @@ACCENT@@, 0.12);
+@define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @@ACCENT@@, 0.12);
+@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @@ACCENT@@, 0.12);
 
 @define-color panel_bg_color @window_bg_color;
 @define-color panel_button_bg_color transparent;

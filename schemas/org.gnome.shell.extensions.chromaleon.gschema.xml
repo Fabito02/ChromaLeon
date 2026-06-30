@@ -34,6 +34,12 @@
       <description
             >Tints the GTK3 applications with the color of your choice.</description>
     </key>
+    <key name="darker" type="b">
+      <default>false</default>
+      <summary>Darker Tint</summary>
+      <description
+            >Applies a darker tint.</description>
+    </key>
     <key name="custom-color" type="b">
       <default>false</default>
       <summary>Custom Color</summary>

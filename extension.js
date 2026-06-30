@@ -61,6 +61,8 @@ export default class CustomAccentExtension extends Extension {
       async () => await this._updateStyles(),
       "changed::tint-gtk3",
       async () => await this._updateStyles(),
+      "changed::darker",
+      async () => await this._updateStyles(),
       this,
     );
 
@@ -213,6 +215,7 @@ export default class CustomAccentExtension extends Extension {
   async _updateStyles(updateIcons) {
     let color = this._settings.get_string("accent-color");
     let gtk3 = this._settings.get_boolean("tint-gtk3");
+    let darker = this._settings.get_boolean("darker");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
     const lightStyle = sessionMode.colorScheme;
@@ -232,9 +235,10 @@ export default class CustomAccentExtension extends Extension {
       },
       isLight,
       tintShell,
+      darker,
     );
 
-    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3);
+    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3, darker);
 
     if (updateIcons) {
       await this._updateIconPack();
@@ -244,6 +248,7 @@ export default class CustomAccentExtension extends Extension {
   _updateShellStyles() {
     let color = this._settings.get_string("accent-color");
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
+    let darker = this._settings.get_boolean("darker");    
 
     const lightStyle = sessionMode.colorScheme;
 
@@ -260,6 +265,7 @@ export default class CustomAccentExtension extends Extension {
       },
       isLight,
       tintShell,
+      darker,
     );
   }
 }
