@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 21:53-0300\n"
+"POT-Creation-Date: 2026-06-30 15:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,57 +92,65 @@ msgstr ""
 msgid "Tint GTK3 Apps"
 msgstr ""
 
-#: chromaleon.js:401
-msgid "Icon Theme"
+#: chromaleon.js:373
+msgid "Darker Tint"
 msgstr ""
 
-#: chromaleon.js:406
-msgid "Folder icon theme"
-msgstr ""
-
-#: chromaleon.js:407
-msgid "Applies the accent color to folder icons."
-msgstr ""
-
-#: chromaleon.js:415
-msgid "Application icon theme"
-msgstr ""
-
-#: chromaleon.js:416
-msgid "Applies the accent color to some app icons."
+#: chromaleon.js:374
+msgid "Applies a darker tint."
 msgstr ""
 
 #: chromaleon.js:424
+msgid "Icon Theme"
+msgstr ""
+
+#: chromaleon.js:429
+msgid "Folder icon theme"
+msgstr ""
+
+#: chromaleon.js:430
+msgid "Applies the accent color to folder icons."
+msgstr ""
+
+#: chromaleon.js:438
+msgid "Application icon theme"
+msgstr ""
+
+#: chromaleon.js:439
+msgid "Applies the accent color to some app icons."
+msgstr ""
+
+#: chromaleon.js:447
 msgid "MoreWaita"
 msgstr ""
 
-#: chromaleon.js:425
+#: chromaleon.js:448
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr ""
 
-#: chromaleon.js:468
+#: chromaleon.js:491
 msgid "Customization"
 msgstr ""
 
-#: chromaleon.js:473
+#: chromaleon.js:496
 msgid "Custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:475
+#: chromaleon.js:498
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
 
-#: chromaleon.js:482 chromaleon.js:498
+#: chromaleon.js:505 chromaleon.js:521
 msgid "About the custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:488
+#: chromaleon.js:511
 msgid "Open file"
 msgstr ""
 
-#: chromaleon.js:500
+#: chromaleon.js:523
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -156,89 +164,89 @@ msgid ""
 "important</tt></b> to your CSS rules."
 msgstr ""
 
-#: chromaleon.js:507
+#: chromaleon.js:530
 msgid "Close"
 msgstr ""
 
-#: chromaleon.js:522
+#: chromaleon.js:545
 msgid "Failed to open custom.css: "
 msgstr ""
 
-#: chromaleon.js:527
+#: chromaleon.js:550
 msgid "Miscellaneous"
 msgstr ""
 
-#: chromaleon.js:532
+#: chromaleon.js:555
 msgid "Apply to Flatpaks"
 msgstr ""
 
-#: chromaleon.js:534
+#: chromaleon.js:557
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
-#: chromaleon.js:542
+#: chromaleon.js:565
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:544
+#: chromaleon.js:567
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:714
+#: chromaleon.js:741
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: chromaleon.js:721
+#: chromaleon.js:748
 msgid "Failed to delete wallpaper"
 msgstr ""
 
-#: chromaleon.js:728
+#: chromaleon.js:755
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: chromaleon.js:730
+#: chromaleon.js:757
 msgid "_Open"
 msgstr ""
 
-#: chromaleon.js:731
+#: chromaleon.js:758
 msgid "_Cancel"
 msgstr ""
 
-#: chromaleon.js:736
+#: chromaleon.js:763
 msgid "All Images"
 msgstr ""
 
-#: chromaleon.js:763
+#: chromaleon.js:790
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: chromaleon.js:779
+#: chromaleon.js:806
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: chromaleon.js:1229
+#: chromaleon.js:1256
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:1412 chromaleon.js:1437
+#: chromaleon.js:1439 chromaleon.js:1464
 msgid "Support"
 msgstr ""
 
-#: chromaleon.js:1424
+#: chromaleon.js:1451
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:1430
+#: chromaleon.js:1457
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:1432
+#: chromaleon.js:1459
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 
-#: chromaleon.js:1436
+#: chromaleon.js:1463
 msgid "Cancel"
 msgstr ""
 
