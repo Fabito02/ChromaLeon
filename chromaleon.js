@@ -1509,7 +1509,7 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
 
   app.connect("activate", (app) => {
     const window = new Adw.PreferencesWindow({ application: app });
-    window.set_default_size(400, 670);
+    window.set_default_size(520, 670);
     window.set_title("ChromaLeon");
 
     const page = new Adw.PreferencesPage();

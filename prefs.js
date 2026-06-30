@@ -28,6 +28,8 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
+
+    window.set_default_size(520, 670);    
     window.add(page);
     
     buildUI(window, page, settings);
