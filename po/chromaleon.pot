@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-28 02:21-0300\n"
+"POT-Creation-Date: 2026-06-29 21:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,80 +121,124 @@ msgid "Applies integration with the MoreWaita icon pack."
 msgstr ""
 
 #: chromaleon.js:468
-msgid "Miscellaneous"
+msgid "Customization"
 msgstr ""
 
 #: chromaleon.js:473
-msgid "Apply to Flatpaks"
+msgid "Custom stylesheet"
 msgstr ""
 
 #: chromaleon.js:475
+msgid ""
+"A file that overrides the CSS of the shell and user extensions, with support "
+"for ChromaLeon accent colors."
+msgstr ""
+
+#: chromaleon.js:482 chromaleon.js:498
+msgid "About the custom stylesheet"
+msgstr ""
+
+#: chromaleon.js:488
+msgid "Open file"
+msgstr ""
+
+#: chromaleon.js:500
+msgid ""
+"This file is used to apply custom CSS to GNOME Shell.\n"
+"\n"
+"The extension processes all content within this file, replacing the "
+"<b><tt>@@ACCENT@@</tt></b> and <b><tt>-st-accent-color</tt></b> variables "
+"with the color selected in the ChromaLeon settings before applying them to "
+"the system. This can be useful if an extension does not have the accent "
+"colors applied correctly.\n"
+"\n"
+"<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
+"important</tt></b> to your CSS rules."
+msgstr ""
+
+#: chromaleon.js:507
+msgid "Close"
+msgstr ""
+
+#: chromaleon.js:522
+msgid "Failed to open custom.css: "
+msgstr ""
+
+#: chromaleon.js:527
+msgid "Miscellaneous"
+msgstr ""
+
+#: chromaleon.js:532
+msgid "Apply to Flatpaks"
+msgstr ""
+
+#: chromaleon.js:534
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
-#: chromaleon.js:483
+#: chromaleon.js:542
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:485
+#: chromaleon.js:544
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:655
+#: chromaleon.js:714
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: chromaleon.js:662
+#: chromaleon.js:721
 msgid "Failed to delete wallpaper"
 msgstr ""
 
-#: chromaleon.js:669
+#: chromaleon.js:728
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: chromaleon.js:671
+#: chromaleon.js:730
 msgid "_Open"
 msgstr ""
 
-#: chromaleon.js:672
+#: chromaleon.js:731
 msgid "_Cancel"
 msgstr ""
 
-#: chromaleon.js:677
+#: chromaleon.js:736
 msgid "All Images"
 msgstr ""
 
-#: chromaleon.js:704
+#: chromaleon.js:763
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: chromaleon.js:720
+#: chromaleon.js:779
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: chromaleon.js:1170
+#: chromaleon.js:1229
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:1353 chromaleon.js:1378
+#: chromaleon.js:1412 chromaleon.js:1437
 msgid "Support"
 msgstr ""
 
-#: chromaleon.js:1365
+#: chromaleon.js:1424
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:1371
+#: chromaleon.js:1430
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:1373
+#: chromaleon.js:1432
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 
-#: chromaleon.js:1377
+#: chromaleon.js:1436
 msgid "Cancel"
 msgstr ""
 
