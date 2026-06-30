@@ -108,7 +108,7 @@ if [ "$OPT_CHECK" = true ]; then
     source venv/bin/activate
     pip install -q -U shexli
 
-    shexli user-accent-colors@fabito02.shell-extension.zip
+    PYTHONFAULTHANDLER=1 shexli user-accent-colors@fabito02.shell-extension.zip
     deactivate
 fi
 
