@@ -19,7 +19,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
- 
+
 /* =========================================
  * Light Mode Implementation
  * ========================================= */
@@ -61,7 +61,7 @@
     @define-color headerbar_backdrop_color mix(#222226, @@ACCENT@@, 0.10);
     @define-color popover_bg_color mix(#36363a, @@ACCENT@@, 0.10);
     @define-color dialog_bg_color mix(#36363a, @@ACCENT@@, 0.10);
-    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, 0.10); 
+    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, 0.10);
     @define-color sidebar_bg_color mix(#2e2e32, @@ACCENT@@, 0.10);
     @define-color sidebar_backdrop_color mix(#28282c, @@ACCENT@@, 0.10);
     @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, 0.10);
@@ -84,17 +84,17 @@
  * Element Styling Rules
  * ========================================= */
 
-/* Force toasts to always use the dark base with white text 
+/* Force toasts to always use the dark base with white text
    to match Nautilus's native high-contrast alert style. */
 toast {
-  background-color: mix(#5103, @@ACCENT@@, 0.10);
-  color: #ffffff;
+    background-color: mix(#505053, @@ACCENT@@, 0.05);
+    color: #ffffff;
 }
 
 toggle:checked {
-  background-color: @card_bg_color;
+    background-color: @card_bg_color;
 }
 
 .inline {
-  background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
 }

@@ -3,3 +3,4 @@ gschemas.compiled
 
 # Package distribution files
 *.zip
+templates/darker.py
