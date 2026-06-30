@@ -464,6 +464,65 @@ class ChromaLeonUI {
       GObject.BindingFlags.SYNC_CREATE,
     );
 
+    const customCssGroup = new Adw.PreferencesGroup({
+      title: _("Customization"),
+    });
+    this._optionsPage.add(customCssGroup);
+
+    const customCssRow = new Adw.ActionRow({
+      title: _("Custom stylesheet"),
+      subtitle: _(
+        "A file that overrides the CSS of the shell and user extensions, with support for ChromaLeon accent colors.",
+      ),
+    });
+
+    const infoButton = new Gtk.Button({
+      valign: Gtk.Align.CENTER,
+      icon_name: 'help-about-symbolic',
+      tooltip_text: _('About the custom stylesheet')
+    });
+    infoButton.add_css_class('flat');
+
+    const openCssButton = new Gtk.Button({
+      valign: Gtk.Align.CENTER,
+      child: new Gtk.Label({ label: _("Open file") }),
+    });
+
+    customCssRow.add_suffix(infoButton);
+    customCssRow.add_suffix(openCssButton);
+    customCssGroup.add(customCssRow);
+
+    infoButton.connect("clicked", () => {
+      const dialog = new Adw.MessageDialog({
+        transient_for: window,
+        heading: _("About the custom stylesheet"),
+        body: _(
+          "This file is used to apply custom CSS to GNOME Shell.\n\n" +
+          "The extension processes all content within this file, replacing the <b><tt>@@ACCENT@@</tt></b> and <b><tt>-st-accent-color</tt></b> variables with the color selected in the ChromaLeon settings before applying them to the system. This can be useful if an extension does not have the accent colors applied correctly.\n\n" +
+          "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!important</tt></b> to your CSS rules."
+        ),
+        body_use_markup: true,
+        close_response: "cancel",
+      });
+      dialog.add_response("close", _("Close"));
+      dialog.connect("response", (d) => {
+        d.destroy();
+      });
+      dialog.present();
+    });
+
+    openCssButton.connect("clicked", () => {
+      const homeDir = GLib.get_home_dir();
+      const file = Gio.File.new_for_path(`${homeDir}/.config/ChromaLeon/custom.css`);
+      const uri = file.get_uri();
+
+      Gio.AppInfo.launch_default_for_uri_async(uri, null, null, (source, result) => {
+        try {
+          Gio.AppInfo.launch_default_for_uri_finish(result);
+        } catch (error) { throw new Error(_("Failed to open custom.css: " + error.message)) }
+      });
+    });
+
     const miscellaneousGroup = new Adw.PreferencesGroup({
       title: _("Miscellaneous"),
     });
@@ -521,37 +580,37 @@ class ChromaLeonUI {
       const isActive = flatpakSwitch.get_active();
       const commands = isActive
         ? [
-            [
-              "flatpak",
-              "override",
-              "--user",
-              "--filesystem=xdg-config/gtk-3.0",
-            ],
-            [
-              "flatpak",
-              "override",
-              "--user",
-              "--filesystem=xdg-config/gtk-4.0",
-            ],
-          ]
+          [
+            "flatpak",
+            "override",
+            "--user",
+            "--filesystem=xdg-config/gtk-3.0",
+          ],
+          [
+            "flatpak",
+            "override",
+            "--user",
+            "--filesystem=xdg-config/gtk-4.0",
+          ],
+        ]
         : [
-            [
-              "flatpak",
-              "override",
-              "--user",
-              "--nofilesystem=xdg-config/gtk-3.0",
-            ],
-            [
-              "flatpak",
-              "override",
-              "--user",
-              "--nofilesystem=xdg-config/gtk-4.0",
-            ],
-          ];
+          [
+            "flatpak",
+            "override",
+            "--user",
+            "--nofilesystem=xdg-config/gtk-3.0",
+          ],
+          [
+            "flatpak",
+            "override",
+            "--user",
+            "--nofilesystem=xdg-config/gtk-4.0",
+          ],
+        ];
       commands.forEach((cmd) => {
         try {
           Gio.Subprocess.new(cmd, Gio.SubprocessFlags.NONE);
-        } catch (e) {}
+        } catch (e) { }
       });
     });
 
@@ -898,7 +957,7 @@ class ChromaLeonUI {
           nextRow++;
         }
       }
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const systemDirs = GLib.get_system_data_dirs();
@@ -1036,7 +1095,7 @@ class ChromaLeonUI {
           this._gridContainer.attach(buttonSetWallpaper, col, row, 1, 1);
         });
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 
   async _updateWallpaperUI() {
@@ -1194,7 +1253,7 @@ class ChromaLeonUI {
             (obj, asyncRes) => {
               try {
                 let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
-                stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
+                stream.close_async(GLib.PRIORITY_DEFAULT, null, () => { });
 
                 let finalColors = this._extractColorsFromPixbuf(pixbuf);
                 resolve(finalColors);

@@ -50,7 +50,7 @@ export function removeGtkStylesheet() {
       accentFile.delete_async(GLib.PRIORITY_DEFAULT, null, (f, res) => {
         try {
           f.delete_finish(res);
-        } catch (e) {}
+        } catch (e) { }
       });
     }
 
@@ -73,10 +73,10 @@ export function removeGtkStylesheet() {
             (f, r) => {
               try {
                 f.replace_contents_finish(r);
-              } catch (e) {}
+              } catch (e) { }
             },
           );
-        } catch (e) {}
+        } catch (e) { }
       });
     }
   });
@@ -90,6 +90,12 @@ export function updateShellStylesheet(
   isLight,
   tinted,
 ) {
+  const homeDir = GLib.get_home_dir();
+
+  const customCss = Gio.File.new_for_path(
+    `${homeDir}/.config/ChromaLeon/custom.css`
+  );
+
   const shellAccentTemplate = Gio.File.new_for_path(
     `${extensionPath}/templates/shell_accent.template.css`,
   );
@@ -105,40 +111,91 @@ export function updateShellStylesheet(
   let tintedTemplate = isLight ? tintedLightTemplate : tintedDarkTemplate;
   let finalTemplate = tinted ? tintedTemplate : shellAccentTemplate;
 
-  finalTemplate.load_contents_async(null, (file, res) => {
-    try {
-      let [ok, contents] = file.load_contents_finish(res);
-      if (!ok) return;
+  const generateAndApplyFiles = (customCssContents) => {
+    finalTemplate.load_contents_async(null, (file, res) => {
+      try {
+        let [ok, contents] = file.load_contents_finish(res);
+        if (!ok) return;
 
-      let template = new TextDecoder().decode(contents);
-      let css = template.replace(/@@ACCENT@@/g, color);
+        let template = new TextDecoder().decode(contents);
+        let finalTemplateContent = customCssContents ? `${template}\n${customCssContents}` : template;
 
-      let cacheDir = GLib.get_user_cache_dir();
-      let outputFile = Gio.File.new_for_path(
-        `${cacheDir}/chromaleon-shell.css`,
-      );
+        let css = finalTemplateContent
+          .replace(/@@ACCENT@@/g, color)
+          .replace(/-st-accent-color/g, color);
 
-      outputFile.replace_contents_async(
-        new TextEncoder().encode(css),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
-        (f, r) => {
-          try {
-            f.replace_contents_finish(r);
-            removeShellStylesheet(currentCssFile);
+        let cacheDir = GLib.get_user_cache_dir();
+        let outputFile = Gio.File.new_for_path(
+          `${cacheDir}/chromaleon-shell.css`,
+        );
 
-            let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
-            if (theme) {
-              theme.load_stylesheet(outputFile);
-              if (onUpdated) onUpdated(outputFile);
-            }
-          } catch (e) {}
-        },
-      );
-    } catch (e) {}
-  });
+        outputFile.replace_contents_async(
+          new TextEncoder().encode(css),
+          null,
+          false,
+          Gio.FileCreateFlags.REPLACE_DESTINATION,
+          null,
+          (f, r) => {
+            try {
+              f.replace_contents_finish(r);
+              removeShellStylesheet(currentCssFile);
+
+              let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+              if (theme) {
+                theme.load_stylesheet(outputFile);
+                if (onUpdated) onUpdated(outputFile);
+              }
+            } catch (e) { }
+          },
+        );
+      } catch (e) { }
+    });
+  };
+
+  if (customCss.query_exists(null)) {
+    customCss.load_contents_async(null, (file, res) => {
+      let customCssContents = null;
+      try {
+        let [ok, contents] = file.load_contents_finish(res);
+        if (ok) {
+          customCssContents = new TextDecoder().decode(contents);
+        }
+      } catch (e) { }
+      generateAndApplyFiles(customCssContents);
+    });
+  } else {
+    const createCustomCssTemplate = async () => {
+      try {
+        const parentDir = customCss.get_parent();
+        if (parentDir && !parentDir.query_exists(null)) {
+          parentDir.make_directory_with_parents(null);
+        }
+
+        const outputStream = await customCss.replace_async(
+          null,
+          false,
+          Gio.FileCreateFlags.NONE,
+          GLib.PRIORITY_DEFAULT,
+          null
+        );
+
+        const content = new GLib.Bytes(
+          `/*\n* ChromaLeon Shell — Custom User Styles\n*/`);
+
+        await outputStream.write_bytes_async(
+          content,
+          GLib.PRIORITY_DEFAULT,
+          null
+        );
+
+        await outputStream.close_async(GLib.PRIORITY_DEFAULT, null);
+      } catch (e) { }
+
+      generateAndApplyFiles(null);
+    };
+
+    createCustomCssTemplate();
+  }
 }
 
 export function updateGtkStylesheet(
@@ -172,7 +229,7 @@ export function updateGtkStylesheet(
       (f, r) => {
         try {
           f.replace_contents_finish(r);
-        } catch (e) {}
+        } catch (e) { }
       },
     );
   };
@@ -191,7 +248,7 @@ export function updateGtkStylesheet(
           let template = new TextDecoder().decode(contents);
           let css = template.replace(/@@ACCENT@@/g, color);
           writeAccentFile(accentFile, `${cssVars}\n${css}`);
-        } catch (e) {}
+        } catch (e) { }
       });
     } else {
       writeAccentFile(accentFile, cssVars);
@@ -207,7 +264,7 @@ export function updateGtkStylesheet(
         (f, r) => {
           try {
             f.replace_contents_finish(r);
-          } catch (e) {}
+          } catch (e) { }
         },
       );
     };
@@ -220,7 +277,7 @@ export function updateGtkStylesheet(
           let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
           writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-        } catch (e) {}
+        } catch (e) { }
       });
     } else {
       writeMainFile(`${cssBlock}\n`);
@@ -242,7 +299,7 @@ export function updateGtkStylesheet(
             let template = new TextDecoder().decode(contents);
             let css = template.replace(/@@ACCENT@@/g, color);
             writeAccentFile(accentFile, `${cssVars}\n${css}`);
-          } catch (e) {}
+          } catch (e) { }
         });
       } else {
         tintedGtk3LightStyle.load_contents_async(null, (file, res) => {
@@ -255,7 +312,7 @@ export function updateGtkStylesheet(
             let css = template.replace(/@@ACCENT@@/g, color);
 
             writeAccentFile(accentFile, `${cssVars}\n${css}`);
-          } catch (e) {}
+          } catch (e) { }
         });
       }
     } else {
@@ -272,7 +329,7 @@ export function updateGtkStylesheet(
         (f, r) => {
           try {
             f.replace_contents_finish(r);
-          } catch (e) {}
+          } catch (e) { }
         },
       );
     };
@@ -285,7 +342,7 @@ export function updateGtkStylesheet(
           let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
           writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-        } catch (e) {}
+        } catch (e) { }
       });
     } else {
       writeMainFile(`${cssBlock}\n`);
