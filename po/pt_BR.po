@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-30 15:13-0300\n"
-"PO-Revision-Date: 2026-07-03 14:11+0000\n"
+"PO-Revision-Date: 2026-07-03 14:15+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
 "\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -100,11 +100,11 @@ msgstr "Tingir Aplicativos GTK3"
 
 #: chromaleon.js:373
 msgid "Darker Tint"
-msgstr ""
+msgstr "Tingimento escurecido"
 
 #: chromaleon.js:374
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Aplica um tingimento mais escuro."
 
 #: chromaleon.js:424
 msgid "Icon Theme"
