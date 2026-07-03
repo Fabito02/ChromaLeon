@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-30 15:13-0300\n"
+"POT-Creation-Date: 2026-07-01 11:54-0300\n"
 "PO-Revision-Date: 2026-07-03 14:12+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/chromaleon/"
@@ -19,145 +19,142 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.7.1.dev0\n"
 
-#: chromaleon.js:138
+#: chromaleon.js:140
 msgid "Wallpaper"
 msgstr "வால்பேப்பர்"
 
-#: chromaleon.js:142
+#: chromaleon.js:144
 msgid "Preferences"
 msgstr "விருப்பத்தேர்வுகள்"
 
-#: chromaleon.js:186
+#: chromaleon.js:188
 msgid "Accent Color"
 msgstr "உச்சரிப்பு நிறம்"
 
-#: chromaleon.js:187
+#: chromaleon.js:189
 msgid "New colors only apply when apps are reopened."
-msgstr ""
-"பயன்பாடுகள் மீண்டும் திறக்கப்படும் போது மட்டுமே புதிய வண்ணங்கள் பொருந்தும்."
+msgstr "பயன்பாடுகள் மீண்டும் திறக்கப்படும் போது மட்டுமே புதிய வண்ணங்கள் பொருந்தும்."
 
-#: chromaleon.js:191
+#: chromaleon.js:193
 msgid "Main color"
 msgstr "முக்கிய நிறம்"
 
-#: chromaleon.js:214
+#: chromaleon.js:216
 msgid "Wallpaper Colors"
 msgstr "வால்பேப்பர் நிறங்கள்"
 
-#: chromaleon.js:216
+#: chromaleon.js:218
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
-msgstr ""
-"உங்கள் வால்பேப்பரின் அடிப்படையில் உச்சரிப்பு நிறத்தை கணினி தானாகவே புதுப்பிக்கும்."
+msgstr "உங்கள் வால்பேப்பரின் அடிப்படையில் உச்சரிப்பு நிறத்தை கணினி தானாகவே புதுப்பிக்கும்."
 
-#: chromaleon.js:251
+#: chromaleon.js:253
 msgid "Additional colors"
 msgstr "கூடுதல் வண்ணங்கள்"
 
-#: chromaleon.js:288
+#: chromaleon.js:290
 msgid "Add wallpapers"
 msgstr "வால்பேப்பர்களைச் சேர்க்கவும்"
 
-#: chromaleon.js:302
+#: chromaleon.js:304
 msgid "Wallpapers"
 msgstr "வால்பேப்பர்கள்"
 
-#: chromaleon.js:325
+#: chromaleon.js:327
 msgid "Tint GNOME"
 msgstr "டின்ட் க்னோம்"
 
-#: chromaleon.js:326
+#: chromaleon.js:328
 msgid "Based on Tint my GNOME"
 msgstr "டின்ட் மை க்னோம் அடிப்படையில்"
 
-#: chromaleon.js:331
+#: chromaleon.js:333
 msgid "Tint Shell"
 msgstr "டின்ட் செல்"
 
-#: chromaleon.js:332
+#: chromaleon.js:334
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "க்னோம் செல்லை உங்கள் விருப்பத்தின் வண்ணத்துடன் சாயமிடவும்."
 
-#: chromaleon.js:340
+#: chromaleon.js:342
 msgid "Tint Apps"
 msgstr "டின்ட் ஆப்ச்"
 
-#: chromaleon.js:342
+#: chromaleon.js:344
 msgid "Tints the LibAdwaita applications with the color of your choice."
-msgstr ""
-"நீங்கள் விரும்பும் வண்ணத்துடன் LibAdwaita பயன்பாடுகளை டின்ட் செய்யுங்கள்."
+msgstr "நீங்கள் விரும்பும் வண்ணத்துடன் LibAdwaita பயன்பாடுகளை டின்ட் செய்யுங்கள்."
 
-#: chromaleon.js:351
+#: chromaleon.js:353
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
-"GTK3 பயன்பாடுகளையும் சாயமிடவும் (பிழைகளைத் தவிர்க்க {0} நீட்டிப்பு மற்றும் {1} கருப்பொருள் "
-"தேவை)."
+"GTK3 பயன்பாடுகளையும் சாயமிடவும் (பிழைகளைத் தவிர்க்க {0} நீட்டிப்பு மற்றும் {1} "
+"கருப்பொருள் தேவை)."
 
-#: chromaleon.js:364
+#: chromaleon.js:366
 msgid "Tint GTK3 Apps"
 msgstr "டின்ட் GTK3 ஆப்ச்"
 
-#: chromaleon.js:373
+#: chromaleon.js:375
 msgid "Darker Tint"
 msgstr ""
 
-#: chromaleon.js:374
+#: chromaleon.js:376
 msgid "Applies a darker tint."
 msgstr ""
 
-#: chromaleon.js:424
+#: chromaleon.js:426
 msgid "Icon Theme"
 msgstr "படவுரு கருப்பொருள்"
 
-#: chromaleon.js:429
+#: chromaleon.js:431
 msgid "Folder icon theme"
 msgstr "கோப்புறை படவுரு கருப்பொருள்"
 
-#: chromaleon.js:430
+#: chromaleon.js:432
 msgid "Applies the accent color to folder icons."
 msgstr "கோப்புறை ஐகான்களுக்கு உச்சரிப்பு நிறத்தைப் பயன்படுத்துகிறது."
 
-#: chromaleon.js:438
+#: chromaleon.js:440
 msgid "Application icon theme"
 msgstr "பயன்பாட்டு படவுரு கருப்பொருள்"
 
-#: chromaleon.js:439
+#: chromaleon.js:441
 msgid "Applies the accent color to some app icons."
 msgstr "சில ஆப்ச் ஐகான்களுக்கு உச்சரிப்பு நிறத்தைப் பயன்படுத்துகிறது."
 
-#: chromaleon.js:447
+#: chromaleon.js:449
 msgid "MoreWaita"
 msgstr "மேலும் காத்திருங்கள்"
 
-#: chromaleon.js:448
+#: chromaleon.js:450
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "MoreWaita படவுரு பேக்குடன் ஒருங்கிணைப்பைப் பயன்படுத்துகிறது."
 
-#: chromaleon.js:491
+#: chromaleon.js:493
 msgid "Customization"
 msgstr ""
 
-#: chromaleon.js:496
+#: chromaleon.js:498
 msgid "Custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:498
+#: chromaleon.js:500
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
 
-#: chromaleon.js:505 chromaleon.js:521
+#: chromaleon.js:507 chromaleon.js:523
 msgid "About the custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:511
+#: chromaleon.js:513
 msgid "Open file"
 msgstr ""
 
-#: chromaleon.js:523
+#: chromaleon.js:525
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -171,84 +168,83 @@ msgid ""
 "important</tt></b> to your CSS rules."
 msgstr ""
 
-#: chromaleon.js:530
+#: chromaleon.js:532
 msgid "Close"
 msgstr ""
 
-#: chromaleon.js:545
+#: chromaleon.js:547
 msgid "Failed to open custom.css: "
 msgstr ""
 
-#: chromaleon.js:550
+#: chromaleon.js:552
 msgid "Miscellaneous"
 msgstr "மற்றவை"
 
-#: chromaleon.js:555
+#: chromaleon.js:557
 msgid "Apply to Flatpaks"
 msgstr "Flatpaks க்கு விண்ணப்பிக்கவும்"
 
-#: chromaleon.js:557
+#: chromaleon.js:559
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr "உங்கள் தனிப்பயன் உச்சரிப்பு வண்ண மாறிகளை அணுக Flatpaks ஐ அனுமதிக்கவும்."
 
-#: chromaleon.js:565
+#: chromaleon.js:567
 msgid "Enable shortcut"
 msgstr "குறுக்குவழியை இயக்கு"
 
-#: chromaleon.js:567
+#: chromaleon.js:569
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
-".டெச்க்டாப் கோப்பைச் சேர்ப்பதன் மூலம் ஆப்ச் கட்டத்தில் குறுக்குவழியை உருவாக்கவும்."
+msgstr ".டெச்க்டாப் கோப்பைச் சேர்ப்பதன் மூலம் ஆப்ச் கட்டத்தில் குறுக்குவழியை உருவாக்கவும்."
 
-#: chromaleon.js:741
+#: chromaleon.js:743
 msgid "Wallpaper deleted successfully!"
 msgstr "வால்பேப்பர் வெற்றிகரமாக நீக்கப்பட்டது!"
 
-#: chromaleon.js:748
+#: chromaleon.js:750
 msgid "Failed to delete wallpaper"
 msgstr "வால்பேப்பரை நீக்க முடியவில்லை"
 
-#: chromaleon.js:755
+#: chromaleon.js:757
 msgid "Select a Wallpaper"
 msgstr "வால்பேப்பரைத் தேர்ந்தெடுக்கவும்"
 
-#: chromaleon.js:757
+#: chromaleon.js:759
 msgid "_Open"
 msgstr "_திற"
 
-#: chromaleon.js:758
+#: chromaleon.js:760
 msgid "_Cancel"
 msgstr "_ரத்துசெய்"
 
-#: chromaleon.js:763
+#: chromaleon.js:765
 msgid "All Images"
 msgstr "அனைத்து படங்கள்"
 
-#: chromaleon.js:790
+#: chromaleon.js:792
 msgid "Wallpaper already exists!"
 msgstr "வால்பேப்பர் ஏற்கனவே உள்ளது!"
 
-#: chromaleon.js:806
+#: chromaleon.js:808
 msgid "Wallpaper added successfully!"
 msgstr "வால்பேப்பர் சேர்க்கப்பட்டது!"
 
-#: chromaleon.js:1256
+#: chromaleon.js:1258
 msgid "Unable to load colors."
 msgstr "வண்ணங்களை ஏற்ற முடியவில்லை."
 
-#: chromaleon.js:1439 chromaleon.js:1464
+#: chromaleon.js:1441 chromaleon.js:1466
 msgid "Support"
 msgstr "உதவி"
 
-#: chromaleon.js:1451
+#: chromaleon.js:1453
 msgid "Support the project"
 msgstr "திட்டத்தை ஆதரிக்கவும்"
 
-#: chromaleon.js:1457
+#: chromaleon.js:1459
 msgid "Why support ChromaLeon?"
 msgstr "குரோமாலியோனை ஏன் ஆதரிக்க வேண்டும்?"
 
-#: chromaleon.js:1459
+#: chromaleon.js:1461
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -256,7 +252,7 @@ msgstr ""
 "இலவச மென்பொருளை உருவாக்குவதற்கு நேரம், ஆற்றல் மற்றும் அர்ப்பணிப்பு தேவை. உங்கள் நன்கொடை "
 "திட்டத்திற்கு நேரடியாக ஆதரவளிக்கிறது மற்றும் அதை உயிருடன் வைத்திருக்க உதவுகிறது!"
 
-#: chromaleon.js:1463
+#: chromaleon.js:1465
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
