@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-30 15:13-0300\n"
-"PO-Revision-Date: 2026-06-24 06:01+0000\n"
+"PO-Revision-Date: 2026-07-03 14:12+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #: chromaleon.js:138
 msgid "Wallpaper"
@@ -134,25 +134,27 @@ msgstr "Aplikuje integraci s balíčkem ikon MoreWaita."
 
 #: chromaleon.js:491
 msgid "Customization"
-msgstr ""
+msgstr "Přizpůsobení"
 
 #: chromaleon.js:496
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Vlastní styly"
 
 #: chromaleon.js:498
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Soubor, který přepisuje CSS uživatelského rozhraní a uživatelských doplňků, "
+"s podporou barev nádechu ChromaLeon."
 
 #: chromaleon.js:505 chromaleon.js:521
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "O vlastních stylech"
 
 #: chromaleon.js:511
 msgid "Open file"
-msgstr ""
+msgstr "Otevřít soubor"
 
 #: chromaleon.js:523
 msgid ""
@@ -167,14 +169,23 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Soubor je použit pro aplikování vlastního CSS na GNOME Shell.\n"
+"\n"
+"Rozšíření zpracovává veškerý obsah tohoto souboru, nahrazuje proměnné <b><tt>"
+"@@ACCENT@@</tt></b> a <b><tt>-st-accent-color</tt></b> barvou zvolenou v "
+"nastavení ChromaLeon před aplikováním na systém. Může to být užitečné, pokud "
+"je barevný nádech aplikován na nějaké rozšíření nesprávně.\n"
+"\n"
+"<b>Tip:</b> Pokud se změny neprojevují, zkuste do svých pravidel CSS přidat "
+"<b><tt>!important</tt></b>."
 
 #: chromaleon.js:530
 msgid "Close"
-msgstr ""
+msgstr "Zavřít"
 
 #: chromaleon.js:545
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "Otevření custom.css selhalo: "
 
 #: chromaleon.js:550
 msgid "Miscellaneous"
