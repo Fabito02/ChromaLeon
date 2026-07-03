@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-30 15:13-0300\n"
-"PO-Revision-Date: 2026-06-16 18:01+0000\n"
+"PO-Revision-Date: 2026-07-03 14:12+0000\n"
 "Last-Translator: froelen <froelen@tuta.io>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/chromaleon/"
 "extension/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #: chromaleon.js:138
 msgid "Wallpaper"
@@ -201,8 +201,8 @@ msgstr "Activer le raccourci"
 #: chromaleon.js:567
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
-"Créer un raccourci dans la grille d'applications en ajoutant un "
-"fichier .desktop."
+"Créer un raccourci dans la grille d'applications en ajoutant un fichier "
+".desktop."
 
 #: chromaleon.js:741
 msgid "Wallpaper deleted successfully!"
