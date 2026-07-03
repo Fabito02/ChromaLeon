@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-30 15:13-0300\n"
 "PO-Revision-Date: 2026-07-03 14:12+0000\n"
-"Last-Translator: Hosted Weblate user 154595 "
-"<fz053@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Christian Lauinger <christian.lauinger@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -137,25 +136,27 @@ msgstr "Wendet Integration mit dem MoreWaita-Symbolpaket an."
 
 #: chromaleon.js:491
 msgid "Customization"
-msgstr ""
+msgstr "Anpassung"
 
 #: chromaleon.js:496
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Benutzerdefiniertes Stylesheet"
 
 #: chromaleon.js:498
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Eine Datei, die das CSS der Shell und der Benutzererweiterungen überschreibt "
+"und die ChromaLeon-Akzentfarben unterstützt."
 
 #: chromaleon.js:505 chromaleon.js:521
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "Über das benutzerdefinierte Stylesheet"
 
 #: chromaleon.js:511
 msgid "Open file"
-msgstr ""
+msgstr "Datei öffnen"
 
 #: chromaleon.js:523
 msgid ""
@@ -170,14 +171,25 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Diese Datei dient dazu, benutzerdefiniertes CSS auf die GNOME Shell "
+"anzuwenden.\n"
+"\n"
+"Die Erweiterung verarbeitet den gesamten Inhalt dieser Datei und ersetzt die "
+"Variablen <b><tt>@@ACCENT@@</tt></b> sowie <b><tt>-st-accent-color</tt></b> "
+"durch die in den ChromaLeon-Einstellungen ausgewählte Farbe, bevor sie auf "
+"das System angewendet werden. Dies kann nützlich sein, wenn eine Erweiterung "
+"die Akzentfarben nicht korrekt anwendet.\n"
+"\n"
+"<b>Tipp:</b> Wenn Ihre Änderungen nicht wirksam werden, fügen Sie versuchen "
+"Sie, <b><tt>!important</tt></b> zu Ihren CSS-Regeln hinzuzufügen."
 
 #: chromaleon.js:530
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: chromaleon.js:545
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "„custom.css“ konnte nicht geöffnet werden: "
 
 #: chromaleon.js:550
 msgid "Miscellaneous"
@@ -264,8 +276,8 @@ msgstr "Abbrechen"
 
 #: utils/recolorUtils.js:309
 msgid "Adwaita icon pack was not found."
-msgstr ""
+msgstr "Das Adwaita-Icon-Paket wurde nicht gefunden."
 
 #: utils/recolorUtils.js:521
 msgid "MoreWaita icon pack was not found."
-msgstr ""
+msgstr "Das Icon-Paket „MoreWaita“ wurde nicht gefunden."
