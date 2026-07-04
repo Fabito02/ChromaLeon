@@ -1,5 +1,5 @@
 /*
- * tinted_dark.template.css
+ * tinted_darker.template.css
  *
  * This file is part of ChromaLeon GNOME Shell Extension.
  * https://github.com/Fabito02/ChromaLeon
@@ -1482,18 +1482,6 @@ StScrollBar>.hhandle:active {
 .screenshot-ui-window-selector-window:checked .screenshot-ui-window-selector-check {
   color: -st-accent-fg-color;
   background-color: @@ACCENT@@;
-}
-
-.screenshot-ui-screen-selector {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.5), 10%);
-}
-
-.screenshot-ui-screen-selector:hover {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.3), 10%);
-}
-
-.screenshot-ui-screen-selector:active {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.7), 10%);
 }
 
 /* Top Bar */

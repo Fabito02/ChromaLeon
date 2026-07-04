@@ -1470,18 +1470,6 @@ StScrollBar>.hhandle:active {
   background-color: @@ACCENT@@;
 }
 
-.screenshot-ui-screen-selector {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.5), 12%);
-}
-
-.screenshot-ui-screen-selector:hover {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.3), 12%);
-}
-
-.screenshot-ui-screen-selector:active {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.7), 12%);
-}
-
 /* Top Bar - Light */
 #panel {
   background-color: st-mix(@@ACCENT@@, #fafafb, 12%);
