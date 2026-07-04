@@ -1,0 +1,260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 11:54-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: chromaleon.js:140
+msgid "Wallpaper"
+msgstr ""
+
+#: chromaleon.js:144
+msgid "Preferences"
+msgstr ""
+
+#: chromaleon.js:188
+msgid "Accent Color"
+msgstr ""
+
+#: chromaleon.js:189
+msgid "New colors only apply when apps are reopened."
+msgstr ""
+
+#: chromaleon.js:193
+msgid "Main color"
+msgstr ""
+
+#: chromaleon.js:216
+msgid "Wallpaper Colors"
+msgstr ""
+
+#: chromaleon.js:218
+msgid ""
+"The system automatically updates the accent color based on your wallpaper."
+msgstr ""
+
+#: chromaleon.js:253
+msgid "Additional colors"
+msgstr ""
+
+#: chromaleon.js:290
+msgid "Add wallpapers"
+msgstr ""
+
+#: chromaleon.js:304
+msgid "Wallpapers"
+msgstr ""
+
+#: chromaleon.js:327
+msgid "Tint GNOME"
+msgstr ""
+
+#: chromaleon.js:328
+msgid "Based on Tint my GNOME"
+msgstr ""
+
+#: chromaleon.js:333
+msgid "Tint Shell"
+msgstr ""
+
+#: chromaleon.js:334
+msgid "Tints the GNOME Shell with the color of your choice."
+msgstr ""
+
+#: chromaleon.js:342
+msgid "Tint Apps"
+msgstr ""
+
+#: chromaleon.js:344
+msgid "Tints the LibAdwaita applications with the color of your choice."
+msgstr ""
+
+#: chromaleon.js:353
+msgid ""
+"Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
+"avoid bugs)."
+msgstr ""
+
+#: chromaleon.js:366
+msgid "Tint GTK3 Apps"
+msgstr ""
+
+#: chromaleon.js:375
+msgid "Darker Tint"
+msgstr ""
+
+#: chromaleon.js:376
+msgid "Applies a darker tint."
+msgstr ""
+
+#: chromaleon.js:426
+msgid "Icon Theme"
+msgstr ""
+
+#: chromaleon.js:431
+msgid "Folder icon theme"
+msgstr ""
+
+#: chromaleon.js:432
+msgid "Applies the accent color to folder icons."
+msgstr ""
+
+#: chromaleon.js:440
+msgid "Application icon theme"
+msgstr ""
+
+#: chromaleon.js:441
+msgid "Applies the accent color to some app icons."
+msgstr ""
+
+#: chromaleon.js:449
+msgid "MoreWaita"
+msgstr ""
+
+#: chromaleon.js:450
+msgid "Applies integration with the MoreWaita icon pack."
+msgstr ""
+
+#: chromaleon.js:493
+msgid "Customization"
+msgstr ""
+
+#: chromaleon.js:498
+msgid "Custom stylesheet"
+msgstr ""
+
+#: chromaleon.js:500
+msgid ""
+"A file that overrides the CSS of the shell and user extensions, with support "
+"for ChromaLeon accent colors."
+msgstr ""
+
+#: chromaleon.js:507 chromaleon.js:523
+msgid "About the custom stylesheet"
+msgstr ""
+
+#: chromaleon.js:513
+msgid "Open file"
+msgstr ""
+
+#: chromaleon.js:525
+msgid ""
+"This file is used to apply custom CSS to GNOME Shell.\n"
+"\n"
+"The extension processes all content within this file, replacing the "
+"<b><tt>@@ACCENT@@</tt></b> and <b><tt>-st-accent-color</tt></b> variables "
+"with the color selected in the ChromaLeon settings before applying them to "
+"the system. This can be useful if an extension does not have the accent "
+"colors applied correctly.\n"
+"\n"
+"<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
+"important</tt></b> to your CSS rules."
+msgstr ""
+
+#: chromaleon.js:532
+msgid "Close"
+msgstr ""
+
+#: chromaleon.js:547
+msgid "Failed to open custom.css: "
+msgstr ""
+
+#: chromaleon.js:552
+msgid "Miscellaneous"
+msgstr ""
+
+#: chromaleon.js:557
+msgid "Apply to Flatpaks"
+msgstr ""
+
+#: chromaleon.js:559
+msgid "Allow Flatpaks to access your custom accent color variables."
+msgstr ""
+
+#: chromaleon.js:567
+msgid "Enable shortcut"
+msgstr ""
+
+#: chromaleon.js:569
+msgid "Create a shortcut in the app grid by adding a .desktop file."
+msgstr ""
+
+#: chromaleon.js:743
+msgid "Wallpaper deleted successfully!"
+msgstr ""
+
+#: chromaleon.js:750
+msgid "Failed to delete wallpaper"
+msgstr ""
+
+#: chromaleon.js:757
+msgid "Select a Wallpaper"
+msgstr ""
+
+#: chromaleon.js:759
+msgid "_Open"
+msgstr ""
+
+#: chromaleon.js:760
+msgid "_Cancel"
+msgstr ""
+
+#: chromaleon.js:765
+msgid "All Images"
+msgstr ""
+
+#: chromaleon.js:792
+msgid "Wallpaper already exists!"
+msgstr ""
+
+#: chromaleon.js:808
+msgid "Wallpaper added successfully!"
+msgstr ""
+
+#: chromaleon.js:1258
+msgid "Unable to load colors."
+msgstr ""
+
+#: chromaleon.js:1441 chromaleon.js:1466
+msgid "Support"
+msgstr ""
+
+#: chromaleon.js:1453
+msgid "Support the project"
+msgstr ""
+
+#: chromaleon.js:1459
+msgid "Why support ChromaLeon?"
+msgstr ""
+
+#: chromaleon.js:1461
+msgid ""
+"Developing free software requires time, energy, and dedication. Your "
+"donation directly supports the project and helps keep it alive!"
+msgstr ""
+
+#: chromaleon.js:1465
+msgid "Cancel"
+msgstr ""
+
+#: utils/recolorUtils.js:309
+msgid "Adwaita icon pack was not found."
+msgstr ""
+
+#: utils/recolorUtils.js:521
+msgid "MoreWaita icon pack was not found."
+msgstr ""
