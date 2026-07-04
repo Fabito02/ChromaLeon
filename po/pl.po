@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-01 11:54-0300\n"
-"PO-Revision-Date: 2026-07-03 14:12+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-07-04 06:20+0000\n"
+"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -101,11 +100,11 @@ msgstr "Przyciemnij aplikacje GTK3"
 
 #: chromaleon.js:375
 msgid "Darker Tint"
-msgstr ""
+msgstr "Ciemniejsze przyciemnienie"
 
 #: chromaleon.js:376
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Stosuje ciemniejsze przyciemnienie."
 
 #: chromaleon.js:426
 msgid "Icon Theme"
@@ -137,25 +136,27 @@ msgstr "Stosuje integrację z paczką ikon MoreWaita."
 
 #: chromaleon.js:493
 msgid "Customization"
-msgstr ""
+msgstr "Personalizacja"
 
 #: chromaleon.js:498
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Niestandardowy arkusz stylów"
 
 #: chromaleon.js:500
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Plik zastępujący CSS powłoki i rozszerzeń użytkownika, z obsługą kolorów "
+"wyróżniających ChromaLeon."
 
 #: chromaleon.js:507 chromaleon.js:523
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "Informacje o niestandardowym arkuszu stylów"
 
 #: chromaleon.js:513
 msgid "Open file"
-msgstr ""
+msgstr "Otwórz plik"
 
 #: chromaleon.js:525
 msgid ""
@@ -170,14 +171,24 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Ten plik służy do stosowania niestandardowego CSS w powłoce GNOME.\n"
+"\n"
+"Rozszerzenie przetwarza całą zawartość tego pliku, zastępując zmienne <b><tt>"
+"@@ACCENT@@</tt></b> i <b><tt>-st-accent-color</tt></b> kolorem wybranym w "
+"ustawieniach ChromaLeon przed zastosowaniem ich w systemie. Może to być "
+"przydatne, jeśli w rozszerzeniu nie zastosowano prawidłowo kolorów "
+"wyróżnienia.\n"
+"\n"
+"<b>Wskazówka:</b> jeśli zmiany nie odniosą skutku, spróbuj dodać <b><tt>"
+"!important</tt></b> do reguł CSS."
 
 #: chromaleon.js:532
 msgid "Close"
-msgstr ""
+msgstr "Zamknij"
 
 #: chromaleon.js:547
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "Błąd otwierania custom.css. "
 
 #: chromaleon.js:552
 msgid "Miscellaneous"
