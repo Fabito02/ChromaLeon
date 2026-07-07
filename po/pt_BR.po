@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 16:53-0300\n"
-"PO-Revision-Date: 2026-07-03 14:15+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-07-07 20:02+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Erro ao buscar thumbnail: "
 
 #: chromaleon.js:139
 msgid "Wallpaper"
@@ -222,9 +222,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo deletado com sucesso!"
 
 #: chromaleon.js:756
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Falha ao deletar plano de fundo"
+msgstr "Falha ao deletar plano de fundo: "
 
 #: chromaleon.js:762
 msgid "Select a Wallpaper"
@@ -252,7 +251,7 @@ msgstr "Plano de fundo adicionado com sucesso!"
 
 #: chromaleon.js:817
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Erro ao copiar plano de fundo: "
 
 #: chromaleon.js:1263
 msgid "Unable to load colors."
@@ -283,17 +282,16 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: extension.js:55
-#, fuzzy
 msgid "Failed to apply custom style: "
-msgstr "Falhou em abrir custom.css: "
+msgstr "Falhou em aplicar estilo customizado: "
 
 #: utils/colorUtils.js:55
 msgid "Error creating pixbuf: "
-msgstr ""
+msgstr "Erro ao criar pixbuf: "
 
 #: utils/colorUtils.js:60
 msgid "Error reading file: "
-msgstr ""
+msgstr "Erro ao ler arquivo: "
 
 #: utils/recolorUtils.js:309
 msgid "Adwaita icon pack was not found."
