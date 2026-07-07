@@ -1,6 +1,6 @@
 /*
  * extension.js
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -48,8 +48,11 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.background",
     });
 
-    this._updateShellStyles();
-    this._updateStyles(true);
+    (async () => {
+      try {
+        await this._autoApplyWallpaperColor();
+      } catch (e) { }
+    })();
 
     this._settings.connectObject(
       "changed::accent-color",
