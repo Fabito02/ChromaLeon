@@ -52,14 +52,12 @@ export function calculateVibrantColor(uri) {
               let color = _processPixbuf(pixbuf);
               resolve(color);
             } catch (e) {
-              console.error("Error creating pixbuf:", e);
-              resolve(null);
+              throw new Error(_("Error creating pixbuf: " + e.message));
             }
           },
         );
       } catch (e) {
-        console.error("Error reading file:", e);
-        resolve(null);
+        throw new Error(_("Error reading file: " + e.message));
       }
     });
   });

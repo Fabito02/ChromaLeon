@@ -51,7 +51,9 @@ export default class CustomAccentExtension extends Extension {
     (async () => {
       try {
         await this._autoApplyWallpaperColor();
-      } catch (e) { }
+      } catch (e) {
+        throw new Error(_("Failed to apply custom style: " + e.message));
+      }
     })();
 
     this._settings.connectObject(
@@ -177,7 +179,8 @@ export default class CustomAccentExtension extends Extension {
     let color = await ColorUtils.calculateVibrantColor(uri);
     const colorChanged = color !== this._settings.get_string("accent-color");
 
-    let updateIcons = colorChanged && this._settings.get_boolean("recolor-folders");
+    let updateIcons =
+      colorChanged && this._settings.get_boolean("recolor-folders");
 
     if (colorChanged) {
       this._settings.set_string("accent-color", color);
@@ -242,7 +245,14 @@ export default class CustomAccentExtension extends Extension {
       darker,
     );
 
-    ThemeUtils.updateGtkStylesheet(this.path, color, tintApps, isDark, gtk3, darker);
+    ThemeUtils.updateGtkStylesheet(
+      this.path,
+      color,
+      tintApps,
+      isDark,
+      gtk3,
+      darker,
+    );
 
     if (updateIcons) {
       await this._updateIconPack();
