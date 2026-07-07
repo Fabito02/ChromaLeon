@@ -49,6 +49,7 @@ export default class CustomAccentExtension extends Extension {
     });
 
     this._updateShellStyles();
+    this._updateStyles(true);
 
     this._settings.connectObject(
       "changed::accent-color",
