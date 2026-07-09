@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 16:53-0300\n"
-"PO-Revision-Date: 2026-07-07 13:01+0000\n"
+"PO-Revision-Date: 2026-07-10 14:01+0000\n"
 "Last-Translator: Amedeo Trotta <paperella@duck.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/it/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Impossibile ottenere l'anteprima: "
 
 #: chromaleon.js:139
 msgid "Wallpaper"
@@ -224,9 +224,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Sfondo eliminato correttamente!"
 
 #: chromaleon.js:756
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Impossibile eliminare lo sfondo"
+msgstr "Impossibile eliminare lo sfondo "
 
 #: chromaleon.js:762
 msgid "Select a Wallpaper"
@@ -254,7 +253,7 @@ msgstr "Sfondo aggiunto correttamente!"
 
 #: chromaleon.js:817
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Impossibile copiare lo sfondo: "
 
 #: chromaleon.js:1263
 msgid "Unable to load colors."
@@ -286,17 +285,16 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: extension.js:55
-#, fuzzy
 msgid "Failed to apply custom style: "
-msgstr "Impossibile aprire custom.css. "
+msgstr "Impossibile aprire custom.css: "
 
 #: utils/colorUtils.js:55
 msgid "Error creating pixbuf: "
-msgstr ""
+msgstr "Impossibile creare il pixbuf: "
 
 #: utils/colorUtils.js:60
 msgid "Error reading file: "
-msgstr ""
+msgstr "Impossibile leggere il file: "
 
 #: utils/recolorUtils.js:309
 msgid "Adwaita icon pack was not found."
