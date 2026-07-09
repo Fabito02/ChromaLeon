@@ -81,7 +81,7 @@ If you prefer to install it manually from source, run the following commands in 
 
 ```bash
 # Clone the repository
-git clone [https://github.com/Fabito02/user-accent-colors.git](https://github.com/Fabito02/ChromaLeon.git)
+git clone https://github.com/Fabito02/ChromaLeon
 
 # Move it to the extensions directory
 mv ChromaLeon ~/.local/share/gnome-shell/extensions/user-accent-colors@fabito02
