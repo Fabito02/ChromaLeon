@@ -43,6 +43,7 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 * **Wallpaper selector :** Wallpaper selector for user wallpapers and Gnome dynamic wallpapers.
 * **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
+> Note: Special thanks to [PakoVM](https://github.com/pakovm-git) for the code for the tinted style, which was based on his [Tint My GNOME](https://github.com/pakovm-git/Tint-my-Gnome) extension.
 ---
 
 ## Translation
