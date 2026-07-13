@@ -655,14 +655,14 @@ class ChromaLeonUI {
 
     this._settingsId = this._settings.connect("changed::accent-color", () => {
       this._applyTheme();
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
 
     this._settingsId = this._settings.connect("changed::darker", () => {
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
@@ -676,7 +676,7 @@ class ChromaLeonUI {
       () => {
         this._updateWallpaperUI();
 
-        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 80, () => {
+        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
           this._loadUserCss();
           return GLib.SOURCE_REMOVE;
         });
