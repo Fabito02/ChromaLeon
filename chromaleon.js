@@ -355,24 +355,19 @@ class ChromaLeonUI {
     });
     this._optionsPage.add(tintGnomeGroup);
 
-    const TintShellRow = new Adw.ActionRow({
+    const TintShellRow = new Adw.SwitchRow({
       title: _("Tint Shell"),
       subtitle: _("Tints the GNOME Shell with the color of your choice."),
     });
-
-    const TintShellSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    TintShellRow.add_suffix(TintShellSwitch);
     tintGnomeGroup.add(TintShellRow);
 
-    const TintAppsRow = new Adw.ActionRow({
+    const TintAppsRow = new Adw.ExpanderRow({
       title: _("Tint Apps"),
       subtitle: _(
         "Tints the LibAdwaita applications with the color of your choice.",
       ),
+      show_enable_switch: true,
     });
-
-    const TintAppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    TintAppsRow.add_suffix(TintAppsSwitch);
     tintGnomeGroup.add(TintAppsRow);
 
     let msg = _(
@@ -388,130 +383,104 @@ class ChromaLeonUI {
       .replace("{0}", extension_link)
       .replace("{1}", theme_link);
 
-    const TintGTK3AppsRow = new Adw.ActionRow({
+    const TintGTK3AppsRow = new Adw.SwitchRow({
       title: _("Tint GTK3 Apps"),
       subtitle: subtitle_gtk3,
     });
 
-    const TintGTK3AppsSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    TintGTK3AppsRow.add_suffix(TintGTK3AppsSwitch);
-    tintGnomeGroup.add(TintGTK3AppsRow);
+    TintAppsRow.add_row(TintGTK3AppsRow);
 
-    const darkerRow = new Adw.ActionRow({
+    TintAppsRow.bind_property(
+        'enable-expansion',
+        TintAppsRow,
+        'expanded',
+        GObject.BindingFlags.SYNC_CREATE
+    );
+
+    const darkerRow = new Adw.SwitchRow({
       title: _("Darker Tint"),
       subtitle: _("Applies a darker tint."),
     });
-
-    const darkerSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    darkerRow.add_suffix(darkerSwitch);
     tintGnomeGroup.add(darkerRow);
 
     this._settings.bind(
       "tint-shell",
-      TintShellSwitch,
+      TintShellRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
     this._settings.bind(
       "tint-apps",
-      TintAppsSwitch,
-      "active",
+      TintAppsRow,
+      "enable-expansion",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
     this._settings.bind(
       "tint-gtk3",
-      TintGTK3AppsSwitch,
+      TintGTK3AppsRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
     this._settings.bind(
       "darker",
-      darkerSwitch,
+      darkerRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
-    TintAppsSwitch.bind_property(
-      "active",
-      TintGTK3AppsSwitch,
-      "sensitive",
-      GObject.BindingFlags.SYNC_CREATE,
-    );
-
-    TintAppsSwitch.bind_property(
-      "active",
-      darkerSwitch,
-      "sensitive",
-      GObject.BindingFlags.SYNC_CREATE,
-    );
-
     const iconThemeGroup = new Adw.PreferencesGroup({
-      title: _("Icon Theme"),
-    });
-    this._optionsPage.add(iconThemeGroup);
+          title: _("Icon Theme"),
+        });
+        this._optionsPage.add(iconThemeGroup);
 
-    const iconThemeFolderRow = new Adw.ActionRow({
-      title: _("Folder icon theme"),
-      subtitle: _("Applies the accent color to folder icons."),
-    });
+        const iconThemeFolderRow = new Adw.ExpanderRow({
+          title: _("Folder icon theme"),
+          subtitle: _("Applies the accent color to folder icons."),
+          show_enable_switch: true,
+        });
+        iconThemeGroup.add(iconThemeFolderRow);
 
-    const iconThemeFolderSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    iconThemeFolderRow.add_suffix(iconThemeFolderSwitch);
-    iconThemeGroup.add(iconThemeFolderRow);
+        const iconThemeAppRow = new Adw.SwitchRow({
+          title: _("Application icon theme"),
+          subtitle: _("Applies the accent color to some app icons."),
+        });
 
-    const iconThemeAppRow = new Adw.ActionRow({
-      title: _("Application icon theme"),
-      subtitle: _("Applies the accent color to some app icons."),
-    });
+        const morewaitaRow = new Adw.SwitchRow({
+          title: _("MoreWaita"),
+          subtitle: _("Applies integration with the MoreWaita icon pack."),
+        });
 
-    const iconThemeAppSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    iconThemeAppRow.add_suffix(iconThemeAppSwitch);
-    iconThemeGroup.add(iconThemeAppRow);
-
-    const morewaitaRow = new Adw.ActionRow({
-      title: _("MoreWaita"),
-      subtitle: _("Applies integration with the MoreWaita icon pack."),
-    });
-    iconThemeGroup.add(morewaitaRow);
-
-    const morewaitaSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    morewaitaRow.add_suffix(morewaitaSwitch);
+        iconThemeFolderRow.add_row(iconThemeAppRow);
+        iconThemeFolderRow.add_row(morewaitaRow);
 
     this._settings.bind(
       "recolor-folders",
-      iconThemeFolderSwitch,
-      "active",
+      iconThemeFolderRow,
+      "enable-expansion",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
     this._settings.bind(
       "recolor-apps",
-      iconThemeAppSwitch,
+      iconThemeAppRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
     this._settings.bind(
       "morewaita",
-      morewaitaSwitch,
+      morewaitaRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
 
-    iconThemeFolderSwitch.bind_property(
-      "active",
-      iconThemeAppRow,
-      "sensitive",
-      GObject.BindingFlags.SYNC_CREATE,
-    );
-
-    iconThemeFolderSwitch.bind_property(
-      "active",
-      morewaitaRow,
-      "sensitive",
+    iconThemeFolderRow.bind_property(
+      'enable-expansion',
+      iconThemeFolderRow,
+      'expanded',
       GObject.BindingFlags.SYNC_CREATE,
     );
 
@@ -588,30 +557,25 @@ class ChromaLeonUI {
     });
     this._optionsPage.add(miscellaneousGroup);
 
-    const flatpakRow = new Adw.ActionRow({
+    const flatpakRow = new Adw.SwitchRow({
       title: _("Apply to Flatpaks"),
       subtitle: _(
         "Allow Flatpaks to access your custom accent color variables.",
       ),
     });
-    const flatpakSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    flatpakRow.add_suffix(flatpakSwitch);
     miscellaneousGroup.add(flatpakRow);
 
-    const shortcutRow = new Adw.ActionRow({
+    const shortcutRow = new Adw.SwitchRow({
       title: _("Enable shortcut"),
       subtitle: _(
         "Create a shortcut in the app grid by adding a .desktop file.",
       ),
     });
-
-    const shortcutSwitch = new Gtk.Switch({ valign: Gtk.Align.CENTER });
-    shortcutRow.add_suffix(shortcutSwitch);
     miscellaneousGroup.add(shortcutRow);
 
     this._settings.bind(
       "create-shortcut",
-      shortcutSwitch,
+      shortcutRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
@@ -635,9 +599,9 @@ class ChromaLeonUI {
       }
     };
 
-    flatpakSwitch.set_active(checkFlatpakPermissions());
-    flatpakSwitch.connect("notify::active", () => {
-      const isActive = flatpakSwitch.get_active();
+    flatpakRow.set_active(checkFlatpakPermissions());
+    flatpakRow.connect("notify::active", () => {
+      const isActive = flatpakRow.get_active();
       const commands = isActive
         ? [
             [
@@ -679,48 +643,6 @@ class ChromaLeonUI {
       const rgba = new Gdk.RGBA();
       rgba.parse(hex);
       colorButton.set_rgba(rgba);
-
-      const cssProvider = new Gtk.CssProvider();
-      cssProvider.load_from_data(
-        `
-                switch:checked {
-                    background-color: ${hex};
-                    border-color: ${hex};
-                }
-            `,
-        -1,
-      );
-
-      TintAppsSwitch.get_style_context().add_provider(
-        cssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-      );
-      TintShellSwitch.get_style_context().add_provider(
-        cssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-      );
-      TintGTK3AppsSwitch.get_style_context().add_provider(
-        cssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-      );
-      darkerSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      flatpakSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      shortcutSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      iconThemeFolderSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      iconThemeAppSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      morewaitaSwitch
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
       colorRow.set_subtitle(hex);
 
