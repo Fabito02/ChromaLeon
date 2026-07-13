@@ -63,11 +63,13 @@ export default class CustomAccentExtension extends Extension {
           ? await this._updateStyles(true)
           : await this._updateStyles(),
       "changed::tint-shell",
-      async () => await this._updateStyles(),
+      () => this._updateShellStyles(),
+      "changed::custom-css",
+      () => this._updateShellStyles(),
       "changed::tint-apps",
-      async () => await this._updateStyles(),
+      () => this._updateAppStyles(),
       "changed::tint-gtk3",
-      async () => await this._updateStyles(),
+      () => this._updateAppStyles(),
       "changed::darker",
       async () => await this._updateStyles(),
       this,
@@ -220,39 +222,8 @@ export default class CustomAccentExtension extends Extension {
   }
 
   async _updateStyles(updateIcons = false) {
-    let color = this._settings.get_string("accent-color");
-    let gtk3 = this._settings.get_boolean("tint-gtk3");
-    let darker = this._settings.get_boolean("darker");
-    let colorScheme = this._interfaceSettings.get_string("color-scheme");
-
-    const lightStyle = sessionMode.colorScheme;
-
-    let isDark = colorScheme === "prefer-dark";
-    let isLight = lightStyle === "prefer-light" && colorScheme === "default";
-
-    const tintShell = this._settings.get_boolean("tint-shell");
-    const tintApps = this._settings.get_boolean("tint-apps");
-
-    ThemeUtils.updateShellStylesheet(
-      this.path,
-      color,
-      this._generatedCssFile,
-      (file) => {
-        this._generatedCssFile = file;
-      },
-      isLight,
-      tintShell,
-      darker,
-    );
-
-    ThemeUtils.updateGtkStylesheet(
-      this.path,
-      color,
-      tintApps,
-      isDark,
-      gtk3,
-      darker,
-    );
+    this._updateShellStyles();
+    this._updateAppStyles();
 
     if (updateIcons) {
       await this._updateIconPack();
@@ -261,14 +232,15 @@ export default class CustomAccentExtension extends Extension {
 
   _updateShellStyles() {
     let color = this._settings.get_string("accent-color");
-    let colorScheme = this._interfaceSettings.get_string("color-scheme");
     let darker = this._settings.get_boolean("darker");
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
 
     const lightStyle = sessionMode.colorScheme;
 
     let isLight = lightStyle === "prefer-light" && colorScheme === "default";
 
     const tintShell = this._settings.get_boolean("tint-shell");
+    const customCss = this._settings.get_boolean("custom-css");
 
     ThemeUtils.updateShellStylesheet(
       this.path,
@@ -279,6 +251,26 @@ export default class CustomAccentExtension extends Extension {
       },
       isLight,
       tintShell,
+      darker,
+      customCss,
+    );
+  }
+
+  _updateAppStyles() {
+    let color = this._settings.get_string("accent-color");
+    let gtk3 = this._settings.get_boolean("tint-gtk3");
+    let darker = this._settings.get_boolean("darker");
+    let colorScheme = this._interfaceSettings.get_string("color-scheme");
+
+    let isDark = colorScheme === "prefer-dark";
+    const tintApps = this._settings.get_boolean("tint-apps");
+
+    ThemeUtils.updateGtkStylesheet(
+      this.path,
+      color,
+      tintApps,
+      isDark,
+      gtk3,
       darker,
     );
   }

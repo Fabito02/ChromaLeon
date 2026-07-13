@@ -66,5 +66,10 @@
       <default>""</default>
       <summary>Last execution error message</summary>
     </key>
+    <key name="custom-css" type="b">
+      <default>false</default>
+      <summary>Custom CSS</summary>
+      <description>Applies custom CSS to the Shell UI.</description>
+    </key>
   </schema>
 </schemalist>

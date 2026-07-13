@@ -90,6 +90,7 @@ export function updateShellStylesheet(
   isLight,
   tinted,
   darker,
+  customStyle,
 ) {
   const homeDir = GLib.get_home_dir();
 
@@ -166,16 +167,20 @@ export function updateShellStylesheet(
   };
 
   if (customCss.query_exists(null)) {
-    customCss.load_contents_async(null, (file, res) => {
-      let customCssContents = null;
-      try {
-        let [ok, contents] = file.load_contents_finish(res);
-        if (ok) {
-          customCssContents = new TextDecoder().decode(contents);
-        }
-      } catch (e) {}
-      generateAndApplyFiles(customCssContents);
-    });
+    if (customStyle) {
+      customCss.load_contents_async(null, (file, res) => {
+        let customCssContents = null;
+        try {
+          let [ok, contents] = file.load_contents_finish(res);
+          if (ok) {
+            customCssContents = new TextDecoder().decode(contents);
+          }
+        } catch (e) {}
+        generateAndApplyFiles(customCssContents);
+      });
+    } else {
+      generateAndApplyFiles(null);
+    }
   } else {
     const createCustomCssTemplate = async () => {
       try {

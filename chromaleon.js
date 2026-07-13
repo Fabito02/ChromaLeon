@@ -496,6 +496,18 @@ class ChromaLeonUI {
       ),
     });
 
+    const customCssSwitch = new Gtk.Switch({
+      valign: Gtk.Align.CENTER,
+    });
+    customCssRow.activatable_widget = customCssSwitch
+
+    this._settings.bind(
+      "custom-css",
+      customCssSwitch,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
     const infoButton = new Gtk.Button({
       valign: Gtk.Align.CENTER,
       icon_name: "help-about-symbolic",
@@ -510,6 +522,7 @@ class ChromaLeonUI {
 
     customCssRow.add_suffix(infoButton);
     customCssRow.add_suffix(openCssButton);
+    customCssRow.add_suffix(customCssSwitch);
     customCssGroup.add(customCssRow);
 
     infoButton.connect("clicked", () => {
@@ -660,7 +673,14 @@ class ChromaLeonUI {
         return GLib.SOURCE_REMOVE;
       });
     });
-
+    
+    this._settingsId = this._settings.connect("changed::tint-apps", () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+        this._loadUserCss();
+        return GLib.SOURCE_REMOVE;
+      });
+    });
+    
     this._settingsId = this._settings.connect("changed::darker", () => {
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
