@@ -29,7 +29,7 @@ export default class CustomAccentPreferences extends ExtensionPreferences {
     const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
 
-    window.set_default_size(520, 670);
+    window.set_default_size(600, 680);
     window.add(page);
 
     buildUI(window, page, settings);
