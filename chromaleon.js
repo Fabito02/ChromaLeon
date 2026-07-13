@@ -391,10 +391,10 @@ class ChromaLeonUI {
     TintAppsRow.add_row(TintGTK3AppsRow);
 
     TintAppsRow.bind_property(
-        'enable-expansion',
-        TintAppsRow,
-        'expanded',
-        GObject.BindingFlags.SYNC_CREATE
+      "enable-expansion",
+      TintAppsRow,
+      "expanded",
+      GObject.BindingFlags.SYNC_CREATE,
     );
 
     const darkerRow = new Adw.SwitchRow({
@@ -432,29 +432,29 @@ class ChromaLeonUI {
     );
 
     const iconThemeGroup = new Adw.PreferencesGroup({
-          title: _("Icon Theme"),
-        });
-        this._optionsPage.add(iconThemeGroup);
+      title: _("Icon Theme"),
+    });
+    this._optionsPage.add(iconThemeGroup);
 
-        const iconThemeFolderRow = new Adw.ExpanderRow({
-          title: _("Folder icon theme"),
-          subtitle: _("Applies the accent color to folder icons."),
-          show_enable_switch: true,
-        });
-        iconThemeGroup.add(iconThemeFolderRow);
+    const iconThemeFolderRow = new Adw.ExpanderRow({
+      title: _("Folder icon theme"),
+      subtitle: _("Applies the accent color to folder icons."),
+      show_enable_switch: true,
+    });
+    iconThemeGroup.add(iconThemeFolderRow);
 
-        const iconThemeAppRow = new Adw.SwitchRow({
-          title: _("Application icon theme"),
-          subtitle: _("Applies the accent color to some app icons."),
-        });
+    const iconThemeAppRow = new Adw.SwitchRow({
+      title: _("Application icon theme"),
+      subtitle: _("Applies the accent color to some app icons."),
+    });
 
-        const morewaitaRow = new Adw.SwitchRow({
-          title: _("MoreWaita"),
-          subtitle: _("Applies integration with the MoreWaita icon pack."),
-        });
+    const morewaitaRow = new Adw.SwitchRow({
+      title: _("MoreWaita"),
+      subtitle: _("Applies integration with the MoreWaita icon pack."),
+    });
 
-        iconThemeFolderRow.add_row(iconThemeAppRow);
-        iconThemeFolderRow.add_row(morewaitaRow);
+    iconThemeFolderRow.add_row(iconThemeAppRow);
+    iconThemeFolderRow.add_row(morewaitaRow);
 
     this._settings.bind(
       "recolor-folders",
@@ -478,9 +478,9 @@ class ChromaLeonUI {
     );
 
     iconThemeFolderRow.bind_property(
-      'enable-expansion',
+      "enable-expansion",
       iconThemeFolderRow,
-      'expanded',
+      "expanded",
       GObject.BindingFlags.SYNC_CREATE,
     );
 
@@ -653,16 +653,34 @@ class ChromaLeonUI {
 
     this._applyTheme();
 
-    this._settingsId = this._settings.connect("changed::accent-color", () =>
-      this._applyTheme(),
-    );
+    this._settingsId = this._settings.connect("changed::accent-color", () => {
+      this._applyTheme();
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+        this._loadUserCss();
+        return GLib.SOURCE_REMOVE;
+      });
+    });
+
+    this._settingsId = this._settings.connect("changed::darker", () => {
+      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+        this._loadUserCss();
+        return GLib.SOURCE_REMOVE;
+      });
+    });
 
     this._loadWallpapersAsync();
     this._updateWallpaperUI();
 
     this._colorSchemeId = this._interfaceSettings.connect(
       "changed::color-scheme",
-      () => this._updateWallpaperUI(),
+      () => {
+        this._updateWallpaperUI();
+
+        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 80, () => {
+          this._loadUserCss();
+          return GLib.SOURCE_REMOVE;
+        });
+      },
     );
 
     this._bgChangedId1 = this._bgSettings.connect(
@@ -685,6 +703,36 @@ class ChromaLeonUI {
     });
   }
 
+  _loadUserCss() {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+
+    if (!this._globalCssProvider) {
+      this._globalCssProvider = new Gtk.CssProvider();
+      Gtk.StyleContext.add_provider_for_display(
+        display,
+        this._globalCssProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_USER,
+      );
+    }
+
+    const isDark =
+      this._interfaceSettings.get_string("color-scheme") === "prefer-dark";
+    if ("prefers-color-scheme" in this._globalCssProvider) {
+      this._globalCssProvider.prefers_color_scheme = isDark
+        ? Gtk.InterfaceColorScheme.DARK
+        : Gtk.InterfaceColorScheme.LIGHT;
+    }
+
+    const file = Gio.File.new_for_path(
+      `${GLib.get_home_dir()}/.config/gtk-4.0/gtk.css`,
+    );
+    if (file.query_exists(null)) {
+      this._globalCssProvider.load_from_string("");
+      this._globalCssProvider.load_from_file(file);
+    }
+  }
+
   async _deleteWallpaper(filename) {
     const file = Gio.File.new_for_path(
       `${GLib.get_user_data_dir()}/backgrounds/${filename}`,
@@ -699,7 +747,6 @@ class ChromaLeonUI {
         title: _("Wallpaper deleted successfully!"),
       });
       this._page.get_root().add_toast(toast);
-
     } catch (e) {
       throw new Error(_("Error deleting wallpaper: " + e.message));
     }
