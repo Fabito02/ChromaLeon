@@ -309,18 +309,45 @@ class ChromaLeonUI {
       activatable: false,
       focusable: false,
       selectable: false,
-      margin_top: 12,
-      margin_bottom: 12,
-      margin_start: 12,
-      margin_end: 12,
+      margin_top: 8,
+      margin_bottom: 8,
+      margin_start: 8,
+      margin_end: 8,
     });
     wallpapersListGroup.add(wallpapersList);
 
-    this._gridContainer = new Gtk.Grid({
-      column_spacing: 12,
-      row_spacing: 12,
+    this._containerUserWallpapers = new Gtk.FlowBox({
+      orientation: Gtk.Orientation.HORIZONTAL,
+      max_children_per_line: 2,
+      min_children_per_line: 2,
+      row_spacing: 8,
+      column_spacing: 8,
     });
-    wallpapersList.set_child(this._gridContainer);
+
+    this._containerSystemWallpapers = new Gtk.FlowBox({
+      orientation: Gtk.Orientation.HORIZONTAL,
+      max_children_per_line: 2,
+      min_children_per_line: 2,
+      row_spacing: 8,
+      column_spacing: 8,
+    });
+
+    const wallpapersListContainer = new Gtk.Box({
+      orientation: Gtk.Orientation.VERTICAL,
+    });
+
+    wallpapersListContainer.append(this._containerUserWallpapers);
+    wallpapersListContainer.append(
+      new Gtk.Separator({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        margin_top: 12,
+        margin_bottom: 12,
+        hexpand: true,
+      }),
+    );
+    wallpapersListContainer.append(this._containerSystemWallpapers);
+
+    wallpapersList.set_child(wallpapersListContainer);
 
     const tintGnomeGroup = new Adw.PreferencesGroup({
       title: _("Tint GNOME"),
@@ -751,7 +778,6 @@ class ChromaLeonUI {
       });
       this._page.get_root().add_toast(toast);
 
-      this._loadWallpapersAsync();
     } catch (e) {
       throw new Error(_("Error deleting wallpaper: " + e.message));
     }
@@ -859,12 +885,6 @@ class ChromaLeonUI {
   }
 
   async _loadWallpapersAsync() {
-    while (this._gridContainer.get_first_child()) {
-      this._gridContainer.remove(this._gridContainer.get_first_child());
-    }
-
-    let nextRow = 0;
-
     try {
       const dirUser = Gio.File.new_for_path(
         `${GLib.get_user_data_dir()}/backgrounds`,
@@ -927,7 +947,6 @@ class ChromaLeonUI {
           });
           cardBox.append(preview);
           buttonSetWallpaper.set_child(cardBox);
-
           overlay.set_child(buttonSetWallpaper);
 
           const deleteBtn = new Gtk.Button({
@@ -947,6 +966,7 @@ class ChromaLeonUI {
           gesture.connect("released", (gesture, n_press, x, y) => {
             gesture.set_state(Gtk.EventSequenceState.CLAIMED);
             this._deleteWallpaper(file.name);
+            this._containerUserWallpapers.remove(overlay);
           });
 
           deleteBtn.add_controller(gesture);
@@ -966,30 +986,8 @@ class ChromaLeonUI {
             );
           });
 
-          const col = index % 2;
-          const row = Math.floor(index / 2);
-
-          this._gridContainer.attach(overlay, col, row, 1, 1);
+          this._containerUserWallpapers.insert(overlay, -1);
         });
-
-        nextRow = Math.ceil(userWallpapers.length / 2);
-
-        if (userWallpapers.length > 0) {
-          this._gridContainer.attach(
-            new Gtk.Separator({
-              orientation: Gtk.Orientation.HORIZONTAL,
-              margin_top: 12,
-              margin_bottom: 12,
-              hexpand: true,
-            }),
-            0,
-            nextRow,
-            2,
-            1,
-          );
-
-          nextRow++;
-        }
       }
     } catch (e) {}
 
@@ -1123,10 +1121,7 @@ class ChromaLeonUI {
             );
           }
 
-          const col = index % 2;
-          const row = nextRow + Math.floor(index / 2);
-
-          this._gridContainer.attach(buttonSetWallpaper, col, row, 1, 1);
+          this._containerSystemWallpapers.insert(buttonSetWallpaper, -1);
         });
       }
     } catch (e) {}
