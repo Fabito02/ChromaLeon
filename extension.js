@@ -155,9 +155,9 @@ export default class CustomAccentExtension extends Extension {
       this._generatedCssFile,
     );
 
-    (async () => {
-      await ThemeUtils.removeGtkStylesheet();
-    })();
+    ThemeUtils.removeGtkStylesheet().catch(e => {
+        console.error(`Error removing the GTK stylesheet!`);
+    });
 
     FileUtils.removeDesktopFile();
 
