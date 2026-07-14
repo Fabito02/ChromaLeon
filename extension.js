@@ -132,7 +132,7 @@ export default class CustomAccentExtension extends Extension {
     this._updateDesktopFile();
   }
 
-  disable() {
+  async disable() {
     // Necessary to keep accent colors consistent when unlocking the session
 
     clearRecolorTimeout();
@@ -154,7 +154,7 @@ export default class CustomAccentExtension extends Extension {
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
       this._generatedCssFile,
     );
-    ThemeUtils.removeGtkStylesheet();
+    await ThemeUtils.removeGtkStylesheet();
 
     FileUtils.removeDesktopFile();
 
@@ -246,7 +246,7 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  _updateShellStyles() {
+  async _updateShellStyles() {
     const color = this._settings.get_string("accent-color");
     const darker = this._settings.get_boolean("darker");
     const colorScheme = this._interfaceSettings.get_string("color-scheme");
@@ -257,7 +257,7 @@ export default class CustomAccentExtension extends Extension {
     const lightStyle = sessionMode.colorScheme;
     const isLight = lightStyle === "prefer-light" && colorScheme === "default";
 
-    ThemeUtils.updateShellStylesheet(
+    await ThemeUtils.updateShellStylesheet(
       this.path,
       color,
       this._generatedCssFile,
@@ -272,7 +272,7 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  _updateAppStyles() {
+  async _updateAppStyles() {
     const color = this._settings.get_string("accent-color");
     const gtk3 = this._settings.get_boolean("tint-gtk3");
     const darker = this._settings.get_boolean("darker");
@@ -281,7 +281,7 @@ export default class CustomAccentExtension extends Extension {
     const tintApps = this._settings.get_boolean("tint-apps");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
 
-    ThemeUtils.updateGtkStylesheet(
+    await ThemeUtils.updateGtkStylesheet(
       this.path,
       color,
       tintApps,
