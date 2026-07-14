@@ -3,7 +3,7 @@
   "description": "Change your system accent colors dynamically based on your wallpaper.\n\nAdapt your GNOME Shell, Adwaita apps, adw-gtk3, and folder/app icons like a chameleon.",
   "uuid": "user-accent-colors@fabito02",
   "url": "https://github.com/Fabito02/ChromaLeon",
-  "shell-version": ["47", "48", "49", "50"],
+  "shell-version": ["48", "49", "50"],
   "session-modes": ["user", "unlock-dialog"],
   "settings-schema": "org.gnome.shell.extensions.chromaleon",
   "gettext-domain": "chromaleon",
