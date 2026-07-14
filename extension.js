@@ -132,7 +132,7 @@ export default class CustomAccentExtension extends Extension {
     this._updateDesktopFile();
   }
 
-  async disable() {
+  disable() {
     // Necessary to keep accent colors consistent when unlocking the session
 
     clearRecolorTimeout();
@@ -154,7 +154,10 @@ export default class CustomAccentExtension extends Extension {
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
       this._generatedCssFile,
     );
-    await ThemeUtils.removeGtkStylesheet();
+
+    (async () => {
+      await ThemeUtils.removeGtkStylesheet();
+    })();
 
     FileUtils.removeDesktopFile();
 
