@@ -62,15 +62,12 @@ export async function removeGtkStylesheet() {
     if (accentFile.query_exists(null)) {
       try {
         await accentFile.delete_async(GLib.PRIORITY_DEFAULT, null);
-      } catch (e) {
-        console.error(`Erro ao deletar accentFile (${version}): ${e.message}`);
-      }
+      } catch (e) {}
     }
 
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     if (mainFile.query_exists(null)) {
       try {
-        // Correção: Pega apenas o primeiro retorno (os bytes)
         let [contents] = await mainFile.load_contents_async(null);
 
         let mainContent = new TextDecoder().decode(contents);
@@ -83,10 +80,7 @@ export async function removeGtkStylesheet() {
           Gio.FileCreateFlags.REPLACE_DESTINATION,
           null,
         );
-      } catch (e) {
-        // Se a leitura falhar, apenas segue em frente para a próxima versão
-        console.error(`Erro ao limpar gtk.css (${version}): ${e.message}`);
-      }
+      } catch (e) {}
     }
   }
 }
@@ -135,7 +129,6 @@ export async function updateShellStylesheet(
 
   const generateAndApplyFiles = async (customCssContents) => {
     try {
-      // Correção GJS
       let [contents] = await finalTemplate.load_contents_async(null);
 
       let template = new TextDecoder().decode(contents);
@@ -167,9 +160,7 @@ export async function updateShellStylesheet(
         theme.load_stylesheet(outputFile);
         if (onUpdated) onUpdated(outputFile);
       }
-    } catch (e) {
-      console.error(`Erro ao gerar tema Shell: ${e.message}`);
-    }
+    } catch (e) {}
   };
 
   if (customCss.query_exists(null)) {
@@ -178,9 +169,7 @@ export async function updateShellStylesheet(
       try {
         let [contents] = await customCss.load_contents_async(null);
         customCssContents = new TextDecoder().decode(contents);
-      } catch (e) {
-        console.error(`Erro ao ler custom.css: ${e.message}`);
-      }
+      } catch (e) {}
       await generateAndApplyFiles(customCssContents);
     } else {
       await generateAndApplyFiles(null);
@@ -189,7 +178,6 @@ export async function updateShellStylesheet(
     try {
       const parentDir = customCss.get_parent();
       if (parentDir && !parentDir.query_exists(null)) {
-        // make_directory_with_parents é síncrono por padrão na maioria dos GJS
         parentDir.make_directory_with_parents(null);
       }
 
@@ -201,9 +189,7 @@ export async function updateShellStylesheet(
         Gio.FileCreateFlags.REPLACE_DESTINATION,
         null,
       );
-    } catch (e) {
-      console.error(`Erro ao criar base custom.css: ${e.message}`);
-    }
+    } catch (e) {}
     await generateAndApplyFiles(null);
   }
 }
@@ -267,9 +253,7 @@ export async function updateGtkStylesheet(
           Gio.FileCreateFlags.NONE,
           null,
         );
-      } catch (e) {
-        console.error(`Erro ao criar base do GTK4: ${e.message}`);
-      }
+      } catch (e) {}
     }
 
     if (tinted) {
@@ -284,9 +268,7 @@ export async function updateGtkStylesheet(
           accentFile,
           !gnomeColors ? `${cssVars}\n${css}` : css,
         );
-      } catch (e) {
-        console.error(`Erro ao escrever GTK4 Accent: ${e.message}`);
-      }
+      } catch (e) {}
     } else {
       await writeAccentFile(accentFile, !gnomeColors ? cssVars : "");
     }
@@ -308,9 +290,7 @@ export async function updateGtkStylesheet(
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
         await writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-      } catch (e) {
-        console.error(`Erro ao atualizar gtk.css (GTK4): ${e.message}`);
-      }
+      } catch (e) {}
     } else {
       await writeMainFile(`${cssBlock}\n`);
     }
@@ -334,9 +314,7 @@ export async function updateGtkStylesheet(
           Gio.FileCreateFlags.NONE,
           null,
         );
-      } catch (e) {
-        console.error(`Erro ao criar base do GTK3: ${e.message}`);
-      }
+      } catch (e) {}
     }
 
     if (tinted && tintGTK3) {
@@ -352,9 +330,7 @@ export async function updateGtkStylesheet(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : css,
           );
-        } catch (e) {
-          console.error(`Erro ao escrever GTK3 Dark Accent: ${e.message}`);
-        }
+        } catch (e) {}
       } else {
         try {
           let [contents] = await tintedGtk3LightStyle.load_contents_async(null);
@@ -366,9 +342,7 @@ export async function updateGtkStylesheet(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : css,
           );
-        } catch (e) {
-          console.error(`Erro ao escrever GTK3 Light Accent: ${e.message}`);
-        }
+        } catch (e) {}
       }
     } else {
       await writeAccentFile(accentFile, cssVars);
@@ -391,9 +365,7 @@ export async function updateGtkStylesheet(
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
         await writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-      } catch (e) {
-        console.error(`Erro ao atualizar gtk.css (GTK3): ${e.message}`);
-      }
+      } catch (e) {}
     } else {
       await writeMainFile(`${cssBlock}\n`);
     }
