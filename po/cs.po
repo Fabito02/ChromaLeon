@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 03:17-0300\n"
-"PO-Revision-Date: 2026-07-09 07:01+0000\n"
+"PO-Revision-Date: 2026-07-15 07:01+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7.1.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
@@ -66,15 +66,15 @@ msgstr "Tapety"
 
 #: chromaleon.js:386
 msgid "Colors"
-msgstr ""
+msgstr "Barvy"
 
 #: chromaleon.js:391
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Barvy GNOME"
 
 #: chromaleon.js:392
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Použít nativní barvy GNOME namísto barev tapety."
 
 #: chromaleon.js:404
 msgid "Tint GNOME"
