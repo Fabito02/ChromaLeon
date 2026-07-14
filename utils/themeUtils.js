@@ -406,6 +406,7 @@ export async function updateIconPack(
   gnomeColors,
 ) {
   let color = hex;
+
   if (gnomeColors) {
     const GNOME_ACCENTS_HEX = {
       blue: "#3584e4",
@@ -419,7 +420,12 @@ export async function updateIconPack(
       slate: "#6f8396",
     };
 
-    const hexColor = GNOME_ACCENTS_HEX[hex] || "#3584e4";
+    let interfaceSettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.interface",
+    });
+    let colorName = interfaceSettings.get_string("accent-color");
+
+    const hexColor = GNOME_ACCENTS_HEX[colorName];
     color = hexColor;
   }
 

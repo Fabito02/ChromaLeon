@@ -388,7 +388,7 @@ class ChromaLeonUI {
     this._optionsPage.add(colorsGroup);
 
     const gnomeColorsRow = new Adw.SwitchRow({
-      title: _("Gnome Colors"),
+      title: _("GNOME Colors"),
       subtitle: _("Use native GNOME colors instead of wallpaper colors."),
     });
     colorsGroup.add(gnomeColorsRow);
@@ -1277,12 +1277,17 @@ class ChromaLeonUI {
 
       let cssProvider = new Gtk.CssProvider();
       let isGnomeColor = this._settings.get_boolean("gnome-colors");
+      let currentColor = this._settings.get_string("accent-color");
 
-      const updateButtonStyle = (currentAccentColor) => {
+      const updateButtonStyle = () => {
         let color = isGnomeColor ? `var(--accent-${hexColor})` : hexColor;
-        let cssString =
-          currentAccentColor === hexColor
-            ? `button {
+
+        const isActive = isGnomeColor
+          ? this._interfaceSettings.get_string("accent-color") === hexColor
+          : currentColor === hexColor;
+
+        let cssString = isActive
+          ? `button {
                   background-color: ${color};
                   min-width: 20px;
                   min-height: 20px;
@@ -1295,7 +1300,7 @@ class ChromaLeonUI {
                 button:focus {
                   outline: 3px solid alpha(${color}, 0.6);
                 }`
-            : `button {
+          : `button {
                   background-color: ${color};
                   min-width: 30px;
                   min-height: 30px;
@@ -1317,8 +1322,7 @@ class ChromaLeonUI {
         else cssProvider.load_from_data(cssString, -1);
       };
 
-      let currentColor = this._settings.get_string("accent-color");
-      updateButtonStyle(currentColor);
+      updateButtonStyle();
 
       this._wallpaperButtons.push({ updateStyle: updateButtonStyle });
 

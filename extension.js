@@ -62,6 +62,13 @@ export default class CustomAccentExtension extends Extension {
         this._settings.get_boolean("recolor-folders")
           ? await this._updateStyles(true)
           : await this._updateStyles(),
+      "changed::gnome-colors",
+      async () => {
+        if (!this._settings.get_boolean("gnome-colors")) {
+          this._settings.set_boolean("custom-color", false);
+        }
+        await this._autoApplyWallpaperColor();
+      },
       "changed::tint-shell",
       () => this._updateShellStyles(),
       "changed::custom-css",
@@ -72,10 +79,6 @@ export default class CustomAccentExtension extends Extension {
       () => this._updateAppStyles(),
       "changed::darker",
       async () => await this._updateStyles(),
-      this,
-    );
-
-    this._settings.connectObject(
       "changed::recolor-folders",
       async () => await this._updateIconPack(),
       "changed::recolor-apps",
@@ -88,6 +91,16 @@ export default class CustomAccentExtension extends Extension {
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
       async () => await this._autoApplyWallpaperColor(),
+      "changed::accent-color",
+      async () => {
+        if (this._settings.get_boolean("gnome-colors")) {
+          const newAccent = this._interfaceSettings.get_string("accent-color");
+
+          if (this._settings.get_string("accent-color") !== newAccent) {
+            this._settings.set_string("accent-color", newAccent);
+          }
+        }
+      },
       this,
     );
 
@@ -182,7 +195,9 @@ export default class CustomAccentExtension extends Extension {
     const colorChanged = color !== this._settings.get_string("accent-color");
 
     let updateIcons =
-      colorChanged && this._settings.get_boolean("recolor-folders");
+      colorChanged &&
+      this._settings.get_boolean("recolor-folders") &&
+      !this._settings.get_boolean("gnome-colors");
 
     if (colorChanged) {
       this._settings.set_string("accent-color", color);
