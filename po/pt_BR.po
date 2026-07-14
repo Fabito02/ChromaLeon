@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 03:17-0300\n"
-"PO-Revision-Date: 2026-07-07 20:02+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-07-14 06:27+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.7.1.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
@@ -68,15 +68,15 @@ msgstr "Planos de fundo"
 
 #: chromaleon.js:386
 msgid "Colors"
-msgstr ""
+msgstr "Cores"
 
 #: chromaleon.js:391
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Cores do GNOME"
 
 #: chromaleon.js:392
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Usa as cores nativas do GNOME ao invés das cores do wallpaper."
 
 #: chromaleon.js:404
 msgid "Tint GNOME"
