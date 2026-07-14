@@ -71,5 +71,10 @@
       <summary>Custom CSS</summary>
       <description>Applies custom CSS to the Shell UI.</description>
     </key>
+    <key name="gnome-colors" type="b">
+      <default>false</default>
+      <summary>Gnome Colors</summary>
+      <description>Use native GNOME colors instead of wallpaper colors.</description>
+    </key>
   </schema>
 </schemalist>

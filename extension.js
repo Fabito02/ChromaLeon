@@ -231,16 +231,15 @@ export default class CustomAccentExtension extends Extension {
   }
 
   _updateShellStyles() {
-    let color = this._settings.get_string("accent-color");
-    let darker = this._settings.get_boolean("darker");
-    let colorScheme = this._interfaceSettings.get_string("color-scheme");
-
-    const lightStyle = sessionMode.colorScheme;
-
-    let isLight = lightStyle === "prefer-light" && colorScheme === "default";
-
+    const color = this._settings.get_string("accent-color");
+    const darker = this._settings.get_boolean("darker");
+    const colorScheme = this._interfaceSettings.get_string("color-scheme");
     const tintShell = this._settings.get_boolean("tint-shell");
     const customCss = this._settings.get_boolean("custom-css");
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
+
+    const lightStyle = sessionMode.colorScheme;
+    const isLight = lightStyle === "prefer-light" && colorScheme === "default";
 
     ThemeUtils.updateShellStylesheet(
       this.path,
@@ -253,17 +252,18 @@ export default class CustomAccentExtension extends Extension {
       tintShell,
       darker,
       customCss,
+      gnomeColors,
     );
   }
 
   _updateAppStyles() {
-    let color = this._settings.get_string("accent-color");
-    let gtk3 = this._settings.get_boolean("tint-gtk3");
-    let darker = this._settings.get_boolean("darker");
-    let colorScheme = this._interfaceSettings.get_string("color-scheme");
-
-    let isDark = colorScheme === "prefer-dark";
+    const color = this._settings.get_string("accent-color");
+    const gtk3 = this._settings.get_boolean("tint-gtk3");
+    const darker = this._settings.get_boolean("darker");
+    const isDark =
+      this._interfaceSettings.get_string("color-scheme") === "prefer-dark";
     const tintApps = this._settings.get_boolean("tint-apps");
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
 
     ThemeUtils.updateGtkStylesheet(
       this.path,
@@ -272,6 +272,7 @@ export default class CustomAccentExtension extends Extension {
       isDark,
       gtk3,
       darker,
+      gnomeColors,
     );
   }
 }

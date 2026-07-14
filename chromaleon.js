@@ -153,7 +153,12 @@ class ChromaLeonUI {
       schema_id: "org.gnome.desktop.interface",
     });
 
-    this._settingsId = null;
+    this._renderColorUI();
+
+    this._settingsId = this._settings.connect("changed::gnome-colors", () => {
+      this._renderColorUI();
+    });
+
     this._bgChangedId1 = null;
     this._bgChangedId2 = null;
     this._colorSchemeId = null;
@@ -183,11 +188,17 @@ class ChromaLeonUI {
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
     );
 
-    const group = new Adw.PreferencesGroup({
+    const accentGroup = new Adw.PreferencesGroup({
       title: _("Accent Color"),
       description: _("New colors only apply when apps are reopened."),
     });
-    this._page.add(group);
+    this._page.add(accentGroup);
+
+    accentGroup.set_visible(!this._settings.get_boolean("gnome-colors"));
+
+    this._settings.connect("changed::gnome-colors", () => {
+      accentGroup.set_visible(!this._settings.get_boolean("gnome-colors"));
+    });
 
     const colorRow = new Adw.ActionRow({ title: _("Main color") });
     const colorButton = new Gtk.ColorButton({
@@ -196,7 +207,7 @@ class ChromaLeonUI {
       use_alpha: false,
     });
     colorRow.add_suffix(colorButton);
-    group.add(colorRow);
+    accentGroup.add(colorRow);
 
     colorButton.connect("color-set", () => {
       const { red, green, blue } = colorButton.get_rgba();
@@ -211,12 +222,34 @@ class ChromaLeonUI {
       this._settings.set_boolean("custom-color", true);
     });
 
-    const wallpaperGroup = new Adw.PreferencesGroup({
-      title: _("Wallpaper Colors"),
-      description: _(
-        "The system automatically updates the accent color based on your wallpaper.",
-      ),
+    const wallpaperGroup = new Adw.PreferencesGroup();
+
+    const updateGroupHeader = () => {
+      const useGnomeColors = this._settings.get_boolean("gnome-colors");
+
+      wallpaperGroup.set_title(
+        !useGnomeColors ? _("Wallpaper Colors") : _("Accent Color"),
+      );
+
+      wallpaperGroup.set_description(
+        !useGnomeColors
+          ? _(
+              "The system automatically updates the accent color based on your wallpaper.",
+            )
+          : "",
+      );
+    };
+
+    updateGroupHeader();
+
+    const settingsId = this._settings.connect("changed::gnome-colors", () =>
+      updateGroupHeader(),
+    );
+
+    wallpaperGroup.connect("destroy", () => {
+      this._settings.disconnect(settingsId);
     });
+
     this._page.add(wallpaperGroup);
 
     const previewRow = new Adw.PreferencesRow({
@@ -348,6 +381,24 @@ class ChromaLeonUI {
     wallpapersListContainer.append(this._containerSystemWallpapers);
 
     wallpapersList.set_child(wallpapersListContainer);
+
+    const colorsGroup = new Adw.PreferencesGroup({
+      title: _("Colors"),
+    });
+    this._optionsPage.add(colorsGroup);
+
+    const gnomeColorsRow = new Adw.SwitchRow({
+      title: _("Gnome Colors"),
+      subtitle: _("Use native GNOME colors instead of wallpaper colors."),
+    });
+    colorsGroup.add(gnomeColorsRow);
+
+    this._settings.bind(
+      "gnome-colors",
+      gnomeColorsRow,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
 
     const tintGnomeGroup = new Adw.PreferencesGroup({
       title: _("Tint GNOME"),
@@ -499,7 +550,7 @@ class ChromaLeonUI {
     const customCssSwitch = new Gtk.Switch({
       valign: Gtk.Align.CENTER,
     });
-    customCssRow.activatable_widget = customCssSwitch
+    customCssRow.activatable_widget = customCssSwitch;
 
     this._settings.bind(
       "custom-css",
@@ -666,22 +717,22 @@ class ChromaLeonUI {
 
     this._applyTheme();
 
-    this._settingsId = this._settings.connect("changed::accent-color", () => {
+    this._settings.connect("changed::accent-color", () => {
       this._applyTheme();
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
-    
-    this._settingsId = this._settings.connect("changed::tint-apps", () => {
+
+    this._settings.connect("changed::tint-apps", () => {
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
-    
-    this._settingsId = this._settings.connect("changed::darker", () => {
+
+    this._settings.connect("changed::darker", () => {
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
         this._loadUserCss();
         return GLib.SOURCE_REMOVE;
@@ -1162,48 +1213,90 @@ class ChromaLeonUI {
       this._previewContainer.append(preview);
     }
 
-    const colors = await this._getWallpaperColorsAsync(uri);
+    this._renderColorUI(uri);
+  }
 
-    if (colors && colors.length > 0) {
-      this._colorsRow.set_subtitle("");
-      this._wallpaperButtons = [];
+  async _getColorsList(uri) {
+    const colorsGnome = [
+      "blue",
+      "teal",
+      "green",
+      "yellow",
+      "orange",
+      "red",
+      "pink",
+      "purple",
+      "slate",
+    ];
 
-      this._moreColors.set_visible(colors.length > 8);
+    if (this._settings.get_boolean("gnome-colors")) {
+      return colorsGnome;
+    }
 
-      while (this._mainColorBox.get_first_child()) {
-        this._mainColorBox.remove(this._mainColorBox.get_first_child());
+    try {
+      let activeUri = uri;
+      if (!activeUri) {
+        const colorScheme = this._interfaceSettings.get_string("color-scheme");
+        activeUri =
+          colorScheme === "prefer-dark"
+            ? this._bgSettings.get_string("picture-uri-dark")
+            : this._bgSettings.get_string("picture-uri");
       }
 
-      while (this._moreColorBox.get_first_child()) {
-        this._moreColorBox.remove(this._moreColorBox.get_first_child());
-      }
+      return await this._getWallpaperColorsAsync(activeUri);
+    } catch (e) {
+      return [];
+    }
+  }
 
-      colors.forEach((hexColor, index) => {
-        let btn = new Gtk.Button({
-          valign: Gtk.Align.CENTER,
-          halign: Gtk.Align.CENTER,
-        });
+  async _renderColorUI(uri) {
+    const colors = await this._getColorsList(uri);
 
-        let cssProvider = new Gtk.CssProvider();
+    if (!colors || colors.length === 0) {
+      this._colorsRow.set_subtitle(_("Unable to load colors."));
+      this._moreColors.set_visible(false);
+      return;
+    }
 
-        const updateButtonStyle = (currentAccentColor) => {
-          let cssString =
-            currentAccentColor === hexColor
-              ? `button {
-                  background-color: ${hexColor};
+    this._colorsRow.set_subtitle("");
+    this._wallpaperButtons = [];
+    this._moreColors.set_visible(colors.length > 9);
+
+    while (this._mainColorBox.get_first_child()) {
+      this._mainColorBox.remove(this._mainColorBox.get_first_child());
+    }
+    while (this._moreColorBox.get_first_child()) {
+      this._moreColorBox.remove(this._moreColorBox.get_first_child());
+    }
+
+    colors.forEach((hexColor, index) => {
+      let btn = new Gtk.Button({
+        valign: Gtk.Align.CENTER,
+        halign: Gtk.Align.CENTER,
+      });
+
+      let cssProvider = new Gtk.CssProvider();
+      let isGnomeColor = this._settings.get_boolean("gnome-colors");
+
+      const updateButtonStyle = (currentAccentColor) => {
+        let color = isGnomeColor ? `var(--accent-${hexColor})` : hexColor;
+        let cssString =
+          currentAccentColor === hexColor
+            ? `button {
+                  background-color: ${color};
                   min-width: 20px;
                   min-height: 20px;
                   border-radius: 50%;
                   padding: 0;
                   margin: 5px;
-                  outline: 3px solid ${hexColor};
+                  outline: 3px solid ${color};
                   outline-offset: 3px;
                 }
                 button:focus {
-                  outline: 3px solid ${hexColor}70;
+                  outline: 3px solid alpha(${color}, 0.6);
                 }`
-              : `button {
-                  background-color: ${hexColor};
+            : `button {
+                  background-color: ${color};
                   min-width: 30px;
                   min-height: 30px;
                   border-radius: 50%;
@@ -1215,38 +1308,38 @@ class ChromaLeonUI {
                   min-width: 20px;
                   min-height: 20px;
                   margin: 5px;
-                  outline: 3px solid ${hexColor}60;
+                  outline: 3px solid alpha(${color}, 0.6);
                   outline-offset: 3px;
                 }`;
 
-          if (cssProvider.load_from_string)
-            cssProvider.load_from_string(cssString);
-          else cssProvider.load_from_data(cssString, -1);
-        };
+        if (cssProvider.load_from_string)
+          cssProvider.load_from_string(cssString);
+        else cssProvider.load_from_data(cssString, -1);
+      };
 
-        let currentColor = this._settings.get_string("accent-color");
-        updateButtonStyle(currentColor);
+      let currentColor = this._settings.get_string("accent-color");
+      updateButtonStyle(currentColor);
 
-        this._wallpaperButtons.push({ updateStyle: updateButtonStyle });
+      this._wallpaperButtons.push({ updateStyle: updateButtonStyle });
 
-        btn
-          .get_style_context()
-          .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        btn.connect("clicked", () => {
-          this._settings.set_string("accent-color", hexColor);
-          this._settings.set_boolean("custom-color", true);
-        });
+      btn
+        .get_style_context()
+        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        if (index < 8) {
-          this._mainColorBox.append(btn);
-        } else {
-          this._moreColorBox.append(btn);
-        }
+      btn.connect("clicked", () => {
+        const color = isGnomeColor ? "@accent_bg_color" : hexColor;
+        if (isGnomeColor)
+          this._interfaceSettings.set_string("accent-color", hexColor);
+        this._settings.set_string("accent-color", color);
+        this._settings.set_boolean("custom-color", true);
       });
-    } else {
-      this._colorsRow.set_subtitle(_("Unable to load colors."));
-      this._moreColors.set_visible(false);
-    }
+
+      if (index < 9) {
+        this._mainColorBox.append(btn);
+      } else {
+        this._moreColorBox.append(btn);
+      }
+    });
   }
 
   _getWallpaperColorsAsync(uri) {

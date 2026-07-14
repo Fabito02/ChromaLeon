@@ -74,7 +74,7 @@ stacksidebar {
 }
 
 toast {
-    background-color: mix(#28282a, @@ACCENT @@, 0.10) !important;
+    background-color: mix(#28282a, @@ACCENT@@, 0.10) !important;
     color: #ffffff !important;
 }
 

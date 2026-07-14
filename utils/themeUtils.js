@@ -91,7 +91,10 @@ export function updateShellStylesheet(
   tinted,
   darker,
   customStyle,
+  gnomeColors,
 ) {
+  if (gnomeColors) color = "-st-accent-color";
+
   const homeDir = GLib.get_home_dir();
 
   const customCss = Gio.File.new_for_path(
@@ -224,7 +227,10 @@ export function updateGtkStylesheet(
   isDark,
   tintGTK3,
   darker,
+  gnomeColors,
 ) {
+  if (gnomeColors) color = "@accent_bg_color";
+
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
@@ -275,11 +281,14 @@ export function updateGtkStylesheet(
 
           let template = new TextDecoder().decode(contents);
           let css = template.replace(/@@ACCENT@@/g, color);
-          writeAccentFile(accentFile, `${cssVars}\n${css}`);
+          writeAccentFile(
+            accentFile,
+            !gnomeColors ? `${cssVars}\n${css}` : css,
+          );
         } catch (e) {}
       });
     } else {
-      writeAccentFile(accentFile, cssVars);
+      writeAccentFile(accentFile, !gnomeColors ? cssVars : null);
     }
 
     const writeMainFile = (content) => {
@@ -328,7 +337,10 @@ export function updateGtkStylesheet(
 
             let template = new TextDecoder().decode(contents);
             let css = template.replace(/@@ACCENT@@/g, color);
-            writeAccentFile(accentFile, `${cssVars}\n${css}`);
+            writeAccentFile(
+              accentFile,
+              !gnomeColors ? `${cssVars}\n${css}` : css,
+            );
           } catch (e) {}
         });
       } else {
@@ -341,7 +353,10 @@ export function updateGtkStylesheet(
 
             let css = template.replace(/@@ACCENT@@/g, color);
 
-            writeAccentFile(accentFile, `${cssVars}\n${css}`);
+            writeAccentFile(
+              accentFile,
+              !gnomeColors ? `${cssVars}\n${css}` : css,
+            );
           } catch (e) {}
         });
       }
