@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 03:17-0300\n"
-"PO-Revision-Date: 2026-07-09 07:01+0000\n"
+"PO-Revision-Date: 2026-07-15 07:01+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7.1.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
@@ -67,15 +67,15 @@ msgstr "Tła"
 
 #: chromaleon.js:386
 msgid "Colors"
-msgstr ""
+msgstr "Kolory"
 
 #: chromaleon.js:391
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Kolory GNOME"
 
 #: chromaleon.js:392
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Użyj natywnych kolorów GNOME zamiast kolorów tła."
 
 #: chromaleon.js:404
 msgid "Tint GNOME"
