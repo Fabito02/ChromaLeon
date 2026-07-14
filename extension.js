@@ -192,16 +192,17 @@ export default class CustomAccentExtension extends Extension {
   }
 
   async _updateIconPack() {
-    let iconFolders = this._settings.get_boolean("recolor-folders");
+    const iconFolders = this._settings.get_boolean("recolor-folders");
 
     if (!iconFolders) {
       this._settings.set_boolean("recolor-apps", false);
       this._settings.set_boolean("morewaita", false);
     }
 
-    let iconApps = this._settings.get_boolean("recolor-apps");
-    let morewaita = this._settings.get_boolean("morewaita");
-    let accent = this._settings.get_string("accent-color");
+    const iconApps = this._settings.get_boolean("recolor-apps");
+    const morewaita = this._settings.get_boolean("morewaita");
+    const accent = this._settings.get_string("accent-color");
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
 
     if (this._timeoutId) {
       GLib.Source.remove(this._timeoutId);
@@ -214,7 +215,7 @@ export default class CustomAccentExtension extends Extension {
         iconFolders,
         iconApps,
         morewaita,
-        this,
+        gnomeColors,
       );
     } catch (error) {
       this._settings.set_string("last-error", error.message);

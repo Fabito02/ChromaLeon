@@ -398,7 +398,31 @@ export function updateGtkStylesheet(
   gtk3();
 }
 
-export async function updateIconPack(hex, iconFolders, iconApps, morewaita) {
+export async function updateIconPack(
+  hex,
+  iconFolders,
+  iconApps,
+  morewaita,
+  gnomeColors,
+) {
+  let color = hex;
+  if (gnomeColors) {
+    const GNOME_ACCENTS_HEX = {
+      blue: "#3584e4",
+      teal: "#2190a4",
+      green: "#3a944a",
+      yellow: "#c88800",
+      orange: "#ed5b00",
+      red: "#e62d42",
+      pink: "#d56199",
+      purple: "#9141ac",
+      slate: "#6f8396",
+    };
+
+    const hexColor = GNOME_ACCENTS_HEX[hex] || "#3584e4";
+    color = hexColor;
+  }
+
   const settings = new Gio.Settings({
     schema_id: "org.gnome.desktop.interface",
   });
@@ -408,7 +432,7 @@ export async function updateIconPack(hex, iconFolders, iconApps, morewaita) {
     return;
   }
 
-  await applyAccentTheme(hex, {
+  await applyAccentTheme(color, {
     applyApps: iconApps,
     useMoreWaita: morewaita,
   });

@@ -1327,10 +1327,9 @@ class ChromaLeonUI {
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
       btn.connect("clicked", () => {
-        const color = isGnomeColor ? "@accent_bg_color" : hexColor;
         if (isGnomeColor)
           this._interfaceSettings.set_string("accent-color", hexColor);
-        this._settings.set_string("accent-color", color);
+        this._settings.set_string("accent-color", hexColor);
         this._settings.set_boolean("custom-color", true);
       });
 
