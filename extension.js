@@ -68,6 +68,7 @@ export default class CustomAccentExtension extends Extension {
           this._settings.set_boolean("custom-color", false);
         }
         await this._autoApplyWallpaperColor();
+        await this._updateIconPack();
       },
       "changed::tint-shell",
       () => this._updateShellStyles(),
@@ -155,8 +156,8 @@ export default class CustomAccentExtension extends Extension {
       this._generatedCssFile,
     );
 
-    ThemeUtils.removeGtkStylesheet().catch(e => {
-        console.error(`Error removing the GTK stylesheet!`);
+    ThemeUtils.removeGtkStylesheet().catch((e) => {
+      console.error(`Error removing the GTK stylesheet!: ${e.message}`);
     });
 
     FileUtils.removeDesktopFile();

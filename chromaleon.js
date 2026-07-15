@@ -156,7 +156,7 @@ class ChromaLeonUI {
     this._renderColorUI();
 
     this._settingsId = this._settings.connect("changed::gnome-colors", () => {
-      this._renderColorUI();
+      this._updateWallpaperUI();
     });
 
     this._bgChangedId1 = null;
@@ -267,6 +267,16 @@ class ChromaLeonUI {
     });
     previewRow.set_child(this._previewContainer);
     wallpaperGroup.add(previewRow);
+
+    this._previewPicture = new Gtk.Picture({
+      can_shrink: true,
+      content_fit: Gtk.ContentFit.COVER,
+      hexpand: true,
+      halign: Gtk.Align.FILL,
+      height_request: 200,
+    });
+    this._previewPicture.add_css_class("wallpaper-preview");
+    this._previewContainer.append(this._previewPicture);
 
     this._colorsRow = new Adw.ActionRow();
 
@@ -963,12 +973,12 @@ class ChromaLeonUI {
         userWallpapers.sort((a, b) => b.mtime - a.mtime);
 
         userWallpapers.forEach((file, index) => {
-          const overlay = new Gtk.Overlay();
-
-          const buttonSetWallpaper = new Gtk.Button({
-            overflow: Gtk.Overflow.HIDDEN,
+          const child = new Gtk.FlowBoxChild({
+            focusable: true,
+            can_focus: true,
           });
-          buttonSetWallpaper.add_css_class("wallpaper-button");
+
+          const overlay = new Gtk.Overlay();
 
           const cardBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
@@ -986,8 +996,7 @@ class ChromaLeonUI {
             hexpand: true,
           });
           cardBox.append(preview);
-          buttonSetWallpaper.set_child(cardBox);
-          overlay.set_child(buttonSetWallpaper);
+          overlay.set_child(cardBox);
 
           const deleteBtn = new Gtk.Button({
             icon_name: "user-trash-symbolic",
@@ -1000,34 +1009,34 @@ class ChromaLeonUI {
           deleteBtn.add_css_class("circular");
 
           const gesture = new Gtk.GestureClick();
-
           gesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
-
-          gesture.connect("released", (gesture, n_press, x, y) => {
+          gesture.connect("released", (gesture) => {
             gesture.set_state(Gtk.EventSequenceState.CLAIMED);
             this._deleteWallpaper(file.name);
-            this._containerUserWallpapers.remove(overlay);
+            this._containerUserWallpapers.remove(child);
           });
-
           deleteBtn.add_controller(gesture);
-
           overlay.add_overlay(deleteBtn);
+          child.set_child(overlay);
 
           const fileUri = `${GLib.get_user_data_dir()}/backgrounds/${file.name}`;
 
-          buttonSetWallpaper.connect("clicked", () => {
-            this._bgSettings.set_string(
-              "picture-uri-dark",
-              Gio.file_new_for_path(fileUri).get_uri(),
-            );
-            this._bgSettings.set_string(
-              "picture-uri",
-              Gio.file_new_for_path(fileUri).get_uri(),
-            );
-          });
-
-          this._containerUserWallpapers.insert(overlay, -1);
+          child.wallpaperUri = fileUri;
+          this._containerUserWallpapers.insert(child, -1);
         });
+
+        this._containerUserWallpapers.connect(
+          "child-activated",
+          (flowbox, child) => {
+            const fileUri = child.wallpaperUri;
+
+            if (fileUri) {
+              const uriWithProtocol = Gio.File.new_for_path(fileUri).get_uri();
+              this._bgSettings.set_string("picture-uri-dark", uriWithProtocol);
+              this._bgSettings.set_string("picture-uri", uriWithProtocol);
+            }
+          },
+        );
       }
     } catch (e) {}
 
@@ -1080,77 +1089,52 @@ class ChromaLeonUI {
           }
         }
 
-        systemWallpapers.forEach((file, index) => {
+        systemWallpapers.forEach((file) => {
+          const child = new Gtk.FlowBoxChild({
+            focusable: true,
+            can_focus: true,
+          });
+
           const cardBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
             height_request: 125,
             homogeneous: true,
             overflow: Gtk.Overflow.HIDDEN,
+            can_target: false,
           });
           cardBox.add_css_class("wallpaper-preview");
 
-          const buttonSetWallpaper = new Gtk.Button({
-            overflow: Gtk.Overflow.HIDDEN,
-          });
-          buttonSetWallpaper.add_css_class("wallpaper-button");
-
-          buttonSetWallpaper.set_child(cardBox);
-
-          buttonSetWallpaper.connect("clicked", () => {
-            this._bgSettings.set_string(
-              "picture-uri-dark",
-              Gio.file_new_for_path(file.pathDark).get_uri(),
-            );
-            this._bgSettings.set_string(
-              "picture-uri",
-              Gio.file_new_for_path(file.pathLight).get_uri(),
-            );
-          });
-
           try {
             const pbLight = GdkPixbuf.Pixbuf.new_from_file(file.thumbLight);
+            const w = Math.floor(pbLight.get_width() / 2);
 
-            const lightHalfWidth = Math.floor(pbLight.get_width() / 2);
-
-            const picLight = new Gtk.Picture({
-              paintable: Gdk.Texture.new_for_pixbuf(
-                pbLight.new_subpixbuf(
-                  0,
-                  0,
-                  lightHalfWidth,
-                  pbLight.get_height(),
+            cardBox.append(
+              new Gtk.Picture({
+                paintable: Gdk.Texture.new_for_pixbuf(
+                  pbLight.new_subpixbuf(0, 0, w, pbLight.get_height()),
                 ),
-              ),
-              can_shrink: true,
-              content_fit: Gtk.ContentFit.COVER,
-              hexpand: true,
-              vexpand: true,
-            });
-
-            cardBox.append(picLight);
+                can_shrink: true,
+                content_fit: Gtk.ContentFit.COVER,
+                hexpand: true,
+                vexpand: true,
+              }),
+            );
 
             const darkPath = file.pathDark ? file.thumbDark : file.thumbLight;
-
             const pbDark = GdkPixbuf.Pixbuf.new_from_file(darkPath);
+            const dw = Math.floor(pbDark.get_width() / 2);
 
-            const darkHalfWidth = Math.floor(pbDark.get_width() / 2);
-
-            const picDark = new Gtk.Picture({
-              paintable: Gdk.Texture.new_for_pixbuf(
-                pbDark.new_subpixbuf(
-                  darkHalfWidth,
-                  0,
-                  darkHalfWidth,
-                  pbDark.get_height(),
+            cardBox.append(
+              new Gtk.Picture({
+                paintable: Gdk.Texture.new_for_pixbuf(
+                  pbDark.new_subpixbuf(dw, 0, dw, pbDark.get_height()),
                 ),
-              ),
-              can_shrink: true,
-              content_fit: Gtk.ContentFit.COVER,
-              hexpand: true,
-              vexpand: true,
-            });
-
-            cardBox.append(picDark);
+                can_shrink: true,
+                content_fit: Gtk.ContentFit.COVER,
+                hexpand: true,
+                vexpand: true,
+              }),
+            );
           } catch (e) {
             cardBox.append(
               new Gtk.Picture({
@@ -1161,8 +1145,31 @@ class ChromaLeonUI {
             );
           }
 
-          this._containerSystemWallpapers.insert(buttonSetWallpaper, -1);
+          child.set_child(cardBox);
+          const systemUris = {
+            dark: Gio.File.new_for_path(
+              file.pathDark || file.pathLight,
+            ).get_uri(),
+            light: Gio.File.new_for_path(file.pathLight).get_uri(),
+          };
+
+          child.wallpaperUris = systemUris;
+          this._containerSystemWallpapers.insert(child, -1);
         });
+
+        this._containerSystemWallpapers.connect(
+          "child-activated",
+          (flowbox, child) => {
+            const uris = child.wallpaperUris;
+
+            if (uris) {
+              try {
+                this._bgSettings.set_string("picture-uri-dark", uris.dark);
+                this._bgSettings.set_string("picture-uri", uris.light);
+              } catch (err) {}
+            }
+          },
+        );
       }
     } catch (e) {}
   }
@@ -1170,50 +1177,47 @@ class ChromaLeonUI {
   async _updateWallpaperUI() {
     if (!this._previewContainer) return;
 
-    while (this._previewContainer.get_first_child())
-      this._previewContainer.remove(this._previewContainer.get_first_child());
-
-    if (this._mainColorBox) {
-      while (this._mainColorBox.get_first_child())
-        this._mainColorBox.remove(this._mainColorBox.get_first_child());
-    }
-    if (this._moreColorBox) {
-      while (this._moreColorBox.get_first_child())
-        this._moreColorBox.remove(this._moreColorBox.get_first_child());
-    }
-
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
     let uri =
       colorScheme === "prefer-dark"
         ? this._bgSettings.get_string("picture-uri-dark")
         : this._bgSettings.get_string("picture-uri");
 
-    if (uri.startsWith("file://")) {
-      let file = Gio.File.new_for_uri(uri);
-
-      const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-        file.get_path(),
-        747,
-        420,
-        true,
-      );
-
-      const texture = Gdk.Texture.new_for_pixbuf(pixbuf);
-
-      const preview = new Gtk.Picture({
-        paintable: texture,
-        can_shrink: true,
-        content_fit: Gtk.ContentFit.COVER,
-        hexpand: true,
-        halign: Gtk.Align.FILL,
-        height_request: 200,
-      });
-
-      preview.add_css_class("wallpaper-preview");
-      this._previewContainer.append(preview);
+    if (uri && !uri.startsWith("file://") && uri.startsWith("/")) {
+      uri = Gio.File.new_for_path(uri).get_uri();
     }
 
-    this._renderColorUI(uri);
+    if (uri && uri.startsWith("file://")) {
+      try {
+        let file = Gio.File.new_for_uri(uri);
+        let path = file.get_path();
+
+        if (path.endsWith(".xml")) {
+          try {
+            path = await getThumbnail(path);
+          } catch (e) {}
+        }
+
+        if (path && !path.endsWith(".xml")) {
+          const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+            path,
+            747,
+            420,
+            true,
+          );
+
+          const texture = Gdk.Texture.new_for_pixbuf(pixbuf);
+
+          if (this._previewPicture) {
+            this._previewPicture.set_paintable(texture);
+          }
+        }
+      } catch (e) {
+        console.warn(`[ChromaLeon] Erro ao renderizar preview: ${e.message}`);
+      }
+    }
+
+    await this._renderColorUI(uri);
   }
 
   async _getColorsList(uri) {
@@ -1243,6 +1247,14 @@ class ChromaLeonUI {
             : this._bgSettings.get_string("picture-uri");
       }
 
+      if (
+        activeUri &&
+        !activeUri.startsWith("file://") &&
+        activeUri.startsWith("/")
+      ) {
+        activeUri = Gio.File.new_for_path(activeUri).get_uri();
+      }
+
       return await this._getWallpaperColorsAsync(activeUri);
     } catch (e) {
       return [];
@@ -1251,6 +1263,17 @@ class ChromaLeonUI {
 
   async _renderColorUI(uri) {
     const colors = await this._getColorsList(uri);
+
+    if (this._mainColorBox) {
+      while (this._mainColorBox.get_first_child()) {
+        this._mainColorBox.remove(this._mainColorBox.get_first_child());
+      }
+    }
+    if (this._moreColorBox) {
+      while (this._moreColorBox.get_first_child()) {
+        this._moreColorBox.remove(this._moreColorBox.get_first_child());
+      }
+    }
 
     if (!colors || colors.length === 0) {
       this._colorsRow.set_subtitle(_("Unable to load colors."));
@@ -1262,11 +1285,18 @@ class ChromaLeonUI {
     this._wallpaperButtons = [];
     this._moreColors.set_visible(colors.length > 9);
 
-    while (this._mainColorBox.get_first_child()) {
-      this._mainColorBox.remove(this._mainColorBox.get_first_child());
-    }
-    while (this._moreColorBox.get_first_child()) {
-      this._moreColorBox.remove(this._moreColorBox.get_first_child());
+    let isGnomeColor = this._settings.get_boolean("gnome-colors");
+    let currentColor = isGnomeColor
+      ? this._interfaceSettings.get_string("accent-color")
+      : this._settings.get_string("accent-color");
+
+    if (!colors.includes(currentColor)) {
+      if (isGnomeColor) {
+        this._interfaceSettings.set_string("accent-color", colors[0]);
+      } else {
+        this._settings.set_string("accent-color", colors[0]);
+        this._settings.set_boolean("custom-color", false);
+      }
     }
 
     colors.forEach((hexColor, index) => {
@@ -1276,15 +1306,13 @@ class ChromaLeonUI {
       });
 
       let cssProvider = new Gtk.CssProvider();
-      let isGnomeColor = this._settings.get_boolean("gnome-colors");
-      let currentColor = this._settings.get_string("accent-color");
 
       const updateButtonStyle = () => {
         let color = isGnomeColor ? `var(--accent-${hexColor})` : hexColor;
 
         const isActive = isGnomeColor
           ? this._interfaceSettings.get_string("accent-color") === hexColor
-          : currentColor === hexColor;
+          : this._settings.get_string("accent-color") === hexColor;
 
         let cssString = isActive
           ? `button {
@@ -1335,6 +1363,7 @@ class ChromaLeonUI {
           this._interfaceSettings.set_string("accent-color", hexColor);
         this._settings.set_string("accent-color", hexColor);
         this._settings.set_boolean("custom-color", true);
+        this._applyTheme();
       });
 
       if (index < 9) {
@@ -1536,7 +1565,6 @@ function setupCustomHeader(window) {
   donateButton.add_css_class("destructive");
   donateButton.add_css_class("heart-button");
   donateButton.set_tooltip_text(_("Support the project"));
-  donateButton.add_css_class("heart-button");
 
   donateButton.connect("clicked", () => {
     const dialog = new Adw.MessageDialog({
