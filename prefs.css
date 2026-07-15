@@ -36,3 +36,27 @@ button.wallpaper-button {
 .heart-button:hover {
     color: #fa6e5f;
 }
+
+.deleteBtn {
+    padding: 0px;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+flowboxchild .wallpaper-overlay button {
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+}
+
+flowboxchild:hover .wallpaper-overlay button {
+    opacity: 1;
+}
+
+flowboxchild:focus .wallpaper-overlay button {
+    opacity: 1;
+}
+
+flowboxchild .wallpaper-overlay button:focus {
+    opacity: 1;
+}
+

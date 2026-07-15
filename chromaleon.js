@@ -979,6 +979,7 @@ class ChromaLeonUI {
           });
 
           const overlay = new Gtk.Overlay();
+          overlay.add_css_class("wallpaper-overlay");
 
           const cardBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
@@ -1007,6 +1008,7 @@ class ChromaLeonUI {
           });
           deleteBtn.add_css_class("error");
           deleteBtn.add_css_class("circular");
+          deleteBtn.add_css_class("deleteBtn");
 
           const gesture = new Gtk.GestureClick();
           gesture.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
