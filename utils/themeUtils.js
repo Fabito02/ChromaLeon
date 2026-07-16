@@ -148,8 +148,8 @@ export async function updateShellStylesheet(
         : template;
 
       let css = finalTemplateContent
-        .replace(/@@ACCENT@@/g, color)
-        .replace(/-st-accent-color/g, color);
+        .replace(/@@ACCENT@@/g, gnomeColors ? GNOME_ACCENTS_HEX[color] : color)
+        .replace(/-st-accent-color/g, gnomeColors ? GNOME_ACCENTS_HEX[color] : color);
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
@@ -274,7 +274,7 @@ export async function updateGtkStylesheet(
         let [contents] = await tintedGtk4Template.load_contents_async(null);
 
         let template = new TextDecoder().decode(contents);
-        let css = template.replace(/@@ACCENT@@/g, color);
+        let css = template.replace(/@@ACCENT@@/g, gnomeColors ? GNOME_ACCENTS_HEX[color] : color);
         await writeAccentFile(
           accentFile,
           !gnomeColors ? `${cssVars}\n${css}` : css,
@@ -336,7 +336,7 @@ export async function updateGtkStylesheet(
           let [contents] = await tintedGtk3Template.load_contents_async(null);
 
           let template = new TextDecoder().decode(contents);
-          let css = template.replace(/@@ACCENT@@/g, color);
+          let css = template.replace(/@@ACCENT@@/g, gnomeColors ? GNOME_ACCENTS_HEX[color] : color);
           await writeAccentFile(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : `${cssVarsGnome}\n${css}`,
@@ -347,7 +347,7 @@ export async function updateGtkStylesheet(
           let [contents] = await tintedGtk3LightStyle.load_contents_async(null);
 
           let template = new TextDecoder().decode(contents);
-          let css = template.replace(/@@ACCENT@@/g, color);
+          let css = template.replace(/@@ACCENT@@/g, gnomeColors ? GNOME_ACCENTS_HEX[color] : color);
 
           await writeAccentFile(
             accentFile,
