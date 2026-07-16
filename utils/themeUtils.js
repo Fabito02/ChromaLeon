@@ -30,6 +30,17 @@ const REGEX_MARKER =
   /\/\* CustomAccentExtension Start \*\/[\s\S]*?\/\* CustomAccentExtension End \*\/\n?/g;
 const START_MARKER = "/* CustomAccentExtension Start */";
 const END_MARKER = "/* CustomAccentExtension End */";
+const GNOME_ACCENTS_HEX = {
+  blue: "#3584e4",
+  teal: "#2190a4",
+  green: "#3a944a",
+  yellow: "#c88800",
+  orange: "#ed5b00",
+  red: "#e62d42",
+  pink: "#d56199",
+  purple: "#9141ac",
+  slate: "#6f8396",
+};
 
 Gio._promisify(Gio.File.prototype, "replace_async", "replace_finish");
 Gio._promisify(
@@ -203,11 +214,11 @@ export async function updateGtkStylesheet(
   darker,
   gnomeColors,
 ) {
-  if (gnomeColors) color = "@accent_bg_color";
 
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
+  const cssVarsGnome = `@define-color accent_color ${GNOME_ACCENTS_HEX[color]};\n@define-color accent_bg_color ${GNOME_ACCENTS_HEX[color]};\n`;
 
   const tintedGtk3LightStyle = Gio.File.new_for_path(
     `${extensionPath}/templates/gtk3_light_tinted.template.css`,
@@ -328,7 +339,7 @@ export async function updateGtkStylesheet(
           let css = template.replace(/@@ACCENT@@/g, color);
           await writeAccentFile(
             accentFile,
-            !gnomeColors ? `${cssVars}\n${css}` : css,
+            !gnomeColors ? `${cssVars}\n${css}` : `${cssVarsGnome}\n${css}`,
           );
         } catch (e) {}
       } else {
@@ -385,18 +396,6 @@ export async function updateIconPack(
   let color = hex;
 
   if (gnomeColors) {
-    const GNOME_ACCENTS_HEX = {
-      blue: "#3584e4",
-      teal: "#2190a4",
-      green: "#3a944a",
-      yellow: "#c88800",
-      orange: "#ed5b00",
-      red: "#e62d42",
-      pink: "#d56199",
-      purple: "#9141ac",
-      slate: "#6f8396",
-    };
-
     let interfaceSettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.interface",
     });
