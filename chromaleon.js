@@ -730,21 +730,18 @@ class ChromaLeonUI {
     this._settings.connect("changed::accent-color", () => {
       this._applyTheme();
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
 
     this._settings.connect("changed::tint-apps", () => {
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
 
     this._settings.connect("changed::darker", () => {
       GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        this._loadUserCss();
         return GLib.SOURCE_REMOVE;
       });
     });
@@ -758,7 +755,6 @@ class ChromaLeonUI {
         this._updateWallpaperUI();
 
         GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-          this._loadUserCss();
           return GLib.SOURCE_REMOVE;
         });
       },
@@ -782,36 +778,6 @@ class ChromaLeonUI {
       this._settings = null;
       this._bgSettings = null;
     });
-  }
-
-  _loadUserCss() {
-    const display = Gdk.Display.get_default();
-    if (!display) return;
-
-    if (!this._globalCssProvider) {
-      this._globalCssProvider = new Gtk.CssProvider();
-      Gtk.StyleContext.add_provider_for_display(
-        display,
-        this._globalCssProvider,
-        Gtk.STYLE_PROVIDER_PRIORITY_USER,
-      );
-    }
-
-    const isDark =
-      this._interfaceSettings.get_string("color-scheme") === "prefer-dark";
-    if ("prefers-color-scheme" in this._globalCssProvider) {
-      this._globalCssProvider.prefers_color_scheme = isDark
-        ? Gtk.InterfaceColorScheme.DARK
-        : Gtk.InterfaceColorScheme.LIGHT;
-    }
-
-    const file = Gio.File.new_for_path(
-      `${GLib.get_home_dir()}/.config/gtk-4.0/gtk.css`,
-    );
-    if (file.query_exists(null)) {
-      this._globalCssProvider.load_from_string("");
-      this._globalCssProvider.load_from_file(file);
-    }
   }
 
   async _deleteWallpaper(filename) {
@@ -1215,7 +1181,7 @@ class ChromaLeonUI {
           }
         }
       } catch (e) {
-        console.warn(`[ChromaLeon] Erro ao renderizar preview: ${e.message}`);
+        throw new Error(`Error rendering preview: ${e.message}`);
       }
     }
 

@@ -214,7 +214,6 @@ export async function updateGtkStylesheet(
   darker,
   gnomeColors,
 ) {
-
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
@@ -274,7 +273,10 @@ export async function updateGtkStylesheet(
         let [contents] = await tintedGtk4Template.load_contents_async(null);
 
         let template = new TextDecoder().decode(contents);
-        let css = template.replace(/@@ACCENT@@/g, gnomeColors ? "@accent_bg_color" : color);
+        let css = template.replace(
+          /@@ACCENT@@/g,
+          gnomeColors ? "@accent_bg_color" : color,
+        );
         await writeAccentFile(
           accentFile,
           !gnomeColors ? `${cssVars}\n${css}` : css,
@@ -336,7 +338,10 @@ export async function updateGtkStylesheet(
           let [contents] = await tintedGtk3Template.load_contents_async(null);
 
           let template = new TextDecoder().decode(contents);
-          let css = template.replace(/@@ACCENT@@/g, gnomeColors ? "@accent_bg_color" : color);
+          let css = template.replace(
+            /@@ACCENT@@/g,
+            gnomeColors ? "@accent_bg_color" : color,
+          );
           await writeAccentFile(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : `${cssVarsGnome}\n${css}`,
@@ -347,7 +352,10 @@ export async function updateGtkStylesheet(
           let [contents] = await tintedGtk3LightStyle.load_contents_async(null);
 
           let template = new TextDecoder().decode(contents);
-          let css = template.replace(/@@ACCENT@@/g, gnomeColors ? "@accent_bg_color" : color);
+          let css = template.replace(
+            /@@ACCENT@@/g,
+            gnomeColors ? "@accent_bg_color" : color,
+          );
 
           await writeAccentFile(
             accentFile,

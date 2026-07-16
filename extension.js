@@ -48,6 +48,10 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.background",
     });
 
+    this._a11ySettings = new Gio.Settings({
+      schema_id: "org.gnome.desktop.a11y.interface",
+    });
+
     (async () => {
       try {
         await this._autoApplyWallpaperColor();
@@ -60,8 +64,8 @@ export default class CustomAccentExtension extends Extension {
       "changed::accent-color",
       async () =>
         this._settings.get_boolean("recolor-folders")
-          ? await this._updateStyles(true)
-          : await this._updateStyles(),
+          ? await this._updateStyles(true, true)
+          : await this._updateStyles(false, true),
       "changed::gnome-colors",
       async () => {
         if (!this._settings.get_boolean("gnome-colors")) {
@@ -71,15 +75,15 @@ export default class CustomAccentExtension extends Extension {
         await this._updateIconPack();
       },
       "changed::tint-shell",
-      () => this._updateShellStyles(),
+      async () => await this._updateShellStyles(),
       "changed::custom-css",
-      () => this._updateShellStyles(),
+      async () => await this._updateShellStyles(),
       "changed::tint-apps",
-      () => this._updateAppStyles(),
+      async () => await this._updateAppStyles(),
       "changed::tint-gtk3",
-      () => this._updateAppStyles(),
+      async () => await this._updateAppStyles(),
       "changed::darker",
-      async () => await this._updateStyles(),
+      async () => await this._updateStyles(false, true),
       "changed::recolor-folders",
       async () => await this._updateIconPack(),
       "changed::recolor-apps",
@@ -91,7 +95,9 @@ export default class CustomAccentExtension extends Extension {
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      async () => await this._autoApplyWallpaperColor(),
+      async () => {
+        await this._autoApplyWallpaperColor();
+      },
       "changed::accent-color",
       async () => {
         if (this._settings.get_boolean("gnome-colors")) {
@@ -184,7 +190,7 @@ export default class CustomAccentExtension extends Extension {
 
   async _autoApplyWallpaperColor() {
     if (this._settings.get_boolean("custom-color")) {
-      await this._updateStyles();
+      await this._updateStyles(false, true);
       return;
     }
 
@@ -207,7 +213,7 @@ export default class CustomAccentExtension extends Extension {
       this._settings.set_string("accent-color", color);
     }
 
-    await this._updateStyles(updateIcons);
+    await this._updateStyles(updateIcons, colorChanged);
   }
 
   async _updateIconPack() {
@@ -241,9 +247,15 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _updateStyles(updateIcons = false) {
-    this._updateShellStyles();
-    this._updateAppStyles();
+  async _updateStyles(updateIcons = false, colorChanged = false) {
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
+
+    await this._updateShellStyles();
+    await this._updateAppStyles();
+
+    if (!gnomeColors && colorChanged) {
+      this._reloadGtkStylesheet();
+    }
 
     if (updateIcons) {
       await this._updateIconPack();
@@ -294,5 +306,15 @@ export default class CustomAccentExtension extends Extension {
       darker,
       gnomeColors,
     );
+  }
+
+  // This is necessary to force GTK applications to reload the stylesheet cache when the accent color changes.
+  // This is done by toggling high-contrast mode on and off, which triggers a reload.
+  // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
+  _reloadGtkStylesheet() {
+    const highContrast = this._a11ySettings.get_boolean("high-contrast");
+
+    const cmd = `gsettings set org.gnome.desktop.a11y.interface high-contrast ${!highContrast} && gsettings set org.gnome.desktop.a11y.interface high-contrast ${highContrast}`;
+    Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
   }
 }
