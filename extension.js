@@ -70,6 +70,8 @@ export default class CustomAccentExtension extends Extension {
       async () => {
         if (!this._settings.get_boolean("gnome-colors")) {
           this._settings.set_boolean("custom-color", false);
+        } else {
+          this._reloadGtkStylesheet()
         }
         await this._autoApplyWallpaperColor();
         await this._updateIconPack();

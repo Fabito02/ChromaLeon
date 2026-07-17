@@ -190,7 +190,6 @@ class ChromaLeonUI {
 
     const accentGroup = new Adw.PreferencesGroup({
       title: _("Accent Color"),
-      description: _("New colors only apply when apps are reopened."),
     });
     this._page.add(accentGroup);
 
