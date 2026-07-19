@@ -25,6 +25,7 @@ import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
+import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 
 export default class CustomAccentExtension extends Extension {
   constructor(metadata) {
@@ -36,6 +37,11 @@ export default class CustomAccentExtension extends Extension {
     this._configId = null;
     this._timeoutId = null;
     this._a11ySettings = null;
+    // Serializes every reactive theme/icon-pack update behind a single chain,
+    // and cancels whatever is in flight whenever a newer change arrives, so
+    // rapid color/wallpaper changes never run concurrently (see #20).
+    this._cancellable = null;
+    this._opChain = Promise.resolve();
   }
 
   enable() {
@@ -53,56 +59,81 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.a11y.interface",
     });
 
-    (async () => {
-      try {
-        await this._autoApplyWallpaperColor();
-      } catch (e) {
-        throw new Error(_("Failed to apply custom style: " + e.message));
-      }
-    })();
+    this._runOperation((cancellable) =>
+      this._autoApplyWallpaperColor(cancellable),
+    );
 
     this._settings.connectObject(
       "changed::accent-color",
-      async () =>
-        this._settings.get_boolean("recolor-folders")
-          ? await this._updateStyles(true, true)
-          : await this._updateStyles(false, true),
+      () =>
+        this._runOperation((cancellable) =>
+          this._settings.get_boolean("recolor-folders")
+            ? this._updateStyles(true, true, cancellable)
+            : this._updateStyles(false, true, cancellable),
+        ),
       "changed::gnome-colors",
-      async () => {
-        if (!this._settings.get_boolean("gnome-colors")) {
-          this._settings.set_boolean("custom-color", false);
-        } else {
-          this._reloadGtkStylesheet()
-        }
-        await this._autoApplyWallpaperColor();
-        await this._updateIconPack();
-      },
+      () =>
+        this._runOperation(async (cancellable) => {
+          if (!this._settings.get_boolean("gnome-colors")) {
+            this._settings.set_boolean("custom-color", false);
+          } else {
+            this._reloadGtkStylesheet();
+          }
+          await this._autoApplyWallpaperColor(cancellable);
+          throwIfCancelled(cancellable);
+          await this._updateIconPack(cancellable);
+        }),
       "changed::tint-shell",
-      async () => await this._updateShellStyles(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateShellStyles(cancellable),
+        ),
       "changed::custom-css",
-      async () => await this._updateShellStyles(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateShellStyles(cancellable),
+        ),
       "changed::tint-apps",
-      async () => await this._updateAppStyles(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateAppStyles(cancellable),
+        ),
       "changed::tint-gtk3",
-      async () => await this._updateAppStyles(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateAppStyles(cancellable),
+        ),
       "changed::darker",
-      async () => await this._updateStyles(false, true),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateStyles(false, true, cancellable),
+        ),
       "changed::recolor-folders",
-      async () => await this._updateIconPack(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateIconPack(cancellable),
+        ),
       "changed::recolor-apps",
-      async () => await this._updateIconPack(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateIconPack(cancellable),
+        ),
       "changed::morewaita",
-      async () => await this._updateIconPack(),
+      () =>
+        this._runOperation((cancellable) =>
+          this._updateIconPack(cancellable),
+        ),
       this,
     );
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      async () => {
-        await this._autoApplyWallpaperColor();
-      },
+      () =>
+        this._runOperation((cancellable) =>
+          this._autoApplyWallpaperColor(cancellable),
+        ),
       "changed::accent-color",
-      async () => {
+      () => {
         if (this._settings.get_boolean("gnome-colors")) {
           const newAccent = this._interfaceSettings.get_string("accent-color");
 
@@ -116,15 +147,17 @@ export default class CustomAccentExtension extends Extension {
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
-      async () => {
-        this._settings.set_boolean("custom-color", false);
-        await this._autoApplyWallpaperColor();
-      },
+      () =>
+        this._runOperation((cancellable) => {
+          this._settings.set_boolean("custom-color", false);
+          return this._autoApplyWallpaperColor(cancellable);
+        }),
       "changed::picture-uri",
-      async () => {
-        this._settings.set_boolean("custom-color", false);
-        await this._autoApplyWallpaperColor();
-      },
+      () =>
+        this._runOperation((cancellable) => {
+          this._settings.set_boolean("custom-color", false);
+          return this._autoApplyWallpaperColor(cancellable);
+        }),
       this,
     );
 
@@ -146,6 +179,10 @@ export default class CustomAccentExtension extends Extension {
     // Necessary to keep accent colors consistent when unlocking the session
 
     clearRecolorTimeout();
+
+    this._cancellable?.cancel();
+    this._cancellable = null;
+    this._opChain = Promise.resolve();
 
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
@@ -183,6 +220,33 @@ export default class CustomAccentExtension extends Extension {
     this._a11ySettings = null;
   }
 
+  // Cancels any in-flight or already-queued operation, then queues fn to run
+  // once the previous one has unwound. This guarantees at most one theme /
+  // icon-pack update runs at a time, and a burst of rapid changes collapses
+  // to a single run of the latest one instead of overlapping (see #20).
+  _runOperation(fn) {
+    this._cancellable?.cancel();
+
+    const cancellable = new Gio.Cancellable();
+    this._cancellable = cancellable;
+
+    this._opChain = this._opChain.then(async () => {
+      if (cancellable.is_cancelled()) return;
+
+      try {
+        await fn(cancellable);
+      } catch (e) {
+        if (!isCancelledError(e)) {
+          this._settings?.set_string("last-error", e.message);
+        }
+      } finally {
+        if (this._cancellable === cancellable) {
+          this._cancellable = null;
+        }
+      }
+    });
+  }
+
   _updateDesktopFile() {
     const shouldCreate = this._settings.get_boolean("create-shortcut");
     if (shouldCreate) {
@@ -192,9 +256,11 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _autoApplyWallpaperColor() {
+  async _autoApplyWallpaperColor(cancellable) {
+    throwIfCancelled(cancellable);
+
     if (this._settings.get_boolean("custom-color")) {
-      await this._updateStyles(false, true);
+      await this._updateStyles(false, true, cancellable);
       return;
     }
 
@@ -206,6 +272,8 @@ export default class CustomAccentExtension extends Extension {
         : this._bgSettings.get_string("picture-uri");
 
     let color = await ColorUtils.calculateVibrantColor(uri);
+    throwIfCancelled(cancellable);
+
     const colorChanged = color !== this._settings.get_string("accent-color");
 
     let updateIcons =
@@ -217,10 +285,12 @@ export default class CustomAccentExtension extends Extension {
       this._settings.set_string("accent-color", color);
     }
 
-    await this._updateStyles(updateIcons, colorChanged);
+    await this._updateStyles(updateIcons, colorChanged, cancellable);
   }
 
-  async _updateIconPack() {
+  async _updateIconPack(cancellable) {
+    throwIfCancelled(cancellable);
+
     const iconFolders = this._settings.get_boolean("recolor-folders");
 
     if (!iconFolders) {
@@ -245,28 +315,37 @@ export default class CustomAccentExtension extends Extension {
         iconApps,
         morewaita,
         gnomeColors,
+        cancellable,
       );
     } catch (error) {
+      if (isCancelledError(error)) throw error;
       this._settings.set_string("last-error", error.message);
     }
   }
 
-  async _updateStyles(updateIcons = false, colorChanged = false) {
+  async _updateStyles(updateIcons = false, colorChanged = false, cancellable) {
+    throwIfCancelled(cancellable);
+
     const gnomeColors = this._settings.get_boolean("gnome-colors");
 
-    await this._updateShellStyles();
-    await this._updateAppStyles();
+    await this._updateShellStyles(cancellable);
+    throwIfCancelled(cancellable);
+    await this._updateAppStyles(cancellable);
 
     if (!gnomeColors && colorChanged) {
+      throwIfCancelled(cancellable);
       this._reloadGtkStylesheet();
     }
 
     if (updateIcons) {
-      await this._updateIconPack();
+      throwIfCancelled(cancellable);
+      await this._updateIconPack(cancellable);
     }
   }
 
-  async _updateShellStyles() {
+  async _updateShellStyles(cancellable) {
+    throwIfCancelled(cancellable);
+
     const color = this._settings.get_string("accent-color");
     const darker = this._settings.get_boolean("darker");
     const colorScheme = this._interfaceSettings.get_string("color-scheme");
@@ -289,10 +368,13 @@ export default class CustomAccentExtension extends Extension {
       darker,
       customCss,
       gnomeColors,
+      cancellable,
     );
   }
 
-  async _updateAppStyles() {
+  async _updateAppStyles(cancellable) {
+    throwIfCancelled(cancellable);
+
     const color = this._settings.get_string("accent-color");
     const gtk3 = this._settings.get_boolean("tint-gtk3");
     const darker = this._settings.get_boolean("darker");
@@ -309,6 +391,7 @@ export default class CustomAccentExtension extends Extension {
       gtk3,
       darker,
       gnomeColors,
+      cancellable,
     );
   }
 
