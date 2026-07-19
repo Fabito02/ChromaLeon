@@ -35,6 +35,7 @@ export default class CustomAccentExtension extends Extension {
     this._generatedCssFile = null;
     this._configId = null;
     this._timeoutId = null;
+    this._a11ySettings = null;
   }
 
   enable() {
@@ -179,6 +180,7 @@ export default class CustomAccentExtension extends Extension {
     this._settings = null;
     this._bgSettings = null;
     this._interfaceSettings = null;
+    this._a11ySettings = null;
   }
 
   _updateDesktopFile() {
@@ -310,7 +312,7 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  // This is necessary to force GTK applications to reload the stylesheet cache when the accent color changes.
+  // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
   // This is done by toggling high-contrast mode on and off, which triggers a reload.
   // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
   _reloadGtkStylesheet() {
