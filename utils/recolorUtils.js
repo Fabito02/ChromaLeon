@@ -510,13 +510,6 @@ export async function applyAccentTheme(baseColor, options = {}) {
         `${moreWaitaDir}/scalable/places`,
         `${targetDir}/scalable/places`,
       );
-
-      if (applyApps) {
-        await copyFolderContentAsync(
-          `${moreWaitaDir}/scalable/apps`,
-          `${targetDir}/scalable/apps`,
-        );
-      }
     } else {
       throw new Error(_("MoreWaita icon pack was not found."));
     }
@@ -578,6 +571,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
 
   await processDirectoryAsync(`${targetDir}/scalable/places`, colorMap);
   await processDirectoryAsync(`${targetDir}/scalable/mimetypes`, colorMap);
+  await processDirectoryAsync(`${targetDir}/scalable/status`, colorMap);
 
   if (applyApps) {
     for (let appName of appsToRecolor) {
