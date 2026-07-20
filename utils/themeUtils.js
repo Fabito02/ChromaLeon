@@ -24,6 +24,7 @@ import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
+import { throwIfCancelled } from "./cancellation.js";
 
 const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
 const REGEX_MARKER =
@@ -106,7 +107,10 @@ export async function updateShellStylesheet(
   darker,
   customStyle,
   gnomeColors,
+  cancellable,
 ) {
+  throwIfCancelled(cancellable);
+
   if (gnomeColors) color = "-st-accent-color";
 
   const homeDir = GLib.get_home_dir();
@@ -140,7 +144,7 @@ export async function updateShellStylesheet(
 
   const generateAndApplyFiles = async (customCssContents) => {
     try {
-      let [contents] = await finalTemplate.load_contents_async(null);
+      let [contents] = await finalTemplate.load_contents_async(cancellable);
 
       let template = new TextDecoder().decode(contents);
       let finalTemplateContent = customCssContents
@@ -161,8 +165,10 @@ export async function updateShellStylesheet(
         null,
         false,
         Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
+        cancellable,
       );
+
+      throwIfCancelled(cancellable);
 
       removeShellStylesheet(currentCssFile);
 
@@ -178,7 +184,7 @@ export async function updateShellStylesheet(
     if (customStyle) {
       let customCssContents = null;
       try {
-        let [contents] = await customCss.load_contents_async(null);
+        let [contents] = await customCss.load_contents_async(cancellable);
         customCssContents = new TextDecoder().decode(contents);
       } catch (e) {}
       await generateAndApplyFiles(customCssContents);
@@ -198,7 +204,7 @@ export async function updateShellStylesheet(
         null,
         false,
         Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
+        cancellable,
       );
     } catch (e) {}
     await generateAndApplyFiles(null);
@@ -213,7 +219,10 @@ export async function updateGtkStylesheet(
   tintGTK3,
   darker,
   gnomeColors,
+  cancellable,
 ) {
+  throwIfCancelled(cancellable);
+
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
@@ -241,7 +250,7 @@ export async function updateGtkStylesheet(
       null,
       false,
       Gio.FileCreateFlags.REPLACE_DESTINATION,
-      null,
+      cancellable,
     );
   };
 
@@ -261,7 +270,7 @@ export async function updateGtkStylesheet(
           null,
           false,
           Gio.FileCreateFlags.NONE,
-          null,
+          cancellable,
         );
       } catch (e) {}
     }
@@ -270,7 +279,8 @@ export async function updateGtkStylesheet(
       let tintedGtk4Template = tintedGtk4Style;
       if (darker) tintedGtk4Template = tintedGtk4DarkerStyle;
       try {
-        let [contents] = await tintedGtk4Template.load_contents_async(null);
+        let [contents] =
+          await tintedGtk4Template.load_contents_async(cancellable);
 
         let template = new TextDecoder().decode(contents);
         let css = template.replace(
@@ -292,13 +302,13 @@ export async function updateGtkStylesheet(
         null,
         false,
         Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
+        cancellable,
       );
     };
 
     if (mainFile.query_exists(null)) {
       try {
-        let [contents] = await mainFile.load_contents_async(null);
+        let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
@@ -325,7 +335,7 @@ export async function updateGtkStylesheet(
           null,
           false,
           Gio.FileCreateFlags.NONE,
-          null,
+          cancellable,
         );
       } catch (e) {}
     }
@@ -335,7 +345,8 @@ export async function updateGtkStylesheet(
         let tintedGtk3Template = tintedGtk3DarkStyle;
         if (darker) tintedGtk3Template = tintedGtk3DarkerStyle;
         try {
-          let [contents] = await tintedGtk3Template.load_contents_async(null);
+          let [contents] =
+            await tintedGtk3Template.load_contents_async(cancellable);
 
           let template = new TextDecoder().decode(contents);
           let css = template.replace(
@@ -349,7 +360,8 @@ export async function updateGtkStylesheet(
         } catch (e) {}
       } else {
         try {
-          let [contents] = await tintedGtk3LightStyle.load_contents_async(null);
+          let [contents] =
+            await tintedGtk3LightStyle.load_contents_async(cancellable);
 
           let template = new TextDecoder().decode(contents);
           let css = template.replace(
@@ -373,13 +385,13 @@ export async function updateGtkStylesheet(
         null,
         false,
         Gio.FileCreateFlags.REPLACE_DESTINATION,
-        null,
+        cancellable,
       );
     };
 
     if (mainFile.query_exists(null)) {
       try {
-        let [contents] = await mainFile.load_contents_async(null);
+        let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
@@ -391,6 +403,7 @@ export async function updateGtkStylesheet(
   };
 
   await gtk4();
+  throwIfCancelled(cancellable);
   await gtk3();
 }
 
@@ -400,7 +413,10 @@ export async function updateIconPack(
   iconApps,
   morewaita,
   gnomeColors,
+  cancellable,
 ) {
+  throwIfCancelled(cancellable);
+
   let color = hex;
 
   if (gnomeColors) {
@@ -422,8 +438,12 @@ export async function updateIconPack(
     return;
   }
 
-  await applyAccentTheme(color, {
-    applyApps: iconApps,
-    useMoreWaita: morewaita,
-  });
+  await applyAccentTheme(
+    color,
+    {
+      applyApps: iconApps,
+      useMoreWaita: morewaita,
+    },
+    cancellable,
+  );
 }

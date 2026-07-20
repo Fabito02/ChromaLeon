@@ -22,6 +22,7 @@
 
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
+import { throwIfCancelled } from "./cancellation.js";
 
 let timeoutId = null;
 
@@ -84,7 +85,7 @@ function modifyColor(hex, lMod, sMod) {
   return `${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
 }
 
-async function recolorSvgAsync(file, colorMap) {
+async function recolorSvgAsync(file, colorMap, cancellable) {
   return new Promise((resolve) => {
     try {
       if (!file.query_exists(null)) {
@@ -92,7 +93,7 @@ async function recolorSvgAsync(file, colorMap) {
         return;
       }
 
-      file.load_contents_async(null, (obj, res) => {
+      file.load_contents_async(cancellable, (obj, res) => {
         try {
           let [success, contents] = file.load_contents_finish(res);
           if (!success) {
@@ -118,7 +119,7 @@ async function recolorSvgAsync(file, colorMap) {
               null,
               false,
               Gio.FileCreateFlags.REPLACE_DESTINATION,
-              null,
+              cancellable,
               (obj2, res2) => {
                 try {
                   obj2.replace_contents_finish(res2);
@@ -139,14 +140,14 @@ async function recolorSvgAsync(file, colorMap) {
   });
 }
 
-async function processDirectoryAsync(dirPath, colorMap) {
+async function processDirectoryAsync(dirPath, colorMap, cancellable) {
   let dir = Gio.File.new_for_path(dirPath);
   if (!dir.query_exists(null)) return;
 
   let enumerator = dir.enumerate_children(
     "standard::name,standard::type",
     Gio.FileQueryInfoFlags.NONE,
-    null,
+    cancellable,
   );
 
   let filesToProcess = [];
@@ -160,24 +161,32 @@ async function processDirectoryAsync(dirPath, colorMap) {
 
   const chunkSize = 100;
   for (let i = 0; i < filesToProcess.length; i += chunkSize) {
+    throwIfCancelled(cancellable);
+
     const chunk = filesToProcess.slice(i, i + chunkSize);
     await Promise.all(
       chunk.map(async (item) => {
         if (item.type === Gio.FileType.DIRECTORY) {
-          await processDirectoryAsync(item.child.get_path(), colorMap);
+          await processDirectoryAsync(
+            item.child.get_path(),
+            colorMap,
+            cancellable,
+          );
         } else if (
           (item.type === Gio.FileType.REGULAR ||
             item.type === Gio.FileType.SYMBOLIC_LINK) &&
           item.name.endsWith(".svg")
         ) {
-          await recolorSvgAsync(item.child, colorMap);
+          await recolorSvgAsync(item.child, colorMap, cancellable);
         }
       }),
     );
   }
 }
 
-async function deleteRecursiveAsync(file) {
+async function deleteRecursiveAsync(file, cancellable) {
+  throwIfCancelled(cancellable);
+
   if (!file.query_exists(null)) return;
 
   try {
@@ -186,7 +195,7 @@ async function deleteRecursiveAsync(file) {
         "standard::type",
         Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
         GLib.PRIORITY_DEFAULT,
-        null,
+        cancellable,
         (obj, r) => {
           try {
             res(obj.query_info_finish(r));
@@ -203,7 +212,7 @@ async function deleteRecursiveAsync(file) {
           "standard::name",
           Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
           GLib.PRIORITY_DEFAULT,
-          null,
+          cancellable,
           (obj, r) => {
             try {
               res(obj.enumerate_children_finish(r));
@@ -216,21 +225,28 @@ async function deleteRecursiveAsync(file) {
 
       if (iter) {
         while (true) {
+          throwIfCancelled(cancellable);
+
           const infos = await new Promise((res) => {
-            iter.next_files_async(50, GLib.PRIORITY_DEFAULT, null, (obj, r) => {
-              try {
-                res(obj.next_files_finish(r));
-              } catch (e) {
-                res([]);
-              }
-            });
+            iter.next_files_async(
+              50,
+              GLib.PRIORITY_DEFAULT,
+              cancellable,
+              (obj, r) => {
+                try {
+                  res(obj.next_files_finish(r));
+                } catch (e) {
+                  res([]);
+                }
+              },
+            );
           });
 
           if (!infos || infos.length === 0) break;
 
           const branches = infos.map((childInfo) => {
             const child = iter.get_child(childInfo);
-            return deleteRecursiveAsync(child);
+            return deleteRecursiveAsync(child, cancellable);
           });
 
           await Promise.all(branches);
@@ -243,7 +259,7 @@ async function deleteRecursiveAsync(file) {
     }
 
     await new Promise((res) => {
-      file.delete_async(GLib.PRIORITY_DEFAULT, null, (obj, r) => {
+      file.delete_async(GLib.PRIORITY_DEFAULT, cancellable, (obj, r) => {
         try {
           obj.delete_finish(r);
         } catch (e) {}
@@ -253,7 +269,9 @@ async function deleteRecursiveAsync(file) {
   } catch (e) {}
 }
 
-export async function applyAccentTheme(baseColor, options = {}) {
+export async function applyAccentTheme(baseColor, options = {}, cancellable) {
+  throwIfCancelled(cancellable);
+
   const { applyApps = false, useMoreWaita = false } = options;
 
   const darkAccent = modifyColor(baseColor, -0.08, 0.0);
@@ -309,9 +327,13 @@ export async function applyAccentTheme(baseColor, options = {}) {
     throw new Error(_("Adwaita icon pack was not found."));
   }
 
+  throwIfCancelled(cancellable);
+
   if (targetDirFile.query_exists(null)) {
-    await deleteRecursiveAsync(targetDirFile);
+    await deleteRecursiveAsync(targetDirFile, cancellable);
   }
+
+  throwIfCancelled(cancellable);
 
   try {
     if (!targetDirFile.query_exists(null)) {
@@ -337,7 +359,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
           "standard::name,standard::type",
           Gio.FileQueryInfoFlags.NONE,
           GLib.PRIORITY_DEFAULT,
-          null,
+          cancellable,
           (obj, r) => {
             try {
               res(obj.enumerate_children_finish(r));
@@ -351,11 +373,13 @@ export async function applyAccentTheme(baseColor, options = {}) {
       if (!enumerator) return;
 
       while (true) {
+        throwIfCancelled(cancellable);
+
         const infos = await new Promise((res) => {
           enumerator.next_files_async(
             100,
             GLib.PRIORITY_DEFAULT,
-            null,
+            cancellable,
             (obj, r) => {
               try {
                 res(obj.next_files_finish(r));
@@ -384,7 +408,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
                 childDest,
                 Gio.FileCopyFlags.OVERWRITE,
                 GLib.PRIORITY_DEFAULT,
-                null,
+                cancellable,
                 null,
                 (obj, r) => {
                   try {
@@ -407,10 +431,12 @@ export async function applyAccentTheme(baseColor, options = {}) {
     `${sysAdwaita}/scalable/places`,
     `${targetDir}/scalable/places`,
   );
+  throwIfCancelled(cancellable);
   await copyFolderContentAsync(
     `${sysAdwaita}/scalable/status`,
     `${targetDir}/scalable/status`,
   );
+  throwIfCancelled(cancellable);
   await copyFolderContentAsync(
     `${sysAdwaita}/scalable/mimetypes`,
     `${targetDir}/scalable/mimetypes`,
@@ -439,6 +465,8 @@ export async function applyAccentTheme(baseColor, options = {}) {
   ];
 
   if (applyApps) {
+    throwIfCancelled(cancellable);
+
     const appsDestDir = Gio.File.new_for_path(`${targetDir}/scalable/apps`);
 
     if (!appsDestDir.query_exists(null)) {
@@ -448,6 +476,8 @@ export async function applyAccentTheme(baseColor, options = {}) {
     }
 
     for (let app of appsToRecolor) {
+      throwIfCancelled(cancellable);
+
       const userAppFile = Gio.File.new_for_path(`${userHicolorApps}/${app}`);
       const sysAppFile = Gio.File.new_for_path(`${hicolorApps}/${app}`);
       const flatpakSysFile = Gio.File.new_for_path(`${flatpakSysApps}/${app}`);
@@ -474,7 +504,7 @@ export async function applyAccentTheme(baseColor, options = {}) {
             destFile,
             Gio.FileCopyFlags.OVERWRITE,
             GLib.PRIORITY_DEFAULT,
-            null,
+            cancellable,
             null,
             (obj, r) => {
               try {
@@ -489,6 +519,8 @@ export async function applyAccentTheme(baseColor, options = {}) {
   }
 
   if (useMoreWaita) {
+    throwIfCancelled(cancellable);
+
     const possiblePaths = [
       "/usr/share/icons/MoreWaita",
       `${homeDir}/.local/share/icons/MoreWaita`,
@@ -514,6 +546,8 @@ export async function applyAccentTheme(baseColor, options = {}) {
       throw new Error(_("MoreWaita icon pack was not found."));
     }
   }
+
+  throwIfCancelled(cancellable);
 
   const rebelApps = {
     "org.gnome.Calendar.svg": {
@@ -569,12 +603,26 @@ export async function applyAccentTheme(baseColor, options = {}) {
     },
   };
 
-  await processDirectoryAsync(`${targetDir}/scalable/places`, colorMap);
-  await processDirectoryAsync(`${targetDir}/scalable/mimetypes`, colorMap);
-  await processDirectoryAsync(`${targetDir}/scalable/status`, colorMap);
+  await processDirectoryAsync(
+    `${targetDir}/scalable/places`,
+    colorMap,
+    cancellable,
+  );
+  await processDirectoryAsync(
+    `${targetDir}/scalable/mimetypes`,
+    colorMap,
+    cancellable,
+  );
+  await processDirectoryAsync(
+    `${targetDir}/scalable/status`,
+    colorMap,
+    cancellable,
+  );
 
   if (applyApps) {
     for (let appName of appsToRecolor) {
+      throwIfCancelled(cancellable);
+
       let appFile = Gio.File.new_for_path(
         `${targetDir}/scalable/apps/${appName}`,
       );
@@ -582,10 +630,13 @@ export async function applyAccentTheme(baseColor, options = {}) {
         await recolorSvgAsync(
           appFile,
           rebelApps[appName] ? rebelApps[appName] : colorMap,
+          cancellable,
         );
       }
     }
   }
+
+  throwIfCancelled(cancellable);
 
   let directories = [
     "scalable/places",
@@ -636,7 +687,7 @@ Type=Scalable
       null,
       false,
       Gio.FileCreateFlags.REPLACE_DESTINATION,
-      null,
+      cancellable,
       (obj, res) => {
         try {
           obj.replace_contents_finish(res);
@@ -645,6 +696,8 @@ Type=Scalable
       },
     );
   });
+
+  throwIfCancelled(cancellable);
 
   await new Promise((resolve) => {
     const settings = Gio.Settings.new("org.gnome.desktop.interface");
