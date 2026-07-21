@@ -52,36 +52,36 @@
 window,
 .window,
 dialog {
-    background-color: @window_bg_color !important;
-    color: @theme_fg_color !important;
+    background-color: @window_bg_color;
+    color: @theme_fg_color;
 }
 
 view,
 textview text {
-    background-color: @view_bg_color !important;
-    color: @theme_text_color !important;
+    background-color: @view_bg_color;
+    color: @theme_text_color;
 }
 
 headerbar {
-    background-color: @headerbar_bg_color !important;
-    color: @theme_fg_color !important;
+    background-color: @headerbar_bg_color;
+    color: @theme_fg_color;
 }
 
 .sidebar,
 stacksidebar {
-    background-color: @sidebar_bg_color !important;
-    color: @theme_fg_color !important;
+    background-color: @sidebar_bg_color;
+    color: @theme_fg_color;
 }
 
 toast {
-    background-color: mix(#28282a, @@ACCENT@@, 0.10) !important;
-    color: #ffffff !important;
+    background-color: mix(#28282a, @@ACCENT@@, 0.10);
+    color: #ffffff;
 }
 
 toggle:checked {
-    background-color: @card_bg_color !important;
+    background-color: @card_bg_color;
 }
 
 .inline {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: rgba(0, 0, 0, 0);
 }
