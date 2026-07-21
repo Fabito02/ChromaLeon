@@ -36,6 +36,7 @@ export default class CustomAccentExtension extends Extension {
     this._generatedCssFile = null;
     this._configId = null;
     this._timeoutId = null;
+    this._bgTimeoutId = null;
     this._a11ySettings = null;
     // Serializes every reactive theme/icon-pack update behind a single chain,
     // and cancels whatever is in flight whenever a newer change arrives, so
@@ -135,19 +136,36 @@ export default class CustomAccentExtension extends Extension {
       this,
     );
 
+    const handleWallpaperChange = () => {
+      let colorScheme = this._interfaceSettings.get_string("color-scheme");
+      let currentUri =
+        colorScheme === "prefer-dark"
+          ? this._bgSettings.get_string("picture-uri-dark")
+          : this._bgSettings.get_string("picture-uri");
+
+      if (this._lastWallpaperUri === currentUri) return;
+      this._lastWallpaperUri = currentUri;
+
+      this._settings.set_boolean("custom-color", false);
+
+      if (this._bgTimeoutId) {
+        GLib.Source.remove(this._bgTimeoutId);
+      }
+
+      this._bgTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+        this._runOperation((cancellable) =>
+          this._autoApplyWallpaperColor(cancellable),
+        );
+        this._bgTimeoutId = null;
+        return GLib.SOURCE_REMOVE;
+      });
+    };
+
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
-      () =>
-        this._runOperation((cancellable) => {
-          this._settings.set_boolean("custom-color", false);
-          return this._autoApplyWallpaperColor(cancellable);
-        }),
+      handleWallpaperChange,
       "changed::picture-uri",
-      () =>
-        this._runOperation((cancellable) => {
-          this._settings.set_boolean("custom-color", false);
-          return this._autoApplyWallpaperColor(cancellable);
-        }),
+      handleWallpaperChange,
       this,
     );
 
@@ -202,6 +220,11 @@ export default class CustomAccentExtension extends Extension {
       this._interfaceSettings.get_string("icon-theme") === "Adwaita-Dynamic"
     ) {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
+    }
+
+    if (this._bgTimeoutId) {
+      GLib.Source.remove(this._bgTimeoutId);
+      this._bgTimeoutId = null;
     }
 
     this._settings = null;

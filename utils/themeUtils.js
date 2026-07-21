@@ -24,7 +24,7 @@ import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
-import { throwIfCancelled } from "./cancellation.js";
+import { throwIfCancelled, isCancelledError } from "./cancellation.js";
 
 const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
 const REGEX_MARKER =
@@ -51,10 +51,30 @@ Gio._promisify(
 );
 Gio._promisify(
   Gio.File.prototype,
-  "replace_contents_async",
+  "replace_contents_bytes_async",
   "replace_contents_finish",
 );
 Gio._promisify(Gio.File.prototype, "delete_async", "delete_finish");
+Gio._promisify(
+  Gio.OutputStream.prototype,
+  "write_bytes_async",
+  "write_bytes_finish",
+);
+Gio._promisify(Gio.OutputStream.prototype, "close_async", "close_finish");
+
+async function writeFile(file, content, cancellable) {
+  throwIfCancelled(cancellable);
+
+  const bytes = GLib.Bytes.new(new TextEncoder().encode(content));
+
+  await file.replace_contents_bytes_async(
+    bytes,
+    null,
+    false,
+    Gio.FileCreateFlags.NONE,
+    cancellable,
+  );
+}
 
 export function removeShellStylesheet(generatedCssFile) {
   let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
@@ -85,13 +105,7 @@ export async function removeGtkStylesheet() {
         let mainContent = new TextDecoder().decode(contents);
         let newContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        await mainFile.replace_contents_async(
-          new TextEncoder().encode(newContent),
-          null,
-          false,
-          Gio.FileCreateFlags.REPLACE_DESTINATION,
-          null,
-        );
+        await writeFile(mainFile, newContent, null);
       } catch (e) {}
     }
   }
@@ -160,13 +174,7 @@ export async function updateShellStylesheet(
         `${cacheDir}/chromaleon-shell.css`,
       );
 
-      await outputFile.replace_contents_async(
-        new TextEncoder().encode(css),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        cancellable,
-      );
+      await writeFile(outputFile, css, cancellable);
 
       throwIfCancelled(cancellable);
 
@@ -177,7 +185,9 @@ export async function updateShellStylesheet(
         theme.load_stylesheet(outputFile);
         if (onUpdated) onUpdated(outputFile);
       }
-    } catch (e) {}
+    } catch (e) {
+      if (isCancelledError(e)) throw e;
+    }
   };
 
   if (customCss.query_exists(null)) {
@@ -186,7 +196,9 @@ export async function updateShellStylesheet(
       try {
         let [contents] = await customCss.load_contents_async(cancellable);
         customCssContents = new TextDecoder().decode(contents);
-      } catch (e) {}
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
       await generateAndApplyFiles(customCssContents);
     } else {
       await generateAndApplyFiles(null);
@@ -199,14 +211,10 @@ export async function updateShellStylesheet(
       }
 
       const templateHeader = `/*\n* ChromaLeon Shell — Custom User Styles\n*/`;
-      await customCss.replace_contents_async(
-        new TextEncoder().encode(templateHeader),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        cancellable,
-      );
-    } catch (e) {}
+      await writeFile(customCss, templateHeader, cancellable);
+    } catch (e) {
+      if (isCancelledError(e)) throw e;
+    }
     await generateAndApplyFiles(null);
   }
 }
@@ -244,16 +252,6 @@ export async function updateGtkStylesheet(
     `${extensionPath}/templates/gtk4_darker_tinted.template.css`,
   );
 
-  const writeAccentFile = async (accentFile, content) => {
-    await accentFile.replace_contents_async(
-      new TextEncoder().encode(content),
-      null,
-      false,
-      Gio.FileCreateFlags.REPLACE_DESTINATION,
-      cancellable,
-    );
-  };
-
   const gtk4 = async () => {
     let dirPath = `${configDir}/gtk-4.0`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
@@ -264,15 +262,10 @@ export async function updateGtkStylesheet(
     if (!parentDir.query_exists(null)) {
       try {
         parentDir.make_directory_with_parents(null);
-
-        await mainFile.replace_contents_async(
-          new TextEncoder().encode(""),
-          null,
-          false,
-          Gio.FileCreateFlags.NONE,
-          cancellable,
-        );
-      } catch (e) {}
+        await writeFile(mainFile, "", cancellable);
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
     }
 
     if (tinted) {
@@ -287,24 +280,19 @@ export async function updateGtkStylesheet(
           /@@ACCENT@@/g,
           gnomeColors ? "@accent_bg_color" : color,
         );
-        await writeAccentFile(
+        await writeFile(
           accentFile,
           !gnomeColors ? `${cssVars}\n${css}` : css,
+          cancellable,
         );
-      } catch (e) {}
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
     } else {
-      await writeAccentFile(accentFile, !gnomeColors ? cssVars : "");
+      await writeFile(accentFile, !gnomeColors ? cssVars : "", cancellable);
     }
 
-    const writeMainFile = async (content) => {
-      await mainFile.replace_contents_async(
-        new TextEncoder().encode(content),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        cancellable,
-      );
-    };
+    throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
       try {
@@ -312,10 +300,16 @@ export async function updateGtkStylesheet(
         let mainContent = new TextDecoder().decode(contents);
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        await writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-      } catch (e) {}
+        await writeFile(
+          mainFile,
+          `${cleanContent}\n\n${cssBlock}\n`,
+          cancellable,
+        );
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
     } else {
-      await writeMainFile(`${cssBlock}\n`);
+      await writeFile(mainFile, `${cssBlock}\n`, cancellable);
     }
   };
 
@@ -329,15 +323,10 @@ export async function updateGtkStylesheet(
     if (!parentDir.query_exists(null)) {
       try {
         parentDir.make_directory_with_parents(null);
-
-        await mainFile.replace_contents_async(
-          new TextEncoder().encode(""),
-          null,
-          false,
-          Gio.FileCreateFlags.NONE,
-          cancellable,
-        );
-      } catch (e) {}
+        await writeFile(mainFile, "", cancellable);
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
     }
 
     if (tinted && tintGTK3) {
@@ -353,11 +342,14 @@ export async function updateGtkStylesheet(
             /@@ACCENT@@/g,
             gnomeColors ? "@accent_bg_color" : color,
           );
-          await writeAccentFile(
+          await writeFile(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : `${cssVarsGnome}\n${css}`,
+            cancellable,
           );
-        } catch (e) {}
+        } catch (e) {
+          if (isCancelledError(e)) throw e;
+        }
       } else {
         try {
           let [contents] =
@@ -369,25 +361,20 @@ export async function updateGtkStylesheet(
             gnomeColors ? "@accent_bg_color" : color,
           );
 
-          await writeAccentFile(
+          await writeFile(
             accentFile,
             !gnomeColors ? `${cssVars}\n${css}` : css,
+            cancellable,
           );
-        } catch (e) {}
+        } catch (e) {
+          if (isCancelledError(e)) throw e;
+        }
       }
     } else {
-      await writeAccentFile(accentFile, cssVars);
+      await writeFile(accentFile, cssVars, cancellable);
     }
 
-    const writeMainFile = async (content) => {
-      await mainFile.replace_contents_async(
-        new TextEncoder().encode(content),
-        null,
-        false,
-        Gio.FileCreateFlags.REPLACE_DESTINATION,
-        cancellable,
-      );
-    };
+    throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
       try {
@@ -395,10 +382,16 @@ export async function updateGtkStylesheet(
         let mainContent = new TextDecoder().decode(contents);
         let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        await writeMainFile(`${cleanContent}\n\n${cssBlock}\n`);
-      } catch (e) {}
+        await writeFile(
+          mainFile,
+          `${cleanContent}\n\n${cssBlock}\n`,
+          cancellable,
+        );
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
+      }
     } else {
-      await writeMainFile(`${cssBlock}\n`);
+      await writeFile(mainFile, `${cssBlock}\n`, cancellable);
     }
   };
 
