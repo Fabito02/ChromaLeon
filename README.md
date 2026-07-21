@@ -29,6 +29,11 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 | **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/02ad9710-d356-4995-8672-9f03158b82c8" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/a627412e-db6a-47b2-9e5f-cf41d9680b19" /> |
 | **Folders and Apps** | <img width="1366" height="768" alt="Folders and Icons Dark" src="https://github.com/user-attachments/assets/48e01635-c2c3-46d8-bb3c-5d1cc0dda0c8" /> | <img width="1366" height="768" alt="Folders and Icons Light" src="https://github.com/user-attachments/assets/1f0974aa-0839-436b-83d5-c255ecbc4be2" /> |
 
+<br>
+
+> To have your GNOME Shell switch to the light theme, please install the [GNOME Shell Light Style extension](https://extensions.gnome.org/extension/6198/light-style/).
+
+<br>
 
 </div>
 

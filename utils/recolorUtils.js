@@ -392,7 +392,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
 
         if (!infos || infos.length === 0) break;
 
-        const copyPromises = infos.forEach(async (info) => {
+        const copyPromises = infos.map(async (info) => {
           const childName = info.get_name();
           const childSrc = srcFile.get_child(childName);
           const childDest = destFile.get_child(childName);
