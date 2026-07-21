@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-19 03:50-0300\n"
+"POT-Creation-Date: 2026-07-21 18:43-0300\n"
 "PO-Revision-Date: 2026-07-10 14:01+0000\n"
 "Last-Translator: Amedeo Trotta <paperella@duck.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/chromaleon/"
@@ -266,7 +266,7 @@ msgstr "Impossibile copiare lo sfondo: "
 msgid "Unable to load colors."
 msgstr "Impossibile caricare i colori."
 
-#: chromaleon.js:1522
+#: chromaleon.js:1522 chromaleon.js:1546
 msgid "Support"
 msgstr "Supporto"
 
@@ -274,9 +274,22 @@ msgstr "Supporto"
 msgid "Support the project"
 msgstr "Sostieni il progetto"
 
-#: extension.js:60
-msgid "Failed to apply custom style: "
-msgstr "Impossibile aprire custom.css: "
+#: chromaleon.js:1539
+msgid "Why support ChromaLeon?"
+msgstr "Perché sostenere ChromaLeon?"
+
+#: chromaleon.js:1541
+msgid ""
+"Developing free software requires time, energy, and dedication. Your "
+"donation directly supports the project and helps keep it alive!"
+msgstr ""
+"Lo sviluppo di software libero richiede tempo, energie e dedizione. La tua "
+"donazione sostiene direttamente il progetto e contribuisce a mantenerlo "
+"attivo!"
+
+#: chromaleon.js:1545
+msgid "Cancel"
+msgstr "Annulla"
 
 #: utils/colorUtils.js:55
 msgid "Error creating pixbuf: "
@@ -286,28 +299,17 @@ msgstr "Impossibile creare il pixbuf: "
 msgid "Error reading file: "
 msgstr "Impossibile leggere il file: "
 
-#: utils/recolorUtils.js:309
+#: utils/recolorUtils.js:326
 msgid "Adwaita icon pack was not found."
 msgstr "Pacchetto di icone Adwaita non trovato."
 
-#: utils/recolorUtils.js:514
+#: utils/recolorUtils.js:546
 msgid "MoreWaita icon pack was not found."
 msgstr "Pacchetto di icone MoreWaita non trovato."
+
+#~ msgid "Failed to apply custom style: "
+#~ msgstr "Impossibile aprire custom.css: "
 
 #~ msgid "New colors only apply when apps are reopened."
 #~ msgstr ""
 #~ "I nuovi colori verranno applicati solo dopo aver riaperto le applicazioni."
-
-#~ msgid "Why support ChromaLeon?"
-#~ msgstr "Perché sostenere ChromaLeon?"
-
-#~ msgid ""
-#~ "Developing free software requires time, energy, and dedication. Your "
-#~ "donation directly supports the project and helps keep it alive!"
-#~ msgstr ""
-#~ "Lo sviluppo di software libero richiede tempo, energie e dedizione. La "
-#~ "tua donazione sostiene direttamente il progetto e contribuisce a "
-#~ "mantenerlo attivo!"
-
-#~ msgid "Cancel"
-#~ msgstr "Annulla"

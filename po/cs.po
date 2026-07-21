@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-19 03:50-0300\n"
+"POT-Creation-Date: 2026-07-21 18:43-0300\n"
 "PO-Revision-Date: 2026-07-15 07:01+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
@@ -259,7 +259,7 @@ msgstr "Chyba při kopírování tapety: "
 msgid "Unable to load colors."
 msgstr "Nelze načíst barvy."
 
-#: chromaleon.js:1522
+#: chromaleon.js:1522 chromaleon.js:1546
 msgid "Support"
 msgstr "Podpora"
 
@@ -267,9 +267,21 @@ msgstr "Podpora"
 msgid "Support the project"
 msgstr "Podpořit projekt"
 
-#: extension.js:60
-msgid "Failed to apply custom style: "
-msgstr "Použití vlastního stylu selhalo: "
+#: chromaleon.js:1539
+msgid "Why support ChromaLeon?"
+msgstr "Proč podpořit ChromaLeon?"
+
+#: chromaleon.js:1541
+msgid ""
+"Developing free software requires time, energy, and dedication. Your "
+"donation directly supports the project and helps keep it alive!"
+msgstr ""
+"Vývoj bezplatného software vyžaduje čas, energii a oddanost. Váš dar přímo "
+"podpoří tento projekt a pomůže udržovat ho při životě!"
+
+#: chromaleon.js:1545
+msgid "Cancel"
+msgstr "Zrušit"
 
 #: utils/colorUtils.js:55
 msgid "Error creating pixbuf: "
@@ -279,26 +291,16 @@ msgstr "Chyba při vytváření pixbuf: "
 msgid "Error reading file: "
 msgstr "Chyba při čtení souboru: "
 
-#: utils/recolorUtils.js:309
+#: utils/recolorUtils.js:326
 msgid "Adwaita icon pack was not found."
 msgstr "Balíček ikon Adwaita nebyl nalezen."
 
-#: utils/recolorUtils.js:514
+#: utils/recolorUtils.js:546
 msgid "MoreWaita icon pack was not found."
 msgstr "Balíček ikon MoreWaita nebyl nalezen."
 
+#~ msgid "Failed to apply custom style: "
+#~ msgstr "Použití vlastního stylu selhalo: "
+
 #~ msgid "New colors only apply when apps are reopened."
 #~ msgstr "Nové barvy se aplikují až po restartu aplikací."
-
-#~ msgid "Why support ChromaLeon?"
-#~ msgstr "Proč podpořit ChromaLeon?"
-
-#~ msgid ""
-#~ "Developing free software requires time, energy, and dedication. Your "
-#~ "donation directly supports the project and helps keep it alive!"
-#~ msgstr ""
-#~ "Vývoj bezplatného software vyžaduje čas, energii a oddanost. Váš dar "
-#~ "přímo podpoří tento projekt a pomůže udržovat ho při životě!"
-
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"

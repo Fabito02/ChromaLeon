@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-19 03:50-0300\n"
+"POT-Creation-Date: 2026-07-21 18:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:1522
+#: chromaleon.js:1522 chromaleon.js:1546
 msgid "Support"
 msgstr ""
 
@@ -252,8 +252,18 @@ msgstr ""
 msgid "Support the project"
 msgstr ""
 
-#: extension.js:60
-msgid "Failed to apply custom style: "
+#: chromaleon.js:1539
+msgid "Why support ChromaLeon?"
+msgstr ""
+
+#: chromaleon.js:1541
+msgid ""
+"Developing free software requires time, energy, and dedication. Your "
+"donation directly supports the project and helps keep it alive!"
+msgstr ""
+
+#: chromaleon.js:1545
+msgid "Cancel"
 msgstr ""
 
 #: utils/colorUtils.js:55
@@ -264,10 +274,10 @@ msgstr ""
 msgid "Error reading file: "
 msgstr ""
 
-#: utils/recolorUtils.js:309
+#: utils/recolorUtils.js:326
 msgid "Adwaita icon pack was not found."
 msgstr ""
 
-#: utils/recolorUtils.js:514
+#: utils/recolorUtils.js:546
 msgid "MoreWaita icon pack was not found."
 msgstr ""
