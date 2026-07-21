@@ -95,14 +95,10 @@ export default class CustomAccentExtension extends Extension {
         ),
       "changed::tint-apps",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateAppStyles(cancellable),
-        ),
+        this._runOperation((cancellable) => this._updateAppStyles(cancellable)),
       "changed::tint-gtk3",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateAppStyles(cancellable),
-        ),
+        this._runOperation((cancellable) => this._updateAppStyles(cancellable)),
       "changed::darker",
       () =>
         this._runOperation((cancellable) =>
@@ -110,19 +106,13 @@ export default class CustomAccentExtension extends Extension {
         ),
       "changed::recolor-folders",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateIconPack(cancellable),
-        ),
+        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
       "changed::recolor-apps",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateIconPack(cancellable),
-        ),
+        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
       "changed::morewaita",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateIconPack(cancellable),
-        ),
+        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
       this,
     );
 

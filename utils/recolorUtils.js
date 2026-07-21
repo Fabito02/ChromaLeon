@@ -146,7 +146,7 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
 
   let enumerator = dir.enumerate_children(
     "standard::name,standard::type",
-    Gio.FileQueryInfoFlags.NONE,
+    Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
     cancellable,
   );
 
@@ -173,8 +173,7 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
             cancellable,
           );
         } else if (
-          (item.type === Gio.FileType.REGULAR ||
-            item.type === Gio.FileType.SYMBOLIC_LINK) &&
+          item.type === Gio.FileType.REGULAR &&
           item.name.endsWith(".svg")
         ) {
           await recolorSvgAsync(item.child, colorMap, cancellable);
@@ -357,7 +356,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
       const enumerator = await new Promise((res) => {
         srcFile.enumerate_children_async(
           "standard::name,standard::type",
-          Gio.FileQueryInfoFlags.NONE,
+          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
           GLib.PRIORITY_DEFAULT,
           cancellable,
           (obj, r) => {
@@ -406,7 +405,8 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
             await new Promise((res) => {
               childSrc.copy_async(
                 childDest,
-                Gio.FileCopyFlags.OVERWRITE,
+                Gio.FileCopyFlags.OVERWRITE |
+                  Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
                 GLib.PRIORITY_DEFAULT,
                 cancellable,
                 null,
@@ -502,7 +502,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
         await new Promise((res) => {
           sourceFile.copy_async(
             destFile,
-            Gio.FileCopyFlags.OVERWRITE,
+            Gio.FileCopyFlags.OVERWRITE | Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
             GLib.PRIORITY_DEFAULT,
             cancellable,
             null,
