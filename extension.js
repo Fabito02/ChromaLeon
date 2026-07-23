@@ -39,9 +39,6 @@ export default class CustomAccentExtension extends Extension {
     this._timeoutId = null;
     this._bgTimeoutId = null;
     this._a11ySettings = null;
-    // Serializes every reactive theme/icon-pack update behind a single chain,
-    // and cancels whatever is in flight whenever a newer change arrives, so
-    // rapid color/wallpaper changes never run concurrently (see #20).
     this._cancellable = null;
     this._opChain = Promise.resolve();
   }
