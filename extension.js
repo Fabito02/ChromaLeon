@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
@@ -67,11 +68,13 @@ export default class CustomAccentExtension extends Extension {
     this._settings.connectObject(
       "changed::accent-color",
       () =>
-        this._runOperation((cancellable) =>
-          this._settings.get_boolean("recolor-folders")
-            ? this._updateStyles(true, true, cancellable)
-            : this._updateStyles(false, true, cancellable),
-        ),
+        this._runOperation(async (cancellable) => {
+          await this._updateStyles(
+            this._settings.get_boolean("recolor-folders"),
+            true,
+            cancellable,
+          );
+        }),
       "changed::gnome-colors",
       () =>
         this._runOperation(async (cancellable) => {
@@ -86,43 +89,68 @@ export default class CustomAccentExtension extends Extension {
         }),
       "changed::tint-shell",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateShellStyles(cancellable),
-        ),
+        this._runOperation(async (cancellable) => {
+          await this._updateShellStyles(cancellable);
+        }),
       "changed::custom-css",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateShellStyles(cancellable),
-        ),
+        this._runOperation(async (cancellable) => {
+          await this._updateShellStyles(cancellable);
+        }),
       "changed::tint-apps",
       () =>
-        this._runOperation((cancellable) => this._updateAppStyles(cancellable)),
+        this._runOperation(async (cancellable) => {
+          await this._updateAppStyles(cancellable);
+        }),
       "changed::tint-gtk3",
       () =>
-        this._runOperation((cancellable) => this._updateAppStyles(cancellable)),
+        this._runOperation(async (cancellable) => {
+          await this._updateAppStyles(cancellable);
+        }),
       "changed::darker",
       () =>
-        this._runOperation((cancellable) =>
-          this._updateStyles(false, true, cancellable),
-        ),
+        this._runOperation(async (cancellable) => {
+          await this._updateStyles(false, true, cancellable);
+        }),
       "changed::recolor-folders",
       () =>
-        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
+        this._runOperation(async (cancellable) => {
+          await this._updateIconPack(cancellable);
+        }),
       "changed::recolor-apps",
       () =>
-        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
+        this._runOperation(async (cancellable) => {
+          await this._updateIconPack(cancellable);
+        }),
       "changed::morewaita",
       () =>
-        this._runOperation((cancellable) => this._updateIconPack(cancellable)),
+        this._runOperation(async (cancellable) => {
+          await this._updateIconPack(cancellable);
+        }),
       this,
     );
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      () =>
-        this._runOperation((cancellable) =>
-          this._autoApplyWallpaperColor(cancellable),
-        ),
+        () => {
+          this._loadShellStylesheet();
+      
+          this._runOperation(async (cancellable) => {
+            let colorScheme = this._interfaceSettings.get_string("color-scheme");
+            let uri = colorScheme === "prefer-dark"
+              ? this._bgSettings.get_string("picture-uri-dark")
+              : this._bgSettings.get_string("picture-uri");
+      
+            let newColor = await ColorUtils.calculateVibrantColor(uri);
+            throwIfCancelled(cancellable);
+      
+            const currentColor = this._settings.get_string("accent-color");
+      
+            if (newColor !== currentColor) {
+              await this._autoApplyWallpaperColor(cancellable);
+            }
+          });
+        },
       "changed::accent-color",
       () => {
         if (this._settings.get_boolean("gnome-colors")) {
@@ -145,8 +173,6 @@ export default class CustomAccentExtension extends Extension {
 
       if (this._lastWallpaperUri === currentUri) return;
       this._lastWallpaperUri = currentUri;
-
-      this._settings.set_boolean("custom-color", false);
 
       if (this._bgTimeoutId) {
         GLib.Source.remove(this._bgTimeoutId);
@@ -233,10 +259,6 @@ export default class CustomAccentExtension extends Extension {
     this._a11ySettings = null;
   }
 
-  // Cancels any in-flight or already-queued operation, then queues fn to run
-  // once the previous one has unwound. This guarantees at most one theme /
-  // icon-pack update runs at a time, and a burst of rapid changes collapses
-  // to a single run of the latest one instead of overlapping (see #20).
   _runOperation(fn) {
     this._cancellable?.cancel();
 
@@ -271,14 +293,15 @@ export default class CustomAccentExtension extends Extension {
 
   async _autoApplyWallpaperColor(cancellable) {
     throwIfCancelled(cancellable);
-
     if (this._settings.get_boolean("custom-color")) {
-      await this._updateStyles(false, true, cancellable);
+      await this._updateShellStyles(cancellable);
+      if (this._settings.get_boolean("tint-apps")) {
+        await this._updateAppStyles(cancellable);
+      }
       return;
     }
 
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
-
     let uri =
       colorScheme === "prefer-dark"
         ? this._bgSettings.get_string("picture-uri-dark")
@@ -287,18 +310,14 @@ export default class CustomAccentExtension extends Extension {
     let color = await ColorUtils.calculateVibrantColor(uri);
     throwIfCancelled(cancellable);
 
-    const colorChanged = color !== this._settings.get_string("accent-color");
-
-    let updateIcons =
-      colorChanged &&
-      this._settings.get_boolean("recolor-folders") &&
-      !this._settings.get_boolean("gnome-colors");
+    const currentColor = this._settings.get_string("accent-color");
+    const colorChanged = color !== currentColor;
 
     if (colorChanged) {
       this._settings.set_string("accent-color", color);
+    } else {
+      await this._updateStyles(false, false, cancellable);
     }
-
-    await this._updateStyles(updateIcons, colorChanged, cancellable);
   }
 
   async _updateIconPack(cancellable) {
@@ -361,28 +380,46 @@ export default class CustomAccentExtension extends Extension {
 
     const color = this._settings.get_string("accent-color");
     const darker = this._settings.get_boolean("darker");
-    const colorScheme = this._interfaceSettings.get_string("color-scheme");
     const tintShell = this._settings.get_boolean("tint-shell");
     const customCss = this._settings.get_boolean("custom-css");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
 
-    const lightStyle = sessionMode.colorScheme;
-    const isLight = lightStyle === "prefer-light" && colorScheme === "default";
-
     await ThemeUtils.updateShellStylesheet(
       this.path,
       color,
-      this._generatedCssFile,
-      (file) => {
-        this._generatedCssFile = file;
-      },
-      isLight,
       tintShell,
       darker,
       customCss,
       gnomeColors,
       cancellable,
     );
+
+    this._loadShellStylesheet();
+  }
+
+  _loadShellStylesheet() {
+    let cacheDir = GLib.get_user_cache_dir();
+    let lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
+    let darkFile = Gio.File.new_for_path(
+      `${cacheDir}/chromaleon-shell-dark.css`,
+    );
+
+    const colorScheme = this._interfaceSettings.get_string("color-scheme");
+    const lightStyle = sessionMode.colorScheme;
+    const isLight = lightStyle === "prefer-light" && colorScheme === "default";
+
+    const themeContext = St.ThemeContext.get_for_stage(global.stage);
+    const theme = themeContext?.get_theme();
+
+    if (!theme) return;
+
+    theme.unload_stylesheet(lightFile);
+    theme.unload_stylesheet(darkFile);
+
+    const activeFile = isLight ? lightFile : darkFile;
+    if (activeFile.query_exists(null)) {
+      theme.load_stylesheet(activeFile);
+    }
   }
 
   async _updateAppStyles(cancellable) {

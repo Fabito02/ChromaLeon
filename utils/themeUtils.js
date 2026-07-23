@@ -114,9 +114,6 @@ export async function removeGtkStylesheet() {
 export async function updateShellStylesheet(
   extensionPath,
   color,
-  currentCssFile,
-  onUpdated,
-  isLight,
   tinted,
   darker,
   customStyle,
@@ -149,42 +146,48 @@ export async function updateShellStylesheet(
     `${extensionPath}/templates/tinted_darker.template.css`,
   );
 
-  let tintedTemplate = isLight
-    ? tintedLightTemplate
-    : darker
-      ? tintedDarkerTemplate
-      : tintedDarkTemplate;
-  let finalTemplate = tinted ? tintedTemplate : shellAccentTemplate;
+  const fileLight = tinted ? tintedLightTemplate : shellAccentTemplate;
+  const fileDark = tinted
+    ? (darker ? tintedDarkerTemplate : tintedDarkTemplate)
+    : shellAccentTemplate;
 
   const generateAndApplyFiles = async (customCssContents) => {
     try {
-      let [contents] = await finalTemplate.load_contents_async(cancellable);
+      let [contentsLight] = await fileLight.load_contents_async(cancellable);
+      let [contentsDark] = await fileDark.load_contents_async(cancellable);
 
-      let template = new TextDecoder().decode(contents);
-      let finalTemplateContent = customCssContents
-        ? `${template}\n${customCssContents}`
-        : template;
+      let textLight = new TextDecoder().decode(contentsLight);
+      let textDark = new TextDecoder().decode(contentsDark);
+      
+      let finalLightContent = customCssContents
+        ? `${textLight}\n${customCssContents}`
+        : textLight;
+      let finalDarkContent = customCssContents
+        ? `${textDark}\n${customCssContents}`
+        : textDark;
 
-      let css = finalTemplateContent
-        .replace(/@@ACCENT@@/g, gnomeColors ? "-st-accent-color" : color)
-        .replace(/-st-accent-color/g, gnomeColors ? "-st-accent-color" : color);
+      let accentValue = gnomeColors ? "-st-accent-color" : color;
+
+      let cssLight = finalLightContent
+        .replace(/@@ACCENT@@/g, accentValue)
+        .replace(/-st-accent-color/g, accentValue);
+
+      let cssDark = finalDarkContent
+        .replace(/@@ACCENT@@/g, accentValue)
+        .replace(/-st-accent-color/g, accentValue);
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
         `${cacheDir}/chromaleon-shell.css`,
       );
+      let outputFileDark = Gio.File.new_for_path(
+        `${cacheDir}/chromaleon-shell-dark.css`,
+      );     
 
-      await writeFile(outputFile, css, cancellable);
+      await writeFile(outputFile, cssLight, cancellable);
+      await writeFile(outputFileDark, cssDark, cancellable);
 
       throwIfCancelled(cancellable);
-
-      removeShellStylesheet(currentCssFile);
-
-      let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
-      if (theme) {
-        theme.load_stylesheet(outputFile);
-        if (onUpdated) onUpdated(outputFile);
-      }
     } catch (e) {
       if (isCancelledError(e)) throw e;
     }
@@ -298,13 +301,15 @@ export async function updateGtkStylesheet(
       try {
         let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
-        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        await writeFile(
-          mainFile,
-          `${cleanContent}\n\n${cssBlock}\n`,
-          cancellable,
-        );
+        if (!mainContent.includes(START_MARKER)) {
+          let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
+          await writeFile(
+            mainFile,
+            `${cleanContent}\n\n${cssBlock}\n`,
+            cancellable,
+          );
+        }
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
@@ -380,13 +385,15 @@ export async function updateGtkStylesheet(
       try {
         let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
-        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        await writeFile(
-          mainFile,
-          `${cleanContent}\n\n${cssBlock}\n`,
-          cancellable,
-        );
+        if (!mainContent.includes(START_MARKER)) {
+          let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
+          await writeFile(
+            mainFile,
+            `${cleanContent}\n\n${cssBlock}\n`,
+            cancellable,
+          );
+        }
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
