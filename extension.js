@@ -59,7 +59,7 @@ export default class CustomAccentExtension extends Extension {
     });
 
     this._runOperation((cancellable) =>
-      this._autoApplyWallpaperColor(cancellable),
+      this._loadShellStylesheet(cancellable)
     );
 
     this._settings.connectObject(
@@ -129,25 +129,25 @@ export default class CustomAccentExtension extends Extension {
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-        () => {
-          this._loadShellStylesheet();
-      
-          this._runOperation(async (cancellable) => {
-            let colorScheme = this._interfaceSettings.get_string("color-scheme");
-            let uri = colorScheme === "prefer-dark"
-              ? this._bgSettings.get_string("picture-uri-dark")
-              : this._bgSettings.get_string("picture-uri");
-      
-            let newColor = await ColorUtils.calculateVibrantColor(uri);
-            throwIfCancelled(cancellable);
-      
-            const currentColor = this._settings.get_string("accent-color");
-      
-            if (newColor !== currentColor) {
-              await this._autoApplyWallpaperColor(cancellable);
-            }
-          });
-        },
+      () => {
+        this._runOperation(async (cancellable) => {
+          this._loadShellStylesheet(cancellable);
+          
+          let colorScheme = this._interfaceSettings.get_string("color-scheme");
+          let uri = colorScheme === "prefer-dark"
+            ? this._bgSettings.get_string("picture-uri-dark")
+            : this._bgSettings.get_string("picture-uri");
+
+          let newColor = await ColorUtils.calculateVibrantColor(uri);
+          throwIfCancelled(cancellable);
+
+          const currentColor = this._settings.get_string("accent-color");
+
+          if (newColor !== currentColor) {
+            await this._autoApplyWallpaperColor(cancellable);
+          }
+        });
+      },
       "changed::accent-color",
       () => {
         if (this._settings.get_boolean("gnome-colors")) {
@@ -391,10 +391,13 @@ export default class CustomAccentExtension extends Extension {
       cancellable,
     );
 
-    this._loadShellStylesheet();
+    this._loadShellStylesheet(cancellable);
   }
 
-  _loadShellStylesheet() {
+  _loadShellStylesheet(cancellable) {
+    
+    throwIfCancelled(cancellable);
+    
     let cacheDir = GLib.get_user_cache_dir();
     let lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
     let darkFile = Gio.File.new_for_path(
