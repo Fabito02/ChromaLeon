@@ -31,10 +31,6 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 
 <br>
 
-> To have your GNOME Shell switch to the light theme, please install the [GNOME Shell Light Style extension](https://extensions.gnome.org/extension/6198/light-style/).
-
-<br>
-
 </div>
 
 ## Features
