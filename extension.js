@@ -35,7 +35,7 @@ export default class CustomAccentExtension extends Extension {
     this._settings = null;
     this._bgSettings = null;
     this._interfaceSettings = null;
-    this._generatedCssFile = null;
+    this._loadedShellFile = null;
     this._configId = null;
     this._timeoutId = null;
     this._reloadGtkTimeout = null;
@@ -61,7 +61,7 @@ export default class CustomAccentExtension extends Extension {
 
     this._savedColorScheme = sessionMode.colorScheme;
 
-    this._runOperation((cancellable) => this._setShellColorScheme(cancellable));
+    this._runOperation((cancellable) => this._setShellColorScheme(true, cancellable));
 
     this._settings.connectObject(
       "changed::accent-color",
@@ -126,7 +126,7 @@ export default class CustomAccentExtension extends Extension {
       "changed::prefer-light",
       () =>
         this._runOperation(async (cancellable) => {
-          this._setShellColorScheme(cancellable);
+          this._setShellColorScheme(false, cancellable);
         }),
       this,
     );
@@ -214,10 +214,6 @@ export default class CustomAccentExtension extends Extension {
 
     clearRecolorTimeout();
 
-    this._cancellable?.cancel();
-    this._cancellable = null;
-    this._opChain = Promise.resolve();
-
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
@@ -237,23 +233,43 @@ export default class CustomAccentExtension extends Extension {
       this._reloadGtkTimeout = null;
     }
 
-    this._generatedCssFile = ThemeUtils.removeShellStylesheet(
-      this._generatedCssFile,
+    this._loadedShellFile = ThemeUtils.removeShellStylesheet(
+      this._loadedShellFile,
     );
 
-    ThemeUtils.removeGtkStylesheet().catch((e) => {
-      console.error(`Error removing the GTK stylesheet!: ${e.message}`);
-    });
+    try {
+      ThemeUtils.removeGtkStylesheet();
+    } catch (e) {
+      console.error(`Erro ao remover GTK stylesheet: ${e.message}`);
+    }
+
+    if (this._a11ySettings) {
+      try {
+        const highContrast = this._a11ySettings.get_boolean("high-contrast");
+        const schema = "org.gnome.desktop.a11y.interface";
+        const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
+
+        Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
+      } catch (e) {
+        console.warn(
+          `ChromaLeon: falha ao recarregar tema no disable: ${e.message}`,
+        );
+      }
+    }
 
     FileUtils.removeDesktopFile();
 
     if (
-      this._interfaceSettings.get_string("icon-theme") === "Adwaita-Dynamic"
+      this._interfaceSettings?.get_string("icon-theme") === "Adwaita-Dynamic"
     ) {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
     }
 
     PreferLightUtils.updateColorScheme(this._savedColorScheme);
+
+    this._cancellable?.cancel();
+    this._cancellable = null;
+    this._opChain = Promise.resolve();
 
     this._settings = null;
     this._bgSettings = null;
@@ -418,6 +434,7 @@ export default class CustomAccentExtension extends Extension {
     const activeFile = isLight ? lightFile : darkFile;
     if (activeFile.query_exists(null)) {
       theme.load_stylesheet(activeFile);
+      this._loadedShellFile = activeFile;
     }
   }
 
@@ -444,7 +461,7 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  _setShellColorScheme(cancellable) {
+  _setShellColorScheme(allStyles, cancellable) {
     const preferLight = this._settings.get_boolean("prefer-light");
 
     if (preferLight) {
@@ -453,7 +470,7 @@ export default class CustomAccentExtension extends Extension {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
     }
 
-    this._loadShellStylesheet(cancellable);
+    allStyles ? this._updateStyles(false, false, cancellable) : this._loadShellStylesheet(cancellable);
   }
 
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
@@ -503,24 +520,27 @@ export default class CustomAccentExtension extends Extension {
 
     const highContrast = this._a11ySettings.get_boolean("high-contrast");
     const schema = "org.gnome.desktop.a11y.interface";
-
     const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
 
-    const proc = Gio.Subprocess.new(
-      ["bash", "-c", cmd],
-      Gio.SubprocessFlags.NONE,
-    );
+    try {
+      const proc = Gio.Subprocess.new(
+        ["bash", "-c", cmd],
+        Gio.SubprocessFlags.NONE,
+      );
 
-    await new Promise((resolve, reject) => {
-      proc.wait_async(null, (p, res) => {
-        try {
-          p.wait_finish(res);
-          resolve();
-        } catch (e) {
-          reject(e);
-        }
+      await new Promise((resolve, reject) => {
+        proc.wait_async(null, (p, res) => {
+          try {
+            p.wait_finish(res);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
       });
-    });
+    } catch (e) {
+      throw new Error(`GTK stylesheet reload error: ${e.message}`);
+    }
 
     throwIfCancelled(cancellable);
   }

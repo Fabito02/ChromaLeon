@@ -84,7 +84,7 @@ export function removeShellStylesheet(generatedCssFile) {
   return null;
 }
 
-export async function removeGtkStylesheet() {
+export function removeGtkStylesheet() {
   const configDir = GLib.get_user_config_dir();
 
   for (const version of GTK_VERSIONS) {
@@ -93,19 +93,29 @@ export async function removeGtkStylesheet() {
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
     if (accentFile.query_exists(null)) {
       try {
-        await accentFile.delete_async(GLib.PRIORITY_DEFAULT, null);
+        accentFile.delete(null);
       } catch (e) {}
     }
 
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     if (mainFile.query_exists(null)) {
       try {
-        let [contents] = await mainFile.load_contents_async(null);
+        let [ok, contents] = mainFile.load_contents(null);
+        if (ok) {
+          let mainContent = new TextDecoder().decode(contents);
+          let newContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-        let mainContent = new TextDecoder().decode(contents);
-        let newContent = mainContent.replace(REGEX_MARKER, "").trim();
+          let safeContent = newContent ? `${newContent}\n` : "";
+          let bytes = GLib.Bytes.new(new TextEncoder().encode(safeContent));
 
-        await writeFile(mainFile, newContent, null);
+          mainFile.replace_contents(
+            bytes,
+            null,
+            false,
+            Gio.FileCreateFlags.NONE,
+            null,
+          );
+        }
       } catch (e) {}
     }
   }
