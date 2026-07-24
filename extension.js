@@ -61,7 +61,9 @@ export default class CustomAccentExtension extends Extension {
 
     this._savedColorScheme = sessionMode.colorScheme;
 
-    this._runOperation((cancellable) => this._setShellColorScheme(true, cancellable));
+    this._runOperation((cancellable) =>
+      this._setShellColorScheme(true, cancellable),
+    );
 
     this._settings.connectObject(
       "changed::accent-color",
@@ -237,24 +239,14 @@ export default class CustomAccentExtension extends Extension {
       this._loadedShellFile,
     );
 
-    try {
-      ThemeUtils.removeGtkStylesheet();
-    } catch (e) {
-      console.error(`Erro ao remover GTK stylesheet: ${e.message}`);
-    }
+    ThemeUtils.removeGtkStylesheet();
 
     if (this._a11ySettings) {
-      try {
-        const highContrast = this._a11ySettings.get_boolean("high-contrast");
-        const schema = "org.gnome.desktop.a11y.interface";
-        const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
+      const highContrast = this._a11ySettings.get_boolean("high-contrast");
+      const schema = "org.gnome.desktop.a11y.interface";
+      const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
 
-        Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
-      } catch (e) {
-        console.warn(
-          `ChromaLeon: falha ao recarregar tema no disable: ${e.message}`,
-        );
-      }
+      Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
     }
 
     FileUtils.removeDesktopFile();
@@ -470,7 +462,9 @@ export default class CustomAccentExtension extends Extension {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
     }
 
-    allStyles ? this._updateStyles(false, true, cancellable) : this._loadShellStylesheet(cancellable);
+    allStyles
+      ? this._updateStyles(false, true, cancellable)
+      : this._loadShellStylesheet(cancellable);
   }
 
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.

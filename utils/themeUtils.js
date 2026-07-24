@@ -100,7 +100,7 @@ export function removeGtkStylesheet() {
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     if (mainFile.query_exists(null)) {
       try {
-        let [ok, contents] = mainFile.load_contents(null);
+        let [ok, contents] = mainFile.load_contents_async(null);
         if (ok) {
           let mainContent = new TextDecoder().decode(contents);
           let newContent = mainContent.replace(REGEX_MARKER, "").trim();
