@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-23 21:57-0300\n"
-"PO-Revision-Date: 2026-07-24 03:40+0000\n"
+"PO-Revision-Date: 2026-07-24 13:26+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
 "\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -76,11 +76,11 @@ msgstr "Usa as cores nativas do GNOME ao invés das cores do wallpaper."
 
 #: chromaleon.js:406
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Preferir o Estilo Claro"
 
 #: chromaleon.js:407
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Usa um estilo claro para o Shell quando no tema claro."
 
 #: chromaleon.js:426
 msgid "Tint GNOME"
