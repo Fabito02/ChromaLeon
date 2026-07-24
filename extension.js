@@ -38,7 +38,7 @@ export default class CustomAccentExtension extends Extension {
     this._generatedCssFile = null;
     this._configId = null;
     this._timeoutId = null;
-    this._bgTimeoutId = null;
+    this._reloadGtkTimeout = null;
     this._a11ySettings = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
@@ -180,18 +180,11 @@ export default class CustomAccentExtension extends Extension {
       if (this._lastWallpaperUri === currentUri) return;
       this._lastWallpaperUri = currentUri;
 
-      if (this._bgTimeoutId) {
-        GLib.Source.remove(this._bgTimeoutId);
-      }
-
-      this._bgTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
-        this._runOperation((cancellable) => {
-          this._settings.set_boolean("custom-color", false);
-          this._autoApplyWallpaperColor(cancellable);
-        });
-        this._bgTimeoutId = null;
-        return GLib.SOURCE_REMOVE;
+      this._runOperation((cancellable) => {
+        this._settings.set_boolean("custom-color", false);
+        this._autoApplyWallpaperColor(cancellable);
       });
+      return GLib.SOURCE_REMOVE;
     };
 
     this._bgSettings.connectObject(
@@ -239,6 +232,11 @@ export default class CustomAccentExtension extends Extension {
       this._timeoutId = null;
     }
 
+    if (this._reloadGtkTimeout) {
+      GLib.Source.remove(this._reloadGtkTimeout);
+      this._reloadGtkTimeout = null;
+    }
+
     this._generatedCssFile = ThemeUtils.removeShellStylesheet(
       this._generatedCssFile,
     );
@@ -253,11 +251,6 @@ export default class CustomAccentExtension extends Extension {
       this._interfaceSettings.get_string("icon-theme") === "Adwaita-Dynamic"
     ) {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
-    }
-
-    if (this._bgTimeoutId) {
-      GLib.Source.remove(this._bgTimeoutId);
-      this._bgTimeoutId = null;
     }
 
     PreferLightUtils.updateColorScheme(this._savedColorScheme);
@@ -470,15 +463,37 @@ export default class CustomAccentExtension extends Extension {
     throwIfCancelled(cancellable);
 
     await new Promise((resolve) => {
-      let timerId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
-        resolve();
-        return GLib.SOURCE_REMOVE;
-      });
+      if (this._reloadGtkTimeout) {
+        GLib.Source.remove(this._reloadGtkTimeout);
+        this._reloadGtkTimeout = null;
+      }
+
+      let cancelId = null;
+
+      const cleanup = () => {
+        if (this._reloadGtkTimeout) {
+          GLib.Source.remove(this._reloadGtkTimeout);
+          this._reloadGtkTimeout = null;
+        }
+        if (cancellable && cancelId) {
+          cancellable.disconnect(cancelId);
+          cancelId = null;
+        }
+      };
+
+      this._reloadGtkTimeout = GLib.timeout_add(
+        GLib.PRIORITY_DEFAULT,
+        50,
+        () => {
+          cleanup();
+          resolve();
+          return GLib.SOURCE_REMOVE;
+        },
+      );
 
       if (cancellable) {
-        const cancelId = cancellable.connect(() => {
-          GLib.Source.remove(timerId);
-          cancellable.disconnect(cancelId);
+        cancelId = cancellable.connect(() => {
+          cleanup();
           resolve();
         });
       }
@@ -487,7 +502,9 @@ export default class CustomAccentExtension extends Extension {
     throwIfCancelled(cancellable);
 
     const highContrast = this._a11ySettings.get_boolean("high-contrast");
-    const cmd = `gsettings set org.gnome.desktop.a11y.interface high-contrast ${!highContrast} && sleep 0.01 && gsettings set org.gnome.desktop.a11y.interface high-contrast ${highContrast}`;
+    const schema = "org.gnome.desktop.a11y.interface";
+
+    const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
 
     const proc = Gio.Subprocess.new(
       ["bash", "-c", cmd],
