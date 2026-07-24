@@ -148,7 +148,9 @@ export async function updateShellStylesheet(
 
   const fileLight = tinted ? tintedLightTemplate : shellAccentTemplate;
   const fileDark = tinted
-    ? (darker ? tintedDarkerTemplate : tintedDarkTemplate)
+    ? darker
+      ? tintedDarkerTemplate
+      : tintedDarkTemplate
     : shellAccentTemplate;
 
   const generateAndApplyFiles = async (customCssContents) => {
@@ -158,7 +160,7 @@ export async function updateShellStylesheet(
 
       let textLight = new TextDecoder().decode(contentsLight);
       let textDark = new TextDecoder().decode(contentsDark);
-      
+
       let finalLightContent = customCssContents
         ? `${textLight}\n${customCssContents}`
         : textLight;
@@ -182,7 +184,7 @@ export async function updateShellStylesheet(
       );
       let outputFileDark = Gio.File.new_for_path(
         `${cacheDir}/chromaleon-shell-dark.css`,
-      );     
+      );
 
       await writeFile(outputFile, cssLight, cancellable);
       await writeFile(outputFileDark, cssDark, cancellable);

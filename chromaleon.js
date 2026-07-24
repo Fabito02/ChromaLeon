@@ -407,7 +407,7 @@ class ChromaLeonUI {
       subtitle: _("Use a light style for the Shell in the light theme."),
     });
     colorsGroup.add(preferLightRow);
-    
+
     this._settings.bind(
       "gnome-colors",
       gnomeColorsRow,

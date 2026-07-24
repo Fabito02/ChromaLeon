@@ -60,10 +60,8 @@ export default class CustomAccentExtension extends Extension {
     });
 
     this._savedColorScheme = sessionMode.colorScheme;
-    
-    this._runOperation((cancellable) =>
-      this._setShellColorScheme(cancellable)
-    );
+
+    this._runOperation((cancellable) => this._setShellColorScheme(cancellable));
 
     this._settings.connectObject(
       "changed::accent-color",
@@ -140,11 +138,12 @@ export default class CustomAccentExtension extends Extension {
       () => {
         this._runOperation(async (cancellable) => {
           this._loadShellStylesheet(cancellable);
-          
+
           let colorScheme = this._interfaceSettings.get_string("color-scheme");
-          let uri = colorScheme === "prefer-dark"
-            ? this._bgSettings.get_string("picture-uri-dark")
-            : this._bgSettings.get_string("picture-uri");
+          let uri =
+            colorScheme === "prefer-dark"
+              ? this._bgSettings.get_string("picture-uri-dark")
+              : this._bgSettings.get_string("picture-uri");
 
           let newColor = await ColorUtils.calculateVibrantColor(uri);
           throwIfCancelled(cancellable);
@@ -405,9 +404,8 @@ export default class CustomAccentExtension extends Extension {
   }
 
   _loadShellStylesheet(cancellable) {
-    
     throwIfCancelled(cancellable);
-    
+
     let cacheDir = GLib.get_user_cache_dir();
     let lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
     let darkFile = Gio.File.new_for_path(
@@ -415,7 +413,8 @@ export default class CustomAccentExtension extends Extension {
     );
 
     const colorScheme = this._interfaceSettings.get_string("color-scheme");
-    const isLight = this._settings.get_boolean("prefer-light") && colorScheme === "default";
+    const isLight =
+      this._settings.get_boolean("prefer-light") && colorScheme === "default";
 
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
     const theme = themeContext?.get_theme();
@@ -462,7 +461,7 @@ export default class CustomAccentExtension extends Extension {
     } else {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
     }
-    
+
     this._loadShellStylesheet(cancellable);
   }
 
