@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-21 18:43-0300\n"
+"POT-Creation-Date: 2026-07-23 21:57-0300\n"
 "PO-Revision-Date: 2026-07-03 14:12+0000\n"
 "Last-Translator: Christian Lauinger <christian.lauinger@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
@@ -74,31 +74,39 @@ msgstr ""
 msgid "Use native GNOME colors instead of wallpaper colors."
 msgstr ""
 
-#: chromaleon.js:413
+#: chromaleon.js:406
+msgid "Prefer Light Style"
+msgstr ""
+
+#: chromaleon.js:407
+msgid "Use a light style for the Shell in the light theme."
+msgstr ""
+
+#: chromaleon.js:426
 msgid "Tint GNOME"
 msgstr "GNOME einfärben"
 
-#: chromaleon.js:414
+#: chromaleon.js:427
 msgid "Based on Tint my GNOME"
 msgstr "Basiert auf Tint my GNOME"
 
-#: chromaleon.js:419
+#: chromaleon.js:432
 msgid "Tint Shell"
 msgstr "Einfärbe-Shell"
 
-#: chromaleon.js:420
+#: chromaleon.js:433
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Färbt die GNOME Shell in den von dir gewählten Farben."
 
-#: chromaleon.js:425
+#: chromaleon.js:438
 msgid "Tint Apps"
 msgstr "Anwendungen einfärben"
 
-#: chromaleon.js:427
+#: chromaleon.js:440
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Färbt die LibAdwaita-Anwendungen in den von dir gewählten Farben."
 
-#: chromaleon.js:434
+#: chromaleon.js:447
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
@@ -106,55 +114,55 @@ msgstr ""
 "Auch GTK3-Anwendungen einfärben (die {0}-Erweiterung und das {1}-Design "
 "werden benötigt um Fehler zu verhindern)."
 
-#: chromaleon.js:447
+#: chromaleon.js:460
 msgid "Tint GTK3 Apps"
 msgstr "GTK3-Anwendungen einfärben"
 
-#: chromaleon.js:461
+#: chromaleon.js:474
 msgid "Darker Tint"
 msgstr ""
 
-#: chromaleon.js:462
+#: chromaleon.js:475
 msgid "Applies a darker tint."
 msgstr ""
 
-#: chromaleon.js:495
+#: chromaleon.js:508
 msgid "Icon Theme"
 msgstr "Symbol-Design"
 
-#: chromaleon.js:500
+#: chromaleon.js:513
 msgid "Folder icon theme"
 msgstr "Ordnersymbol-Design"
 
-#: chromaleon.js:501
+#: chromaleon.js:514
 msgid "Applies the accent color to folder icons."
 msgstr "Wendet die Akzentfarbe auf Ordnersymbole an."
 
-#: chromaleon.js:507
+#: chromaleon.js:520
 msgid "Application icon theme"
 msgstr "Anwendungssymbol-Design"
 
-#: chromaleon.js:508
+#: chromaleon.js:521
 msgid "Applies the accent color to some app icons."
 msgstr "Wendet die Akzentfarbe auf manche Anwendungssymbole an."
 
-#: chromaleon.js:512
+#: chromaleon.js:525
 msgid "MoreWaita"
 msgstr "MoreWaita"
 
-#: chromaleon.js:513
+#: chromaleon.js:526
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "Wendet Integration mit dem MoreWaita-Symbolpaket an."
 
-#: chromaleon.js:548
+#: chromaleon.js:561
 msgid "Customization"
 msgstr "Anpassung"
 
-#: chromaleon.js:553
+#: chromaleon.js:566
 msgid "Custom stylesheet"
 msgstr "Benutzerdefiniertes Stylesheet"
 
-#: chromaleon.js:555
+#: chromaleon.js:568
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
@@ -162,15 +170,15 @@ msgstr ""
 "Eine Datei, die das CSS der Shell und der Benutzererweiterungen überschreibt "
 "und die ChromaLeon-Akzentfarben unterstützt."
 
-#: chromaleon.js:574 chromaleon.js:591
+#: chromaleon.js:587 chromaleon.js:604
 msgid "About the custom stylesheet"
 msgstr "Über das benutzerdefinierte Stylesheet"
 
-#: chromaleon.js:580
+#: chromaleon.js:593
 msgid "Open file"
 msgstr "Datei öffnen"
 
-#: chromaleon.js:593
+#: chromaleon.js:606
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -195,91 +203,91 @@ msgstr ""
 "<b>Tipp:</b> Wenn Ihre Änderungen nicht wirksam werden, fügen Sie versuchen "
 "Sie, <b><tt>!important</tt></b> zu Ihren CSS-Regeln hinzuzufügen."
 
-#: chromaleon.js:600
+#: chromaleon.js:613
 msgid "Close"
 msgstr "Schließen"
 
-#: chromaleon.js:622
+#: chromaleon.js:635
 msgid "Failed to open custom.css: "
 msgstr "„custom.css“ konnte nicht geöffnet werden: "
 
-#: chromaleon.js:629
+#: chromaleon.js:642
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
-#: chromaleon.js:634
+#: chromaleon.js:647
 msgid "Apply to Flatpaks"
 msgstr "Auf Flatpaks anwenden"
 
-#: chromaleon.js:636
+#: chromaleon.js:649
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 "Flatpaks erlauben auf benutzerdefinierte Akzentfarbenvariablen zuzugreifen."
 
-#: chromaleon.js:642
+#: chromaleon.js:655
 msgid "Enable shortcut"
 msgstr "Tastenkürzel aktivieren"
 
-#: chromaleon.js:644
+#: chromaleon.js:657
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Erstelle eine Verknüpfung im Anwendungsraster durch das Hinzufügen "
 "einer .desktop Datei."
 
-#: chromaleon.js:793
+#: chromaleon.js:806
 msgid "Wallpaper deleted successfully!"
 msgstr "Hintergrundbild erfolgreich gelöscht!"
 
-#: chromaleon.js:797
+#: chromaleon.js:810
 #, fuzzy
 msgid "Error deleting wallpaper: "
 msgstr "Löschen von Hintergrundbild fehlgeschlagen"
 
-#: chromaleon.js:803
+#: chromaleon.js:816
 msgid "Select a Wallpaper"
 msgstr "Wähle ein Hintergrundbild"
 
-#: chromaleon.js:805
+#: chromaleon.js:818
 msgid "_Open"
 msgstr "_Öffnen"
 
-#: chromaleon.js:806
+#: chromaleon.js:819
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: chromaleon.js:811
+#: chromaleon.js:824
 msgid "All Images"
 msgstr "Alle Bilder"
 
-#: chromaleon.js:838
+#: chromaleon.js:851
 msgid "Wallpaper already exists!"
 msgstr "Hintergrundbild existiert bereits!"
 
-#: chromaleon.js:854
+#: chromaleon.js:867
 msgid "Wallpaper added successfully!"
 msgstr "Hintergrundbild erfolgreich hinzugefügt!"
 
-#: chromaleon.js:858
+#: chromaleon.js:871
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1246
+#: chromaleon.js:1259
 msgid "Unable to load colors."
 msgstr "Farben konnten nicht geladen werden."
 
-#: chromaleon.js:1522 chromaleon.js:1546
+#: chromaleon.js:1535 chromaleon.js:1559
 msgid "Support"
 msgstr "Unterstützen"
 
-#: chromaleon.js:1534
+#: chromaleon.js:1547
 msgid "Support the project"
 msgstr "Unterstütze das Projekt"
 
-#: chromaleon.js:1539
+#: chromaleon.js:1552
 msgid "Why support ChromaLeon?"
 msgstr "Warum ChromaLeon unterstützen?"
 
-#: chromaleon.js:1541
+#: chromaleon.js:1554
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -287,7 +295,7 @@ msgstr ""
 "Freie Software zu entwickeln kostet Zeit, Energie und Hingabe. Deine Spende "
 "unterstützt das Projekt direkt und hilft dabei es am Leben zu erhalten!"
 
-#: chromaleon.js:1545
+#: chromaleon.js:1558
 msgid "Cancel"
 msgstr "Abbrechen"
 
