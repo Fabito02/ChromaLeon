@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-23 21:57-0300\n"
-"PO-Revision-Date: 2026-07-14 06:27+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-07-24 03:40+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -230,8 +229,7 @@ msgstr "Habilitar atalho"
 
 #: chromaleon.js:657
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
-"Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
+msgstr "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
 #: chromaleon.js:806
 msgid "Wallpaper deleted successfully!"
