@@ -470,7 +470,7 @@ export default class CustomAccentExtension extends Extension {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
     }
 
-    allStyles ? this._updateStyles(false, false, cancellable) : this._loadShellStylesheet(cancellable);
+    allStyles ? this._updateStyles(false, true, cancellable) : this._loadShellStylesheet(cancellable);
   }
 
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
