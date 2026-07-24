@@ -76,12 +76,9 @@ export default class CustomAccentExtension extends Extension {
       "changed::gnome-colors",
       () =>
         this._runOperation(async (cancellable) => {
-          if (!this._settings.get_boolean("gnome-colors")) {
-            this._settings.set_boolean("custom-color", false);
-          } else {
-            this._reloadGtkStylesheet();
-          }
+          this._settings.set_boolean("custom-color", false);
           await this._autoApplyWallpaperColor(cancellable);
+          await this._reloadGtkStylesheet();
           throwIfCancelled(cancellable);
           await this._updateIconPack(cancellable);
         }),
@@ -99,6 +96,7 @@ export default class CustomAccentExtension extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           await this._updateAppStyles(cancellable);
+          await this._reloadGtkStylesheet();
         }),
       "changed::tint-gtk3",
       () =>
@@ -336,11 +334,6 @@ export default class CustomAccentExtension extends Extension {
 
     const iconFolders = this._settings.get_boolean("recolor-folders");
 
-    if (!iconFolders) {
-      this._settings.set_boolean("recolor-apps", false);
-      this._settings.set_boolean("morewaita", false);
-    }
-
     const iconApps = this._settings.get_boolean("recolor-apps");
     const morewaita = this._settings.get_boolean("morewaita");
     const accent = this._settings.get_string("accent-color");
@@ -366,7 +359,7 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _updateStyles(updateIcons = false, colorChanged = false, cancellable) {
+  async _updateStyles(updateIcons = false, styleChanged = false, cancellable) {
     throwIfCancelled(cancellable);
 
     const gnomeColors = this._settings.get_boolean("gnome-colors");
@@ -375,9 +368,9 @@ export default class CustomAccentExtension extends Extension {
     throwIfCancelled(cancellable);
     await this._updateAppStyles(cancellable);
 
-    if (!gnomeColors && colorChanged) {
+    if (!gnomeColors && styleChanged) {
       throwIfCancelled(cancellable);
-      this._reloadGtkStylesheet();
+      await this._reloadGtkStylesheet();
     }
 
     if (updateIcons) {
@@ -473,10 +466,45 @@ export default class CustomAccentExtension extends Extension {
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
   // This is done by toggling high-contrast mode on and off, which triggers a reload.
   // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
-  _reloadGtkStylesheet() {
-    const highContrast = this._a11ySettings.get_boolean("high-contrast");
+  async _reloadGtkStylesheet(cancellable) {
+    throwIfCancelled(cancellable);
 
-    const cmd = `gsettings set org.gnome.desktop.a11y.interface high-contrast ${!highContrast} && gsettings set org.gnome.desktop.a11y.interface high-contrast ${highContrast}`;
-    Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
+    await new Promise((resolve) => {
+      let timerId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+        resolve();
+        return GLib.SOURCE_REMOVE;
+      });
+
+      if (cancellable) {
+        const cancelId = cancellable.connect(() => {
+          GLib.Source.remove(timerId);
+          cancellable.disconnect(cancelId);
+          resolve();
+        });
+      }
+    });
+
+    throwIfCancelled(cancellable);
+
+    const highContrast = this._a11ySettings.get_boolean("high-contrast");
+    const cmd = `gsettings set org.gnome.desktop.a11y.interface high-contrast ${!highContrast} && sleep 0.01 && gsettings set org.gnome.desktop.a11y.interface high-contrast ${highContrast}`;
+
+    const proc = Gio.Subprocess.new(
+      ["bash", "-c", cmd],
+      Gio.SubprocessFlags.NONE,
+    );
+
+    await new Promise((resolve, reject) => {
+      proc.wait_async(null, (p, res) => {
+        try {
+          p.wait_finish(res);
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+
+    throwIfCancelled(cancellable);
   }
 }

@@ -739,25 +739,6 @@ class ChromaLeonUI {
 
     this._applyTheme();
 
-    this._settings.connect("changed::accent-color", () => {
-      this._applyTheme();
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        return GLib.SOURCE_REMOVE;
-      });
-    });
-
-    this._settings.connect("changed::tint-apps", () => {
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        return GLib.SOURCE_REMOVE;
-      });
-    });
-
-    this._settings.connect("changed::darker", () => {
-      GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        return GLib.SOURCE_REMOVE;
-      });
-    });
-
     this._loadWallpapersAsync();
     this._updateWallpaperUI();
 
@@ -765,10 +746,6 @@ class ChromaLeonUI {
       "changed::color-scheme",
       () => {
         this._updateWallpaperUI();
-
-        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-          return GLib.SOURCE_REMOVE;
-        });
       },
     );
 
@@ -1280,6 +1257,8 @@ class ChromaLeonUI {
         this._settings.set_string("accent-color", colors[0]);
       }
     }
+
+    this._applyTheme();
 
     colors.forEach((hexColor, index) => {
       let btn = new Gtk.Button({

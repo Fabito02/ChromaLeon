@@ -239,7 +239,6 @@ export async function updateGtkStylesheet(
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
   const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
-  const cssVarsGnome = `@define-color accent_color ${GNOME_ACCENTS_HEX[color]};\n@define-color accent_bg_color ${GNOME_ACCENTS_HEX[color]};\n`;
 
   const tintedGtk3LightStyle = Gio.File.new_for_path(
     `${extensionPath}/templates/gtk3_light_tinted.template.css`,
@@ -274,8 +273,7 @@ export async function updateGtkStylesheet(
     }
 
     if (tinted) {
-      let tintedGtk4Template = tintedGtk4Style;
-      if (darker) tintedGtk4Template = tintedGtk4DarkerStyle;
+      let tintedGtk4Template = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
       try {
         let [contents] =
           await tintedGtk4Template.load_contents_async(cancellable);
@@ -285,6 +283,7 @@ export async function updateGtkStylesheet(
           /@@ACCENT@@/g,
           gnomeColors ? "@accent_bg_color" : color,
         );
+
         await writeFile(
           accentFile,
           !gnomeColors ? `${cssVars}\n${css}` : css,
@@ -294,7 +293,9 @@ export async function updateGtkStylesheet(
         if (isCancelledError(e)) throw e;
       }
     } else {
-      await writeFile(accentFile, !gnomeColors ? cssVars : "", cancellable);
+      gnomeColors
+        ? await writeFile(accentFile, "", cancellable)
+        : await writeFile(accentFile, cssVars, cancellable);
     }
 
     throwIfCancelled(cancellable);
@@ -337,45 +338,29 @@ export async function updateGtkStylesheet(
     }
 
     if (tinted && tintGTK3) {
-      if (isDark) {
-        let tintedGtk3Template = tintedGtk3DarkStyle;
-        if (darker) tintedGtk3Template = tintedGtk3DarkerStyle;
-        try {
-          let [contents] =
-            await tintedGtk3Template.load_contents_async(cancellable);
+      let tintedGtk3Template = isDark
+        ? darker
+          ? tintedGtk3DarkerStyle
+          : tintedGtk3DarkStyle
+        : tintedGtk3LightStyle;
 
-          let template = new TextDecoder().decode(contents);
-          let css = template.replace(
-            /@@ACCENT@@/g,
-            gnomeColors ? "@accent_bg_color" : color,
-          );
-          await writeFile(
-            accentFile,
-            !gnomeColors ? `${cssVars}\n${css}` : `${cssVarsGnome}\n${css}`,
-            cancellable,
-          );
-        } catch (e) {
-          if (isCancelledError(e)) throw e;
-        }
-      } else {
-        try {
-          let [contents] =
-            await tintedGtk3LightStyle.load_contents_async(cancellable);
+      try {
+        let [contents] =
+          await tintedGtk3Template.load_contents_async(cancellable);
 
-          let template = new TextDecoder().decode(contents);
-          let css = template.replace(
-            /@@ACCENT@@/g,
-            gnomeColors ? "@accent_bg_color" : color,
-          );
+        let template = new TextDecoder().decode(contents);
+        let css = template.replace(
+          /@@ACCENT@@/g,
+          gnomeColors ? "@accent_bg_color" : color,
+        );
 
-          await writeFile(
-            accentFile,
-            !gnomeColors ? `${cssVars}\n${css}` : css,
-            cancellable,
-          );
-        } catch (e) {
-          if (isCancelledError(e)) throw e;
-        }
+        await writeFile(
+          accentFile,
+          !gnomeColors ? `${cssVars}\n${css}` : css,
+          cancellable,
+        );
+      } catch (e) {
+        if (isCancelledError(e)) throw e;
       }
     } else {
       await writeFile(accentFile, cssVars, cancellable);
@@ -400,7 +385,9 @@ export async function updateGtkStylesheet(
         if (isCancelledError(e)) throw e;
       }
     } else {
-      await writeFile(mainFile, `${cssBlock}\n`, cancellable);
+      gnomeColors
+        ? await writeFile(accentFile, "", cancellable)
+        : await writeFile(accentFile, cssVars, cancellable);
     }
   };
 
