@@ -25,6 +25,7 @@ import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
+import * as PreferLightUtils from "./utils/preferLightUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 
@@ -58,8 +59,10 @@ export default class CustomAccentExtension extends Extension {
       schema_id: "org.gnome.desktop.a11y.interface",
     });
 
+    this._savedColorScheme = sessionMode.colorScheme;
+    
     this._runOperation((cancellable) =>
-      this._loadShellStylesheet(cancellable)
+      this._setShellColorScheme(cancellable)
     );
 
     this._settings.connectObject(
@@ -123,6 +126,11 @@ export default class CustomAccentExtension extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           await this._updateIconPack(cancellable);
+        }),
+      "changed::prefer-light",
+      () =>
+        this._runOperation(async (cancellable) => {
+          this._setShellColorScheme(cancellable);
         }),
       this,
     );
@@ -249,6 +257,8 @@ export default class CustomAccentExtension extends Extension {
       GLib.Source.remove(this._bgTimeoutId);
       this._bgTimeoutId = null;
     }
+
+    PreferLightUtils.updateColorScheme(this._savedColorScheme);
 
     this._settings = null;
     this._bgSettings = null;
@@ -405,8 +415,7 @@ export default class CustomAccentExtension extends Extension {
     );
 
     const colorScheme = this._interfaceSettings.get_string("color-scheme");
-    const lightStyle = sessionMode.colorScheme;
-    const isLight = lightStyle === "prefer-light" && colorScheme === "default";
+    const isLight = this._settings.get_boolean("prefer-light") && colorScheme === "default";
 
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
     const theme = themeContext?.get_theme();
@@ -443,6 +452,18 @@ export default class CustomAccentExtension extends Extension {
       gnomeColors,
       cancellable,
     );
+  }
+
+  _setShellColorScheme(cancellable) {
+    const preferLight = this._settings.get_boolean("prefer-light");
+
+    if (preferLight) {
+      PreferLightUtils.updateColorScheme("prefer-light");
+    } else {
+      PreferLightUtils.updateColorScheme(this._savedColorScheme);
+    }
+    
+    this._loadShellStylesheet(cancellable);
   }
 
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.

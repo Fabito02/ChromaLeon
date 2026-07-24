@@ -402,9 +402,22 @@ class ChromaLeonUI {
     });
     colorsGroup.add(gnomeColorsRow);
 
+    const preferLightRow = new Adw.SwitchRow({
+      title: _("Prefer Light Style"),
+      subtitle: _("Use a light style for the Shell in the light theme."),
+    });
+    colorsGroup.add(preferLightRow);
+    
     this._settings.bind(
       "gnome-colors",
       gnomeColorsRow,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "prefer-light",
+      preferLightRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
