@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 03:40+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
@@ -221,60 +221,60 @@ msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Crea un atajo en la cuadrícula de aplicaciones añadiendo un archivo .desktop."
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr "¡Fondo de pantalla eliminado correctamente!"
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 #, fuzzy
 msgid "Error deleting wallpaper: "
 msgstr "No se pudo eliminar el fondo de pantalla"
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr "Seleccione un fondo de pantalla"
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr "_Abrir"
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr "Todas las imágenes"
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr "¡El fondo de pantalla ya existe!"
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr "¡Fondo de pantalla añadido correctamente!"
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr "Error al cargar los colores."
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr "Apoyar"
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr "Apoyar el proyecto"
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr "¿Por qué apoyar a ChromaLeon?"
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -282,7 +282,7 @@ msgstr ""
 "Desarrollar software libre requiere tiempo, energía y dedicación. ¡Tu "
 "donación apoya directamente al proyecto y ayuda a mantenerlo vivo!"
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr "Cancelar"
 

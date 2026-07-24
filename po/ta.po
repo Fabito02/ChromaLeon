@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 03:40+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/chromaleon/"
@@ -46,8 +46,7 @@ msgstr "வால்பேப்பர் நிறங்கள்"
 #: chromaleon.js:236
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
-msgstr ""
-"உங்கள் வால்பேப்பரின் அடிப்படையில் உச்சரிப்பு நிறத்தை கணினி தானாகவே புதுப்பிக்கும்."
+msgstr "உங்கள் வால்பேப்பரின் அடிப்படையில் உச்சரிப்பு நிறத்தை கணினி தானாகவே புதுப்பிக்கும்."
 
 #: chromaleon.js:294
 msgid "Additional colors"
@@ -103,16 +102,15 @@ msgstr "டின்ட் ஆப்ச்"
 
 #: chromaleon.js:440
 msgid "Tints the LibAdwaita applications with the color of your choice."
-msgstr ""
-"நீங்கள் விரும்பும் வண்ணத்துடன் LibAdwaita பயன்பாடுகளை டின்ட் செய்யுங்கள்."
+msgstr "நீங்கள் விரும்பும் வண்ணத்துடன் LibAdwaita பயன்பாடுகளை டின்ட் செய்யுங்கள்."
 
 #: chromaleon.js:447
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
-"GTK3 பயன்பாடுகளையும் சாயமிடவும் (பிழைகளைத் தவிர்க்க {0} நீட்டிப்பு மற்றும் {1} கருப்பொருள் "
-"தேவை)."
+"GTK3 பயன்பாடுகளையும் சாயமிடவும் (பிழைகளைத் தவிர்க்க {0} நீட்டிப்பு மற்றும் {1} "
+"கருப்பொருள் தேவை)."
 
 #: chromaleon.js:460
 msgid "Tint GTK3 Apps"
@@ -216,63 +214,62 @@ msgstr "குறுக்குவழியை இயக்கு"
 
 #: chromaleon.js:657
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
-".டெச்க்டாப் கோப்பைச் சேர்ப்பதன் மூலம் ஆப்ச் கட்டத்தில் குறுக்குவழியை உருவாக்கவும்."
+msgstr ".டெச்க்டாப் கோப்பைச் சேர்ப்பதன் மூலம் ஆப்ச் கட்டத்தில் குறுக்குவழியை உருவாக்கவும்."
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr "வால்பேப்பர் வெற்றிகரமாக நீக்கப்பட்டது!"
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 #, fuzzy
 msgid "Error deleting wallpaper: "
 msgstr "வால்பேப்பரை நீக்க முடியவில்லை"
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr "வால்பேப்பரைத் தேர்ந்தெடுக்கவும்"
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr "_திற"
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr "_ரத்துசெய்"
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr "அனைத்து படங்கள்"
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr "வால்பேப்பர் ஏற்கனவே உள்ளது!"
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr "வால்பேப்பர் சேர்க்கப்பட்டது!"
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr "வண்ணங்களை ஏற்ற முடியவில்லை."
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr "உதவி"
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr "திட்டத்தை ஆதரிக்கவும்"
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr "குரோமாலியோனை ஏன் ஆதரிக்க வேண்டும்?"
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -280,7 +277,7 @@ msgstr ""
 "இலவச மென்பொருளை உருவாக்குவதற்கு நேரம், ஆற்றல் மற்றும் அர்ப்பணிப்பு தேவை. உங்கள் நன்கொடை "
 "திட்டத்திற்கு நேரடியாக ஆதரவளிக்கிறது மற்றும் அதை உயிருடன் வைத்திருக்க உதவுகிறது!"
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 

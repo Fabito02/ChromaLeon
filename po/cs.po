@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 03:40+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
 "Language: cs\n"
@@ -192,10 +192,10 @@ msgid ""
 msgstr ""
 "Soubor je použit pro aplikování vlastního CSS na GNOME Shell.\n"
 "\n"
-"Rozšíření zpracovává veškerý obsah tohoto souboru, nahrazuje proměnné <b><tt>"
-"@@ACCENT@@</tt></b> a <b><tt>-st-accent-color</tt></b> barvou zvolenou v "
-"nastavení ChromaLeon před aplikováním na systém. Může to být užitečné, pokud "
-"je barevný nádech aplikován na nějaké rozšíření nesprávně.\n"
+"Rozšíření zpracovává veškerý obsah tohoto souboru, nahrazuje proměnné "
+"<b><tt>@@ACCENT@@</tt></b> a <b><tt>-st-accent-color</tt></b> barvou "
+"zvolenou v nastavení ChromaLeon před aplikováním na systém. Může to být "
+"užitečné, pokud je barevný nádech aplikován na nějaké rozšíření nesprávně.\n"
 "\n"
 "<b>Tip:</b> Pokud se změny neprojevují, zkuste do svých pravidel CSS přidat "
 "<b><tt>!important</tt></b>."
@@ -228,59 +228,59 @@ msgstr "Vytvořit zástupce"
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr "Vytvoří zástupce v mřížce aplikací přidáním souboru .desktop."
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr "Tapeta úspěšně odstraněna!"
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 msgid "Error deleting wallpaper: "
 msgstr "Odstranění tapety selhalo "
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr "Vyberte tapetu"
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr "Všechny obrázky"
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr "Tapeta již existuje!"
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr "Tapeta úspěšně přidána!"
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr "Chyba při kopírování tapety: "
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr "Nelze načíst barvy."
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr "Podpora"
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr "Podpořit projekt"
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr "Proč podpořit ChromaLeon?"
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -288,7 +288,7 @@ msgstr ""
 "Vývoj bezplatného software vyžaduje čas, energii a oddanost. Váš dar přímo "
 "podpoří tento projekt a pomůže udržovat ho při životě!"
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr "Zrušit"
 

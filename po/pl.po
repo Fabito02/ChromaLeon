@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 03:40+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -194,14 +194,14 @@ msgid ""
 msgstr ""
 "Ten plik służy do stosowania niestandardowego CSS w powłoce GNOME.\n"
 "\n"
-"Rozszerzenie przetwarza całą zawartość tego pliku, zastępując zmienne <b><tt>"
-"@@ACCENT@@</tt></b> i <b><tt>-st-accent-color</tt></b> kolorem wybranym w "
-"ustawieniach ChromaLeon przed zastosowaniem ich w systemie. Może to być "
-"przydatne, jeśli w rozszerzeniu nie zastosowano prawidłowo kolorów "
+"Rozszerzenie przetwarza całą zawartość tego pliku, zastępując zmienne "
+"<b><tt>@@ACCENT@@</tt></b> i <b><tt>-st-accent-color</tt></b> kolorem "
+"wybranym w ustawieniach ChromaLeon przed zastosowaniem ich w systemie. Może "
+"to być przydatne, jeśli w rozszerzeniu nie zastosowano prawidłowo kolorów "
 "wyróżnienia.\n"
 "\n"
-"<b>Wskazówka:</b> jeśli zmiany nie odniosą skutku, spróbuj dodać <b><tt>"
-"!important</tt></b> do reguł CSS."
+"<b>Wskazówka:</b> jeśli zmiany nie odniosą skutku, spróbuj dodać <b><tt>!"
+"important</tt></b> do reguł CSS."
 
 #: chromaleon.js:613
 msgid "Close"
@@ -233,59 +233,59 @@ msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Tworzy skrót do aplikacji na liście aplikacji poprzez dodanie pliku .desktop."
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr "Pomyślnie usunięto tło!"
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 msgid "Error deleting wallpaper: "
 msgstr "Błąd podczas usuwania tła: "
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr "Wybierz tło"
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr "Wszystkie obrazy"
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr "Tło już istnieje!"
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr "Pomyślnie dodano tło!"
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr "Błąd podczas kopiowania tła: "
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr "Nie można załadować kolorów."
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr "Wesprzyj"
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr "Wesprzyj projekt"
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr "Dlaczego wesprzeć ChromaLeon?"
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -294,7 +294,7 @@ msgstr ""
 "i zaangażowanie deweloperów. Twój datek bezpośrednio wspiera ten projekt, i "
 "pomaga utrzymywać go aktywnym!"
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr "Anuluj"
 

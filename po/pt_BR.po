@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 13:26+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -199,8 +199,8 @@ msgstr ""
 "sistema. Isso pode ser útil se uma extensão não tiver as cores de destaque "
 "aplicadas corretamente.\n"
 "\n"
-"<b>Dica:</b> Se as suas alterações não surtirem efeito, tente adicionar <b>"
-"<tt>!important</tt></b> às suas regras CSS."
+"<b>Dica:</b> Se as suas alterações não surtirem efeito, tente adicionar "
+"<b><tt>!important</tt></b> às suas regras CSS."
 
 #: chromaleon.js:613
 msgid "Close"
@@ -230,61 +230,62 @@ msgstr "Habilitar atalho"
 
 #: chromaleon.js:657
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr "Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
+msgstr ""
+"Cria um atalho na grade de aplicativos adicionando um arquivo .desktop."
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo deletado com sucesso!"
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 msgid "Error deleting wallpaper: "
 msgstr "Falha ao deletar plano de fundo: "
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr "Selecionar um plano de fundo"
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr "Abrir"
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr "Cancelar"
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr "Todas as imagens"
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr "Plano de fundo já existe!"
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr "Plano de fundo adicionado com sucesso!"
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr "Erro ao copiar plano de fundo: "
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr "Apoiar"
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr "Apoie o projeto"
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr "Por que apoiar o ChromaLeon?"
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -292,7 +293,7 @@ msgstr ""
 "Desenvolver software livre requer tempo, energia e dedicação. Sua doação "
 "apoia diretamente o projeto e ajuda a mantê-lo vivo!"
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr "Cancelar"
 

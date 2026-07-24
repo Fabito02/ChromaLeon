@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 21:57-0300\n"
+"POT-Creation-Date: 2026-07-24 10:12-0300\n"
 "PO-Revision-Date: 2026-07-24 03:41+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/chromaleon/"
@@ -191,13 +191,14 @@ msgstr ""
 "Цей файл використовується для застосування власних стилів CSS до GNOME "
 "Shell.\n"
 "\n"
-"Розширення обробляє весь вміст цього файлу, замінюючи змінні <b><tt>"
-"@@ACCENT@@</tt></b> та <b><tt>-st-accent-color</tt></b> на колір, обраний у "
-"налаштуваннях ChromaLeon, перед тим, як застосувати їх до системи. Це може "
-"бути корисно, якщо у розширенні кольори акцентів застосовані неправильно.\n"
+"Розширення обробляє весь вміст цього файлу, замінюючи змінні "
+"<b><tt>@@ACCENT@@</tt></b> та <b><tt>-st-accent-color</tt></b> на колір, "
+"обраний у налаштуваннях ChromaLeon, перед тим, як застосувати їх до системи. "
+"Це може бути корисно, якщо у розширенні кольори акцентів застосовані "
+"неправильно.\n"
 "\n"
-"<b>Порада:</b> Якщо ваші зміни не набувають чинності, спробуйте додати <b>"
-"<tt>!important</tt></b> до ваших правил CSS."
+"<b>Порада:</b> Якщо ваші зміни не набувають чинності, спробуйте додати "
+"<b><tt>!important</tt></b> до ваших правил CSS."
 
 #: chromaleon.js:613
 msgid "Close"
@@ -228,65 +229,65 @@ msgstr ""
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:806
+#: chromaleon.js:783
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: chromaleon.js:810
+#: chromaleon.js:787
 msgid "Error deleting wallpaper: "
 msgstr ""
 
-#: chromaleon.js:816
+#: chromaleon.js:793
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: chromaleon.js:818
+#: chromaleon.js:795
 msgid "_Open"
 msgstr ""
 
-#: chromaleon.js:819
+#: chromaleon.js:796
 msgid "_Cancel"
 msgstr ""
 
-#: chromaleon.js:824
+#: chromaleon.js:801
 msgid "All Images"
 msgstr ""
 
-#: chromaleon.js:851
+#: chromaleon.js:828
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: chromaleon.js:867
+#: chromaleon.js:844
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: chromaleon.js:871
+#: chromaleon.js:848
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1259
+#: chromaleon.js:1236
 msgid "Unable to load colors."
 msgstr ""
 
-#: chromaleon.js:1535 chromaleon.js:1559
+#: chromaleon.js:1516 chromaleon.js:1540
 msgid "Support"
 msgstr ""
 
-#: chromaleon.js:1547
+#: chromaleon.js:1528
 msgid "Support the project"
 msgstr ""
 
-#: chromaleon.js:1552
+#: chromaleon.js:1533
 msgid "Why support ChromaLeon?"
 msgstr ""
 
-#: chromaleon.js:1554
+#: chromaleon.js:1535
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
 
-#: chromaleon.js:1558
+#: chromaleon.js:1539
 msgid "Cancel"
 msgstr ""
 
