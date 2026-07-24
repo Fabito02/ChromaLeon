@@ -145,13 +145,17 @@ export default class CustomAccentExtension extends Extension {
               ? this._bgSettings.get_string("picture-uri-dark")
               : this._bgSettings.get_string("picture-uri");
 
-          let newColor = await ColorUtils.calculateVibrantColor(uri);
           throwIfCancelled(cancellable);
 
-          const currentColor = this._settings.get_string("accent-color");
+          if (this._settings.get_boolean("custom-color")) {
+            return;
+          } else {
+            let newColor = await ColorUtils.calculateVibrantColor(uri);
+            const currentColor = this._settings.get_string("accent-color");
 
-          if (newColor !== currentColor) {
-            await this._autoApplyWallpaperColor(cancellable);
+            if (newColor !== currentColor) {
+              await this._autoApplyWallpaperColor(cancellable);
+            }
           }
         });
       },
@@ -182,10 +186,11 @@ export default class CustomAccentExtension extends Extension {
         GLib.Source.remove(this._bgTimeoutId);
       }
 
-      this._bgTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
-        this._runOperation((cancellable) =>
-          this._autoApplyWallpaperColor(cancellable),
-        );
+      this._bgTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
+        this._runOperation((cancellable) => {
+          this._settings.set_boolean("custom-color", false);
+          this._autoApplyWallpaperColor(cancellable);
+        });
         this._bgTimeoutId = null;
         return GLib.SOURCE_REMOVE;
       });

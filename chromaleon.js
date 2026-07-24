@@ -1270,12 +1270,14 @@ class ChromaLeonUI {
       ? this._interfaceSettings.get_string("accent-color")
       : this._settings.get_string("accent-color");
 
-    if (!colors.includes(currentColor)) {
+    if (
+      !colors.includes(currentColor) &&
+      !this._settings.get_boolean("custom-color")
+    ) {
       if (isGnomeColor) {
         this._interfaceSettings.set_string("accent-color", colors[0]);
       } else {
         this._settings.set_string("accent-color", colors[0]);
-        this._settings.set_boolean("custom-color", false);
       }
     }
 
