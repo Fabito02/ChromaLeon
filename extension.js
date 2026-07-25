@@ -470,51 +470,13 @@ export default class CustomAccentExtension extends Extension {
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
   // This is done by toggling high-contrast mode on and off, which triggers a reload.
   // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
-  async _reloadGtkStylesheet(cancellable) {
-    throwIfCancelled(cancellable);
+  async _reloadGtkStylesheet(cancellable = null) {
+    if (cancellable) throwIfCancelled(cancellable);
 
-    await new Promise((resolve) => {
-      if (this._reloadGtkTimeout) {
-        GLib.Source.remove(this._reloadGtkTimeout);
-        this._reloadGtkTimeout = null;
-      }
-
-      let cancelId = null;
-
-      const cleanup = () => {
-        if (this._reloadGtkTimeout) {
-          GLib.Source.remove(this._reloadGtkTimeout);
-          this._reloadGtkTimeout = null;
-        }
-        if (cancellable && cancelId) {
-          cancellable.disconnect(cancelId);
-          cancelId = null;
-        }
-      };
-
-      this._reloadGtkTimeout = GLib.timeout_add(
-        GLib.PRIORITY_DEFAULT,
-        50,
-        () => {
-          cleanup();
-          resolve();
-          return GLib.SOURCE_REMOVE;
-        },
-      );
-
-      if (cancellable) {
-        cancelId = cancellable.connect(() => {
-          cleanup();
-          resolve();
-        });
-      }
-    });
-
-    throwIfCancelled(cancellable);
-
-    const highContrast = this._a11ySettings.get_boolean("high-contrast");
+    const originalHighContrast =
+      this._a11ySettings.get_boolean("high-contrast");
     const schema = "org.gnome.desktop.a11y.interface";
-    const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
+    const cmd = `gsettings set ${schema} high-contrast ${!originalHighContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${originalHighContrast}`;
 
     try {
       const proc = Gio.Subprocess.new(
@@ -523,7 +485,7 @@ export default class CustomAccentExtension extends Extension {
       );
 
       await new Promise((resolve, reject) => {
-        proc.wait_async(null, (p, res) => {
+        proc.wait_async(cancellable || null, (p, res) => {
           try {
             p.wait_finish(res);
             resolve();
@@ -532,10 +494,30 @@ export default class CustomAccentExtension extends Extension {
           }
         });
       });
-    } catch (e) {
-      throw new Error(`GTK stylesheet reload error: ${e.message}`);
-    }
 
-    throwIfCancelled(cancellable);
+      if (this._reloadGtkTimeout) GLib.Source.remove(this._reloadGtkTimeout);
+
+      this._reloadGtkTimeout = GLib.timeout_add(
+        GLib.PRIORITY_DEFAULT,
+        600,
+        () => {
+          this._reloadGtkTimeout = null;
+          if (
+            this._a11ySettings?.get_boolean("high-contrast") !==
+            originalHighContrast
+          ) {
+            this._a11ySettings?.set_boolean(
+              "high-contrast",
+              originalHighContrast,
+            );
+          }
+          return GLib.SOURCE_REMOVE;
+        },
+      );
+    } catch (e) {
+      if (!isCancelledError(e)) {
+        throw new Error(`GTK stylesheet reload error: ${e.message}`);
+      }
+    }
   }
 }
