@@ -241,14 +241,6 @@ export default class CustomAccentExtension extends Extension {
 
     ThemeUtils.removeGtkStylesheet();
 
-    if (this._a11ySettings) {
-      const highContrast = this._a11ySettings.get_boolean("high-contrast");
-      const schema = "org.gnome.desktop.a11y.interface";
-      const cmd = `gsettings set ${schema} high-contrast ${!highContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${highContrast}`;
-
-      Gio.Subprocess.new(["bash", "-c", cmd], Gio.SubprocessFlags.NONE);
-    }
-
     FileUtils.removeDesktopFile();
 
     if (
