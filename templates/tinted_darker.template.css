@@ -1414,56 +1414,8 @@ StScrollBar>.hhandle:active {
   background-color: st-mix(@@ACCENT@@, #ffffff, 10%);
 }
 
-.screenshot-ui-capture-button .screenshot-ui-capture-button-circle {
-  background-color: st-mix(@@ACCENT@@, #ffffff, 10%);
-}
-
-.screenshot-ui-capture-button .screenshot-ui-capture-button-circle:hover,
-.screenshot-ui-capture-button .screenshot-ui-capture-button-circle:focus {
-  background-color: st-mix(@@ACCENT@@, #27272a, 10%);
-}
-
-.screenshot-ui-capture-button:hover .screenshot-ui-capture-button-circle,
-.screenshot-ui-capture-button:focus .screenshot-ui-capture-button-circle {
-  background-color: st-mix(@@ACCENT@@, #cccccc, 10%);
-}
-
-.screenshot-ui-capture-button:active .screenshot-ui-capture-button-circle {
-  background-color: gray;
-}
-
-.screenshot-ui-capture-button:cast .screenshot-ui-capture-button-circle {
-  background-color: st-mix(@@ACCENT@@, #600e14, 10%);
-}
-
-.screenshot-ui-capture-button:cast:hover .screenshot-ui-capture-button-circle,
-.screenshot-ui-capture-button:cast:focus .screenshot-ui-capture-button-circle {
-  background-color: st-mix(@@ACCENT@@, #6b1017, 10%);
-}
-
-.screenshot-ui-capture-button:cast:active .screenshot-ui-capture-button-circle {
-  background-color: st-mix(@@ACCENT@@, #500c11, 10%);
-}
-
 .screenshot-ui-shot-cast-container {
   background-color: st-mix(@@ACCENT@@, rgba(255, 255, 255, 0.1), 10%);
-}
-
-.screenshot-ui-shot-cast-button {
-  background-color: transparent;
-}
-
-.screenshot-ui-shot-cast-button:hover,
-.screenshot-ui-shot-cast-button:focus {
-  background-color: st-mix(@@ACCENT@@, rgba(255, 255, 255, 0.2), 10%);
-}
-
-.screenshot-ui-shot-cast-button:active {
-  background-color: st-mix(@@ACCENT@@, rgba(255, 255, 255, 0.5), 10%);
-}
-
-.screenshot-ui-shot-cast-button:checked {
-  background-color: st-mix(@@ACCENT@@, #ffffff, 10%);
 }
 
 .screenshot-ui-window-selector {
