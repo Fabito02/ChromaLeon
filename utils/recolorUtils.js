@@ -502,7 +502,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
         await new Promise((res) => {
           sourceFile.copy_async(
             destFile,
-            Gio.FileCopyFlags.OVERWRITE | Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
+            Gio.FileCopyFlags.OVERWRITE,
             GLib.PRIORITY_DEFAULT,
             cancellable,
             null,
