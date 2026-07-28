@@ -79,7 +79,7 @@ export default class CustomAccentExtension extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           this._settings.set_boolean("custom-color", false);
-          await this._autoApplyWallpaperColor(cancellable);
+          await this._autoApplyWallpaperColor(null, cancellable);
           await this._reloadGtkStylesheet();
           throwIfCancelled(cancellable);
           await this._updateIconPack(cancellable);
@@ -154,7 +154,7 @@ export default class CustomAccentExtension extends Extension {
             const currentColor = this._settings.get_string("accent-color");
 
             if (newColor !== currentColor) {
-              await this._autoApplyWallpaperColor(cancellable);
+              await this._autoApplyWallpaperColor(newColor, cancellable);
             }
           }
         });
@@ -184,7 +184,7 @@ export default class CustomAccentExtension extends Extension {
 
       this._runOperation((cancellable) => {
         this._settings.set_boolean("custom-color", false);
-        this._autoApplyWallpaperColor(cancellable);
+        this._autoApplyWallpaperColor(null, cancellable);
       });
       return GLib.SOURCE_REMOVE;
     };
@@ -293,7 +293,7 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _autoApplyWallpaperColor(cancellable) {
+  async _autoApplyWallpaperColor(color, cancellable) {
     throwIfCancelled(cancellable);
     if (this._settings.get_boolean("custom-color")) {
       await this._updateShellStyles(cancellable);
@@ -309,7 +309,7 @@ export default class CustomAccentExtension extends Extension {
         ? this._bgSettings.get_string("picture-uri-dark")
         : this._bgSettings.get_string("picture-uri");
 
-    let color = await ColorUtils.calculateVibrantColor(uri);
+    if (!color) color = await ColorUtils.calculateVibrantColor(uri);
     throwIfCancelled(cancellable);
 
     const currentColor = this._settings.get_string("accent-color");
