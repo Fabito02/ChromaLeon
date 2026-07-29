@@ -1,5 +1,5 @@
 /*
- * gtk4_tinted.template.css
+ * gtk4_darker_tinted.template.css
  *
  * This file is part of ChromaLeon GNOME Shell Extension.
  * https://github.com/Fabito02/ChromaLeon
@@ -87,7 +87,7 @@
 /* Force toasts to always use the dark base with white text
    to match Nautilus's native high-contrast alert style. */
 toast {
-    background-color: mix(#28282a, @@ACCENT@@, 0.10);
+    background-color: mix(#28282a, @@ACCENT@@, 0.12);
     color: #ffffff;
 }
 
@@ -98,3 +98,5 @@ toggle:checked {
 .inline {
     background-color: rgba(0, 0, 0, 0);
 }
+
+banner { --banner-color: mix(#3e3e42, @@ACCENT@@, 0.12); }

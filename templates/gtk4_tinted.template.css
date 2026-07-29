@@ -87,7 +87,7 @@
 /* Force toasts to always use the dark base with white text
    to match Nautilus's native high-contrast alert style. */
 toast {
-    background-color: mix(#505053, @@ACCENT@@, 0.10);
+    background-color: mix(#505053, @@ACCENT@@, 0.12);
     color: #ffffff;
 }
 
@@ -98,3 +98,5 @@ toggle:checked {
 .inline {
     background-color: rgba(0, 0, 0, 0);
 }
+
+banner { --banner-color: mix(#7d7d83, @@ACCENT@@, 0.12); }

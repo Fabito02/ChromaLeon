@@ -78,10 +78,6 @@ toast {
     color: #ffffff;
 }
 
-toggle:checked {
-    background-color: @card_bg_color;
-}
-
 .inline {
     background-color: rgba(0, 0, 0, 0);
 }

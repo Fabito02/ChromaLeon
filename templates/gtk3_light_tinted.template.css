@@ -73,11 +73,6 @@ stacksidebar {
     color: @theme_fg_color;
 }
 
-toast {
-    background-color: mix(#505053, @@ACCENT@@, 0.10);
-    color: #ffffff;
-}
-
 toggle:checked {
     background-color: @card_bg_color;
 }
