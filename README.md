@@ -15,6 +15,7 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 [![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?color=50fa7b)](https://github.com/Fabito02/ChromaLeon/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=social)](https://github.com/Fabito02/ChromaLeon/stargazers)
 [![Translation Status](https://hosted.weblate.org/widgets/chromaleon/-/svg-badge.svg)](https://hosted.weblate.org/engage/chromaleon/)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)
 
 <br>
 
