@@ -22,7 +22,31 @@
 
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
-import { throwIfCancelled } from "./cancellation.js";
+import { throwIfCancelled, isCancelledError } from "./cancellation.js";
+
+Gio._promisify(
+  Gio.File.prototype,
+  "load_contents_async",
+  "load_contents_finish",
+);
+Gio._promisify(
+  Gio.File.prototype,
+  "replace_contents_bytes_async",
+  "replace_contents_finish",
+);
+Gio._promisify(Gio.File.prototype, "query_info_async", "query_info_finish");
+Gio._promisify(
+  Gio.File.prototype,
+  "enumerate_children_async",
+  "enumerate_children_finish",
+);
+Gio._promisify(Gio.File.prototype, "delete_async", "delete_finish");
+Gio._promisify(
+  Gio.FileEnumerator.prototype,
+  "next_files_async",
+  "next_files_finish",
+);
+Gio._promisify(Gio.File.prototype, "copy_async", "copy_finish");
 
 let timeoutId = null;
 
@@ -86,75 +110,77 @@ function modifyColor(hex, lMod, sMod) {
 }
 
 async function recolorSvgAsync(file, colorMap, cancellable) {
-  return new Promise((resolve) => {
-    try {
-      if (!file.query_exists(null)) {
-        resolve();
-        return;
+  throwIfCancelled(cancellable);
+
+  try {
+    if (!file.query_exists(null)) return;
+
+    const [contents] = await file.load_contents_async(cancellable);
+    let svgText = new TextDecoder().decode(contents);
+    let modified = false;
+
+    for (const [oldHex, newHex] of Object.entries(colorMap)) {
+      const regex = new RegExp(`#${oldHex}`, "gi");
+      if (regex.test(svgText)) {
+        svgText = svgText.replace(regex, `#${newHex}`);
+        modified = true;
       }
-
-      file.load_contents_async(cancellable, (obj, res) => {
-        try {
-          let [success, contents] = file.load_contents_finish(res);
-          if (!success) {
-            resolve();
-            return;
-          }
-
-          let svgText = new TextDecoder().decode(contents);
-          let modified = false;
-
-          for (const [oldHex, newHex] of Object.entries(colorMap)) {
-            let regex = new RegExp(`#${oldHex}`, "gi");
-            if (regex.test(svgText)) {
-              svgText = svgText.replace(regex, `#${newHex}`);
-              modified = true;
-            }
-          }
-
-          if (modified) {
-            let encoded = new TextEncoder().encode(svgText);
-            file.replace_contents_async(
-              encoded,
-              null,
-              false,
-              Gio.FileCreateFlags.REPLACE_DESTINATION,
-              cancellable,
-              (obj2, res2) => {
-                obj2.replace_contents_finish(res2);
-                resolve();
-              },
-            );
-          } else {
-            resolve();
-          }
-        } catch (e) {
-          resolve();
-        }
-      });
-    } catch (e) {
-      resolve();
     }
-  });
+
+    if (modified) {
+      throwIfCancelled(cancellable);
+      const encoded = new TextEncoder().encode(svgText);
+
+      await file.replace_contents_bytes_async(
+        encoded,
+        null,
+        false,
+        Gio.FileCreateFlags.REPLACE_DESTINATION,
+        cancellable,
+      );
+    }
+  } catch (e) {
+    if (isCancelledError(e)) throw e;
+  }
 }
 
 async function processDirectoryAsync(dirPath, colorMap, cancellable) {
+  throwIfCancelled(cancellable);
+
   let dir = Gio.File.new_for_path(dirPath);
   if (!dir.query_exists(null)) return;
 
-  let enumerator = dir.enumerate_children(
+  let enumerator = await dir.enumerate_children_async(
     "standard::name,standard::type",
     Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+    GLib.PRIORITY_DEFAULT,
     cancellable,
   );
 
   let filesToProcess = [];
-  let info;
-  while ((info = enumerator.next_file(null)) !== null) {
-    let type = info.get_file_type();
-    let name = info.get_name();
-    let child = dir.get_child(name);
-    filesToProcess.push({ type, child, name });
+
+  try {
+    while (true) {
+      throwIfCancelled(cancellable);
+
+      let infos = await enumerator.next_files_async(
+        100,
+        GLib.PRIORITY_DEFAULT,
+        cancellable,
+      );
+
+      if (!infos || infos.length === 0) break;
+
+      for (let info of infos) {
+        filesToProcess.push({
+          type: info.get_file_type(),
+          child: dir.get_child(info.get_name()),
+          name: info.get_name(),
+        });
+      }
+    }
+  } finally {
+    enumerator.close(null);
   }
 
   const chunkSize = 100;
@@ -183,80 +209,57 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
 
 async function deleteRecursiveAsync(file, cancellable) {
   throwIfCancelled(cancellable);
-
   if (!file.query_exists(null)) return;
-  const info = await new Promise((res, rej) => {
-    file.query_info_async(
+
+  try {
+    const info = await file.query_info_async(
       "standard::type",
       Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
       GLib.PRIORITY_DEFAULT,
       cancellable,
-      (obj, r) => {
-        try {
-          res(obj.query_info_finish(r));
-        } catch (e) {
-          rej(e);
-        }
-      },
     );
-  });
 
-  if (info.get_file_type() === Gio.FileType.DIRECTORY) {
-    const iter = await new Promise((res, rej) => {
-      file.enumerate_children_async(
+    if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+      const iter = await file.enumerate_children_async(
         "standard::name",
         Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
         GLib.PRIORITY_DEFAULT,
         cancellable,
-        (obj, r) => {
-          try {
-            res(obj.enumerate_children_finish(r));
-          } catch (e) {
-            rej(e);
-          }
-        },
       );
-    });
 
-    if (iter) {
-      while (true) {
-        throwIfCancelled(cancellable);
+      if (iter) {
+        try {
+          while (true) {
+            throwIfCancelled(cancellable);
 
-        const infos = await new Promise((res) => {
-          iter.next_files_async(
-            50,
-            GLib.PRIORITY_DEFAULT,
-            cancellable,
-            (obj, r) => {
-              try {
-                res(obj.next_files_finish(r));
-              } catch (e) {
-                res([]);
-              }
-            },
-          );
-        });
+            const infos = await iter.next_files_async(
+              50,
+              GLib.PRIORITY_DEFAULT,
+              cancellable,
+            );
 
-        if (!infos || infos.length === 0) break;
+            if (!infos || infos.length === 0) break;
 
-        const branches = infos.map((childInfo) => {
-          const child = iter.get_child(childInfo);
-          return deleteRecursiveAsync(child, cancellable);
-        });
+            const branches = infos.map((childInfo) => {
+              const child = iter.get_child(childInfo);
+              return deleteRecursiveAsync(child, cancellable);
+            });
 
-        await Promise.all(branches);
+            await Promise.all(branches);
+          }
+        } finally {
+          iter.close(null);
+        }
       }
-
-      iter.close(null);
     }
-  }
 
-  await new Promise((res) => {
-    file.delete_async(GLib.PRIORITY_DEFAULT, cancellable, (obj, r) => {
-      obj.delete_finish(r);
-      res();
-    });
-  });
+    await file.delete_async(GLib.PRIORITY_DEFAULT, cancellable);
+  } catch (e) {
+    if (isCancelledError(e)) throw e;
+    console.error(
+      `ChromaLeon: Erro ao deletar ${file.get_path()}: ${e.message}`,
+    );
+  }
 }
 
 export async function applyAccentTheme(baseColor, options = {}, cancellable) {
@@ -314,7 +317,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 
   if (!GLib.file_test(`${sysAdwaita}/scalable`, GLib.FileTest.IS_DIR)) {
-    throw new Error(_("Adwaita icon pack was not found."));
+    throw new Error("Adwaita icon pack was not found.");
   }
 
   throwIfCancelled(cancellable);
@@ -340,83 +343,54 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     if (!srcFile.query_exists(null)) return;
 
     if (!destFile.query_exists(null)) {
-      try {
-        destFile.make_directory_with_parents(null);
-      } catch (e) {
-        throw new Error("Failed to create destination directory: " + e.message);
-      }
+      destFile.make_directory_with_parents(null);
     }
 
-    const enumerator = await new Promise((res) => {
-      srcFile.enumerate_children_async(
-        "standard::name,standard::type",
-        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-        GLib.PRIORITY_DEFAULT,
-        cancellable,
-        (obj, r) => {
-          try {
-            res(obj.enumerate_children_finish(r));
-          } catch (e) {
-            res(null);
-          }
-        },
-      );
-    });
+    const enumerator = await srcFile.enumerate_children_async(
+      "standard::name,standard::type",
+      Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+      GLib.PRIORITY_DEFAULT,
+      cancellable,
+    );
 
-    if (!enumerator) return;
+    try {
+      while (true) {
+        throwIfCancelled(cancellable);
 
-    while (true) {
-      throwIfCancelled(cancellable);
-
-      const infos = await new Promise((res) => {
-        enumerator.next_files_async(
+        let infos = await enumerator.next_files_async(
           100,
           GLib.PRIORITY_DEFAULT,
           cancellable,
-          (obj, r) => {
-            try {
-              res(obj.next_files_finish(r));
-            } catch (e) {
-              res([]);
-            }
-          },
         );
-      });
 
-      if (!infos || infos.length === 0) break;
+        if (!infos || infos.length === 0) break;
 
-      const copyPromises = infos.map(async (info) => {
-        const childName = info.get_name();
-        const childSrc = srcFile.get_child(childName);
-        const childDest = destFile.get_child(childName);
+        const copyPromises = infos.map(async (info) => {
+          const childName = info.get_name();
+          const childSrc = srcFile.get_child(childName);
+          const childDest = destFile.get_child(childName);
 
-        if (info.get_file_type() === Gio.FileType.DIRECTORY) {
-          await copyFolderContentAsync(
-            childSrc.get_path(),
-            childDest.get_path(),
-          );
-        } else {
-          await new Promise((res) => {
-            childSrc.copy_async(
+          if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+            await copyFolderContentAsync(
+              childSrc.get_path(),
+              childDest.get_path(),
+            );
+          } else {
+            await childSrc.copy_async(
               childDest,
               Gio.FileCopyFlags.OVERWRITE | Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
               GLib.PRIORITY_DEFAULT,
               cancellable,
               null,
-              (obj, r) => {
-                try {
-                  obj.copy_finish(r);
-                } catch (e) {}
-                res();
-              },
             );
-          });
-        }
-      });
+          }
+        });
 
-      await Promise.all(copyPromises);
+        await Promise.all(copyPromises);
+      }
+    } finally {
+      enumerator.close(null);
     }
-    enumerator.close(null);
   }
 
   await copyFolderContentAsync(
@@ -489,19 +463,13 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
       }
 
       if (sourceFile) {
-        await new Promise((res) => {
-          sourceFile.copy_async(
-            destFile,
-            Gio.FileCopyFlags.OVERWRITE,
-            GLib.PRIORITY_DEFAULT,
-            cancellable,
-            null,
-            (obj, r) => {
-              obj.copy_finish(r);
-              res();
-            },
-          );
-        });
+        await sourceFile.copy_async(
+          destFile,
+          Gio.FileCopyFlags.OVERWRITE,
+          GLib.PRIORITY_DEFAULT,
+          cancellable,
+          null,
+        );
       }
     }
   }
@@ -531,7 +499,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
         `${targetDir}/scalable/places`,
       );
     } else {
-      throw new Error(_("MoreWaita icon pack was not found."));
+      throw new Error("MoreWaita icon pack was not found.");
     }
   }
 
@@ -667,21 +635,16 @@ Type=Scalable
     indexContent += `\n[scalable/apps]\nContext=Applications\nSize=128\nMinSize=8\nMaxSize=512\nType=Scalable\n`;
   }
 
-  await new Promise((resolve) => {
-    let indexFile = Gio.File.new_for_path(`${targetDir}/index.theme`);
-    let encodedIndex = new TextEncoder().encode(indexContent);
-    indexFile.replace_contents_async(
-      encodedIndex,
-      null,
-      false,
-      Gio.FileCreateFlags.REPLACE_DESTINATION,
-      cancellable,
-      (obj, res) => {
-        obj.replace_contents_finish(res);
-        resolve();
-      },
-    );
-  });
+  let indexFile = Gio.File.new_for_path(`${targetDir}/index.theme`);
+  let encodedIndex = new TextEncoder().encode(indexContent);
+
+  await indexFile.replace_contents_bytes_async(
+    encodedIndex,
+    null,
+    false,
+    Gio.FileCreateFlags.REPLACE_DESTINATION,
+    cancellable,
+  );
 
   throwIfCancelled(cancellable);
 
