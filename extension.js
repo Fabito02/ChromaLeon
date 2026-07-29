@@ -98,7 +98,7 @@ export default class CustomAccentExtension extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           await this._updateAppStyles(cancellable);
-          await this._reloadGtkStylesheet();
+          await this._reloadGtkStylesheet(cancellable);
         }),
       "changed::tint-gtk3",
       () =>
@@ -108,7 +108,9 @@ export default class CustomAccentExtension extends Extension {
       "changed::darker",
       () =>
         this._runOperation(async (cancellable) => {
-          await this._updateStyles(false, true, cancellable);
+          await this._updateShellStyles(cancellable);
+          await this._updateAppStyles(cancellable);
+          await this._reloadGtkStylesheet(cancellable);
         }),
       "changed::recolor-folders",
       () =>
@@ -158,16 +160,6 @@ export default class CustomAccentExtension extends Extension {
             }
           }
         });
-      },
-      "changed::accent-color",
-      () => {
-        if (this._settings.get_boolean("gnome-colors")) {
-          const newAccent = this._interfaceSettings.get_string("accent-color");
-
-          if (this._settings.get_string("accent-color") !== newAccent) {
-            this._settings.set_string("accent-color", newAccent);
-          }
-        }
       },
       this,
     );
@@ -297,9 +289,7 @@ export default class CustomAccentExtension extends Extension {
     throwIfCancelled(cancellable);
     if (this._settings.get_boolean("custom-color")) {
       await this._updateShellStyles(cancellable);
-      if (this._settings.get_boolean("tint-apps")) {
-        await this._updateAppStyles(cancellable);
-      }
+      await this._updateAppStyles(cancellable);
       return;
     }
 
@@ -445,7 +435,9 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  _setShellColorScheme(allStyles, cancellable) {
+  async _setShellColorScheme(allStyles, cancellable) {
+    throwIfCancelled(cancellable);
+
     const preferLight = this._settings.get_boolean("prefer-light");
 
     if (preferLight) {
@@ -454,16 +446,20 @@ export default class CustomAccentExtension extends Extension {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
     }
 
-    allStyles
-      ? this._updateStyles(false, true, cancellable)
-      : this._loadShellStylesheet(cancellable);
+    if (allStyles) {
+      throwIfCancelled(cancellable);
+      await this._updateStyles(true, true, cancellable);
+    } else {
+      throwIfCancelled(cancellable);
+      this._loadShellStylesheet(cancellable);
+    }
   }
 
   // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
   // This is done by toggling high-contrast mode on and off, which triggers a reload.
   // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
   async _reloadGtkStylesheet(cancellable = null) {
-    if (cancellable) throwIfCancelled(cancellable);
+    throwIfCancelled(cancellable);
 
     const originalHighContrast =
       this._a11ySettings.get_boolean("high-contrast");
@@ -491,7 +487,7 @@ export default class CustomAccentExtension extends Extension {
 
       this._reloadGtkTimeout = GLib.timeout_add(
         GLib.PRIORITY_DEFAULT,
-        600,
+        1000,
         () => {
           this._reloadGtkTimeout = null;
           if (
