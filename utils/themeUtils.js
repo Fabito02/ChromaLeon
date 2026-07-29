@@ -248,7 +248,6 @@ export async function updateGtkStylesheet(
 
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
-  const cssVars = `@define-color accent_color ${color};\n@define-color accent_bg_color ${color};\n`;
 
   const tintedGtk3LightStyle = Gio.File.new_for_path(
     `${extensionPath}/templates/gtk3_light_tinted.template.css`,
@@ -270,13 +269,14 @@ export async function updateGtkStylesheet(
     let dirPath = `${configDir}/gtk-4.0`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    const cssVars = `@define-color accent_bg_color ${color};\n@define-color accent_color accent_bg_color;\n`;
 
     const parentDir = Gio.File.new_for_path(dirPath);
 
     if (!parentDir.query_exists(null)) {
       try {
         parentDir.make_directory_with_parents(null);
-        await writeFile(mainFile, "", cancellable);
+        await writeFile(mainFile, "\n", cancellable);
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
@@ -304,7 +304,7 @@ export async function updateGtkStylesheet(
       }
     } else {
       gnomeColors
-        ? await writeFile(accentFile, "", cancellable)
+        ? await writeFile(accentFile, "\n", cancellable)
         : await writeFile(accentFile, cssVars, cancellable);
     }
 
@@ -335,13 +335,14 @@ export async function updateGtkStylesheet(
     let dirPath = `${configDir}/gtk-3.0`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    const cssVars = `@define-color accent_bg_color ${GNOME_ACCENTS_HEX[color]};\n@define-color accent_color accent_bg_color;\n`;
 
     const parentDir = Gio.File.new_for_path(dirPath);
 
     if (!parentDir.query_exists(null)) {
       try {
         parentDir.make_directory_with_parents(null);
-        await writeFile(mainFile, "", cancellable);
+        await writeFile(mainFile, "\n", cancellable);
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
@@ -366,7 +367,7 @@ export async function updateGtkStylesheet(
 
         await writeFile(
           accentFile,
-          !gnomeColors ? `${cssVars}\n${css}` : css,
+          `${cssVars}\n${css}`,
           cancellable,
         );
       } catch (e) {
@@ -396,7 +397,7 @@ export async function updateGtkStylesheet(
       }
     } else {
       gnomeColors
-        ? await writeFile(accentFile, "", cancellable)
+        ? await writeFile(accentFile, "\n", cancellable)
         : await writeFile(accentFile, cssVars, cancellable);
     }
   };
