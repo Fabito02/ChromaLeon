@@ -426,7 +426,7 @@ export async function updateIconPack(
     schema_id: "org.gnome.desktop.interface",
   });
 
-  if (!iconFolders) {
+  if (!iconFolders && settings.get_string("icon-theme") === "Adwaita-Dynamic") {
     settings.set_string("icon-theme", "Adwaita");
     return;
   }
