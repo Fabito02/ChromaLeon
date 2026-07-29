@@ -121,9 +121,7 @@ async function recolorSvgAsync(file, colorMap, cancellable) {
               Gio.FileCreateFlags.REPLACE_DESTINATION,
               cancellable,
               (obj2, res2) => {
-                try {
-                  obj2.replace_contents_finish(res2);
-                } catch (e) {}
+                obj2.replace_contents_finish(res2);
                 resolve();
               },
             );
@@ -187,17 +185,32 @@ async function deleteRecursiveAsync(file, cancellable) {
   throwIfCancelled(cancellable);
 
   if (!file.query_exists(null)) return;
+  const info = await new Promise((res, rej) => {
+    file.query_info_async(
+      "standard::type",
+      Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+      GLib.PRIORITY_DEFAULT,
+      cancellable,
+      (obj, r) => {
+        try {
+          res(obj.query_info_finish(r));
+        } catch (e) {
+          rej(e);
+        }
+      },
+    );
+  });
 
-  try {
-    const info = await new Promise((res, rej) => {
-      file.query_info_async(
-        "standard::type",
+  if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+    const iter = await new Promise((res, rej) => {
+      file.enumerate_children_async(
+        "standard::name",
         Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
         GLib.PRIORITY_DEFAULT,
         cancellable,
         (obj, r) => {
           try {
-            res(obj.query_info_finish(r));
+            res(obj.enumerate_children_finish(r));
           } catch (e) {
             rej(e);
           }
@@ -205,67 +218,45 @@ async function deleteRecursiveAsync(file, cancellable) {
       );
     });
 
-    if (info.get_file_type() === Gio.FileType.DIRECTORY) {
-      const iter = await new Promise((res, rej) => {
-        file.enumerate_children_async(
-          "standard::name",
-          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-          GLib.PRIORITY_DEFAULT,
-          cancellable,
-          (obj, r) => {
-            try {
-              res(obj.enumerate_children_finish(r));
-            } catch (e) {
-              rej(e);
-            }
-          },
-        );
-      });
+    if (iter) {
+      while (true) {
+        throwIfCancelled(cancellable);
 
-      if (iter) {
-        while (true) {
-          throwIfCancelled(cancellable);
+        const infos = await new Promise((res) => {
+          iter.next_files_async(
+            50,
+            GLib.PRIORITY_DEFAULT,
+            cancellable,
+            (obj, r) => {
+              try {
+                res(obj.next_files_finish(r));
+              } catch (e) {
+                res([]);
+              }
+            },
+          );
+        });
 
-          const infos = await new Promise((res) => {
-            iter.next_files_async(
-              50,
-              GLib.PRIORITY_DEFAULT,
-              cancellable,
-              (obj, r) => {
-                try {
-                  res(obj.next_files_finish(r));
-                } catch (e) {
-                  res([]);
-                }
-              },
-            );
-          });
+        if (!infos || infos.length === 0) break;
 
-          if (!infos || infos.length === 0) break;
+        const branches = infos.map((childInfo) => {
+          const child = iter.get_child(childInfo);
+          return deleteRecursiveAsync(child, cancellable);
+        });
 
-          const branches = infos.map((childInfo) => {
-            const child = iter.get_child(childInfo);
-            return deleteRecursiveAsync(child, cancellable);
-          });
-
-          await Promise.all(branches);
-        }
-
-        try {
-          iter.close(null);
-        } catch (e) {}
+        await Promise.all(branches);
       }
-    }
 
-    await new Promise((res) => {
-      file.delete_async(GLib.PRIORITY_DEFAULT, cancellable, (obj, r) => {
-        try {
-          obj.delete_finish(r);
-        } catch (e) {}
-        res();
-      });
+      iter.close(null);
+    }
+  }
+
+  await new Promise((res) => {
+    file.delete_async(GLib.PRIORITY_DEFAULT, cancellable, (obj, r) => {
+      obj.delete_finish(r);
+      res();
     });
-  } catch (e) {}
+  });
 }
 
 export async function applyAccentTheme(baseColor, options = {}, cancellable) {
@@ -338,7 +329,9 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     if (!targetDirFile.query_exists(null)) {
       targetDirFile.make_directory_with_parents(null);
     }
-  } catch (e) {}
+  } catch (e) {
+    throw new Error("Failed to create target directory: " + e.message);
+  }
 
   async function copyFolderContentAsync(srcPath, destPath) {
     const srcFile = Gio.File.new_for_path(srcPath);
@@ -349,82 +342,81 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     if (!destFile.query_exists(null)) {
       try {
         destFile.make_directory_with_parents(null);
-      } catch (e) {}
+      } catch (e) {
+        throw new Error("Failed to create destination directory: " + e.message);
+      }
     }
 
-    try {
-      const enumerator = await new Promise((res) => {
-        srcFile.enumerate_children_async(
-          "standard::name,standard::type",
-          Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+    const enumerator = await new Promise((res) => {
+      srcFile.enumerate_children_async(
+        "standard::name,standard::type",
+        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        GLib.PRIORITY_DEFAULT,
+        cancellable,
+        (obj, r) => {
+          try {
+            res(obj.enumerate_children_finish(r));
+          } catch (e) {
+            res(null);
+          }
+        },
+      );
+    });
+
+    if (!enumerator) return;
+
+    while (true) {
+      throwIfCancelled(cancellable);
+
+      const infos = await new Promise((res) => {
+        enumerator.next_files_async(
+          100,
           GLib.PRIORITY_DEFAULT,
           cancellable,
           (obj, r) => {
             try {
-              res(obj.enumerate_children_finish(r));
+              res(obj.next_files_finish(r));
             } catch (e) {
-              res(null);
+              res([]);
             }
           },
         );
       });
 
-      if (!enumerator) return;
+      if (!infos || infos.length === 0) break;
 
-      while (true) {
-        throwIfCancelled(cancellable);
+      const copyPromises = infos.map(async (info) => {
+        const childName = info.get_name();
+        const childSrc = srcFile.get_child(childName);
+        const childDest = destFile.get_child(childName);
 
-        const infos = await new Promise((res) => {
-          enumerator.next_files_async(
-            100,
-            GLib.PRIORITY_DEFAULT,
-            cancellable,
-            (obj, r) => {
-              try {
-                res(obj.next_files_finish(r));
-              } catch (e) {
-                res([]);
-              }
-            },
+        if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+          await copyFolderContentAsync(
+            childSrc.get_path(),
+            childDest.get_path(),
           );
-        });
-
-        if (!infos || infos.length === 0) break;
-
-        const copyPromises = infos.map(async (info) => {
-          const childName = info.get_name();
-          const childSrc = srcFile.get_child(childName);
-          const childDest = destFile.get_child(childName);
-
-          if (info.get_file_type() === Gio.FileType.DIRECTORY) {
-            await copyFolderContentAsync(
-              childSrc.get_path(),
-              childDest.get_path(),
+        } else {
+          await new Promise((res) => {
+            childSrc.copy_async(
+              childDest,
+              Gio.FileCopyFlags.OVERWRITE | Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
+              GLib.PRIORITY_DEFAULT,
+              cancellable,
+              null,
+              (obj, r) => {
+                try {
+                  obj.copy_finish(r);
+                } catch (e) {}
+                res();
+              },
             );
-          } else {
-            await new Promise((res) => {
-              childSrc.copy_async(
-                childDest,
-                Gio.FileCopyFlags.OVERWRITE |
-                  Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
-                GLib.PRIORITY_DEFAULT,
-                cancellable,
-                null,
-                (obj, r) => {
-                  try {
-                    obj.copy_finish(r);
-                  } catch (e) {}
-                  res();
-                },
-              );
-            });
-          }
-        });
+          });
+        }
+      });
 
-        await Promise.all(copyPromises);
-      }
-      enumerator.close(null);
-    } catch (err) {}
+      await Promise.all(copyPromises);
+    }
+    enumerator.close(null);
   }
 
   await copyFolderContentAsync(
@@ -470,9 +462,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     const appsDestDir = Gio.File.new_for_path(`${targetDir}/scalable/apps`);
 
     if (!appsDestDir.query_exists(null)) {
-      try {
-        appsDestDir.make_directory_with_parents(null);
-      } catch (e) {}
+      appsDestDir.make_directory_with_parents(null);
     }
 
     for (let app of appsToRecolor) {
@@ -507,9 +497,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
             cancellable,
             null,
             (obj, r) => {
-              try {
-                obj.copy_finish(r);
-              } catch (e) {}
+              obj.copy_finish(r);
               res();
             },
           );
@@ -689,9 +677,7 @@ Type=Scalable
       Gio.FileCreateFlags.REPLACE_DESTINATION,
       cancellable,
       (obj, res) => {
-        try {
-          obj.replace_contents_finish(res);
-        } catch (e) {}
+        obj.replace_contents_finish(res);
         resolve();
       },
     );

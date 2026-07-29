@@ -92,31 +92,27 @@ export function removeGtkStylesheet() {
 
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
     if (accentFile.query_exists(null)) {
-      try {
-        accentFile.delete(null);
-      } catch (e) {}
+      accentFile.delete(null);
     }
 
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     if (mainFile.query_exists(null)) {
-      try {
-        let [ok, contents] = mainFile.load_contents_async(null);
-        if (ok) {
-          let mainContent = new TextDecoder().decode(contents);
-          let newContent = mainContent.replace(REGEX_MARKER, "").trim();
+      let [ok, contents] = mainFile.load_contents_async(null);
+      if (ok) {
+        let mainContent = new TextDecoder().decode(contents);
+        let newContent = mainContent.replace(REGEX_MARKER, "").trim();
 
-          let safeContent = newContent ? `${newContent}\n` : "";
-          let bytes = GLib.Bytes.new(new TextEncoder().encode(safeContent));
+        let safeContent = newContent ? `${newContent}\n` : "";
+        let bytes = GLib.Bytes.new(new TextEncoder().encode(safeContent));
 
-          mainFile.replace_contents(
-            bytes,
-            null,
-            false,
-            Gio.FileCreateFlags.NONE,
-            null,
-          );
-        }
-      } catch (e) {}
+        mainFile.replace_contents(
+          bytes,
+          null,
+          false,
+          Gio.FileCreateFlags.NONE,
+          null,
+        );
+      }
     }
   }
 }
@@ -365,11 +361,7 @@ export async function updateGtkStylesheet(
           gnomeColors ? "@accent_bg_color" : color,
         );
 
-        await writeFile(
-          accentFile,
-          `${cssVars}\n${css}`,
-          cancellable,
-        );
+        await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
