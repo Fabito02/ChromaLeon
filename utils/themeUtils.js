@@ -332,7 +332,8 @@ export async function updateGtkStylesheet(
     let dirPath = `${configDir}/gtk-3.0`;
     let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-    const cssVars = `@define-color accent_bg_color ${GNOME_ACCENTS_HEX[color]};\n@define-color accent_color accent_bg_color;\n`;
+    let hexColor = gnomeColors ? GNOME_ACCENTS_HEX[color] : color;
+    const cssVars = `@define-color accent_bg_color ${hexColor};\n@define-color accent_color accent_bg_color;\n`;
 
     const parentDir = Gio.File.new_for_path(dirPath);
 
@@ -359,7 +360,7 @@ export async function updateGtkStylesheet(
         let template = new TextDecoder().decode(contents);
         let css = template.replace(
           /@@ACCENT@@/g,
-          gnomeColors ? "@accent_bg_color" : color,
+          gnomeColors ? GNOME_ACCENTS_HEX[color] : color,
         );
 
         await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
