@@ -138,11 +138,14 @@ class ChromaLeonUI {
     this._page = page;
     this._page.set_title(_("Wallpaper"));
     this._page.set_icon_name("image-round-symbolic");
+    this._page.add_css_class("symbolic");
 
     this._optionsPage = new Adw.PreferencesPage({
       title: _("Preferences"),
       icon_name: "settings-symbolic",
     });
+    this._optionsPage.add_css_class("symbolic");
+    
     window.add(this._optionsPage);
 
     this._bgSettings = new Gio.Settings({
@@ -1503,6 +1506,7 @@ function setupCustomHeader(window) {
   });
 
   const donateIcon = Gtk.Image.new_from_icon_name("heart-filled-symbolic");
+  donateIcon.add_css_class("symbolic");
   const label = new Gtk.Label({ label: _("Support") });
 
   box.append(donateIcon);
