@@ -145,7 +145,7 @@ class ChromaLeonUI {
       icon_name: "settings-symbolic",
     });
     this._optionsPage.add_css_class("symbolic");
-    
+
     window.add(this._optionsPage);
 
     this._bgSettings = new Gio.Settings({
@@ -854,6 +854,33 @@ class ChromaLeonUI {
 
   async _readXmlProperties(xmlFile) {
     try {
+      const parseSlideshowXml = async (filePath) => {
+        try {
+          const file = Gio.File.new_for_path(filePath);
+          if (!file.query_exists(null)) return null;
+
+          const [contents] = await file.load_contents_async(null);
+          const xmlText = new TextDecoder().decode(contents);
+
+          const matches = [
+            ...xmlText.matchAll(
+              /<static>[\s\S]*?<file>(.*?)<\/file>[\s\S]*?<\/static>/g,
+            ),
+          ];
+
+          if (matches.length > 0) {
+            const files = matches.map((m) => m[1].trim());
+            return {
+              light: files[0],
+              dark: files[Math.floor(files.length / 2)] || files[0],
+            };
+          }
+        } catch (e) {
+          return null;
+        }
+        return null;
+      };
+
       const [contents] = await xmlFile.load_contents_async(null);
       const xmlText = new TextDecoder().decode(contents);
       const wallpapers = [];
@@ -872,18 +899,32 @@ class ChromaLeonUI {
         let pathLight = lightMatch ? lightMatch[1].trim() : null;
         let pathDark = darkMatch ? darkMatch[1].trim() : null;
 
-        if (pathLight) {
-          wallpapers.push({
-            name: nameMatch ? nameMatch[1] : "",
-            pathLight,
-            pathDark,
-            thumbLight: await getThumbnail(pathLight),
-            thumbDark: pathDark
-              ? await getThumbnail(pathDark)
-              : await getThumbnail(pathLight),
-          });
+        if (!pathLight) continue;
+
+        const isSlideshow = pathLight.toLowerCase().endsWith(".xml");
+
+        if (isSlideshow) {
+          const slideshow = await parseSlideshowXml(pathLight);
+          if (slideshow) {
+            pathLight = slideshow.light;
+            pathDark = pathDark || slideshow.dark;
+          } else {
+            continue;
+          }
         }
+
+        wallpapers.push({
+          name: nameMatch ? nameMatch[1] : "",
+          pathLight,
+          pathDark,
+          thumbLight: await getThumbnail(pathLight),
+          thumbDark: pathDark
+            ? await getThumbnail(pathDark)
+            : await getThumbnail(pathLight),
+          slideshow: isSlideshow,
+        });
       }
+
       return wallpapers;
     } catch (e) {
       return [];
@@ -1050,6 +1091,9 @@ class ChromaLeonUI {
           can_focus: true,
         });
 
+        const overlay = new Gtk.Overlay();
+        overlay.add_css_class("wallpaper-overlay");
+
         const cardBox = new Gtk.Box({
           orientation: Gtk.Orientation.HORIZONTAL,
           height_request: 125,
@@ -1058,6 +1102,18 @@ class ChromaLeonUI {
           can_target: false,
         });
         cardBox.add_css_class("wallpaper-preview");
+        overlay.set_child(cardBox);
+
+        if (file.slideshow) {
+          const clockIcon = new Gtk.Image({
+            icon_name: "clock-alt-symbolic",
+            halign: Gtk.Align.END,
+            valign: Gtk.Align.END,
+            margin_bottom: 8,
+            margin_end: 8,
+          });
+          overlay.add_overlay(clockIcon);
+        }
 
         try {
           const pbLight = GdkPixbuf.Pixbuf.new_from_file(file.thumbLight);
@@ -1100,7 +1156,7 @@ class ChromaLeonUI {
           );
         }
 
-        child.set_child(cardBox);
+        child.set_child(overlay);
         const systemUris = {
           dark: Gio.File.new_for_path(
             file.pathDark || file.pathLight,
