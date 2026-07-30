@@ -34,31 +34,23 @@ export function calculateVibrantColor(uri) {
     let file = Gio.File.new_for_uri(uri);
 
     file.read_async(GLib.PRIORITY_DEFAULT, null, (source_object, res) => {
-      try {
-        let stream = source_object.read_finish(res);
+      let stream = source_object.read_finish(res);
 
-        GdkPixbuf.Pixbuf.new_from_stream_at_scale_async(
-          stream,
-          64,
-          64,
-          true,
-          null,
-          (obj, asyncRes) => {
-            try {
-              let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
+      GdkPixbuf.Pixbuf.new_from_stream_at_scale_async(
+        stream,
+        64,
+        64,
+        true,
+        null,
+        (obj, asyncRes) => {
+          let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
 
-              stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
+          stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
 
-              let color = _processPixbuf(pixbuf);
-              resolve(color);
-            } catch (e) {
-              throw new Error(_("Error creating pixbuf: " + e.message));
-            }
-          },
-        );
-      } catch (e) {
-        throw new Error(_("Error reading file: " + e.message));
-      }
+          let color = _processPixbuf(pixbuf);
+          resolve(color);
+        },
+      );
     });
   });
 }
