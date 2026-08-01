@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-30 04:02-0300\n"
-"PO-Revision-Date: 2026-07-24 03:41+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-08-01 01:30+0000\n"
+"Last-Translator: Herbatka <viktor.beskorovainyi@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/uk/>\n"
 "Language: uk\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Помилка під час завантаження мініатюри: "
 
 #: chromaleon.js:139
 msgid "Wallpaper"
@@ -63,15 +63,15 @@ msgstr "Шпалери"
 
 #: chromaleon.js:398
 msgid "Colors"
-msgstr ""
+msgstr "Кольори"
 
 #: chromaleon.js:403
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Кольори GNOME"
 
 #: chromaleon.js:404
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Використовувати стандартні кольори GNOME замість кольорів шпалер."
 
 #: chromaleon.js:409
 msgid "Prefer Light Style"
@@ -191,14 +191,13 @@ msgstr ""
 "Цей файл використовується для застосування власних стилів CSS до GNOME "
 "Shell.\n"
 "\n"
-"Розширення обробляє весь вміст цього файлу, замінюючи змінні "
-"<b><tt>@@ACCENT@@</tt></b> та <b><tt>-st-accent-color</tt></b> на колір, "
-"обраний у налаштуваннях ChromaLeon, перед тим, як застосувати їх до системи. "
-"Це може бути корисно, якщо у розширенні кольори акцентів застосовані "
-"неправильно.\n"
+"Розширення обробляє весь вміст цього файлу, замінюючи змінні <b><tt>"
+"@@ACCENT@@</tt></b> та <b><tt>-st-accent-color</tt></b> на колір, обраний у "
+"налаштуваннях ChromaLeon, перед тим, як застосувати їх до системи. Це може "
+"бути корисно, якщо у розширенні кольори акцентів застосовані неправильно.\n"
 "\n"
-"<b>Порада:</b> Якщо ваші зміни не набувають чинності, спробуйте додати "
-"<b><tt>!important</tt></b> до ваших правил CSS."
+"<b>Порада:</b> Якщо ваші зміни не набувають чинності, спробуйте додати <b>"
+"<tt>!important</tt></b> до ваших правил CSS."
 
 #: chromaleon.js:616
 msgid "Close"
