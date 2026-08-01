@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-30 04:02-0300\n"
 "PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -75,11 +75,11 @@ msgstr "Użyj natywnych kolorów GNOME zamiast kolorów tła."
 
 #: chromaleon.js:409
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Preferuj styl jasny"
 
 #: chromaleon.js:410
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Użyj stylu jasnego powłoki w stylu domyślnym."
 
 #: chromaleon.js:429
 msgid "Tint GNOME"
@@ -193,14 +193,14 @@ msgid ""
 msgstr ""
 "Ten plik służy do stosowania niestandardowego CSS w powłoce GNOME.\n"
 "\n"
-"Rozszerzenie przetwarza całą zawartość tego pliku, zastępując zmienne "
-"<b><tt>@@ACCENT@@</tt></b> i <b><tt>-st-accent-color</tt></b> kolorem "
-"wybranym w ustawieniach ChromaLeon przed zastosowaniem ich w systemie. Może "
-"to być przydatne, jeśli w rozszerzeniu nie zastosowano prawidłowo kolorów "
+"Rozszerzenie przetwarza całą zawartość tego pliku, zastępując zmienne <b><tt>"
+"@@ACCENT@@</tt></b> i <b><tt>-st-accent-color</tt></b> kolorem wybranym w "
+"ustawieniach ChromaLeon przed zastosowaniem ich w systemie. Może to być "
+"przydatne, jeśli w rozszerzeniu nie zastosowano prawidłowo kolorów "
 "wyróżnienia.\n"
 "\n"
-"<b>Wskazówka:</b> jeśli zmiany nie odniosą skutku, spróbuj dodać <b><tt>!"
-"important</tt></b> do reguł CSS."
+"<b>Wskazówka:</b> jeśli zmiany nie odniosą skutku, spróbuj dodać <b><tt>"
+"!important</tt></b> do reguł CSS."
 
 #: chromaleon.js:616
 msgid "Close"
