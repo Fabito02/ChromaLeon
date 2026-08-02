@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-30 04:02-0300\n"
-"PO-Revision-Date: 2026-08-01 01:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-08-03 05:38+0000\n"
+"Last-Translator: Amedeo Trotta <paperella@duck.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/it/>\n"
 "Language: it\n"
@@ -75,11 +75,11 @@ msgstr "Usa i colori nativi di GNOME invece dei colori dello sfondo."
 
 #: chromaleon.js:409
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Preferisci lo stile chiaro"
 
 #: chromaleon.js:410
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Usa uno stile chiaro per la Shell con il tema chiaro."
 
 #: chromaleon.js:429
 msgid "Tint GNOME"
