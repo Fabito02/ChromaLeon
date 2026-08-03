@@ -277,6 +277,8 @@ export async function updateGtkStylesheet(
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
+    } else if (!mainFile.query_exists(null)) {
+      await writeFile(mainFile, "\n", cancellable);
     }
 
     if (tinted) {
@@ -344,6 +346,8 @@ export async function updateGtkStylesheet(
       } catch (e) {
         if (isCancelledError(e)) throw e;
       }
+    } else if (!mainFile.query_exists(null)) {
+      await writeFile(mainFile, "\n", cancellable);
     }
 
     if (tinted && tintGTK3) {
