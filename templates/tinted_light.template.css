@@ -1423,9 +1423,7 @@ StScrollBar>.hhandle:active {
 }
 
 /* Top Bar - Light */
-#panel {
-  background-color: st-mix(@@ACCENT@@, #fafafb, 12%);
-}
+@@PANEL@@
 
 #panel:overview,
 #panel.unlock-screen,

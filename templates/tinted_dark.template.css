@@ -1437,9 +1437,7 @@ StScrollBar>.hhandle:active {
 }
 
 /* Top Bar */
-#panel {
-  background-color: st-mix(@@ACCENT@@, #000000, 10%);
-}
+@@PANEL@@
 
 #panel:overview,
 #panel.unlock-screen,

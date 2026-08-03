@@ -34,6 +34,12 @@
       <description
             >Tints the GTK3 applications with the color of your choice.</description>
     </key>
+    <key name="tint-panel" type="b">
+      <default>true</default>
+      <summary>Tint Panel</summary>
+      <description
+            >Tints the panel with the color of your choice.</description>
+    </key>
     <key name="darker" type="b">
       <default>false</default>
       <summary>Darker Tint</summary>

@@ -89,6 +89,11 @@ export default class CustomAccentExtension extends Extension {
         this._runOperation(async (cancellable) => {
           await this._updateShellStyles(cancellable);
         }),
+      "changed::tint-panel",
+      () =>
+        this._runOperation(async (cancellable) => {
+          await this._updateShellStyles(cancellable);
+        }),
       "changed::custom-css",
       () =>
         this._runOperation(async (cancellable) => {
@@ -370,6 +375,7 @@ export default class CustomAccentExtension extends Extension {
     const tintShell = this._settings.get_boolean("tint-shell");
     const customCss = this._settings.get_boolean("custom-css");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
+    const tintPanel = this._settings.get_boolean("tint-panel");
 
     await ThemeUtils.updateShellStylesheet(
       this.path,
@@ -378,6 +384,7 @@ export default class CustomAccentExtension extends Extension {
       darker,
       customCss,
       gnomeColors,
+      tintPanel,
       cancellable,
     );
 

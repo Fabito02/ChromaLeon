@@ -431,11 +431,28 @@ class ChromaLeonUI {
     });
     this._optionsPage.add(tintGnomeGroup);
 
-    const TintShellRow = new Adw.SwitchRow({
+    const TintShellRow = new Adw.ExpanderRow({
       title: _("Tint Shell"),
       subtitle: _("Tints the GNOME Shell with the color of your choice."),
+      show_enable_switch: true,
     });
     tintGnomeGroup.add(TintShellRow);
+
+    const TintPanel = new Adw.SwitchRow({
+      title: _("Tint Panel"),
+      subtitle: _(
+        'Keeping this disabled resolves issues with panel modifications in extensions such as "Blur My Shell" and "PaperWM".',
+      ),
+    });
+
+    TintShellRow.add_row(TintPanel);
+    
+    TintShellRow.bind_property(
+      "enable-expansion",
+      TintShellRow,
+      "expanded",
+      GObject.BindingFlags.SYNC_CREATE,
+    );
 
     const TintAppsRow = new Adw.ExpanderRow({
       title: _("Tint Apps"),
@@ -482,6 +499,13 @@ class ChromaLeonUI {
     this._settings.bind(
       "tint-shell",
       TintShellRow,
+      "enable-expansion",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "tint-panel",
+      TintPanel,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );

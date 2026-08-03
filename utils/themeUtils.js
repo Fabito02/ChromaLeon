@@ -125,6 +125,7 @@ export async function updateShellStylesheet(
   darker,
   customStyle,
   gnomeColors,
+  tintPanel,
   cancellable,
 ) {
   throwIfCancelled(cancellable);
@@ -132,6 +133,17 @@ export async function updateShellStylesheet(
   if (gnomeColors) color = "-st-accent-color";
 
   const homeDir = GLib.get_home_dir();
+
+  let accentValue = gnomeColors ? "-st-accent-color" : color;
+
+  const panelStyle = (hex, pct = 10) =>
+    tintPanel
+      ? `#panel {\n      background-color: st-mix(${accentValue}, ${hex}, ${pct}%);\n    }`
+      : "";
+
+  const cssPanel = panelStyle("#fafafb", 12);
+  const cssPanelDark = panelStyle("#1b1b1d");
+  const cssPanelDarker = panelStyle("#0f0f10");
 
   const customCss = Gio.File.new_for_path(
     `${homeDir}/.config/ChromaLeon/custom.css`,
@@ -175,15 +187,15 @@ export async function updateShellStylesheet(
         ? `${textDark}\n${customCssContents}`
         : textDark;
 
-      let accentValue = gnomeColors ? "-st-accent-color" : color;
-
       let cssLight = finalLightContent
         .replace(/@@ACCENT@@/g, accentValue)
-        .replace(/-st-accent-color/g, accentValue);
+        .replace(/-st-accent-color/g, accentValue)
+        .replace(/@@PANEL@@/g, cssPanel);
 
       let cssDark = finalDarkContent
         .replace(/@@ACCENT@@/g, accentValue)
-        .replace(/-st-accent-color/g, accentValue);
+        .replace(/-st-accent-color/g, accentValue)
+        .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark);
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
