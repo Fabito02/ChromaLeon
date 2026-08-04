@@ -8,142 +8,139 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-30 04:02-0300\n"
-"PO-Revision-Date: 2026-08-03 05:38+0000\n"
-"Last-Translator: Amedeo Trotta <paperella@duck.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/chromaleon/"
-"extension/it/>\n"
-"Language: it\n"
+"PO-Revision-Date: 2026-08-04 07:25+0000\n"
+"Last-Translator: lein <cayin0219@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/chromaleon/extension/zh_Hans/>\n"
+"Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.8.1.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
-msgstr "Impossibile ottenere l'anteprima: "
+msgstr "获取缩略图失败： "
 
 #: chromaleon.js:139
 msgid "Wallpaper"
-msgstr "Sfondo"
+msgstr "壁纸"
 
 #: chromaleon.js:144
 msgid "Preferences"
-msgstr "Preferenze"
+msgstr "首选项"
 
 #: chromaleon.js:195 chromaleon.js:233
 msgid "Accent Color"
-msgstr "Colore d'accento"
+msgstr "强调色"
 
 #: chromaleon.js:205
 msgid "Main color"
-msgstr "Colore principale"
+msgstr "主色"
 
 #: chromaleon.js:233
 msgid "Wallpaper Colors"
-msgstr "Colori dello sfondo"
+msgstr "壁纸颜色"
 
 #: chromaleon.js:239
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
-msgstr ""
-"Il sistema aggiorna automaticamente il colore d'accento in base allo sfondo."
+msgstr "系统将依据壁纸自动更新强调色。"
 
 #: chromaleon.js:297
 msgid "Additional colors"
-msgstr "Colori aggiuntivi"
+msgstr "更多颜色"
 
 #: chromaleon.js:334
 msgid "Add wallpapers"
-msgstr "Aggiungi sfondi"
+msgstr "添加壁纸"
 
 #: chromaleon.js:348
 msgid "Wallpapers"
-msgstr "Sfondi"
+msgstr "壁纸列表"
 
 #: chromaleon.js:398
 msgid "Colors"
-msgstr "Colori"
+msgstr "颜色"
 
 #: chromaleon.js:403
 msgid "GNOME Colors"
-msgstr "Colori di GNOME"
+msgstr "GNOME 主题色"
 
 #: chromaleon.js:404
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr "Usa i colori nativi di GNOME invece dei colori dello sfondo."
+msgstr "使用 GNOME 原生主题色，而非壁纸提取颜色。"
 
 #: chromaleon.js:409
 msgid "Prefer Light Style"
-msgstr "Preferisci lo stile chiaro"
+msgstr "偏好亮色主题"
 
 #: chromaleon.js:410
 msgid "Use a light style for the Shell in the light theme."
-msgstr "Usa uno stile chiaro per la Shell con il tema chiaro."
+msgstr "亮色主题下，为 Shell 采用浅色样式。"
 
 #: chromaleon.js:429
 msgid "Tint GNOME"
-msgstr "Colora GNOME"
+msgstr "GNOME 色调渲染"
 
 #: chromaleon.js:430
 msgid "Based on Tint my GNOME"
-msgstr "Basato su Tint my GNOME"
+msgstr "基于 Tint my GNOME 项目"
 
 #: chromaleon.js:435
 msgid "Tint Shell"
-msgstr "Colora la Shell"
+msgstr "Shell 色调渲染"
 
 #: chromaleon.js:436
 msgid "Tints the GNOME Shell with the color of your choice."
-msgstr "Colora la Shell di GNOME con il colore che preferisci."
+msgstr "使用你选定的颜色渲染 GNOME Shell 界面。"
 
 #: chromaleon.js:441
 msgid "Tint Apps"
-msgstr "Colora le applicazioni"
+msgstr "应用程序色调渲染"
 
 #: chromaleon.js:443
 msgid "Tints the LibAdwaita applications with the color of your choice."
-msgstr "Colora le applicazioni LibAdwaita con il colore che preferisci."
+msgstr "使用你选定的颜色渲染 LibAdwaita 应用程序。"
 
 #: chromaleon.js:450
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
-msgstr ""
-"Colora anche le applicazioni GTK3 (per evitare problemi sono necessari "
-"l'estensione {0} e il tema {1})."
+msgstr "同时渲染 GTK3 应用（需安装 {0} 扩展与 {1} 主题以规避故障）。"
 
 #: chromaleon.js:463
 msgid "Tint GTK3 Apps"
-msgstr "Colora le applicazioni GTK3"
+msgstr "GTK3 应用程序色调渲染"
 
 #: chromaleon.js:477
 msgid "Darker Tint"
-msgstr "Tonalità più scura"
+msgstr "加深渲染色调"
 
 #: chromaleon.js:478
 msgid "Applies a darker tint."
-msgstr "Applica una tonalità più scura."
+msgstr "启用加深色调渲染。"
 
 #: chromaleon.js:511
 msgid "Icon Theme"
-msgstr "Tema delle icone"
+msgstr "图标主题"
 
 #: chromaleon.js:516
 msgid "Folder icon theme"
-msgstr "Tema delle icone delle cartelle"
+msgstr "文件夹图标主题"
 
 #: chromaleon.js:517
 msgid "Applies the accent color to folder icons."
-msgstr "Applica il colore d'accento alle icone delle cartelle."
+msgstr "将强调色应用至文件夹图标。"
 
 #: chromaleon.js:523
 msgid "Application icon theme"
-msgstr "Tema delle icone delle applicazioni"
+msgstr "应用程序图标主题"
 
 #: chromaleon.js:524
 msgid "Applies the accent color to some app icons."
-msgstr "Applica il colore d'accento ad alcune icone delle applicazioni."
+msgstr "将强调色应用至部分应用程序图标。"
 
 #: chromaleon.js:528
 msgid "MoreWaita"
@@ -151,31 +148,29 @@ msgstr "MoreWaita"
 
 #: chromaleon.js:529
 msgid "Applies integration with the MoreWaita icon pack."
-msgstr "Abilita l'integrazione con il pacchetto di icone MoreWaita."
+msgstr "开启与 MoreWaita 图标包的适配集成。"
 
 #: chromaleon.js:564
 msgid "Customization"
-msgstr "Personalizzazione"
+msgstr "自定义"
 
 #: chromaleon.js:569
 msgid "Custom stylesheet"
-msgstr "Foglio di stile personalizzato"
+msgstr "自定义样式表"
 
 #: chromaleon.js:571
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
-msgstr ""
-"Un file che sovrascrive il CSS della Shell e delle estensioni utente, con "
-"supporto per i colori d'accento di ChromaLeon."
+msgstr "该文件可覆盖 Shell 和用户扩展的 CSS，并支持 ChromaLeon 强调色变量。"
 
 #: chromaleon.js:590 chromaleon.js:607
 msgid "About the custom stylesheet"
-msgstr "Informazioni sul foglio di stile personalizzato"
+msgstr "关于自定义样式表"
 
 #: chromaleon.js:596
 msgid "Open file"
-msgstr "Apri file"
+msgstr "打开文件"
 
 #: chromaleon.js:609
 msgid ""
@@ -190,130 +185,103 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
-"Questo file viene utilizzato per applicare CSS personalizzato alla Shell di "
-"GNOME.\n"
+"该文件用于向 GNOME Shell 加载自定义 CSS。\n"
 "\n"
-"L'estensione elabora tutto il contenuto di questo file, sostituendo le "
-"variabili <b><tt>@@ACCENT@@</tt></b> e <b><tt>-st-accent-color</tt></b> con "
-"il colore selezionato nelle impostazioni di ChromaLeon prima di applicarle "
-"al sistema. Questo può essere utile se un'estensione non applica "
-"correttamente i colori d'accento.\n"
+"扩展会预处理文件内全部内容：在样式应用至系统前，将变量 <b><tt>@@ACCENT@@</tt>"
+"</b> 与 <b><tt>-st-accent-color</tt></b> 替换为你在 ChromaLeon 设置中选定的强"
+"调色。该功能可修复部分扩展强调色渲染异常的问题。\n"
 "\n"
-"<b>Suggerimento:</b> se le modifiche non vengono applicate, prova ad "
-"aggiungere <b><tt>!important</tt></b> alle regole CSS."
+"<b>提示：</b> 若修改未生效，可尝试在 CSS 规则中添加 <b><tt>!important</tt></"
+"b>。"
 
 #: chromaleon.js:616
 msgid "Close"
-msgstr "Chiudi"
+msgstr "关闭"
 
 #: chromaleon.js:638
 msgid "Failed to open custom.css: "
-msgstr "Impossibile aprire custom.css. "
+msgstr "无法打开 custom.css 文件： "
 
 #: chromaleon.js:645
 msgid "Miscellaneous"
-msgstr "Varie"
+msgstr "杂项"
 
 #: chromaleon.js:650
 msgid "Apply to Flatpaks"
-msgstr "Applica ai Flatpak"
+msgstr "应用至 Flatpak 应用"
 
 #: chromaleon.js:652
 msgid "Allow Flatpaks to access your custom accent color variables."
-msgstr ""
-"Consenti ai Flatpak di accedere alle variabili personalizzate del colore "
-"d'accento."
+msgstr "允许 Flatpak 应用访问自定义强调色变量。"
 
 #: chromaleon.js:658
 msgid "Enable shortcut"
-msgstr "Abilita scorciatoia"
+msgstr "启用快捷键"
 
 #: chromaleon.js:660
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
-"Crea una scorciatoia nella griglia delle applicazioni aggiungendo un file "
-".desktop."
+msgstr "通过创建 .desktop 文件，在应用网格生成快捷入口。"
 
 #: chromaleon.js:784
 msgid "Wallpaper deleted successfully!"
-msgstr "Sfondo eliminato correttamente!"
+msgstr "壁纸删除成功！"
 
 #: chromaleon.js:788
 msgid "Error deleting wallpaper: "
-msgstr "Impossibile eliminare lo sfondo "
+msgstr "删除壁纸失败： "
 
 #: chromaleon.js:794
 msgid "Select a Wallpaper"
-msgstr "Seleziona uno sfondo"
+msgstr "选择壁纸"
 
 #: chromaleon.js:796
 msgid "_Open"
-msgstr "_Apri"
+msgstr "打开（_Open）"
 
 #: chromaleon.js:797
 msgid "_Cancel"
-msgstr "_Annulla"
+msgstr "取消（_Cancel）"
 
 #: chromaleon.js:802
 msgid "All Images"
-msgstr "Tutte le immagini"
+msgstr "所有图片"
 
 #: chromaleon.js:829
 msgid "Wallpaper already exists!"
-msgstr "Lo sfondo esiste già!"
+msgstr "壁纸已存在！"
 
 #: chromaleon.js:845
 msgid "Wallpaper added successfully!"
-msgstr "Sfondo aggiunto correttamente!"
+msgstr "壁纸添加成功！"
 
 #: chromaleon.js:849
 msgid "Error copying wallpaper: "
-msgstr "Impossibile copiare lo sfondo: "
+msgstr "复制壁纸失败： "
 
 #: chromaleon.js:1285
 msgid "Unable to load colors."
-msgstr "Impossibile caricare i colori."
+msgstr "加载颜色失败。"
 
 #: chromaleon.js:1566 chromaleon.js:1590
 msgid "Support"
-msgstr "Supporto"
+msgstr "支持"
 
 #: chromaleon.js:1578
 msgid "Support the project"
-msgstr "Sostieni il progetto"
+msgstr "支持本项目"
 
 #: chromaleon.js:1583
 msgid "Why support ChromaLeon?"
-msgstr "Perché sostenere ChromaLeon?"
+msgstr "为什么支持 ChromaLeon？"
 
 #: chromaleon.js:1585
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
 msgstr ""
-"Lo sviluppo di software libero richiede tempo, energie e dedizione. La tua "
-"donazione sostiene direttamente il progetto e contribuisce a mantenerlo "
-"attivo!"
+"开发自由软件需要投入大量时间、精力与热忱。您的捐赠将直接支持本项目，助力项目"
+"持续维护更新！"
 
 #: chromaleon.js:1589
 msgid "Cancel"
-msgstr "Annulla"
-
-#~ msgid "Error creating pixbuf: "
-#~ msgstr "Impossibile creare il pixbuf: "
-
-#~ msgid "Error reading file: "
-#~ msgstr "Impossibile leggere il file: "
-
-#~ msgid "Adwaita icon pack was not found."
-#~ msgstr "Pacchetto di icone Adwaita non trovato."
-
-#~ msgid "MoreWaita icon pack was not found."
-#~ msgstr "Pacchetto di icone MoreWaita non trovato."
-
-#~ msgid "Failed to apply custom style: "
-#~ msgstr "Impossibile aprire custom.css: "
-
-#~ msgid "New colors only apply when apps are reopened."
-#~ msgstr ""
-#~ "I nuovi colori verranno applicati solo dopo aver riaperto le applicazioni."
+msgstr "取消"
