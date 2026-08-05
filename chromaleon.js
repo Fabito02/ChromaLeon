@@ -446,7 +446,7 @@ class ChromaLeonUI {
     });
 
     TintShellRow.add_row(TintPanel);
-    
+
     TintShellRow.bind_property(
       "enable-expansion",
       TintShellRow,

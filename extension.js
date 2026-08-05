@@ -80,7 +80,7 @@ export default class CustomAccentExtension extends Extension {
         this._runOperation(async (cancellable) => {
           this._settings.set_boolean("custom-color", false);
           await this._autoApplyWallpaperColor(null, cancellable);
-          await this._reloadGtkStylesheet();
+          await this._reloadGtkStylesheet(cancellable);
           throwIfCancelled(cancellable);
           await this._updateIconPack(cancellable);
         }),
@@ -135,7 +135,7 @@ export default class CustomAccentExtension extends Extension {
       "changed::prefer-light",
       () =>
         this._runOperation(async (cancellable) => {
-          this._setShellColorScheme(false, cancellable);
+          await this._setShellColorScheme(false, cancellable);
         }),
       this,
     );
@@ -144,19 +144,21 @@ export default class CustomAccentExtension extends Extension {
       "changed::color-scheme",
       () => {
         this._runOperation(async (cancellable) => {
-          this._loadShellStylesheet(cancellable);
-
           let colorScheme = this._interfaceSettings.get_string("color-scheme");
-          let uri =
-            colorScheme === "prefer-dark"
-              ? this._bgSettings.get_string("picture-uri-dark")
-              : this._bgSettings.get_string("picture-uri");
 
+          if (colorScheme !== "default") {
+            this._savedColorScheme = colorScheme;
+          }
+
+          await this._setShellColorScheme(false, cancellable);
           throwIfCancelled(cancellable);
 
-          if (this._settings.get_boolean("custom-color")) {
-            return;
-          } else {
+          if (!this._settings.get_boolean("custom-color")) {
+            let uri =
+              colorScheme === "prefer-dark"
+                ? this._bgSettings.get_string("picture-uri-dark")
+                : this._bgSettings.get_string("picture-uri");
+
             let newColor = await ColorUtils.calculateVibrantColor(uri);
             const currentColor = this._settings.get_string("accent-color");
 
@@ -237,7 +239,6 @@ export default class CustomAccentExtension extends Extension {
     );
 
     ThemeUtils.removeGtkStylesheet();
-
     FileUtils.removeDesktopFile();
 
     if (
@@ -251,7 +252,6 @@ export default class CustomAccentExtension extends Extension {
     this._cancellable?.cancel();
     this._cancellable = null;
     this._opChain = Promise.resolve();
-
     this._settings = null;
     this._bgSettings = null;
     this._interfaceSettings = null;
@@ -321,7 +321,6 @@ export default class CustomAccentExtension extends Extension {
     throwIfCancelled(cancellable);
 
     const iconFolders = this._settings.get_boolean("recolor-folders");
-
     const iconApps = this._settings.get_boolean("recolor-apps");
     const morewaita = this._settings.get_boolean("morewaita");
     const accent = this._settings.get_string("accent-color");
@@ -347,7 +346,11 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  async _updateStyles(updateIcons = false, styleChanged = false, cancellable) {
+  async _updateStyles(
+    updateIcons = false,
+    styleChanged = false,
+    cancellable = null,
+  ) {
     throwIfCancelled(cancellable);
 
     const gnomeColors = this._settings.get_boolean("gnome-colors");
@@ -358,7 +361,7 @@ export default class CustomAccentExtension extends Extension {
 
     if (!gnomeColors && styleChanged) {
       throwIfCancelled(cancellable);
-      await this._reloadGtkStylesheet();
+      await this._reloadGtkStylesheet(cancellable);
     }
 
     if (updateIcons) {
@@ -391,7 +394,7 @@ export default class CustomAccentExtension extends Extension {
     this._loadShellStylesheet(cancellable);
   }
 
-  _loadShellStylesheet(cancellable) {
+  _loadShellStylesheet(cancellable = null) {
     throwIfCancelled(cancellable);
 
     let cacheDir = GLib.get_user_cache_dir();
@@ -400,9 +403,7 @@ export default class CustomAccentExtension extends Extension {
       `${cacheDir}/chromaleon-shell-dark.css`,
     );
 
-    const colorScheme = this._interfaceSettings.get_string("color-scheme");
-    const isLight =
-      this._settings.get_boolean("prefer-light") && colorScheme === "default";
+    const isLight = this._shouldUseLightShell();
 
     const themeContext = St.ThemeContext.get_for_stage(global.stage);
     const theme = themeContext?.get_theme();
@@ -442,12 +443,20 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  async _setShellColorScheme(allStyles, cancellable) {
+  _shouldUseLightShell() {
+    const preferLight = this._settings.get_boolean("prefer-light");
+    const systemColorScheme =
+      this._interfaceSettings.get_string("color-scheme");
+
+    return preferLight && systemColorScheme === "default";
+  }
+
+  async _setShellColorScheme(allStyles, cancellable = null) {
     throwIfCancelled(cancellable);
 
-    const preferLight = this._settings.get_boolean("prefer-light");
+    const isLight = this._shouldUseLightShell();
 
-    if (preferLight) {
+    if (isLight) {
       PreferLightUtils.updateColorScheme("prefer-light");
     } else {
       PreferLightUtils.updateColorScheme(this._savedColorScheme);
@@ -457,7 +466,6 @@ export default class CustomAccentExtension extends Extension {
       throwIfCancelled(cancellable);
       await this._updateStyles(false, true, cancellable);
     } else {
-      throwIfCancelled(cancellable);
       this._loadShellStylesheet(cancellable);
     }
   }
