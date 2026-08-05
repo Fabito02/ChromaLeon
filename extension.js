@@ -248,6 +248,7 @@ export default class CustomAccentExtension extends Extension {
     }
 
     PreferLightUtils.updateColorScheme(this._savedColorScheme);
+    this._reloadGtkStylesheet()
 
     this._cancellable?.cancel();
     this._cancellable = null;
