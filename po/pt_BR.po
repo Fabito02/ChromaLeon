@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-05 20:08-0300\n"
-"PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-05 23:24+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.8.1.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
@@ -99,15 +99,16 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tingir o GNOME Shell com a cor de sua escolha."
 
 #: chromaleon.js:442
-#, fuzzy
 msgid "Tint Panel"
-msgstr "Tingir o Shell"
+msgstr "Tingir o Painel"
 
 #: chromaleon.js:444
 msgid ""
 "Keeping this disabled resolves issues with panel modifications in extensions "
 "such as \"Blur My Shell\" and \"PaperWM\"."
 msgstr ""
+"Manter isso desativado resolve problemas com modificações no painel feitas "
+"por extensões como \"Blur My Shell\" e \"PaperWM\"."
 
 #: chromaleon.js:458
 msgid "Tint Apps"
