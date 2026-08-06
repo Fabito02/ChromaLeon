@@ -465,7 +465,8 @@ export default class CustomAccentExtension extends Extension {
 
     if (allStyles) {
       throwIfCancelled(cancellable);
-      await this._updateStyles(false, true, cancellable);
+      await this._updateStyles(false, false, cancellable);
+      await this._reloadGtkStylesheet(cancellable)
     } else {
       this._loadShellStylesheet(cancellable);
     }
