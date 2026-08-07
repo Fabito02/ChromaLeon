@@ -248,7 +248,7 @@ export default class CustomAccentExtension extends Extension {
     }
 
     PreferLightUtils.updateColorScheme(this._savedColorScheme);
-    this._reloadGtkStylesheet()
+    this._reloadGtkStylesheet();
 
     this._cancellable?.cancel();
     this._cancellable = null;
@@ -466,7 +466,7 @@ export default class CustomAccentExtension extends Extension {
     if (allStyles) {
       throwIfCancelled(cancellable);
       await this._updateStyles(false, false, cancellable);
-      await this._reloadGtkStylesheet(cancellable)
+      await this._reloadGtkStylesheet(cancellable);
     } else {
       this._loadShellStylesheet(cancellable);
     }
@@ -504,7 +504,7 @@ export default class CustomAccentExtension extends Extension {
 
       this._reloadGtkTimeout = GLib.timeout_add(
         GLib.PRIORITY_DEFAULT,
-        1000,
+        3000,
         () => {
           this._reloadGtkTimeout = null;
           if (

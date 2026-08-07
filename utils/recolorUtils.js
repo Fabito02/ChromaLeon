@@ -207,6 +207,63 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
   }
 }
 
+function findIconThemePath(themeName) {
+  const searchDirs = [
+    GLib.get_user_data_dir(),
+    GLib.get_home_dir() + "/.icons",
+    ...GLib.get_system_data_dirs(),
+  ];
+
+  for (const dataDir of searchDirs) {
+    const themePath = GLib.build_filenamev([dataDir, "icons", themeName]);
+    if (
+      GLib.file_test(
+        GLib.build_filenamev([themePath, "scalable"]),
+        GLib.FileTest.IS_DIR,
+      )
+    ) {
+      return themePath;
+    }
+  }
+
+  return null;
+}
+
+function getHicolorAppsDirectories() {
+  const homeDir = GLib.get_home_dir();
+  const candidateDirs = [];
+
+  candidateDirs.push(
+    GLib.build_filenamev([
+      GLib.get_user_data_dir(),
+      "icons",
+      "hicolor",
+      "scalable",
+      "apps",
+    ]),
+  );
+
+  for (const sysDir of GLib.get_system_data_dirs()) {
+    candidateDirs.push(
+      GLib.build_filenamev([sysDir, "icons", "hicolor", "scalable", "apps"]),
+    );
+  }
+
+  candidateDirs.push(
+    GLib.build_filenamev([
+      homeDir,
+      ".local/share/flatpak/exports/share/icons/hicolor/scalable/apps",
+    ]),
+  );
+  candidateDirs.push(
+    "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps",
+  );
+
+  return candidateDirs.filter((dirPath) =>
+    GLib.file_test(dirPath, GLib.FileTest.IS_DIR),
+  );
+}
+
 async function deleteRecursiveAsync(file, cancellable) {
   throwIfCancelled(cancellable);
   if (!file.query_exists(null)) return;
@@ -310,13 +367,13 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     "4a86cf": medAccent,
   };
 
-  const homeDir = GLib.get_home_dir();
-  const targetDir = `${homeDir}/.local/share/icons/Adwaita-Dynamic`;
+  const userIconsDir = GLib.build_filenamev([GLib.get_user_data_dir(), 'icons']); 
+  const targetDir = GLib.build_filenamev([userIconsDir, 'Adwaita-Dynamic']);
   const targetDirFile = Gio.File.new_for_path(targetDir);
-  const sysAdwaita = "/usr/share/icons/Adwaita";
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 
-  if (!GLib.file_test(`${sysAdwaita}/scalable`, GLib.FileTest.IS_DIR)) {
+  const sysAdwaita = findIconThemePath("Adwaita");
+  if (!sysAdwaita) {
     throw new Error("Adwaita icon pack was not found.");
   }
 
@@ -408,12 +465,6 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     `${targetDir}/scalable/mimetypes`,
   );
 
-  const hicolorApps = "/usr/share/icons/hicolor/scalable/apps";
-  const userHicolorApps = `${homeDir}/.local/share/icons/hicolor/scalable/apps`;
-  const flatpakSysApps =
-    "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps";
-  const flatpakUserApps = `${homeDir}/.local/share/flatpak/exports/share/icons/hicolor/scalable/apps`;
-
   const appsToRecolor = [
     "org.gnome.Calculator.svg",
     "org.gnome.Calendar.svg",
@@ -434,35 +485,29 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     throwIfCancelled(cancellable);
 
     const appsDestDir = Gio.File.new_for_path(`${targetDir}/scalable/apps`);
-
     if (!appsDestDir.query_exists(null)) {
       appsDestDir.make_directory_with_parents(null);
     }
 
+    const hicolorSearchDirs = getHicolorAppsDirectories();
+
     for (let app of appsToRecolor) {
       throwIfCancelled(cancellable);
 
-      const userAppFile = Gio.File.new_for_path(`${userHicolorApps}/${app}`);
-      const sysAppFile = Gio.File.new_for_path(`${hicolorApps}/${app}`);
-      const flatpakSysFile = Gio.File.new_for_path(`${flatpakSysApps}/${app}`);
-      const flatpakUserFile = Gio.File.new_for_path(
-        `${flatpakUserApps}/${app}`,
-      );
-      const destFile = appsDestDir.get_child(app);
-
       let sourceFile = null;
 
-      if (userAppFile.query_exists(null)) {
-        sourceFile = userAppFile;
-      } else if (sysAppFile.query_exists(null)) {
-        sourceFile = sysAppFile;
-      } else if (flatpakUserFile.query_exists(null)) {
-        sourceFile = flatpakUserFile;
-      } else if (flatpakSysFile.query_exists(null)) {
-        sourceFile = flatpakSysFile;
+      for (const dirPath of hicolorSearchDirs) {
+        const candidateFile = Gio.File.new_for_path(
+          GLib.build_filenamev([dirPath, app]),
+        );
+        if (candidateFile.query_exists(null)) {
+          sourceFile = candidateFile;
+          break;
+        }
       }
 
       if (sourceFile) {
+        const destFile = appsDestDir.get_child(app);
         await sourceFile.copy_async(
           destFile,
           Gio.FileCopyFlags.OVERWRITE,
@@ -477,15 +522,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
   if (useMoreWaita) {
     throwIfCancelled(cancellable);
 
-    const possiblePaths = [
-      "/usr/share/icons/MoreWaita",
-      `${homeDir}/.local/share/icons/MoreWaita`,
-      `${homeDir}/.icons/MoreWaita`,
-    ];
-
-    let moreWaitaDir = possiblePaths.find((p) =>
-      GLib.file_test(`${p}/scalable`, GLib.FileTest.IS_DIR),
-    );
+    const moreWaitaDir = findIconThemePath("MoreWaita");
 
     if (moreWaitaDir) {
       inheritsChain = `MoreWaita,${inheritsChain}`;
