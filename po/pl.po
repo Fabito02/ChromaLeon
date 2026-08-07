@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-05 20:08-0300\n"
-"PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
 "Language: pl\n"
@@ -19,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: chromaleon.js:130
 msgid "Error getting thumbnail: "
@@ -99,15 +98,16 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Przyciemnia powłokę GNOME kolorem, który został wybrany."
 
 #: chromaleon.js:442
-#, fuzzy
 msgid "Tint Panel"
-msgstr "Przyciemnij powłokę"
+msgstr "Przyciemnij panel"
 
 #: chromaleon.js:444
 msgid ""
 "Keeping this disabled resolves issues with panel modifications in extensions "
 "such as \"Blur My Shell\" and \"PaperWM\"."
 msgstr ""
+"Wyłączenie tej opcji rozwiązuje problemy z modyfikacjami paneli w "
+"rozszerzeniach takich jak \"Blur My Shell\" i \"PaperWM\"."
 
 #: chromaleon.js:458
 msgid "Tint Apps"
