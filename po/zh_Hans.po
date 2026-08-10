@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-05 20:08-0300\n"
-"PO-Revision-Date: 2026-08-04 07:25+0000\n"
+"PO-Revision-Date: 2026-08-06 15:29+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/chromaleon/extension/zh_Hans/>\n"
@@ -97,15 +97,16 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "使用你选定的颜色渲染 GNOME Shell 界面。"
 
 #: chromaleon.js:442
-#, fuzzy
 msgid "Tint Panel"
-msgstr "Shell 色调渲染"
+msgstr "面板着色"
 
 #: chromaleon.js:444
 msgid ""
 "Keeping this disabled resolves issues with panel modifications in extensions "
 "such as \"Blur My Shell\" and \"PaperWM\"."
 msgstr ""
+"保持该选项为禁用状态，可解决 “Blur My Shell”、“PaperWM” 等扩展在修改面板时出"
+"现的各类问题。"
 
 #: chromaleon.js:458
 msgid "Tint Apps"
