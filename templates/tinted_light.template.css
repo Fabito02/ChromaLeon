@@ -482,11 +482,6 @@
   box-shadow: none;
 }
 
-.calendar:insensitive,
-.datemenu-today-button:insensitive {
-  background-color: st-mix(@@ACCENT@@, transparent, @@TINT_STRENGTH@@%) !important;
-}
-
 .calendar:hover,
 .datemenu-today-button:hover {
   background-color: st-mix(@@ACCENT@@, st-darken(#fafafb, 7%), @@TINT_STRENGTH@@%);
@@ -516,11 +511,6 @@
 .calendar:focus:hover,
 .datemenu-today-button:focus:hover {
   background-color: st-mix(@@ACCENT@@, st-mix(@@ACCENT@@, st-darken(#ffffff, 4%), 5%), @@TINT_STRENGTH@@%);
-}
-
-.calendar:insensitive,
-.datemenu-today-button:insensitive {
-  background-color: st-mix(@@ACCENT@@, st-lighten(#ffffff, 3%), @@TINT_STRENGTH@@%);
 }
 
 /* Entries */

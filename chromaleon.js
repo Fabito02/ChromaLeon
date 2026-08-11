@@ -492,7 +492,7 @@ class ChromaLeonUI {
 
     const tintingStrengthStringList = Gtk.StringList.new([
       _("Subtle"),
-      _("Moderate"),
+      _("Default"),
       _("Strong"),
       _("Stronger"),
     ]);

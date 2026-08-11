@@ -490,11 +490,6 @@
   box-shadow: none;
 }
 
-.calendar:insensitive,
-.datemenu-today-button:insensitive {
-  background-color: st-mix(@@ACCENT@@, transparent , @@TINT_STRENGTH@@%) !important;
-}
-
 .calendar:hover,
 .datemenu-today-button:hover {
   background-color: st-mix(@@ACCENT@@, st-lighten(#1b1b1d, 7%), @@TINT_STRENGTH@@%);
@@ -524,12 +519,6 @@
 .calendar:focus:hover,
 .datemenu-today-button:focus:hover {
   background-color: st-mix(@@ACCENT@@, st-mix(st-mix(@@ACCENT@@, #ffffff, 60%), st-lighten(#232326, 4%), 5%), @@TINT_STRENGTH@@%);
-}
-
-.calendar:insensitive,
-.datemenu-today-button:insensitive {
-  color: st-transparentize(#ffffff, 0.5);
-  background-color: st-mix(@@ACCENT@@, st-darken(#232326, 3%), @@TINT_STRENGTH@@%);
 }
 
 .unlock-dialog .login-dialog-prompt-entry,
