@@ -367,8 +367,11 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     "4a86cf": medAccent,
   };
 
-  const userIconsDir = GLib.build_filenamev([GLib.get_user_data_dir(), 'icons']); 
-  const targetDir = GLib.build_filenamev([userIconsDir, 'Adwaita-Dynamic']);
+  const userIconsDir = GLib.build_filenamev([
+    GLib.get_user_data_dir(),
+    "icons",
+  ]);
+  const targetDir = GLib.build_filenamev([userIconsDir, "Adwaita-Dynamic"]);
   const targetDirFile = Gio.File.new_for_path(targetDir);
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 

@@ -1,5 +1,5 @@
 /*
- * gtk3_dark_tinted.template.css
+ * gtk3_darker_tinted.template.css
  *
  * This file is part of ChromaLeon GNOME Shell Extension.
  * https://github.com/Fabito02/ChromaLeon
@@ -23,19 +23,19 @@
 /* =========================================
  * Dark Mode
  * ========================================= */
-@define-color window_bg_color mix(#111113, @@ACCENT@@, 0.10);
-@define-color view_bg_color mix(#0e0e10, @@ACCENT@@, 0.10);
-@define-color headerbar_bg_color mix(#171719, @@ACCENT@@, 0.10);
-@define-color headerbar_backdrop_color mix(#111113, @@ACCENT@@, 0.10);
-@define-color popover_bg_color mix(#1b1b1d, @@ACCENT@@, 0.10);
-@define-color dialog_bg_color mix(#1b1b1d, @@ACCENT@@, 0.10);
-@define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, 0.10);
-@define-color sidebar_bg_color mix(#171719, @@ACCENT@@, 0.10);
-@define-color sidebar_backdrop_color mix(#141416, @@ACCENT@@, 0.10);
-@define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, 0.10);
-@define-color secondary_sidebar_bg_color mix(#141416, @@ACCENT@@, 0.10);
-@define-color secondary_sidebar_backdrop_color mix(#121214, @@ACCENT@@, 0.10);
-@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, 0.10);
+@define-color window_bg_color mix(#111113, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color view_bg_color mix(#0e0e10, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color headerbar_bg_color mix(#171719, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color headerbar_backdrop_color mix(#111113, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color popover_bg_color mix(#1b1b1d, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color dialog_bg_color mix(#1b1b1d, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_bg_color mix(#171719, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_backdrop_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_bg_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_backdrop_color mix(#121214, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
 
 @define-color panel_bg_color @window_bg_color;
 @define-color panel_button_bg_color transparent;
@@ -71,11 +71,6 @@ headerbar {
 stacksidebar {
     background-color: @sidebar_bg_color;
     color: @theme_fg_color;
-}
-
-toast {
-    background-color: mix(#28282a, @@ACCENT@@, 0.10);
-    color: #ffffff;
 }
 
 .inline {

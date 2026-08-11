@@ -43,6 +43,36 @@ const GNOME_ACCENTS_HEX = {
   slate: "#6f8396",
 };
 
+const getConvertedStrength = (strength, decimal, pct = 10) => {
+  if (decimal) {
+    switch (strength) {
+      case 0:
+        return pct - 0.05;
+      case 1:
+        return pct;
+      case 2:
+        return pct + 0.05;
+      case 3:
+        return pct + 0.1;
+      default:
+        return pct;
+    }
+  } else {
+    switch (strength) {
+      case 0:
+        return pct - 5;
+      case 1:
+        return pct;
+      case 2:
+        return pct + 5;
+      case 3:
+        return pct + 10;
+      default:
+        return pct;
+    }
+  }
+};
+
 Gio._promisify(Gio.File.prototype, "replace_async", "replace_finish");
 Gio._promisify(
   Gio.File.prototype,
@@ -126,6 +156,7 @@ export async function updateShellStylesheet(
   customStyle,
   gnomeColors,
   tintPanel,
+  tintStrength,
   cancellable,
 ) {
   throwIfCancelled(cancellable);
@@ -141,9 +172,18 @@ export async function updateShellStylesheet(
       ? `#panel {\n      background-color: st-mix(${accentValue}, ${hex}, ${pct}%);\n    }`
       : "";
 
-  const cssPanel = panelStyle("#fafafb", 12);
-  const cssPanelDark = panelStyle("#1b1b1d");
-  const cssPanelDarker = panelStyle("#0f0f10");
+  const cssPanel = panelStyle(
+    "#fafafb",
+    getConvertedStrength(tintStrength, false, 12),
+  );
+  const cssPanelDark = panelStyle(
+    "#1b1b1d",
+    getConvertedStrength(tintStrength, false),
+  );
+  const cssPanelDarker = panelStyle(
+    "#0f0f10",
+    getConvertedStrength(tintStrength, false),
+  );
 
   const customCss = Gio.File.new_for_path(
     `${homeDir}/.config/ChromaLeon/custom.css`,
@@ -190,12 +230,20 @@ export async function updateShellStylesheet(
       let cssLight = finalLightContent
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
-        .replace(/@@PANEL@@/g, cssPanel);
+        .replace(/@@PANEL@@/g, cssPanel)
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          getConvertedStrength(tintStrength, false, 12),
+        );
 
       let cssDark = finalDarkContent
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
-        .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark);
+        .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark)
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          getConvertedStrength(tintStrength, false),
+        );
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
@@ -251,6 +299,7 @@ export async function updateGtkStylesheet(
   tintGTK3,
   darker,
   gnomeColors,
+  tintStrength,
   cancellable,
 ) {
   throwIfCancelled(cancellable);
@@ -300,10 +349,16 @@ export async function updateGtkStylesheet(
           await tintedGtk4Template.load_contents_async(cancellable);
 
         let template = new TextDecoder().decode(contents);
-        let css = template.replace(
-          /@@ACCENT@@/g,
-          gnomeColors ? "@accent_bg_color" : color,
-        );
+        let css = template
+          .replace(/@@ACCENT@@/g, gnomeColors ? "@accent_bg_color" : color)
+          .replace(
+            /@@TINT_STRENGTH@@/g,
+            getConvertedStrength(tintStrength, true, 0.12),
+          )
+          .replace(
+            /@@TINT_STRENGTH_DARK@@/g,
+            getConvertedStrength(tintStrength, true, 0.1),
+          );
 
         await writeFile(
           accentFile,
@@ -374,10 +429,19 @@ export async function updateGtkStylesheet(
           await tintedGtk3Template.load_contents_async(cancellable);
 
         let template = new TextDecoder().decode(contents);
-        let css = template.replace(
-          /@@ACCENT@@/g,
-          gnomeColors ? GNOME_ACCENTS_HEX[color] : color,
-        );
+        let css = template
+          .replace(
+            /@@ACCENT@@/g,
+            gnomeColors ? GNOME_ACCENTS_HEX[color] : color,
+          )
+          .replace(
+            /@@TINT_STRENGTH@@/g,
+            getConvertedStrength(tintStrength, true, 0.12),
+          )
+          .replace(
+            /@@TINT_STRENGTH_DARK@@/g,
+            getConvertedStrength(tintStrength, true, 0.1),
+          );
 
         await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
       } catch (e) {

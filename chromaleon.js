@@ -490,6 +490,27 @@ class ChromaLeonUI {
       GObject.BindingFlags.SYNC_CREATE,
     );
 
+    const tintingStrengthStringList = Gtk.StringList.new([
+      _("Subtle"),
+      _("Moderate"),
+      _("Strong"),
+      _("Stronger"),
+    ]);
+
+    const TintingStrengthRow = new Adw.ComboRow({
+      title: _("Tinting Strength"),
+      subtitle: _("Determines the strength of the tint effect."),
+      model: tintingStrengthStringList,
+    });
+    tintGnomeGroup.add(TintingStrengthRow);
+
+    this._settings.bind(
+      "tinting-strength",
+      TintingStrengthRow,
+      "selected",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
     const darkerRow = new Adw.SwitchRow({
       title: _("Darker Tint"),
       subtitle: _("Applies a darker tint."),

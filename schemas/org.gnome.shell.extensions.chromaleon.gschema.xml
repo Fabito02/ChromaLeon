@@ -40,6 +40,12 @@
       <description
             >Tints the panel with the color of your choice.</description>
     </key>
+    <key name="tinting-strength" type="i">
+      <default>1</default>
+      <summary>Tinting Strength</summary>
+      <description
+            >Determines the strength of the tint effect (0 = Subtle, 1 = Moderate, 2 = Strong, 3 = Stronger).</description>
+    </key>
     <key name="darker" type="b">
       <default>false</default>
       <summary>Darker Tint</summary>

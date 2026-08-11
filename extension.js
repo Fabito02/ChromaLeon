@@ -110,6 +110,13 @@ export default class CustomAccentExtension extends Extension {
         this._runOperation(async (cancellable) => {
           await this._updateAppStyles(cancellable);
         }),
+      "changed::tinting-strength",
+      () =>
+        this._runOperation(async (cancellable) => {
+          await this._updateShellStyles(cancellable);
+          await this._updateAppStyles(cancellable);
+          await this._reloadGtkStylesheet(cancellable);
+        }),
       "changed::darker",
       () =>
         this._runOperation(async (cancellable) => {
@@ -380,6 +387,7 @@ export default class CustomAccentExtension extends Extension {
     const customCss = this._settings.get_boolean("custom-css");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
     const tintPanel = this._settings.get_boolean("tint-panel");
+    const tintStrength = this._settings.get_int("tinting-strength");
 
     await ThemeUtils.updateShellStylesheet(
       this.path,
@@ -389,6 +397,7 @@ export default class CustomAccentExtension extends Extension {
       customCss,
       gnomeColors,
       tintPanel,
+      tintStrength,
       cancellable,
     );
 
@@ -431,6 +440,7 @@ export default class CustomAccentExtension extends Extension {
       this._interfaceSettings.get_string("color-scheme") === "prefer-dark";
     const tintApps = this._settings.get_boolean("tint-apps");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
+    const tintStrength = this._settings.get_int("tinting-strength");
 
     await ThemeUtils.updateGtkStylesheet(
       this.path,
@@ -440,6 +450,7 @@ export default class CustomAccentExtension extends Extension {
       gtk3,
       darker,
       gnomeColors,
+      tintStrength,
       cancellable,
     );
   }
