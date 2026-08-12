@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-12 17:21-0300\n"
-"PO-Revision-Date: 2026-08-12 20:11+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-12 20:26+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -255,14 +255,12 @@ msgid "Disabled"
 msgstr "Desativado"
 
 #: chromaleon.js:696
-#, fuzzy
 msgid "Default (recommended)"
-msgstr "Recarregamento padrão (recomendado)"
+msgstr "Padrão (recomendado)"
 
 #: chromaleon.js:697
-#, fuzzy
 msgid "Smooth (experimental)"
-msgstr "Recarregamento suave (experimental)"
+msgstr "Suave (experimental)"
 
 #: chromaleon.js:701
 msgid "Hot Reload"
