@@ -693,8 +693,8 @@ class ChromaLeonUI {
 
     const hotReloadStringList = Gtk.StringList.new([
       _("Disabled"),
-      _("Default reload (recommended)"),
-      _("Smooth reload (experimental)"),
+      _("Default (recommended)"),
+      _("Smooth (experimental)"),
     ]);
 
     const hotReloadRow = new Adw.ComboRow({
