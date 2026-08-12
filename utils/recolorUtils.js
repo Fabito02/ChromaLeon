@@ -115,6 +115,13 @@ async function recolorSvgAsync(file, colorMap, cancellable) {
   try {
     if (!file.query_exists(null)) return;
 
+    file.set_attribute_uint32(
+      "unix::mode",
+      0o644,
+      Gio.FileQueryInfoFlags.NONE,
+      null,
+    );
+
     const [contents] = await file.load_contents_async(cancellable);
     let svgText = new TextDecoder().decode(contents);
     let modified = false;
