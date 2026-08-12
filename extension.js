@@ -177,10 +177,12 @@ export default class CustomAccentExtension extends Extension {
       },
       "changed::accent-color",
       () => {
-        this._settings.set_string(
-          "accent-color",
-          this._interfaceSettings.get_string("accent-color"),
-        );
+        if (this._settings.get_boolean("gnome-colors")) {
+          this._settings.set_string(
+            "accent-color",
+            this._interfaceSettings.get_string("accent-color"),
+          );
+        }
       },
       this,
     );
