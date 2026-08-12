@@ -10,17 +10,27 @@
       <description
             >The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
-    <key name="create-shortcut" type="b">
+    <key name="gnome-colors" type="b">
       <default>false</default>
-      <summary>Create Shortcut</summary>
-      <description
-            >Create a shortcut in the app grid by adding a .desktop file.</description>
+      <summary>Gnome Colors</summary>
+      <description>Use native GNOME colors instead of wallpaper colors.</description>
+    </key>
+    <key name="prefer-light" type="b">
+      <default>false</default>
+      <summary>Prefer Light</summary>
+      <description>Prefer light color over dark color (light theme).</description>
     </key>
     <key name="tint-shell" type="b">
       <default>false</default>
       <summary>Tint Shell</summary>
       <description
             >Tints the Gnome Shell with the color of your choice.</description>
+    </key>
+    <key name="tint-panel" type="b">
+      <default>true</default>
+      <summary>Tint Panel</summary>
+      <description
+            >Tints the panel with the color of your choice.</description>
     </key>
     <key name="tint-apps" type="b">
       <default>false</default>
@@ -34,17 +44,11 @@
       <description
             >Tints the GTK3 applications with the color of your choice.</description>
     </key>
-    <key name="tint-panel" type="b">
-      <default>true</default>
-      <summary>Tint Panel</summary>
-      <description
-            >Tints the panel with the color of your choice.</description>
-    </key>
     <key name="tinting-strength" type="i">
       <default>1</default>
       <summary>Tinting Strength</summary>
       <description
-            >Determines the strength of the tint effect (0 = Subtle, 1 = Moderate, 2 = Strong, 3 = Stronger).</description>
+            >Determines the strength of the tint effect (0 = Subtle, 1 = Default, 2 = Strong, 3 = Stronger).</description>
     </key>
     <key name="darker" type="b">
       <default>false</default>
@@ -83,15 +87,17 @@
       <summary>Custom CSS</summary>
       <description>Applies custom CSS to the Shell UI.</description>
     </key>
-    <key name="gnome-colors" type="b">
-      <default>false</default>
-      <summary>Gnome Colors</summary>
-      <description>Use native GNOME colors instead of wallpaper colors.</description>
+    <key name="hot-reload" type="i">
+      <default>1</default>
+      <summary>Hot Reload</summary>
+      <description
+            >Determine stylesheet hot reload activation and method for GTK4.</description>
     </key>
-    <key name="prefer-light" type="b">
+    <key name="create-shortcut" type="b">
       <default>false</default>
-      <summary>Prefer Light</summary>
-      <description>Prefer light color over dark color (light theme).</description>
+      <summary>Create Shortcut</summary>
+      <description
+            >Create a shortcut in the app grid by adding a .desktop file.</description>
     </key>
   </schema>
 </schemalist>

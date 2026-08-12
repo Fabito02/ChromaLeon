@@ -691,6 +691,55 @@ class ChromaLeonUI {
     });
     this._optionsPage.add(miscellaneousGroup);
 
+    const hotReloadStringList = Gtk.StringList.new([
+      _("Disabled"),
+      _("Default reload (recommended)"),
+      _("Smooth reload (experimental)"),
+    ]);
+
+    const hotReloadRow = new Adw.ComboRow({
+      title: _("Hot Reload"),
+      subtitle: _("Enables theme hot reloading for GTK4 applications."),
+      model: hotReloadStringList,
+    });
+    miscellaneousGroup.add(hotReloadRow);
+
+    const hotReloadInfoButton = new Gtk.Button({
+      valign: Gtk.Align.CENTER,
+      icon_name: "help-about-symbolic",
+      tooltip_text: _("About the custom stylesheet"),
+    });
+    hotReloadInfoButton.add_css_class("flat");
+
+    hotReloadRow.add_suffix(hotReloadInfoButton);
+
+    hotReloadInfoButton.connect("clicked", () => {
+      const dialog = new Adw.MessageDialog({
+        transient_for: window,
+        heading: _("About Hot Reload"),
+        body: _(
+          "Hot reload uses rapid switching between the high contrast theme and the default theme to force GTK4 applications to reload the stylesheet.\n\n" +
+            "<b>Default reload:</b> This is the recommended, native option. While it may cause flickering during the switch in some cases, it is the safest option and the one least prone to issues during the transition.\n\n" +
+            "<b>Smooth reload:</b> This option uses a subprocess to speed up execution, drastically reducing flickering when switching themes. However, it is the least reliable option, as it can lead to errors such as failed reloads or getting stuck on the high contrast theme (or vice versa, if you use GNOME with that style enabled).\n\n" +
+            "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not necessary for them.",
+        ),
+        body_use_markup: true,
+        close_response: "cancel",
+      });
+      dialog.add_response("close", _("Close"));
+      dialog.connect("response", (d) => {
+        d.destroy();
+      });
+      dialog.present();
+    });
+
+    this._settings.bind(
+      "hot-reload",
+      hotReloadRow,
+      "selected",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
     const flatpakRow = new Adw.SwitchRow({
       title: _("Apply to Flatpaks"),
       subtitle: _(

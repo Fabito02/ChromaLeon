@@ -489,51 +489,64 @@ export default class CustomAccentExtension extends Extension {
   async _reloadGtkStylesheet(cancellable = null) {
     throwIfCancelled(cancellable);
 
+    const hotReload = this._settings.get_int("hot-reload");
     const originalHighContrast =
       this._a11ySettings.get_boolean("high-contrast");
-    const schema = "org.gnome.desktop.a11y.interface";
-    const cmd = `gsettings set ${schema} high-contrast ${!originalHighContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${originalHighContrast}`;
 
-    try {
-      const proc = Gio.Subprocess.new(
-        ["bash", "-c", cmd],
-        Gio.SubprocessFlags.NONE,
-      );
+    if (hotReload === 0) return;
 
-      await new Promise((resolve, reject) => {
-        proc.wait_async(cancellable || null, (p, res) => {
-          try {
-            p.wait_finish(res);
-            resolve();
-          } catch (e) {
-            reject(e);
-          }
+    if (hotReload === 1) {
+      this._a11ySettings.set_boolean("high-contrast", !originalHighContrast);
+      this._a11ySettings.set_boolean("high-contrast", originalHighContrast);
+      return;
+    }
+
+    if (hotReload === 2) {
+      const schema = "org.gnome.desktop.a11y.interface";
+      const cmd = `gsettings set ${schema} high-contrast ${!originalHighContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${originalHighContrast}`;
+
+      try {
+        const proc = Gio.Subprocess.new(
+          ["bash", "-c", cmd],
+          Gio.SubprocessFlags.NONE,
+        );
+
+        await new Promise((resolve, reject) => {
+          proc.wait_async(cancellable || null, (p, res) => {
+            try {
+              p.wait_finish(res);
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
         });
-      });
 
-      if (this._reloadGtkTimeout) GLib.Source.remove(this._reloadGtkTimeout);
+        if (this._reloadGtkTimeout) GLib.Source.remove(this._reloadGtkTimeout);
 
-      this._reloadGtkTimeout = GLib.timeout_add(
-        GLib.PRIORITY_DEFAULT,
-        3000,
-        () => {
-          this._reloadGtkTimeout = null;
-          if (
-            this._a11ySettings?.get_boolean("high-contrast") !==
-            originalHighContrast
-          ) {
-            this._a11ySettings?.set_boolean(
-              "high-contrast",
-              originalHighContrast,
-            );
-          }
-          return GLib.SOURCE_REMOVE;
-        },
-      );
-    } catch (e) {
-      if (!isCancelledError(e)) {
-        throw new Error(`GTK stylesheet reload error: ${e.message}`);
+        this._reloadGtkTimeout = GLib.timeout_add(
+          GLib.PRIORITY_DEFAULT,
+          3000,
+          () => {
+            this._reloadGtkTimeout = null;
+            if (
+              this._a11ySettings?.get_boolean("high-contrast") !==
+              originalHighContrast
+            ) {
+              this._a11ySettings?.set_boolean(
+                "high-contrast",
+                originalHighContrast,
+              );
+            }
+            return GLib.SOURCE_REMOVE;
+          },
+        );
+      } catch (e) {
+        if (!isCancelledError(e)) {
+          throw new Error(`GTK stylesheet reload error: ${e.message}`);
+        }
       }
+      return;
     }
   }
 }
