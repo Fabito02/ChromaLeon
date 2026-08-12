@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 20:08-0300\n"
+"POT-Creation-Date: 2026-08-12 17:21-0300\n"
 "PO-Revision-Date: 2026-08-11 16:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
@@ -252,11 +252,11 @@ msgid "Disabled"
 msgstr ""
 
 #: chromaleon.js:696
-msgid "Default reload (recommended)"
+msgid "Default (recommended)"
 msgstr ""
 
 #: chromaleon.js:697
-msgid "Smooth reload (experimental)"
+msgid "Smooth (experimental)"
 msgstr ""
 
 #: chromaleon.js:701
