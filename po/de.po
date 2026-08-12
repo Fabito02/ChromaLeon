@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-12 17:21-0300\n"
+"POT-Creation-Date: 2026-08-12 18:36-0300\n"
 "PO-Revision-Date: 2026-08-01 01:29+0000\n"
 "Last-Translator: Christian Lauinger <christian.lauinger@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
@@ -353,19 +353,19 @@ msgstr ""
 msgid "Unable to load colors."
 msgstr "Farben konnten nicht geladen werden."
 
-#: chromaleon.js:1660 chromaleon.js:1684
+#: chromaleon.js:1662 chromaleon.js:1686
 msgid "Support"
 msgstr "Unterstützen"
 
-#: chromaleon.js:1672
+#: chromaleon.js:1674
 msgid "Support the project"
 msgstr "Unterstütze das Projekt"
 
-#: chromaleon.js:1677
+#: chromaleon.js:1679
 msgid "Why support ChromaLeon?"
 msgstr "Warum ChromaLeon unterstützen?"
 
-#: chromaleon.js:1679
+#: chromaleon.js:1681
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -373,7 +373,7 @@ msgstr ""
 "Freie Software zu entwickeln kostet Zeit, Energie und Hingabe. Deine Spende "
 "unterstützt das Projekt direkt und hilft dabei es am Leben zu erhalten!"
 
-#: chromaleon.js:1683
+#: chromaleon.js:1685
 msgid "Cancel"
 msgstr "Abbrechen"
 

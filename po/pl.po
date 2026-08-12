@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-12 17:21-0300\n"
+"POT-Creation-Date: 2026-08-12 18:36-0300\n"
 "PO-Revision-Date: 2026-08-08 13:51+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
@@ -351,19 +351,19 @@ msgstr "Błąd podczas kopiowania tła: "
 msgid "Unable to load colors."
 msgstr "Nie można załadować kolorów."
 
-#: chromaleon.js:1660 chromaleon.js:1684
+#: chromaleon.js:1662 chromaleon.js:1686
 msgid "Support"
 msgstr "Wesprzyj"
 
-#: chromaleon.js:1672
+#: chromaleon.js:1674
 msgid "Support the project"
 msgstr "Wesprzyj projekt"
 
-#: chromaleon.js:1677
+#: chromaleon.js:1679
 msgid "Why support ChromaLeon?"
 msgstr "Dlaczego wesprzeć ChromaLeon?"
 
-#: chromaleon.js:1679
+#: chromaleon.js:1681
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -372,7 +372,7 @@ msgstr ""
 "i zaangażowanie deweloperów. Twój datek bezpośrednio wspiera ten projekt, i "
 "pomaga utrzymywać go aktywnym!"
 
-#: chromaleon.js:1683
+#: chromaleon.js:1685
 msgid "Cancel"
 msgstr "Anuluj"
 
