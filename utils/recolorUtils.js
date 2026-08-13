@@ -378,7 +378,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     GLib.get_user_data_dir(),
     "icons",
   ]);
-  const targetDir = GLib.build_filenamev([userIconsDir, "Adwaita-Dynamic"]);
+  const targetDir = GLib.build_filenamev([userIconsDir, "ChromaLeon"]);
   const targetDirFile = Gio.File.new_for_path(targetDir);
   let inheritsChain = "Adwaita,AdwaitaLegacy,hicolor";
 
@@ -649,8 +649,8 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
   if (applyApps) directories.push("scalable/apps");
 
   let indexContent = `[Icon Theme]
-Name=Adwaita-Dynamic
-Comment=Dynamic Accent Icon Theme for GNOME
+Name=ChromaLeon
+Comment=Dynamic icon theme with ChromaLeon accent colors
 Inherits=${inheritsChain}
 Hidden=true
 
@@ -703,17 +703,17 @@ Type=Scalable
       timeoutId = null;
     }
 
-    if (settings.get_string("icon-theme") === "Adwaita-Dynamic") {
+    if (settings.get_string("icon-theme") === "ChromaLeon") {
       settings.set_string("icon-theme", "Adwaita");
 
       timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 200, () => {
-        settings.set_string("icon-theme", "Adwaita-Dynamic");
+        settings.set_string("icon-theme", "ChromaLeon");
         timeoutId = null;
         resolve();
         return GLib.SOURCE_REMOVE;
       });
     } else {
-      settings.set_string("icon-theme", "Adwaita-Dynamic");
+      settings.set_string("icon-theme", "ChromaLeon");
       resolve();
     }
   });
