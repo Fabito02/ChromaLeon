@@ -187,7 +187,7 @@ export default class CustomAccentExtension extends Extension {
       this,
     );
 
-    const handleWallpaperChange = () => {
+    const handleWallpaperChange = async () => {
       let colorScheme = this._interfaceSettings.get_string("color-scheme");
       let currentUri =
         colorScheme === "prefer-dark"
@@ -197,9 +197,9 @@ export default class CustomAccentExtension extends Extension {
       if (this._lastWallpaperUri === currentUri) return;
       this._lastWallpaperUri = currentUri;
 
-      this._runOperation((cancellable) => {
+      this._runOperation(async (cancellable) => {
         this._settings.set_boolean("custom-color", false);
-        this._autoApplyWallpaperColor(null, cancellable);
+        await this._autoApplyWallpaperColor(null, cancellable);
       });
       return GLib.SOURCE_REMOVE;
     };
@@ -279,21 +279,23 @@ export default class CustomAccentExtension extends Extension {
     const cancellable = new Gio.Cancellable();
     this._cancellable = cancellable;
 
-    this._opChain = this._opChain.then(async () => {
-      if (cancellable.is_cancelled()) return;
+    this._opChain = this._opChain
+      .catch(() => {})
+      .then(async () => {
+        if (cancellable.is_cancelled()) return;
 
-      try {
-        await fn(cancellable);
-      } catch (e) {
-        if (!isCancelledError(e)) {
-          this._settings?.set_string("last-error", e.message);
+        try {
+          await fn(cancellable);
+        } catch (e) {
+          if (!isCancelledError(e)) {
+            this._settings?.set_string("last-error", e.message ?? String(e));
+          }
+        } finally {
+          if (this._cancellable === cancellable) {
+            this._cancellable = null;
+          }
         }
-      } finally {
-        if (this._cancellable === cancellable) {
-          this._cancellable = null;
-        }
-      }
-    });
+      });
   }
 
   _updateDesktopFile() {
@@ -490,70 +492,97 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
-  // This is done by toggling high-contrast mode on and off, which triggers a reload.
-  // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
-  async _reloadGtkStylesheet(cancellable = null) {
+  _clearTimeout(key) {
+    if (this[key]) {
+      GLib.Source.remove(this[key]);
+      this[key] = null;
+    }
+  }
+
+  _reloadGtkStylesheet(cancellable = null) {
     throwIfCancelled(cancellable);
 
     const hotReload = this._settings.get_int("hot-reload");
-    const originalHighContrast =
-      this._a11ySettings.get_boolean("high-contrast");
+    if (!hotReload) return;
 
-    if (hotReload === 0) return;
+    this._clearTimeout("_reloadGtkTimeout");
 
-    if (hotReload === 1) {
-      this._a11ySettings.set_boolean("high-contrast", !originalHighContrast);
-      this._a11ySettings.set_boolean("high-contrast", originalHighContrast);
+    const now = GLib.get_monotonic_time();
+    if (!this._lastReloadTime || now - this._lastReloadTime > 400_000) {
+      this._lastReloadTime = now;
+      this._applyGtkReload(hotReload, cancellable);
       return;
     }
 
-    if (hotReload === 2) {
-      const schema = "org.gnome.desktop.a11y.interface";
-      const cmd = `gsettings set ${schema} high-contrast ${!originalHighContrast} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${originalHighContrast}`;
+    this._reloadGtkTimeout = GLib.timeout_add(
+      GLib.PRIORITY_DEFAULT,
+      300,
+      () => {
+        this._reloadGtkTimeout = null;
+        this._lastReloadTime = GLib.get_monotonic_time();
+        this._applyGtkReload(hotReload, cancellable);
+        return GLib.SOURCE_REMOVE;
+      },
+    );
+  }
 
-      try {
-        const proc = Gio.Subprocess.new(
-          ["bash", "-c", cmd],
-          Gio.SubprocessFlags.NONE,
-        );
+  _applyGtkReload(hotReload, cancellable) {
+    if (cancellable?.is_cancelled()) return;
 
-        await new Promise((resolve, reject) => {
-          proc.wait_async(cancellable || null, (p, res) => {
-            try {
-              p.wait_finish(res);
-              resolve();
-            } catch (e) {
-              reject(e);
-            }
-          });
+    const hc = this._a11ySettings.get_boolean("high-contrast");
+
+    if (hotReload === 1) {
+      this._a11ySettings.set_boolean("high-contrast", !hc);
+      this._a11ySettings.set_boolean("high-contrast", hc);
+    } else if (hotReload === 2) {
+      this._runSmoothReload(hc, cancellable);
+    }
+  }
+
+  // This is necessary to force GTK4 applications to reload the stylesheet cache when the accent color changes.
+  // This is done by toggling high-contrast mode on and off, which triggers a reload.
+  // Gio.Subprocess is required in this case to prevent interface glitches when switching high contrast mode.
+
+  async _runSmoothReload(hc, cancellable) {
+    const schema = "org.gnome.desktop.a11y.interface";
+    const cmd = `gsettings set ${schema} high-contrast ${!hc} && gsettings get ${schema} high-contrast > /dev/null && gsettings set ${schema} high-contrast ${hc}`;
+
+    try {
+      const proc = Gio.Subprocess.new(
+        ["bash", "-c", cmd],
+        Gio.SubprocessFlags.NONE,
+      );
+
+      await new Promise((resolve, reject) => {
+        proc.wait_async(cancellable || null, (p, res) => {
+          try {
+            p.wait_finish(res);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
         });
+      });
 
-        if (this._reloadGtkTimeout) GLib.Source.remove(this._reloadGtkTimeout);
-
-        this._reloadGtkTimeout = GLib.timeout_add(
-          GLib.PRIORITY_DEFAULT,
-          3000,
-          () => {
-            this._reloadGtkTimeout = null;
-            if (
-              this._a11ySettings?.get_boolean("high-contrast") !==
-              originalHighContrast
-            ) {
-              this._a11ySettings?.set_boolean(
-                "high-contrast",
-                originalHighContrast,
-              );
-            }
-            return GLib.SOURCE_REMOVE;
-          },
+      this._clearTimeout("_restoreTimeout");
+      this._restoreTimeout = GLib.timeout_add(
+        GLib.PRIORITY_DEFAULT,
+        3000,
+        () => {
+          this._restoreTimeout = null;
+          if (this._a11ySettings?.get_boolean("high-contrast") !== hc) {
+            this._a11ySettings?.set_boolean("high-contrast", hc);
+          }
+          return GLib.SOURCE_REMOVE;
+        },
+      );
+    } catch (e) {
+      if (!isCancelledError(e)) {
+        this._settings?.set_string(
+          "last-error",
+          `GTK reload error: ${e.message}`,
         );
-      } catch (e) {
-        if (!isCancelledError(e)) {
-          throw new Error(`GTK stylesheet reload error: ${e.message}`);
-        }
       }
-      return;
     }
   }
 }

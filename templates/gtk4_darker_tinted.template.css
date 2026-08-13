@@ -66,7 +66,7 @@
     @define-color sidebar_backdrop_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
     @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
     @define-color secondary_sidebar_bg_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_backdrop_color mix(#@@TINT_STRENGTH@@@@TINT_STRENGTH@@14, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_backdrop_color mix(#121214, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
     @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
 
     /* Specific Element Overrides (Dark) */

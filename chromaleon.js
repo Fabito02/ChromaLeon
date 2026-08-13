@@ -1,5 +1,3 @@
-#!@GJS@ -m
-
 /*
  * chromaleon.js
  *
@@ -38,6 +36,7 @@ import {
   toHex,
 } from "./utils/colorUtils.js";
 import GnomeDesktop from "gi://GnomeDesktop?version=4.0";
+import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 
 Gio._promisify(
   Gio.File.prototype,
@@ -157,10 +156,17 @@ class ChromaLeonUI {
       schema_id: "org.gnome.desktop.interface",
     });
 
-    this._renderColorUI();
+    this._cancellable = null;
+    this._opChain = Promise.resolve();
+
+    this._runOperation(async (cancellable) => {
+      await this._renderColorUI(null, cancellable);
+    });
 
     this._settingsId = this._settings.connect("changed::gnome-colors", () => {
-      this._updateWallpaperUI();
+      this._runOperation(async (cancellable) => {
+        await this._updateWallpaperUI(cancellable);
+      });
     });
 
     this._bgChangedId1 = null;
@@ -831,22 +837,34 @@ class ChromaLeonUI {
     this._applyTheme();
 
     this._loadWallpapersAsync();
-    this._updateWallpaperUI();
+
+    this._runOperation(async (cancellable) => {
+      await this._updateWallpaperUI(cancellable);
+    });
 
     this._colorSchemeId = this._interfaceSettings.connect(
       "changed::color-scheme",
       () => {
-        this._updateWallpaperUI();
+        this._runOperation(async (cancellable) => {
+          await this._updateWallpaperUI(cancellable);
+        });
       },
     );
 
+    const handleBgChange = () => {
+      this._runOperation(async (cancellable) => {
+        await this._updateWallpaperUI(cancellable);
+      });
+    };
+
     this._bgChangedId1 = this._bgSettings.connect(
       "changed::picture-uri-dark",
-      () => this._updateWallpaperUI(),
+      handleBgChange,
     );
 
-    this._bgChangedId2 = this._bgSettings.connect("changed::picture-uri", () =>
-      this._updateWallpaperUI(),
+    this._bgChangedId2 = this._bgSettings.connect(
+      "changed::picture-uri",
+      handleBgChange,
     );
 
     window.connect("close-request", () => {
@@ -855,9 +873,64 @@ class ChromaLeonUI {
       if (this._bgChangedId2) this._bgSettings.disconnect(this._bgChangedId2);
       if (this._colorSchemeId)
         this._interfaceSettings.disconnect(this._colorSchemeId);
+
+      this._cancellable?.cancel();
+      this._cancellable = null;
+      this._opChain = Promise.resolve();
+
       this._settings = null;
       this._bgSettings = null;
     });
+
+    this._bgUpdateTimeoutId = null;
+  }
+
+  _setWallpaper(uriDark, uriLight) {
+    if (this._bgUpdateTimeoutId) {
+      GLib.Source.remove(this._bgUpdateTimeoutId);
+      this._bgUpdateTimeoutId = null;
+    }
+
+    this._bgUpdateTimeoutId = GLib.timeout_add(
+      GLib.PRIORITY_DEFAULT,
+      300,
+      () => {
+        this._bgSettings.delay();
+
+        this._bgSettings.set_string("picture-uri-dark", uriDark);
+        this._bgSettings.set_string("picture-uri", uriLight);
+
+        this._bgSettings.apply();
+
+        this._bgUpdateTimeoutId = null;
+        return GLib.SOURCE_REMOVE;
+      },
+    );
+  }
+
+  _runOperation(fn) {
+    this._cancellable?.cancel();
+
+    const cancellable = new Gio.Cancellable();
+    this._cancellable = cancellable;
+
+    this._opChain = this._opChain
+      .catch(() => {})
+      .then(async () => {
+        if (cancellable.is_cancelled()) return;
+
+        try {
+          await fn(cancellable);
+        } catch (e) {
+          if (!isCancelledError(e)) {
+            this._settings?.set_string("last-error", e.message ?? String(e));
+          }
+        } finally {
+          if (this._cancellable === cancellable) {
+            this._cancellable = null;
+          }
+        }
+      });
   }
 
   async _deleteWallpaper(filename) {
@@ -1120,8 +1193,7 @@ class ChromaLeonUI {
 
           if (fileUri) {
             const uriWithProtocol = Gio.File.new_for_path(fileUri).get_uri();
-            this._bgSettings.set_string("picture-uri-dark", uriWithProtocol);
-            this._bgSettings.set_string("picture-uri", uriWithProtocol);
+            this._setWallpaper(uriWithProtocol, uriWithProtocol);
           }
         },
       );
@@ -1264,16 +1336,16 @@ class ChromaLeonUI {
           const uris = child.wallpaperUris;
 
           if (uris) {
-            this._bgSettings.set_string("picture-uri-dark", uris.dark);
-            this._bgSettings.set_string("picture-uri", uris.light);
+            this._setWallpaper(uris.dark, uris.light);
           }
         },
       );
     }
   }
 
-  async _updateWallpaperUI() {
+  async _updateWallpaperUI(cancellable = null) {
     if (!this._previewContainer) return;
+    throwIfCancelled(cancellable);
 
     let colorScheme = this._interfaceSettings.get_string("color-scheme");
     let uri =
@@ -1294,6 +1366,8 @@ class ChromaLeonUI {
           path = await getThumbnail(path);
         }
 
+        throwIfCancelled(cancellable);
+
         if (path && !path.endsWith(".xml")) {
           const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
             path,
@@ -1309,14 +1383,17 @@ class ChromaLeonUI {
           }
         }
       } catch (e) {
-        throw new Error(`Error rendering preview: ${e.message}`);
+        if (!isCancelledError(e)) {
+          throw new Error(`Error rendering preview: ${e.message}`);
+        }
+        throw e;
       }
     }
 
-    await this._renderColorUI(uri);
+    await this._renderColorUI(uri, cancellable);
   }
 
-  async _getColorsList(uri) {
+  async _getColorsList(uri, cancellable = null) {
     const colorsGnome = [
       "blue",
       "teal",
@@ -1351,14 +1428,16 @@ class ChromaLeonUI {
         activeUri = Gio.File.new_for_path(activeUri).get_uri();
       }
 
-      return await this._getWallpaperColorsAsync(activeUri);
+      return await this._getWallpaperColorsAsync(activeUri, cancellable);
     } catch (e) {
+      if (isCancelledError(e)) throw e;
       return [];
     }
   }
 
-  async _renderColorUI(uri) {
-    const colors = await this._getColorsList(uri);
+  async _renderColorUI(uri, cancellable = null) {
+    const colors = await this._getColorsList(uri, cancellable);
+    throwIfCancelled(cancellable);
 
     if (this._mainColorBox) {
       while (this._mainColorBox.get_first_child()) {
@@ -1476,16 +1555,27 @@ class ChromaLeonUI {
     });
   }
 
-  _getWallpaperColorsAsync(uri) {
-    return new Promise((resolve) => {
+  _getWallpaperColorsAsync(uri, cancellable = null) {
+    return new Promise((resolve, reject) => {
       if (!uri || !uri.startsWith("file://")) {
         resolve([]);
         return;
       }
 
+      if (cancellable && cancellable.is_cancelled()) {
+        reject(
+          new GLib.Error(
+            Gio.IOErrorEnum,
+            Gio.IOErrorEnum.CANCELLED,
+            "Operation superseded by a newer request",
+          ),
+        );
+        return;
+      }
+
       let file = Gio.File.new_for_uri(uri);
 
-      file.read_async(GLib.PRIORITY_DEFAULT, null, (source, res) => {
+      file.read_async(GLib.PRIORITY_DEFAULT, cancellable, (source, res) => {
         try {
           let stream = source.read_finish(res);
 
@@ -1494,21 +1584,25 @@ class ChromaLeonUI {
             64,
             64,
             true,
-            null,
+            cancellable,
             (obj, asyncRes) => {
               try {
                 let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
                 stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
 
+                throwIfCancelled(cancellable);
+
                 let finalColors = this._extractColorsFromPixbuf(pixbuf);
                 resolve(finalColors);
               } catch (e) {
-                resolve([]);
+                if (isCancelledError(e)) reject(e);
+                else resolve([]);
               }
             },
           );
         } catch (e) {
-          resolve([]);
+          if (isCancelledError(e)) reject(e);
+          else resolve([]);
         }
       });
     });
