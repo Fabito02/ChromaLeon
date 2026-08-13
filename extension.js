@@ -257,9 +257,7 @@ export default class CustomAccentExtension extends Extension {
     ThemeUtils.removeGtkStylesheet();
     FileUtils.removeDesktopFile();
 
-    if (
-      this._interfaceSettings?.get_string("icon-theme") === "ChromaLeon"
-    ) {
+    if (this._interfaceSettings?.get_string("icon-theme") === "ChromaLeon") {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
     }
 

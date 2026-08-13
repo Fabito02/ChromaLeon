@@ -32,9 +32,10 @@ import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
 import {
   rgbToHsl,
-  hslToRgb,
   _getRelativeLuminance,
   _getContrastRatio,
+  _adjustContrast,
+  toHex,
 } from "./utils/colorUtils.js";
 import GnomeDesktop from "gi://GnomeDesktop?version=4.0";
 
@@ -213,11 +214,6 @@ class ChromaLeonUI {
 
     colorButton.connect("color-set", () => {
       const { red, green, blue } = colorButton.get_rgba();
-
-      const toHex = (val) =>
-        Math.round(val * 255)
-          .toString(16)
-          .padStart(2, "0");
       const hex = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
 
       this._settings.set_string("accent-color", hex);
@@ -1582,33 +1578,10 @@ class ChromaLeonUI {
       return false;
     };
 
-    const toHex = (val) =>
-      Math.round(val * 255)
-        .toString(16)
-        .padStart(2, "0");
-
     for (let color of vibrantRanking) {
-      let { r, g, b } = hslToRgb(color.h, color.s, color.l);
-      let luminance = _getRelativeLuminance(r, g, b);
-      let l = color.l;
+      if (!_adjustContrast(color)) continue;
 
-      if (_getContrastRatio(luminance, 0.91) < 3) {
-        while (_getContrastRatio(luminance, 0.91) <= 3) {
-          l--;
-          let rgb = hslToRgb(color.h, color.s, l);
-          luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
-        }
-
-        if (_getContrastRatio(luminance, 0.91) < 3) {
-          continue;
-        }
-
-        color.l = l;
-        const finalRgb = hslToRgb(color.h, color.s, color.l);
-        color.hex = `#${toHex(finalRgb.r)}${toHex(finalRgb.g)}${toHex(finalRgb.b)}`;
-      }
-
-      if (!isTooSimilarToExisting(color)) {
+      if (!finalColors.includes(color.hex) && !isTooSimilarToExisting(color)) {
         finalColors.push(color.hex);
         usedColorsData.push({ h: color.h, s: color.s, l: color.l });
       }
@@ -1616,25 +1589,7 @@ class ChromaLeonUI {
 
     let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
     for (let color of frequencyRanking) {
-      let { r, g, b } = hslToRgb(color.h, color.s, color.l);
-      let luminance = _getRelativeLuminance(r, g, b);
-      let l = color.l;
-
-      if (_getContrastRatio(luminance, 0.91) < 3) {
-        while (_getContrastRatio(luminance, 0.91) <= 3) {
-          l--;
-          let rgb = hslToRgb(color.h, color.s, l);
-          luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
-        }
-
-        if (_getContrastRatio(luminance, 0.91) < 3) {
-          continue;
-        }
-
-        color.l = l;
-        const finalRgb = hslToRgb(color.h, color.s, color.l);
-        color.hex = `#${toHex(finalRgb.r)}${toHex(finalRgb.g)}${toHex(finalRgb.b)}`;
-      }
+      if (!_adjustContrast(color)) continue;
 
       if (!finalColors.includes(color.hex) && !isTooSimilarToExisting(color)) {
         finalColors.push(color.hex);
