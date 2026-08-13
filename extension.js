@@ -220,7 +220,7 @@ export default class CustomAccentExtension extends Extension {
       this._interfaceSettings.get_string("icon-theme") === "Adwaita" &&
       this._settings.get_boolean("recolor-folders")
     ) {
-      this._interfaceSettings.set_string("icon-theme", "Adwaita-Dynamic");
+      this._interfaceSettings.set_string("icon-theme", "ChromaLeon");
     }
 
     this._updateDesktopFile();
@@ -258,7 +258,7 @@ export default class CustomAccentExtension extends Extension {
     FileUtils.removeDesktopFile();
 
     if (
-      this._interfaceSettings?.get_string("icon-theme") === "Adwaita-Dynamic"
+      this._interfaceSettings?.get_string("icon-theme") === "ChromaLeon"
     ) {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
     }
