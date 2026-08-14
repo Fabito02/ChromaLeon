@@ -31,7 +31,7 @@
     @define-color headerbar_backdrop_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
     @define-color popover_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
     @define-color dialog_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color card_bg_color mix(#ffffff, @@ACCENT@@, 0.08);
+    @define-color card_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH_CARD@@);
     @define-color sidebar_bg_color mix(#ebebed, @@ACCENT@@, @@TINT_STRENGTH@@);
     @define-color sidebar_backdrop_color mix(#f2f2f4, @@ACCENT@@, @@TINT_STRENGTH@@);
     @define-color sidebar_border_color mix(rgba(0, 0, 3, 0.07), @@ACCENT@@, @@TINT_STRENGTH@@);

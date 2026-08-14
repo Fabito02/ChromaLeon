@@ -358,6 +358,10 @@ export async function updateGtkStylesheet(
           .replace(
             /@@TINT_STRENGTH_DARK@@/g,
             getConvertedStrength(tintStrength, true, 0.1),
+          )
+          .replace(
+            /@@TINT_STRENGTH_CARD@@/g,
+            getConvertedStrength(tintStrength, true, 0.06),
           );
 
         await writeFile(
@@ -441,6 +445,10 @@ export async function updateGtkStylesheet(
           .replace(
             /@@TINT_STRENGTH_DARK@@/g,
             getConvertedStrength(tintStrength, true, 0.1),
+          )
+          .replace(
+            /@@TINT_STRENGTH_CARD@@/g,
+            getConvertedStrength(tintStrength, true, 0.06),
           );
 
         await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
