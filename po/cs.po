@@ -362,19 +362,19 @@ msgstr "Chyba při kopírování tapety: "
 msgid "Unable to load colors."
 msgstr "Nelze načíst barvy."
 
-#: chromaleon.js:1660 chromaleon.js:1684
+#: chromaleon.js:1662 chromaleon.js:1686
 msgid "Support"
 msgstr "Podpora"
 
-#: chromaleon.js:1672
+#: chromaleon.js:1674
 msgid "Support the project"
 msgstr "Podpořit projekt"
 
-#: chromaleon.js:1677
+#: chromaleon.js:1679
 msgid "Why support ChromaLeon?"
 msgstr "Proč podpořit ChromaLeon?"
 
-#: chromaleon.js:1679
+#: chromaleon.js:1681
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -382,7 +382,7 @@ msgstr ""
 "Vývoj bezplatného software vyžaduje čas, energii a oddanost. Váš dar přímo "
 "podpoří tento projekt a pomůže udržovat ho při životě!"
 
-#: chromaleon.js:1683
+#: chromaleon.js:1685
 msgid "Cancel"
 msgstr "Zrušit"
 

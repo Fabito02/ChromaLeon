@@ -355,19 +355,19 @@ msgstr "Error en copiant lo fons d'ecran : "
 msgid "Unable to load colors."
 msgstr "Cargament impossible de las colors."
 
-#: chromaleon.js:1660 chromaleon.js:1684
+#: chromaleon.js:1662 chromaleon.js:1686
 msgid "Support"
 msgstr "Assisténcia"
 
-#: chromaleon.js:1672
+#: chromaleon.js:1674
 msgid "Support the project"
 msgstr "Sosténer lo projècte"
 
-#: chromaleon.js:1677
+#: chromaleon.js:1679
 msgid "Why support ChromaLeon?"
 msgstr "Perqué sosténer ChromaLeon ?"
 
-#: chromaleon.js:1679
+#: chromaleon.js:1681
 msgid ""
 "Developing free software requires time, energy, and dedication. Your "
 "donation directly supports the project and helps keep it alive!"
@@ -375,6 +375,6 @@ msgstr ""
 "Desvolopar de logicials liures demanda de temps, d'energia e de dedicacion. "
 "Vòstre don supòrta dirèctament lo projècte e ajuda a lo manténer en vida !"
 
-#: chromaleon.js:1683
+#: chromaleon.js:1685
 msgid "Cancel"
 msgstr "Anullar"

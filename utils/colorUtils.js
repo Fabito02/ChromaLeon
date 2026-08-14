@@ -77,6 +77,36 @@ export function _getContrastRatio(lum1, lum2) {
   return Math.round(ratio * 100) / 100;
 }
 
+export function _adjustContrast(color) {
+  let { r, g, b } = hslToRgb(color.h, color.s, color.l);
+  let luminance = _getRelativeLuminance(r, g, b);
+  let l = color.l;
+  const initialL = l;
+  const ratio = _getContrastRatio(luminance, 0.91);
+
+  if (ratio < 3) {
+    while (_getContrastRatio(luminance, 0.91) < 3 && l > 0) {
+      l--;
+      if (Math.abs(l - initialL) > 15) return false;
+      let rgb = hslToRgb(color.h, color.s, l);
+      luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
+    }
+  } else if (ratio > 10) {
+    while (_getContrastRatio(luminance, 0.91) > 10 && l < 100) {
+      l++;
+      if (Math.abs(l - initialL) > 15) return false;
+      let rgb = hslToRgb(color.h, color.s, l);
+      luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
+    }
+  }
+
+  color.l = l;
+  const finalRgb = hslToRgb(color.h, color.s, color.l);
+  color.hex = `#${toHex(finalRgb.r)}${toHex(finalRgb.g)}${toHex(finalRgb.b)}`;
+
+  return true;
+}
+
 function _processPixbuf(pixbuf) {
   let pixels = pixbuf.get_pixels();
   let rowstride = pixbuf.get_rowstride();
@@ -125,34 +155,11 @@ function _processPixbuf(pixbuf) {
   });
 
   let dominantColor = null;
-  const toHex = (val) =>
-    Math.round(val * 255)
-      .toString(16)
-      .padStart(2, "0");
-
   for (let color of vibrantRanking) {
-    let { r, g, b } = hslToRgb(color.h, color.s, color.l);
-    let luminance = _getRelativeLuminance(r, g, b);
-    let l = color.l;
+    if (!_adjustContrast(color)) continue;
 
-    if (_getContrastRatio(luminance, 0.91) < 3) {
-      while (_getContrastRatio(luminance, 0.91) <= 3) {
-        l--;
-        let rgb = hslToRgb(color.h, color.s, l);
-        luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
-      }
-
-      if (_getContrastRatio(luminance, 0.91) < 3) {
-        continue;
-      }
-
-      const finalRgb = hslToRgb(color.h, color.s, l);
-      dominantColor = `#${toHex(finalRgb.r)}${toHex(finalRgb.g)}${toHex(finalRgb.b)}`;
-      break;
-    } else {
-      dominantColor = color.hex;
-      break;
-    }
+    dominantColor = color.hex;
+    break;
   }
 
   if (!dominantColor && colorsList.length > 0) {
@@ -162,6 +169,11 @@ function _processPixbuf(pixbuf) {
 
   return dominantColor;
 }
+
+export const toHex = (val) =>
+  Math.round(val * 255)
+    .toString(16)
+    .padStart(2, "0");
 
 export function rgbToHsl(r, g, b) {
   r /= 255;
