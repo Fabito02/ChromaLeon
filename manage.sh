@@ -94,7 +94,21 @@ fi
 if [ "$OPT_ZIP" = true ]; then
     echo -e "\n${BLUE}Building ChromaLeon .zip package...${NC}"
 
-    gnome-extensions pack ./ --extra-source=templates --extra-source=assets --extra-source=utils --extra-source=chromaleon.js --extra-source=prefs.css -f
+    cp -r ./locale/zh_Hans ./locale/zh_CN
+    cp -r ./po/zh_Hans.po ./po/zh_CN.po
+
+    gnome-extensions pack ./ \
+      --extra-source=templates \
+      --extra-source=assets \
+      --extra-source=utils \
+      --extra-source=chromaleon.js \
+      --extra-source=prefs.css \
+      -f
+
+    sleep 1
+
+    rm -rf ./locale/zh_CN
+    rm -rf ./po/zh_CN.po
 fi
 
 if [ "$OPT_CHECK" = true ]; then
