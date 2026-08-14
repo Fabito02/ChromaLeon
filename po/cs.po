@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-12 18:36-0300\n"
-"PO-Revision-Date: 2026-08-11 16:51+0000\n"
+"POT-Creation-Date: 2026-08-12 17:21-0300\n"
+"PO-Revision-Date: 2026-08-14 06:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -130,27 +130,27 @@ msgstr "Zabarvit GTK3 aplikace"
 
 #: chromaleon.js:494
 msgid "Subtle"
-msgstr ""
+msgstr "Jemný"
 
 #: chromaleon.js:495
 msgid "Default"
-msgstr ""
+msgstr "Výchozí"
 
 #: chromaleon.js:496
 msgid "Strong"
-msgstr ""
+msgstr "Silný"
 
 #: chromaleon.js:497
 msgid "Stronger"
-msgstr ""
+msgstr "Silnější"
 
 #: chromaleon.js:501
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Síla zabarvení"
 
 #: chromaleon.js:502
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Určuje sílu efektu zabarvení."
 
 #: chromaleon.js:515
 msgid "Darker Tint"
@@ -249,27 +249,27 @@ msgstr "Různé"
 
 #: chromaleon.js:695
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázáno"
 
 #: chromaleon.js:696
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Výchozí (doporučeno)"
 
 #: chromaleon.js:697
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Plynulé (experimentální)"
 
 #: chromaleon.js:701
 msgid "Hot Reload"
-msgstr ""
+msgstr "Okamžité znovu načtení"
 
 #: chromaleon.js:702
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Umožňuje okamžité znovu načtení motivu pro aplikace GTK4."
 
 #: chromaleon.js:719
 msgid "About Hot Reload"
-msgstr ""
+msgstr "O rychlém znovu načtení"
 
 #: chromaleon.js:721
 msgid ""
@@ -289,6 +289,22 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"Okamžité znovu načtení využívá rychlého přepnutí mezi motivem s vysokým "
+"kontrastem a výchozím motivem k přinucení GTK4 aplikací znovu načíst šablonu "
+"stylů.\n"
+"\n"
+"<b>Výchozí znovu načtení:</b> Toto je doporučená nativní možnost. I když to "
+"může v některých případech způsobit blikání během přepínání, je tato možnost "
+"nejbezpečnější a nejméně náchylná k problémům během přechodu.\n"
+"\n"
+"<b>Plynulé znovu načtení:</b> Tato možnost používá podproces k urychlení "
+"přechodu, což výrazně snižuje blikání při přepínání motivů. Je to však "
+"nejméně spolehlivá možnost, protože může vést k chybám, jako je neúspěšné "
+"znovu načtení nebo uvíznutí na motivu s vysokým kontrastem (resp. na "
+"výchozím motivu, pokud máte vysoký kontrast GNOME povolený).\n"
+"\n"
+"<b>Poznámka:</b> Toto se nevztahuje na nativní barvy odstínu GNOME, neboť to "
+"pro ně není nutné."
 
 #: chromaleon.js:744
 msgid "Apply to Flatpaks"
