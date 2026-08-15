@@ -49,30 +49,6 @@
  * Element Styling Rules
  * ========================================= */
 
-window,
-.window,
-dialog {
-    background-color: @window_bg_color;
-    color: @theme_fg_color;
-}
-
-view,
-textview text {
-    background-color: @view_bg_color;
-    color: @theme_text_color;
-}
-
-headerbar {
-    background-color: @headerbar_bg_color;
-    color: @theme_fg_color;
-}
-
-.sidebar,
-stacksidebar {
-    background-color: @sidebar_bg_color;
-    color: @theme_fg_color;
-}
-
 toggle:checked {
     background-color: @card_bg_color;
 }
