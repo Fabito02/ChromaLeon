@@ -36,14 +36,14 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 ## Features
 
 * **Dynamic Extraction:** Automatically extracts accent colors from your current wallpaper.
-* **GNOME Colors** Support for native GNOME accent colors.
+* **GNOME Colors:** Support for native GNOME accent colors.
 * **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and `GTK 3.0` / `GTK 4.0` apps.
 * **Tint:** Theme the Shell and all your LibAdwaita and GTK3 applications with Adw-GTK3.
 * **Accent Colors in Folders:** Applies the accent color to the folders.
 * **Accent Colors in Apps:** Applies the accent color to some app icons.
 * **Wallpaper selector:** Wallpaper selector for user wallpapers and Gnome dynamic wallpapers.
 * **Custom CSS:** Apply custom CSS to the shell, with support for ChromaLeon's accent color.
-* **Hot Reload** Hot reload for GTK4 applications with support for ChromaLeon colors (this works natively for GNOME colors).
+* **Hot Reload:** Hot reload for GTK4 applications with support for ChromaLeon colors (this works natively for GNOME colors).
 * **Flatpak Support:** Syncs color variables so your sandboxed Flatpak applications match the rest of the system.
 * **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
