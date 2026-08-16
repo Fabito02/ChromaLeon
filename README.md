@@ -26,23 +26,25 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 
 | Base Style | Dark Mode Example | Light Mode Example |
 | :--- | :--- | :--- |
-| **Tinted** | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/31e4f807-dede-44db-902d-cde00dcaf407" /> | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/24f2efa1-9a0d-424d-869f-727c8ec95632" /> |
-| **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/02ad9710-d356-4995-8672-9f03158b82c8" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/a627412e-db6a-47b2-9e5f-cf41d9680b19" /> |
-| **Folders and Apps** | <img width="1366" height="768" alt="Folders and Icons Dark" src="https://github.com/user-attachments/assets/48e01635-c2c3-46d8-bb3c-5d1cc0dda0c8" /> | <img width="1366" height="768" alt="Folders and Icons Light" src="https://github.com/user-attachments/assets/1f0974aa-0839-436b-83d5-c255ecbc4be2" /> |
+| **Tinted** | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/ef98ba16-7151-4360-b783-8c302cd66cee" /> | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/98a9cfad-80a1-49c2-b8aa-990860daa3e2" /> |
+| **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/fda49284-95dd-49b0-a4c4-2099c8cc31f5" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/ce4f87fe-6deb-4368-aa8e-a2c4eabd93f1" /> |
+| **Folders and Apps** | <img width="1366" height="768" alt="Folders and Icons Dark" src="https://github.com/user-attachments/assets/40289967-4f5a-48ca-8360-97ba85a3c221" /> | <img width="1366" height="768" alt="Folders and Icons Light" src="https://github.com/user-attachments/assets/705b5c0e-6e1d-459f-9862-73ac319a58c5" /> |
 
 <br>
-
 </div>
 
 ## Features
 
 * **Dynamic Extraction:** Automatically extracts accent colors from your current wallpaper.
-* **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and local `GTK 3.0` / `GTK 4.0` apps.
+* **GNOME Colors** Support for native GNOME accent colors.
+* **Unified Theme:** Applies accent colors seamlessly across GNOME Shell and `GTK 3.0` / `GTK 4.0` apps.
+* **Tint:** Theme the Shell and all your LibAdwaita and GTK3 applications with Adw-GTK3.
+* **Accent Colors in Folders:** Applies the accent color to the folders.
+* **Accent Colors in Apps:** Applies the accent color to some app icons.
+* **Wallpaper selector:** Wallpaper selector for user wallpapers and Gnome dynamic wallpapers.
+* **Custom CSS:** Apply custom CSS to the shell, with support for ChromaLeon's accent color.
+* **Hot Reload** Hot reload for GTK4 applications with support for ChromaLeon colors (this works natively for GNOME colors).
 * **Flatpak Support:** Syncs color variables so your sandboxed Flatpak applications match the rest of the system.
-* **Tint:** Tints all system elements with accent colors.
-* **Accent Colors in Folders :** Applies the accent color to the folders.
-* **Accent Colors in Apps :** Applies the accent color to some app icons.
-* **Wallpaper selector :** Wallpaper selector for user wallpapers and Gnome dynamic wallpapers.
 * **Shortcut:** Create a shortcut in the app grid to use this as an app.
 
 > Note: Special thanks to [PakoVM](https://github.com/pakovm-git) for the code for the tinted style, which was based on his [Tint My GNOME](https://github.com/pakovm-git/Tint-my-Gnome) extension.
@@ -105,8 +107,13 @@ gnome-extensions enable user-accent-colors@fabito02
 
 ## 💛 Support the Project
 
-If this extension improved your desktop experience, consider supporting my development. Your support keeps projects like this one going!
+### ChromaLeon is a project I maintain in my spare time. If it helps you customize your device, please consider supporting my work with a small contribution :)
 
+<br>
+
+**GitHub Sponsors:** [![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)
+
+**Other ways to contribute:** <br>
 [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-white.png" alt="Buy Me A Coffee" height="60">](https://www.buymeacoffee.com/fabito02)
 [<img height="60" alt="support_me_on_kofi_badge_beige" src="https://github.com/user-attachments/assets/2b1250e5-3e73-43be-b3a9-9e6f7c9dc187" />](https://ko-fi.com/fabito02)
 
