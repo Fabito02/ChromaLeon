@@ -159,6 +159,8 @@ export default class CustomAccentExtension extends Extension {
 
           await this._setShellColorScheme(false, cancellable);
           throwIfCancelled(cancellable);
+          await this._updateAppStyles(cancellable);
+          throwIfCancelled(cancellable);
 
           if (!this._settings.get_boolean("custom-color")) {
             let uri =
@@ -492,25 +494,25 @@ export default class CustomAccentExtension extends Extension {
     }
   }
 
-  _clearTimeout(key) {
+  _clearReloadTimeout(key) {
     if (this[key]) {
       GLib.Source.remove(this[key]);
       this[key] = null;
     }
   }
 
-  _reloadGtkStylesheet(cancellable = null) {
+  async _reloadGtkStylesheet(cancellable = null) {
     throwIfCancelled(cancellable);
 
     const hotReload = this._settings.get_int("hot-reload");
     if (!hotReload) return;
 
-    this._clearTimeout("_reloadGtkTimeout");
+    this._clearReloadTimeout("_reloadGtkTimeout");
 
     const now = GLib.get_monotonic_time();
     if (!this._lastReloadTime || now - this._lastReloadTime > 400_000) {
       this._lastReloadTime = now;
-      this._applyGtkReload(hotReload, cancellable);
+      await this._applyGtkReload(hotReload, cancellable);
       return;
     }
 
@@ -526,7 +528,7 @@ export default class CustomAccentExtension extends Extension {
     );
   }
 
-  _applyGtkReload(hotReload, cancellable) {
+  async _applyGtkReload(hotReload, cancellable) {
     if (cancellable?.is_cancelled()) return;
 
     const hc = this._a11ySettings.get_boolean("high-contrast");
@@ -535,7 +537,7 @@ export default class CustomAccentExtension extends Extension {
       this._a11ySettings.set_boolean("high-contrast", !hc);
       this._a11ySettings.set_boolean("high-contrast", hc);
     } else if (hotReload === 2) {
-      this._runSmoothReload(hc, cancellable);
+      await this._runSmoothReload(hc, cancellable);
     }
   }
 
@@ -564,7 +566,7 @@ export default class CustomAccentExtension extends Extension {
         });
       });
 
-      this._clearTimeout("_restoreTimeout");
+      this._clearReloadTimeout("_restoreTimeout");
       this._restoreTimeout = GLib.timeout_add(
         GLib.PRIORITY_DEFAULT,
         3000,
