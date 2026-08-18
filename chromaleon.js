@@ -1673,7 +1673,7 @@ class ChromaLeonUI {
     };
 
     for (let color of vibrantRanking) {
-      if (!_adjustContrast(color)) continue;
+      _adjustContrast(color);
 
       if (!finalColors.includes(color.hex) && !isTooSimilarToExisting(color)) {
         finalColors.push(color.hex);
@@ -1683,7 +1683,7 @@ class ChromaLeonUI {
 
     let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
     for (let color of frequencyRanking) {
-      if (!_adjustContrast(color)) continue;
+      _adjustContrast(color);
 
       if (!finalColors.includes(color.hex) && !isTooSimilarToExisting(color)) {
         finalColors.push(color.hex);

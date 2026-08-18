@@ -82,22 +82,35 @@ export function _adjustContrast(color) {
   let luminance = _getRelativeLuminance(r, g, b);
   let l = color.l;
   const initialL = l;
-  const ratio = _getContrastRatio(luminance, 0.91);
+  const lightBgLuminance = 0.957;
+  const darkBgLuminance = 0.037;
 
-  if (ratio < 3) {
-    while (_getContrastRatio(luminance, 0.91) < 3 && l > 0) {
+  if (_getContrastRatio(luminance, lightBgLuminance) < 3) {
+    while (_getContrastRatio(luminance, lightBgLuminance) < 3 && l > 0) {
       l--;
-      if (Math.abs(l - initialL) > 15) return false;
       let rgb = hslToRgb(color.h, color.s, l);
       luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
     }
-  } else if (ratio > 10) {
-    while (_getContrastRatio(luminance, 0.91) > 10 && l < 100) {
+  } else if (_getContrastRatio(luminance, darkBgLuminance) < 3) {
+    while (_getContrastRatio(luminance, darkBgLuminance) < 3 && l < 100) {
       l++;
-      if (Math.abs(l - initialL) > 15) return false;
       let rgb = hslToRgb(color.h, color.s, l);
       luminance = _getRelativeLuminance(rgb.r, rgb.g, rgb.b);
     }
+  }
+
+  const lightnessShift = Math.abs(l - initialL);
+  const isDeepDark = initialL < 15;
+  const isBrightLight = initialL > 85;
+  const isMutedColor = color.s >= 8 && color.s < 35;
+
+  if (isDeepDark) {
+    color.s = Math.round(color.s * (initialL / 15));
+  } else if (isBrightLight) {
+    color.s = Math.round(color.s * ((100 - initialL) / 15));
+  } else if (lightnessShift > 10 && isMutedColor) {
+    const boostFactor = 1 + (lightnessShift / 50) * 0.4;
+    color.s = Math.min(45, Math.round(color.s * boostFactor));
   }
 
   color.l = l;
@@ -156,7 +169,7 @@ function _processPixbuf(pixbuf) {
 
   let dominantColor = null;
   for (let color of vibrantRanking) {
-    if (!_adjustContrast(color)) continue;
+    _adjustContrast(color);
 
     dominantColor = color.hex;
     break;
