@@ -108,17 +108,28 @@ gnome-extensions enable user-accent-colors@fabito02
 ## 💛 Support the Project
 
 ### ChromaLeon is a project I maintain in my spare time. If it helps you customize your device, please consider supporting my work with a small contribution :)
-
 <br>
 
-**GitHub Sponsors:** <br><br>
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)<br><br>
-**Pix (For Brazilian users):** <br><br>
-<img width="250" alt="Pix" src="https://github.com/user-attachments/assets/5f04d71e-4b7f-401d-89eb-ba059ce790b6" />
+**GitHub Sponsors:**
+<br>
+
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)
+<br>
+
+**Pix (For Brazilian users 🇧🇷️):**
+<br>
+
+<img width="200" alt="Pix" src="https://github.com/user-attachments/assets/5f04d71e-4b7f-401d-89eb-ba059ce790b6" />
 <br><br>
-<img width="250" alt="QR Code Pix" src="https://github.com/user-attachments/assets/bff31fed-651c-4751-9783-3d8fa9fa68dd" />
+
+<img width="200" alt="QR Code Pix" src="https://github.com/user-attachments/assets/bff31fed-651c-4751-9783-3d8fa9fa68dd" />
 <br><br>
-**Other ways to contribute:** <br><br>
+
+**Pix Key:** `9492f4aa-3da3-4824-ac7f-6f559a9b360d`
+
+**Other ways to contribute:**
+<br>
+
 [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-white.png" alt="Buy Me A Coffee" height="60">](https://www.buymeacoffee.com/fabito02)
 [<img height="60" alt="support_me_on_kofi_badge_beige" src="https://github.com/user-attachments/assets/2b1250e5-3e73-43be-b3a9-9e6f7c9dc187" />](https://ko-fi.com/fabito02)
 
