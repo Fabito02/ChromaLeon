@@ -167,22 +167,28 @@ export async function updateShellStylesheet(
 
   let accentValue = gnomeColors ? "-st-accent-color" : color;
 
-  const panelStyle = (hex, pct = 10) =>
+  const panelStyle = (colorBg, pctBg, colorShadow, pctShadow) =>
     tintPanel
-      ? `#panel {\n      background-color: st-mix(${accentValue}, ${hex}, ${pct}%);\n    }`
+      ? `#panel {\n      background-color: st-mix(${accentValue}, ${colorBg}, ${pctBg}%);\n      box-shadow: inset 0 -0.5px 0 0 st-mix(${accentValue}, ${colorShadow}, ${pctShadow}%);\n    }\n\n`
       : "";
 
   const cssPanel = panelStyle(
     "#fafafb",
     getConvertedStrength(tintStrength, false, 12),
+    "rgba(34, 34, 38, 0.1)",
+    5,
   );
   const cssPanelDark = panelStyle(
     "#1b1b1d",
     getConvertedStrength(tintStrength, false),
+    "rgba(46, 46, 50, 0.55)",
+    7,
   );
   const cssPanelDarker = panelStyle(
     "#0f0f10",
     getConvertedStrength(tintStrength, false),
+    "rgba(34, 34, 38, 0.65)",
+    7,
   );
 
   const customCss = Gio.File.new_for_path(
