@@ -23,6 +23,16 @@
 /* =========================================
  * Light Mode
  * ========================================= */
+ 
+@define-color window_fg_color #323233;
+@define-color view_fg_color #333334;
+@define-color headerbar_fg_color #2f2f30;
+@define-color sidebar_fg_color #2f2f30;
+@define-color card_fg_color #333334;
+@define-color popover_fg_color #333334;
+@define-color dialog_fg_color #323233;
+@define-color panel_fg_color white;
+
 @define-color window_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
 @define-color view_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
 @define-color headerbar_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);

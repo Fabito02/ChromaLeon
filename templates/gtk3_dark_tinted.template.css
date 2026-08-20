@@ -23,6 +23,16 @@
 /* =========================================
  * Dark Mode
  * ========================================= */
+ 
+@define-color window_fg_color white;
+@define-color view_fg_color white;
+@define-color headerbar_fg_color white;
+@define-color sidebar_fg_color white;
+@define-color card_fg_color white;
+@define-color popover_fg_color white;
+@define-color dialog_fg_color white;
+@define-color panel_fg_color white;
+
 @define-color window_bg_color mix(#222226, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
 @define-color view_bg_color mix(#1d1d20, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
 @define-color headerbar_bg_color mix(#2e2e32, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
