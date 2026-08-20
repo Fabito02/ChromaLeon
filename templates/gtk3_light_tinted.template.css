@@ -31,7 +31,6 @@
 @define-color card_fg_color #333334;
 @define-color popover_fg_color #333334;
 @define-color dialog_fg_color #323233;
-@define-color panel_fg_color white;
 
 @define-color window_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
 @define-color view_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
@@ -65,4 +64,8 @@ toggle:checked {
 
 .inline {
     background-color: rgba(0, 0, 0, 0);
+}
+
+decoration {
+    box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
