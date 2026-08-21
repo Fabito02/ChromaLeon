@@ -29,7 +29,7 @@ import * as PreferLightUtils from "./utils/preferLightUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 
-export default class CustomAccentExtension extends Extension {
+export default class ChromaLeon extends Extension {
   constructor(metadata) {
     super(metadata);
     this._settings = null;
@@ -189,6 +189,18 @@ export default class CustomAccentExtension extends Extension {
       this,
     );
 
+    sessionMode.connectObject(
+      "updated",
+      () => {
+        if (sessionMode.currentMode === "user") {
+          this._runOperation((cancellable) =>
+            this._setShellColorScheme(false, cancellable),
+          );
+        }
+      },
+      this,
+    );
+
     const handleWallpaperChange = async () => {
       let colorScheme = this._interfaceSettings.get_string("color-scheme");
       let currentUri =
@@ -236,6 +248,7 @@ export default class CustomAccentExtension extends Extension {
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
+    sessionMode.disconnectObject(this);
 
     if (this._configId) {
       this._settings?.disconnect(this._configId);
@@ -471,7 +484,10 @@ export default class CustomAccentExtension extends Extension {
     const systemColorScheme =
       this._interfaceSettings.get_string("color-scheme");
 
-    return preferLight && systemColorScheme === "default";
+    return (
+      preferLight &&
+      (systemColorScheme === "default" || systemColorScheme === "prefer-light")
+    );
   }
 
   async _setShellColorScheme(allStyles, cancellable = null) {
