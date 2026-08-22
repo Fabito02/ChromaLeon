@@ -17,15 +17,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
-import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 import * as ColorUtils from "./utils/colorUtils.js";
 import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
-import * as PreferLightUtils from "./utils/preferLightUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 
@@ -35,7 +32,6 @@ export default class ChromaLeon extends Extension {
     this._settings = null;
     this._bgSettings = null;
     this._interfaceSettings = null;
-    this._loadedShellFile = null;
     this._configId = null;
     this._timeoutId = null;
     this._reloadGtkTimeout = null;
@@ -58,12 +54,6 @@ export default class ChromaLeon extends Extension {
     this._a11ySettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.a11y.interface",
     });
-
-    this._savedColorScheme = sessionMode.colorScheme;
-
-    this._runOperation((cancellable) =>
-      this._setShellColorScheme(true, cancellable),
-    );
 
     this._settings.connectObject(
       "changed::accent-color",
@@ -141,26 +131,21 @@ export default class ChromaLeon extends Extension {
         }),
       "changed::prefer-light",
       () =>
-        this._runOperation(async (cancellable) => {
-          await this._setShellColorScheme(false, cancellable);
+        this._runOperation((cancellable) => {
+          this._loadShellStylesheet(cancellable);
         }),
       this,
     );
 
     this._interfaceSettings.connectObject(
       "changed::color-scheme",
-      () => {
+      () =>
         this._runOperation(async (cancellable) => {
-          let colorScheme = this._interfaceSettings.get_string("color-scheme");
+          const colorScheme =
+            this._interfaceSettings.get_string("color-scheme");
 
-          if (colorScheme !== "default") {
-            this._savedColorScheme = colorScheme;
-          }
-
-          await this._setShellColorScheme(false, cancellable);
-          throwIfCancelled(cancellable);
-          await this._updateAppStyles(cancellable);
-          throwIfCancelled(cancellable);
+          if (this._settings.get_boolean("prefer-light"))
+            this._loadShellStylesheet(cancellable);
 
           if (!this._settings.get_boolean("custom-color")) {
             let uri =
@@ -175,26 +160,13 @@ export default class ChromaLeon extends Extension {
               await this._autoApplyWallpaperColor(newColor, cancellable);
             }
           }
-        });
-      },
+        }),
       "changed::accent-color",
       () => {
         if (this._settings.get_boolean("gnome-colors")) {
           this._settings.set_string(
             "accent-color",
             this._interfaceSettings.get_string("accent-color"),
-          );
-        }
-      },
-      this,
-    );
-
-    sessionMode.connectObject(
-      "updated",
-      () => {
-        if (sessionMode.currentMode === "user") {
-          this._runOperation((cancellable) =>
-            this._setShellColorScheme(false, cancellable),
           );
         }
       },
@@ -238,6 +210,10 @@ export default class ChromaLeon extends Extension {
     }
 
     this._updateDesktopFile();
+
+    this._runOperation((cancellable) => {
+      this._loadShellStylesheet(cancellable);
+    });
   }
 
   disable() {
@@ -248,7 +224,6 @@ export default class ChromaLeon extends Extension {
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
-    sessionMode.disconnectObject(this);
 
     if (this._configId) {
       this._settings?.disconnect(this._configId);
@@ -265,10 +240,7 @@ export default class ChromaLeon extends Extension {
       this._reloadGtkTimeout = null;
     }
 
-    this._loadedShellFile = ThemeUtils.removeShellStylesheet(
-      this._loadedShellFile,
-    );
-
+    ThemeUtils.resetShellThemeBase();
     ThemeUtils.removeGtkStylesheet();
     FileUtils.removeDesktopFile();
 
@@ -276,7 +248,6 @@ export default class ChromaLeon extends Extension {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
     }
 
-    PreferLightUtils.updateColorScheme(this._savedColorScheme);
     this._reloadGtkStylesheet();
 
     this._cancellable?.cancel();
@@ -439,18 +410,9 @@ export default class ChromaLeon extends Extension {
 
     const isLight = this._shouldUseLightShell();
 
-    const themeContext = St.ThemeContext.get_for_stage(global.stage);
-    const theme = themeContext?.get_theme();
-
-    if (!theme) return;
-
-    theme.unload_stylesheet(lightFile);
-    theme.unload_stylesheet(darkFile);
-
-    const activeFile = isLight ? lightFile : darkFile;
-    if (activeFile.query_exists(null)) {
-      theme.load_stylesheet(activeFile);
-      this._loadedShellFile = activeFile;
+    const activeFilePath = isLight ? lightFile.get_path() : darkFile.get_path();
+    if (activeFilePath) {
+      ThemeUtils.applyShellThemeBase(activeFilePath);
     }
   }
 
@@ -484,30 +446,10 @@ export default class ChromaLeon extends Extension {
     const systemColorScheme =
       this._interfaceSettings.get_string("color-scheme");
 
-    return (
-      preferLight &&
-      (systemColorScheme === "default" || systemColorScheme === "prefer-light")
-    );
-  }
-
-  async _setShellColorScheme(allStyles, cancellable = null) {
-    throwIfCancelled(cancellable);
-
-    const isLight = this._shouldUseLightShell();
-
-    if (isLight) {
-      PreferLightUtils.updateColorScheme("prefer-light");
-    } else {
-      PreferLightUtils.updateColorScheme(this._savedColorScheme);
+    if (preferLight) {
+      return systemColorScheme !== "prefer-dark";
     }
-
-    if (allStyles) {
-      throwIfCancelled(cancellable);
-      await this._updateStyles(false, false, cancellable);
-      await this._reloadGtkStylesheet(cancellable);
-    } else {
-      this._loadShellStylesheet(cancellable);
-    }
+    return false;
   }
 
   _clearReloadTimeout(key) {

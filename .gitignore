@@ -4,3 +4,4 @@ gschemas.compiled
 # Package distribution files
 *.zip
 templates/darker.py
+templates/apply_tint.py

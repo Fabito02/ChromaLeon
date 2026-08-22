@@ -441,10 +441,8 @@ class ChromaLeonUI {
     tintGnomeGroup.add(TintShellRow);
 
     const TintPanel = new Adw.SwitchRow({
-      title: _("Tint Panel"),
-      subtitle: _(
-        'Keeping this disabled resolves issues with panel modifications in extensions such as "Blur My Shell" and "PaperWM".',
-      ),
+      title: _("Tint Dark Panel"),
+      subtitle: _("Also tint the panel when in dark mode"),
     });
 
     TintShellRow.add_row(TintPanel);

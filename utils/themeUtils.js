@@ -20,11 +20,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./cancellation.js";
+import {
+  setThemeStylesheet,
+  loadTheme,
+} from "resource:///org/gnome/shell/ui/main.js";
 
 const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
 const REGEX_MARKER =
@@ -73,6 +76,21 @@ const getConvertedStrength = (strength, decimal, pct = 10) => {
   }
 };
 
+export const applyShellThemeBase = (generatedCssPath) => {
+  if (generatedCssPath) {
+    setThemeStylesheet(generatedCssPath);
+    loadTheme();
+  }
+};
+
+export const resetShellThemeBase = () => {
+  GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+    Main.setThemeStylesheet(activeFilePath);
+    Main.loadTheme();
+    return GLib.SOURCE_REMOVE;
+  });
+};
+
 Gio._promisify(Gio.File.prototype, "replace_async", "replace_finish");
 Gio._promisify(
   Gio.File.prototype,
@@ -104,14 +122,6 @@ async function writeFile(file, content, cancellable) {
     Gio.FileCreateFlags.NONE,
     cancellable,
   );
-}
-
-export function removeShellStylesheet(generatedCssFile) {
-  let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
-  if (theme && generatedCssFile) {
-    theme.unload_stylesheet(generatedCssFile);
-  }
-  return null;
 }
 
 export function removeGtkStylesheet() {
@@ -169,34 +179,44 @@ export async function updateShellStylesheet(
 
   const panelStyle = (colorBg, pctBg, colorShadow, pctShadow) =>
     tintPanel
-      ? `#panel {\n      background-color: st-mix(${accentValue}, ${colorBg}, ${pctBg}%);\n      box-shadow: inset 0 -0.5px 0 0 st-mix(${accentValue}, ${colorShadow}, ${pctShadow}%);\n    }\n\n`
+      ? `#panel {\n      background-color: st-mix(${accentValue}, ${colorBg}, ${pctBg});\n      box-shadow: inset 0 -0.5px 0 0 st-mix(${accentValue}, ${colorShadow}, ${pctShadow}%);\n    }\n\n`
       : "";
 
-  const cssPanel = panelStyle(
-    "#fafafb",
-    getConvertedStrength(tintStrength, false, 12),
-    "rgba(34, 34, 38, 0.1)",
-    5,
-  );
-  const cssPanelDark = panelStyle(
-    "#1b1b1d",
-    getConvertedStrength(tintStrength, false),
-    "rgba(46, 46, 50, 0.55)",
-    7,
-  );
-  const cssPanelDarker = panelStyle(
-    "#0f0f10",
-    getConvertedStrength(tintStrength, false),
-    "rgba(34, 34, 38, 0.65)",
-    7,
-  );
+  let cssPanel = "";
+  let cssPanelDark = "";
+  let cssPanelDarker = "";
+
+  if (tinted) {
+    cssPanel = panelStyle(
+      "#fafafb",
+      `${getConvertedStrength(tintStrength, false, 12)}%`,
+      "rgba(34, 34, 38, 0.1)",
+      5,
+    );
+    cssPanelDark = panelStyle(
+      "#1b1b1d",
+      `${getConvertedStrength(tintStrength, false)}%`,
+      "rgba(46, 46, 50, 0.55)",
+      7,
+    );
+    cssPanelDarker = panelStyle(
+      "#0f0f10",
+      `${getConvertedStrength(tintStrength, false)}%`,
+      "rgba(34, 34, 38, 0.65)",
+      7,
+    );
+  }
 
   const customCss = Gio.File.new_for_path(
     `${homeDir}/.config/ChromaLeon/custom.css`,
   );
 
-  const shellAccentTemplate = Gio.File.new_for_path(
-    `${extensionPath}/templates/shell_accent.template.css`,
+  const shellAccentTemplateLight = Gio.File.new_for_path(
+    `${extensionPath}/templates/shell_accent_light.template.css`,
+  );
+
+  const shellAccentTemplateDark = Gio.File.new_for_path(
+    `${extensionPath}/templates/shell_accent_dark.template.css`,
   );
 
   const tintedDarkTemplate = Gio.File.new_for_path(
@@ -211,12 +231,12 @@ export async function updateShellStylesheet(
     `${extensionPath}/templates/tinted_darker.template.css`,
   );
 
-  const fileLight = tinted ? tintedLightTemplate : shellAccentTemplate;
+  const fileLight = tinted ? tintedLightTemplate : shellAccentTemplateLight;
   const fileDark = tinted
     ? darker
       ? tintedDarkerTemplate
       : tintedDarkTemplate
-    : shellAccentTemplate;
+    : shellAccentTemplateDark;
 
   const generateAndApplyFiles = async (customCssContents) => {
     try {
@@ -239,7 +259,7 @@ export async function updateShellStylesheet(
         .replace(/@@PANEL@@/g, cssPanel)
         .replace(
           /@@TINT_STRENGTH@@/g,
-          getConvertedStrength(tintStrength, false, 12),
+          `${getConvertedStrength(tintStrength, false, 12)}%`,
         );
 
       let cssDark = finalDarkContent
@@ -248,7 +268,7 @@ export async function updateShellStylesheet(
         .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark)
         .replace(
           /@@TINT_STRENGTH@@/g,
-          getConvertedStrength(tintStrength, false),
+          `${getConvertedStrength(tintStrength, false)}%`,
         );
 
       let cacheDir = GLib.get_user_cache_dir();

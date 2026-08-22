@@ -1,5 +1,5 @@
 /*
- * shell_accent.template.css
+ * shell_accent_dark.template.css
  *
  * This file is part of ChromaLeon GNOME Shell Extension.
  * https://github.com/Fabito02/ChromaLeon
@@ -89,8 +89,16 @@ StEntry {
   background-color: @@ACCENT@@;
 }
 
-/* Audio device drop */
-.audio-device-selection-dialog .audio-selection-box .audio-selection-device:drop {
+/* Drop targets */
+.audio-device-selection-dialog .audio-selection-box .audio-selection-device:drop,
+.switcher-list .item-box:drop,
+.overview-tile:drop,
+.grid-search-result:drop,
+.app-folder:drop,
+.app-folder-dialog .overview-tile:drop,
+.app-folder-dialog .grid-search-result:drop,
+.list-search-result:drop,
+.search-provider-icon:drop {
   background-color: st-transparentize(@@ACCENT@@, 0.8);
   box-shadow: inset 0 0 0 2px st-transparentize(@@ACCENT@@, 0.2);
 }
@@ -99,12 +107,6 @@ StEntry {
 .osd-monitor-label,
 .osd-break-countdown-label {
   background-color: @@ACCENT@@;
-}
-
-/* Switcher list drop */
-.switcher-list .item-box:drop {
-  background-color: st-transparentize(@@ACCENT@@, 0.8);
-  box-shadow: inset 0 0 0 2px st-transparentize(@@ACCENT@@, 0.2);
 }
 
 /* Cycler highlight */
@@ -740,11 +742,6 @@ StEntry:focus,
 .grid-search-result:active:focus {
   background-color: st-mix(st-mix(@@ACCENT@@, #ffffff, 60%), st-lighten(9%), 5%);
 }
-.overview-tile:drop,
-.grid-search-result:drop {
-  background-color: st-transparentize(@@ACCENT@@, 0.8);
-  box-shadow: inset 0 0 0 2px st-transparentize(@@ACCENT@@, 0.2);
-}
 
 .app-folder:focus {
   box-shadow: inset 0 0 0 2px st-transparentize(st-mix(@@ACCENT@@, #ffffff, 60%), 0.2) !important;
@@ -755,10 +752,6 @@ StEntry:focus,
 }
 .app-folder:active:focus {
   background-color: st-mix(st-mix(@@ACCENT@@, #ffffff, 60%), st-lighten(st-mix(#fafafb, 9%), 9%), 5%);
-}
-.app-folder:drop {
-  background-color: st-transparentize(@@ACCENT@@, 0.8);
-  box-shadow: inset 0 0 0 2px st-transparentize(@@ACCENT@@, 0.2);
 }
 
 /* App folder dialog */
