@@ -16,7 +16,8 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-
+ 
+import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
@@ -38,6 +39,7 @@ export default class ChromaLeon extends Extension {
     this._a11ySettings = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
+    this._customStylesheet = null;
   }
 
   enable() {
@@ -244,6 +246,13 @@ export default class ChromaLeon extends Extension {
     ThemeUtils.removeGtkStylesheet();
     FileUtils.removeDesktopFile();
 
+    if (this._customStylesheet) {
+      ThemeUtils.removeShellStylesheet(
+        this._customStylesheet,
+      );
+      this._customStylesheet = null;
+    }
+
     if (this._interfaceSettings?.get_string("icon-theme") === "ChromaLeon") {
       this._interfaceSettings.set_string("icon-theme", "Adwaita");
     }
@@ -379,7 +388,7 @@ export default class ChromaLeon extends Extension {
     const color = this._settings.get_string("accent-color");
     const darker = this._settings.get_boolean("darker");
     const tintShell = this._settings.get_boolean("tint-shell");
-    const customCss = this._settings.get_boolean("custom-css");
+    const customStylesheet = this._settings.get_boolean("custom-css");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
     const tintPanel = this._settings.get_boolean("tint-panel");
     const tintStrength = this._settings.get_int("tinting-strength");
@@ -389,7 +398,7 @@ export default class ChromaLeon extends Extension {
       color,
       tintShell,
       darker,
-      customCss,
+      customStylesheet,
       gnomeColors,
       tintPanel,
       tintStrength,
@@ -402,17 +411,33 @@ export default class ChromaLeon extends Extension {
   _loadShellStylesheet(cancellable = null) {
     throwIfCancelled(cancellable);
 
-    let cacheDir = GLib.get_user_cache_dir();
-    let lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
-    let darkFile = Gio.File.new_for_path(
-      `${cacheDir}/chromaleon-shell-dark.css`,
-    );
+    const cacheDir = GLib.get_user_cache_dir();
+    const configDir = GLib.get_user_config_dir();
+
+    const lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
+    const darkFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell-dark.css`);
+    const customStylesheet = Gio.File.new_for_path(`${configDir}/ChromaLeon/custom.css`);
 
     const isLight = this._shouldUseLightShell();
-
     const activeFilePath = isLight ? lightFile.get_path() : darkFile.get_path();
+
     if (activeFilePath) {
       ThemeUtils.applyShellThemeBase(activeFilePath);
+    }
+
+    const themeContext = St.ThemeContext.get_for_stage(global.stage);
+    const theme = themeContext?.get_theme();
+    if (!theme) return;
+
+    if (this._customStylesheet) {
+      theme.unload_stylesheet(this._customStylesheet);
+      this._customStylesheet = null;
+    }
+
+    const customCSS = this._settings.get_boolean("custom-css");
+    if (customCSS && customStylesheet.query_exists(null)) {
+      theme.load_stylesheet(customStylesheet);
+      this._customStylesheet = customStylesheet;
     }
   }
 

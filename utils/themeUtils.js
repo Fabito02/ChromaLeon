@@ -19,7 +19,8 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-
+ 
+import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
@@ -85,11 +86,19 @@ export const applyShellThemeBase = (generatedCssPath) => {
 
 export const resetShellThemeBase = () => {
   GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
-    Main.setThemeStylesheet(activeFilePath);
-    Main.loadTheme();
+    setThemeStylesheet(null);
+    loadTheme();
     return GLib.SOURCE_REMOVE;
   });
 };
+
+export function removeShellStylesheet(cssFile) {
+  let theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+  if (theme && cssFile) {
+    theme.unload_stylesheet(cssFile);
+  }
+  return null;
+}
 
 Gio._promisify(Gio.File.prototype, "replace_async", "replace_finish");
 Gio._promisify(
@@ -238,7 +247,7 @@ export async function updateShellStylesheet(
       : tintedDarkTemplate
     : shellAccentTemplateDark;
 
-  const generateAndApplyFiles = async (customCssContents) => {
+  const generateAndApplyFiles = async () => {
     try {
       let [contentsLight] = await fileLight.load_contents_async(cancellable);
       let [contentsDark] = await fileDark.load_contents_async(cancellable);
@@ -246,14 +255,7 @@ export async function updateShellStylesheet(
       let textLight = new TextDecoder().decode(contentsLight);
       let textDark = new TextDecoder().decode(contentsDark);
 
-      let finalLightContent = customCssContents
-        ? `${textLight}\n${customCssContents}`
-        : textLight;
-      let finalDarkContent = customCssContents
-        ? `${textDark}\n${customCssContents}`
-        : textDark;
-
-      let cssLight = finalLightContent
+      let cssLight = textLight
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
         .replace(/@@PANEL@@/g, cssPanel)
@@ -262,7 +264,7 @@ export async function updateShellStylesheet(
           `${getConvertedStrength(tintStrength, false, 12)}%`,
         );
 
-      let cssDark = finalDarkContent
+      let cssDark = textDark
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
         .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark)
@@ -288,20 +290,7 @@ export async function updateShellStylesheet(
     }
   };
 
-  if (customCss.query_exists(null)) {
-    if (customStyle) {
-      let customCssContents = null;
-      try {
-        let [contents] = await customCss.load_contents_async(cancellable);
-        customCssContents = new TextDecoder().decode(contents);
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
-      await generateAndApplyFiles(customCssContents);
-    } else {
-      await generateAndApplyFiles(null);
-    }
-  } else {
+  if (!customCss.query_exists(null)) {
     try {
       const parentDir = customCss.get_parent();
       if (parentDir && !parentDir.query_exists(null)) {
@@ -313,8 +302,9 @@ export async function updateShellStylesheet(
     } catch (e) {
       if (isCancelledError(e)) throw e;
     }
-    await generateAndApplyFiles(null);
   }
+  
+  await generateAndApplyFiles(null);
 }
 
 export async function updateGtkStylesheet(
