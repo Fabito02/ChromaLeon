@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 03:45-0300\n"
-"PO-Revision-Date: 2026-08-12 20:26+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-23 07:03+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -84,14 +84,15 @@ msgstr "Usa um estilo claro para o Shell quando no tema claro."
 
 #: chromaleon.js:418
 msgid "Full Light"
-msgstr ""
+msgstr "Totalmente Claro"
 
 #: chromaleon.js:420
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "Usa um estilo claro para o Shell quando no tema claro."
+msgstr ""
+"Usa um estilo totalmente claro ao invés do estilo padrão do tema claro do "
+"GNOME Shell."
 
 #: chromaleon.js:455
 msgid "Tint GNOME"
@@ -110,13 +111,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tingir o GNOME Shell com a cor de sua escolha."
 
 #: chromaleon.js:468
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Tingir o Painel"
+msgstr "Tingir Painel Escuro"
 
 #: chromaleon.js:469
 msgid "Also tint the panel when in dark mode"
-msgstr ""
+msgstr "Também tinja o painel quando estiver no modo escuro"
 
 #: chromaleon.js:482
 msgid "Tint Apps"
