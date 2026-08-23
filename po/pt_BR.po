@@ -115,8 +115,8 @@ msgid "Tint Dark Panel"
 msgstr "Tingir Painel Escuro"
 
 #: chromaleon.js:469
-msgid "Also tint the panel when in dark mode"
-msgstr "Também tinja o painel quando estiver no modo escuro"
+msgid "Also tint the panel when in dark mode."
+msgstr ""
 
 #: chromaleon.js:482
 msgid "Tint Apps"
