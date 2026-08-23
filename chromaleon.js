@@ -466,7 +466,7 @@ class ChromaLeonUI {
 
     const TintPanel = new Adw.SwitchRow({
       title: _("Tint Dark Panel"),
-      subtitle: _("Also tint the panel when in dark mode"),
+      subtitle: _("Also tint the panel when in dark mode."),
     });
 
     TintShellRow.add_row(TintPanel);
