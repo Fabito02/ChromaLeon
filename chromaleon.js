@@ -1,3 +1,5 @@
+#!@GJS@ -m
+
 /*
  * chromaleon.js
  *
