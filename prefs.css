@@ -60,3 +60,18 @@ flowboxchild .wallpaper-overlay button:focus {
     opacity: 1;
 }
 
+.support-row {
+    background: linear-gradient(
+        45deg,
+        mix(var(--accent-bg-color), white, 0.35) 0%,
+        var(--accent-bg-color) 40%,
+        var(--accent-bg-color) 60%,
+        mix(var(--accent-bg-color), black, 0.35) 100%
+    );
+    color: #ffffff;
+}
+
+.support-row button {
+    color: #ffffff;
+}
+

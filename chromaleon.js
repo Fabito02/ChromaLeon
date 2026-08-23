@@ -30,6 +30,7 @@ import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
 import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
+import Pango from 'gi://Pango';
 import {
   rgbToHsl,
   _getRelativeLuminance,
@@ -397,6 +398,89 @@ class ChromaLeonUI {
     wallpapersListContainer.append(this._containerSystemWallpapers);
 
     wallpapersList.set_child(wallpapersListContainer);
+
+    const supportGroup = new Adw.PreferencesGroup();
+    this._optionsPage.add(supportGroup);
+    
+    const supportRow = new Adw.PreferencesRow({
+        activatable: false,
+        focusable: false,
+    });
+    supportGroup.add(supportRow);
+    supportRow.add_css_class("support-row");
+    supportRow.add_css_class("dark");
+    
+    const contentBox = new Gtk.Box({
+        orientation: Gtk.Orientation.VERTICAL,
+        spacing: 28,
+        margin_top: 24,
+        margin_bottom: 24,
+        margin_start: 24,
+        margin_end: 24,
+        hexpand: true,
+        halign: Gtk.Align.CENTER,
+    });
+
+    const titleSupport = _("ChromaLeon only exists thanks to users like you!")
+    const contentSupport = _("If ChromaLeon has earned a spot in your device's customization, you can help the project move forward by making a small donation.")
+    const thankYou = _("Thank you for supporting the work behind ChromaLeon!")
+    
+    const label = new Gtk.Label({
+        use_markup: true,
+        wrap: true,
+        wrap_mode: Pango.WrapMode.WORD_CHAR,
+        justify: Gtk.Justification.CENTER,
+        xalign: 0.5,
+        label: `<span size='x-large' weight='heavy'>${titleSupport}</span>\n\n${contentSupport}\n\n${thankYou}`
+    });
+    contentBox.append(label);
+    
+    const buttonBox = new Gtk.Box({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        spacing: 12,
+        halign: Gtk.Align.CENTER,
+    });
+    
+    const generateDonateButton = (iconName, labelText) => {
+        const box = new Gtk.Box({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            spacing: 6,
+        });
+    
+        const icon = Gtk.Image.new_from_icon_name(iconName);
+        icon.add_css_class("symbolic");
+    
+        const btnLabel = new Gtk.Label({ label: labelText });
+    
+        box.append(icon);
+        box.append(btnLabel);
+    
+        return new Gtk.Button({
+            valign: Gtk.Align.CENTER,
+            child: box,
+        });
+    };
+    
+    const githubButton = generateDonateButton("github-symbolic", _("Sponsors"));
+    const kofiButton = generateDonateButton("ko-fi-symbolic", _("Ko-fi"));
+
+    githubButton.add_css_class("pill");
+    kofiButton.add_css_class("pill");
+
+    githubButton.connect("clicked", () => {
+        Gtk.show_uri(null, "https://github.com/sponsors/Fabito02", null);
+    });
+    
+    kofiButton.connect("clicked", () => {
+        Gtk.show_uri(null, "https://ko-fi.com/fabito02", null);
+    });
+    
+    buttonBox.append(githubButton);
+    buttonBox.append(kofiButton);
+    
+    contentBox.append(buttonBox);
+    
+    supportRow.set_child(contentBox);
 
     const colorsGroup = new Adw.PreferencesGroup({
       title: _("Colors"),
@@ -1719,79 +1803,7 @@ class ChromaLeonUI {
   }
 }
 
-function setupCustomHeader(window) {
-  window.search_enabled = true;
-
-  const iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
-  iconTheme.add_search_path(`${GLib.get_current_dir()}/assets`);
-
-  const box = new Gtk.Box({
-    orientation: Gtk.Orientation.HORIZONTAL,
-    spacing: 6,
-  });
-
-  const donateIcon = Gtk.Image.new_from_icon_name("heart-filled-symbolic");
-  donateIcon.add_css_class("symbolic");
-  const label = new Gtk.Label({ label: _("Support") });
-
-  box.append(donateIcon);
-  box.append(label);
-
-  const donateButton = new Gtk.Button({
-    valign: Gtk.Align.CENTER,
-    child: box,
-  });
-
-  donateButton.add_css_class("destructive");
-  donateButton.add_css_class("heart-button");
-  donateButton.set_tooltip_text(_("Support the project"));
-
-  donateButton.connect("clicked", () => {
-    const dialog = new Adw.MessageDialog({
-      transient_for: window,
-      heading: _("Why support ChromaLeon?"),
-      body: _(
-        "Developing free software requires time, energy, and dedication. Your donation directly supports the project and helps keep it alive!",
-      ),
-      close_response: "cancel",
-    });
-    dialog.add_response("cancel", _("Cancel"));
-    dialog.add_response("donate", _("Support"));
-    dialog.set_response_appearance("donate", Adw.ResponseAppearance.SUGGESTED);
-    dialog.connect("response", (d, response) => {
-      if (response === "donate") {
-        Gio.AppInfo.launch_default_for_uri(
-          "https://buymeacoffee.com/fabito02",
-          null,
-        );
-      }
-      d.destroy();
-    });
-    dialog.present();
-  });
-
-  GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
-    const inject = (parent) => {
-      for (
-        let child = parent.get_first_child();
-        child !== null;
-        child = child.get_next_sibling()
-      ) {
-        if (child instanceof Adw.HeaderBar || child instanceof Gtk.HeaderBar) {
-          child.pack_end(donateButton);
-          return true;
-        }
-        if (inject(child)) return true;
-      }
-      return false;
-    };
-    inject(window);
-    return GLib.SOURCE_REMOVE;
-  });
-}
-
 export function buildUI(window, page, settings) {
-  setupCustomHeader(window);
   new ChromaLeonUI(window, page, settings);
 }
 
@@ -1804,7 +1816,7 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
 
   app.connect("activate", (app) => {
     const window = new Adw.PreferencesWindow({ application: app });
-    window.set_default_size(600, 680);
+    window.set_default_size(520, 680);
     window.set_title("ChromaLeon");
 
     const page = new Adw.PreferencesPage();
