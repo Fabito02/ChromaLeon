@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 04:03-0300\n"
-"PO-Revision-Date: 2026-08-08 13:51+0000\n"
+"PO-Revision-Date: 2026-08-23 17:21+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
@@ -83,14 +83,13 @@ msgstr "Użyj stylu jasnego powłoki w stylu domyślnym."
 
 #: chromaleon.js:418
 msgid "Full Light"
-msgstr ""
+msgstr "W pełni jasny"
 
 #: chromaleon.js:420
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "Użyj stylu jasnego powłoki w stylu domyślnym."
+msgstr "Użyj w pełni jasnego stylu powłoki GNOME w stylu domyślnym."
 
 #: chromaleon.js:455
 msgid "Tint GNOME"
@@ -109,13 +108,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Przyciemnia powłokę GNOME kolorem, który został wybrany."
 
 #: chromaleon.js:468
-#, fuzzy
 msgid "Tint Dark Panel"
 msgstr "Przyciemnij panel"
 
 #: chromaleon.js:469
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Dodatkowo przyciemnij panel w stylu ciemnym."
 
 #: chromaleon.js:482
 msgid "Tint Apps"
@@ -140,27 +138,27 @@ msgstr "Przyciemnij aplikacje GTK3"
 
 #: chromaleon.js:518
 msgid "Subtle"
-msgstr ""
+msgstr "Subtelnie"
 
 #: chromaleon.js:519
 msgid "Default"
-msgstr ""
+msgstr "Domyślnie"
 
 #: chromaleon.js:520
 msgid "Strong"
-msgstr ""
+msgstr "Mocno"
 
 #: chromaleon.js:521
 msgid "Stronger"
-msgstr ""
+msgstr "Mocniej"
 
 #: chromaleon.js:525
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Siła przyciemnienia"
 
 #: chromaleon.js:526
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Ustala siłę efektu przyciemnienia."
 
 #: chromaleon.js:539
 msgid "Darker Tint"
@@ -260,27 +258,27 @@ msgstr "Różne"
 
 #: chromaleon.js:719
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączono"
 
 #: chromaleon.js:720
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Domyślnie (zalecane)"
 
 #: chromaleon.js:721
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Płynny (eksperymentalne)"
 
 #: chromaleon.js:725
 msgid "Hot Reload"
-msgstr ""
+msgstr "Natychmiastowe przeładowanie"
 
 #: chromaleon.js:726
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Włącza natychmiastowe przeładowanie motywu aplikacji GTK4."
 
 #: chromaleon.js:743
 msgid "About Hot Reload"
-msgstr ""
+msgstr "O szybkim przeładowaniu"
 
 #: chromaleon.js:745
 msgid ""
@@ -300,6 +298,24 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"Szybkie przeładowanie wykorzystuje błyskawiczne przełączanie między motywem "
+"o wysokim kontraście a motywem domyślnym, aby wymusić na aplikacjach GTK4 "
+"ponowne wczytanie arkusza stylów.\n"
+"\n"
+"<b>Domyślne przeładowanie:</b> Jest to zalecana, natywna opcja. Choć w "
+"niektórych przypadkach może powodować migotanie podczas przełączania, jest "
+"to opcja najbezpieczniejsza i najmniej podatna na problemy w trakcie "
+"przejścia.\n"
+"\n"
+"<b>Płynne przeładowanie:</b> Ta opcja wykorzystuje podproces do "
+"przyspieszenia działania, drastycznie redukując migotanie podczas zmiany "
+"motywu. Jest to jednak opcja najmniej niezawodna, ponieważ może prowadzić do "
+"błędów, takich jak nieudane przeładowanie lub zablokowanie się na motywie o "
+"wysokim kontraście (lub na odwrót, jeśli używasz środowiska GNOME z "
+"włączonym tym stylem).\n"
+"\n"
+"<b>Uwaga:</b> Nie dotyczy to natywnych akcentów kolorystycznych GNOME, "
+"ponieważ w ich przypadku nie jest to konieczne."
 
 #: chromaleon.js:768
 msgid "Apply to Flatpaks"
