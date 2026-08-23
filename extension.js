@@ -36,6 +36,7 @@ export default class ChromaLeon extends Extension {
     this._configId = null;
     this._timeoutId = null;
     this._reloadGtkTimeout = null;
+    this._restoreTimeout = null;
     this._a11ySettings = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
@@ -249,6 +250,16 @@ export default class ChromaLeon extends Extension {
     if (this._reloadGtkTimeout) {
       GLib.Source.remove(this._reloadGtkTimeout);
       this._reloadGtkTimeout = null;
+    }
+
+    if (this._reloadGtkTimeout) {
+      GLib.Source.remove(this._reloadGtkTimeout);
+      this._reloadGtkTimeout = null;
+    }
+
+    if (this._restoreTimeout) {
+      GLib.Source.remove(this._restoreTimeout);
+      this._restoreTimeout = null;
     }
 
     ThemeUtils.resetShellThemeBase();
