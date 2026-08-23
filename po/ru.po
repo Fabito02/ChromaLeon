@@ -8,72 +8,74 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 14:20-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-08-23 23:50+0000\n"
+"Last-Translator: ahmedz4de <rustamahmadzada@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
+"extension/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: chromaleon.js:132
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Ошибка получения превью "
 
 #: chromaleon.js:141
 msgid "Wallpaper"
-msgstr ""
+msgstr "Обои"
 
 #: chromaleon.js:146
 msgid "Preferences"
-msgstr ""
+msgstr "Параметры"
 
 #: chromaleon.js:204 chromaleon.js:237
 msgid "Accent Color"
-msgstr ""
+msgstr "Акцентный цвет"
 
 #: chromaleon.js:214
 msgid "Main color"
-msgstr ""
+msgstr "Основной цвет"
 
 #: chromaleon.js:237
 msgid "Wallpaper Colors"
-msgstr ""
+msgstr "Цвета Обоев"
 
 #: chromaleon.js:243
 msgid ""
 "The system automatically updates the accent color based on your wallpaper."
-msgstr ""
+msgstr "Система автоматически обновляет акцентный цвет на основе ваших обои."
 
 #: chromaleon.js:301
 msgid "Additional colors"
-msgstr ""
+msgstr "Дополнительные цвета"
 
 #: chromaleon.js:338
 msgid "Add wallpapers"
-msgstr ""
+msgstr "Добавить обои"
 
 #: chromaleon.js:352
 msgid "Wallpapers"
-msgstr ""
+msgstr "Обои"
 
 #: chromaleon.js:402
 msgid "Colors"
-msgstr ""
+msgstr "Цвета"
 
 #: chromaleon.js:407
 msgid "GNOME Colors"
-msgstr ""
+msgstr "цвета GNOME"
 
 #: chromaleon.js:408
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Используй встроенные цвета GNOME вместо обоев."
 
 #: chromaleon.js:413
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Предпочитать Светлый Стиль"
 
 #: chromaleon.js:414
 msgid "Use a light style for the Shell in the light theme."
