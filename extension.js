@@ -156,6 +156,7 @@ export default class ChromaLeon extends Extension {
 
           if (this._settings.get_boolean("prefer-light"))
             this._loadShellStylesheet(cancellable);
+            await this._updateAppStyles(cancellable);
 
           if (!this._settings.get_boolean("custom-color")) {
             let uri =
