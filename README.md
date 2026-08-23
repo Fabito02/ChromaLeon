@@ -130,7 +130,6 @@ gnome-extensions enable user-accent-colors@fabito02
 **Other ways to contribute:**
 <br>
 
-[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-white.png" alt="Buy Me A Coffee" height="60">](https://www.buymeacoffee.com/fabito02)
 [<img height="60" alt="support_me_on_kofi_badge_beige" src="https://github.com/user-attachments/assets/2b1250e5-3e73-43be-b3a9-9e6f7c9dc187" />](https://ko-fi.com/fabito02)
 
 ## 🌟️ Contributors
