@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 14:20-0300\n"
-"PO-Revision-Date: 2026-08-23 07:13+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-23 17:44+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -83,7 +83,6 @@ msgid "Use a light style for the Shell in the light theme."
 msgstr "Usa um estilo claro para o Shell quando no tema claro."
 
 #: chromaleon.js:420
-#, fuzzy
 msgid "Fully Light"
 msgstr "Totalmente Claro"
 
