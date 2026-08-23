@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 03:45-0300\n"
-"PO-Revision-Date: 2026-08-23 07:03+0000\n"
+"PO-Revision-Date: 2026-08-23 07:13+0000\n"
 "Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
 "\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -116,7 +116,7 @@ msgstr "Tingir Painel Escuro"
 
 #: chromaleon.js:469
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Também tinja o painel quando estiver no modo escuro."
 
 #: chromaleon.js:482
 msgid "Tint Apps"
