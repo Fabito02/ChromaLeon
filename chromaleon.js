@@ -417,7 +417,7 @@ class ChromaLeonUI {
     colorsGroup.add(preferLightRow);
 
     const fullLightRow = new Adw.SwitchRow({
-      title: _("Full Light"),
+      title: _("Fully Light"),
       subtitle: _(
         "Use a fully light style instead of the default style for the GNOME Shell light theme.",
       ),

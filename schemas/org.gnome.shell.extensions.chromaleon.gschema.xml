@@ -22,8 +22,8 @@
     </key>
     <key name="full-light" type="b">
       <default>false</default>
-      <summary>Full Light</summary>
-      <description>Use a full light style.</description>
+      <summary>Fully Light</summary>
+      <description>Use a fully light style.</description>
     </key>
     <key name="tint-shell" type="b">
       <default>false</default>
