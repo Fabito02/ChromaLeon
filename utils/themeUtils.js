@@ -19,7 +19,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
- 
+
 import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
@@ -172,10 +172,10 @@ export async function updateShellStylesheet(
   color,
   tinted,
   darker,
-  customStyle,
   gnomeColors,
   tintPanel,
   tintStrength,
+  fullLight,
   cancellable,
 ) {
   throwIfCancelled(cancellable);
@@ -224,6 +224,10 @@ export async function updateShellStylesheet(
     `${extensionPath}/templates/shell_accent_light.template.css`,
   );
 
+  const shellAccentTemplateFullLight = Gio.File.new_for_path(
+    `${extensionPath}/templates/light_full.template.css`,
+  );
+
   const shellAccentTemplateDark = Gio.File.new_for_path(
     `${extensionPath}/templates/shell_accent_dark.template.css`,
   );
@@ -236,11 +240,21 @@ export async function updateShellStylesheet(
     `${extensionPath}/templates/tinted_light.template.css`,
   );
 
+  const tintedLightFullTemplate = Gio.File.new_for_path(
+    `${extensionPath}/templates/tinted_light_full.template.css`,
+  );
+
   const tintedDarkerTemplate = Gio.File.new_for_path(
     `${extensionPath}/templates/tinted_darker.template.css`,
   );
 
-  const fileLight = tinted ? tintedLightTemplate : shellAccentTemplateLight;
+  const fileLight = tinted
+    ? fullLight
+      ? tintedLightFullTemplate
+      : tintedLightTemplate
+    : fullLight
+      ? shellAccentTemplateFullLight
+      : shellAccentTemplateLight;
   const fileDark = tinted
     ? darker
       ? tintedDarkerTemplate
@@ -303,7 +317,7 @@ export async function updateShellStylesheet(
       if (isCancelledError(e)) throw e;
     }
   }
-  
+
   await generateAndApplyFiles(null);
 }
 

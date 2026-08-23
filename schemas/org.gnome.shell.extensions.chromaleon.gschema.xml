@@ -20,6 +20,11 @@
       <summary>Prefer Light</summary>
       <description>Prefer light color over dark color (light theme).</description>
     </key>
+    <key name="full-light" type="b">
+      <default>false</default>
+      <summary>Full Light</summary>
+      <description>Use a full light style.</description>
+    </key>
     <key name="tint-shell" type="b">
       <default>false</default>
       <summary>Tint Shell</summary>

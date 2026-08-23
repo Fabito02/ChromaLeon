@@ -43,7 +43,7 @@ stage {
   transition-duration: 100ms; }
 
 .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item, .login-dialog .login-dialog-auth-list-item, .login-dialog-not-listed-button, .unlock-dialog-notifications-container .message StButton,
-.unlock-dialog-notifications-container .unlock-dialog-notification-source StButton, .unlock-dialog .button,
+.unlock-dialog-notifications-container .unlock-dialog-notification-source StButton, .parental-controls-shield .parental-controls-shield-button, .unlock-dialog .button,
 .unlock-dialog .icon-button,
 .unlock-dialog .message-notification-group .message-collapse-button,
 .message-notification-group .unlock-dialog .message-collapse-button,
@@ -382,7 +382,7 @@ StEntry {
   font-weight: 700;
   font-size: 1.364em; }
 
-.login-dialog-auth-list-label, #LookingGlassDebugFlags .lg-debug-flags-header, #LookingGlassExtensions .lg-extensions-none, .word-suggestions, .bt-menu-placeholder.popup-menu-item, .restart-message, .polkit-dialog-user-layout .polkit-dialog-user-label,
+.parental-controls-shield .parental-controls-shield-button, .parental-controls-shield .parental-controls-shield-title, .login-dialog-auth-list-label, #LookingGlassDebugFlags .lg-debug-flags-header, #LookingGlassExtensions .lg-extensions-none, .word-suggestions, .bt-menu-placeholder.popup-menu-item, .restart-message, .polkit-dialog-user-layout .polkit-dialog-user-label,
 .polkit-dialog-user-layout .polkit-dialog-user-root-label, .message-dialog-content .message-dialog-title.lightweight {
   font-weight: 700;
   font-size: 1.182em; }
@@ -555,7 +555,7 @@ StEntry {
 
 /* Lockscreen Elements */
 .unlock-dialog-notifications-container .message StButton,
-.unlock-dialog-notifications-container .unlock-dialog-notification-source StButton, .unlock-dialog .button,
+.unlock-dialog-notifications-container .unlock-dialog-notification-source StButton, .parental-controls-shield .parental-controls-shield-button, .unlock-dialog .button,
 .unlock-dialog .icon-button,
 .unlock-dialog .calendar .calendar-month-header .pager-button,
 .calendar .calendar-month-header .unlock-dialog .pager-button,
@@ -582,7 +582,7 @@ StEntry {
   color: #eeeeee;
   background-color: rgba(238, 238, 238, 0.1); }
   .unlock-dialog-notifications-container .message StButton:focus,
-  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:focus, .unlock-dialog .button:focus,
+  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:focus, .parental-controls-shield .parental-controls-shield-button:focus, .unlock-dialog .button:focus,
   .unlock-dialog .icon-button:focus,
   .unlock-dialog .calendar .calendar-month-header .pager-button:focus,
   .calendar .calendar-month-header .unlock-dialog .pager-button:focus,
@@ -601,7 +601,7 @@ StEntry {
     box-shadow: inset 0 0 0 2px st-transparentize(@@ACCENT@@, 0.2) !important;
     background-color: st-mix(@@ACCENT@@, rgba(238, 238, 238, 0.1), 5%); }
     .unlock-dialog-notifications-container .message StButton:focus:hover,
-    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:focus:hover, .unlock-dialog .button:focus:hover,
+    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:focus:hover, .parental-controls-shield .parental-controls-shield-button:focus:hover, .unlock-dialog .button:focus:hover,
     .unlock-dialog .icon-button:focus:hover,
     .unlock-dialog .calendar .calendar-month-header .pager-button:focus:hover,
     .calendar .calendar-month-header .unlock-dialog .pager-button:focus:hover,
@@ -618,7 +618,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:focus:hover, .unlock-dialog .login-dialog-auth-list-item:focus:hover {
       background-color: st-mix(@@ACCENT@@, rgba(238, 238, 238, 0.13), 5%); }
   .unlock-dialog-notifications-container .message StButton:hover,
-  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:hover, .unlock-dialog .button:hover,
+  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:hover, .parental-controls-shield .parental-controls-shield-button:hover, .unlock-dialog .button:hover,
   .unlock-dialog .icon-button:hover,
   .unlock-dialog .calendar .calendar-month-header .pager-button:hover,
   .calendar .calendar-month-header .unlock-dialog .pager-button:hover,
@@ -636,7 +636,7 @@ StEntry {
     color: #eeeeee;
     background-color: rgba(238, 238, 238, 0.13); }
   .unlock-dialog-notifications-container .message StButton:active,
-  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active, .unlock-dialog .button:active,
+  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active, .parental-controls-shield .parental-controls-shield-button:active, .unlock-dialog .button:active,
   .unlock-dialog .icon-button:active,
   .unlock-dialog .calendar .calendar-month-header .pager-button:active,
   .calendar .calendar-month-header .unlock-dialog .pager-button:active,
@@ -654,7 +654,7 @@ StEntry {
     color: #eeeeee;
     background-color: rgba(238, 238, 238, 0.16); }
     .unlock-dialog-notifications-container .message StButton:active:hover,
-    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active:hover, .unlock-dialog .button:active:hover,
+    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active:hover, .parental-controls-shield .parental-controls-shield-button:active:hover, .unlock-dialog .button:active:hover,
     .unlock-dialog .icon-button:active:hover,
     .unlock-dialog .calendar .calendar-month-header .pager-button:active:hover,
     .calendar .calendar-month-header .unlock-dialog .pager-button:active:hover,
@@ -671,7 +671,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:active:hover, .unlock-dialog .login-dialog-auth-list-item:active:hover {
       background-color: rgba(238, 238, 238, 0.19); }
     .unlock-dialog-notifications-container .message StButton:active:focus,
-    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active:focus, .unlock-dialog .button:active:focus,
+    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:active:focus, .parental-controls-shield .parental-controls-shield-button:active:focus, .unlock-dialog .button:active:focus,
     .unlock-dialog .icon-button:active:focus,
     .unlock-dialog .calendar .calendar-month-header .pager-button:active:focus,
     .calendar .calendar-month-header .unlock-dialog .pager-button:active:focus,
@@ -688,7 +688,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:active:focus, .unlock-dialog .login-dialog-auth-list-item:active:focus {
       background-color: st-mix(@@ACCENT@@, rgba(238, 238, 238, 0.16), 5%); }
   .unlock-dialog-notifications-container .message StButton:checked,
-  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked, .unlock-dialog .button:checked,
+  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked, .parental-controls-shield .parental-controls-shield-button:checked, .unlock-dialog .button:checked,
   .unlock-dialog .icon-button:checked,
   .unlock-dialog .calendar .calendar-month-header .pager-button:checked,
   .calendar .calendar-month-header .unlock-dialog .pager-button:checked,
@@ -706,7 +706,7 @@ StEntry {
     color: #eeeeee;
     background-color: st-darken(st-mix(#eeeeee, #fafafb, 12%), 8%); }
     .unlock-dialog-notifications-container .message StButton:checked:hover,
-    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:hover, .unlock-dialog .button:checked:hover,
+    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:hover, .parental-controls-shield .parental-controls-shield-button:checked:hover, .unlock-dialog .button:checked:hover,
     .unlock-dialog .icon-button:checked:hover,
     .unlock-dialog .calendar .calendar-month-header .pager-button:checked:hover,
     .calendar .calendar-month-header .unlock-dialog .pager-button:checked:hover,
@@ -723,7 +723,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:checked:hover, .unlock-dialog .login-dialog-auth-list-item:checked:hover {
       background-color: st-darken(st-darken(st-mix(#eeeeee, #fafafb, 12%), 8%), 4%); }
     .unlock-dialog-notifications-container .message StButton:checked:active,
-    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:active, .unlock-dialog .button:checked:active,
+    .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:active, .parental-controls-shield .parental-controls-shield-button:checked:active, .unlock-dialog .button:checked:active,
     .unlock-dialog .icon-button:checked:active,
     .unlock-dialog .calendar .calendar-month-header .pager-button:checked:active,
     .calendar .calendar-month-header .unlock-dialog .pager-button:checked:active,
@@ -740,7 +740,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:checked:active, .unlock-dialog .login-dialog-auth-list-item:checked:active {
       background-color: st-darken(st-darken(st-mix(#eeeeee, #fafafb, 12%), 8%), 9%); }
   .unlock-dialog-notifications-container .message StButton:insensitive,
-  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:insensitive, .unlock-dialog .button:insensitive,
+  .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:insensitive, .parental-controls-shield .parental-controls-shield-button:insensitive, .unlock-dialog .button:insensitive,
   .unlock-dialog .icon-button:insensitive,
   .unlock-dialog .calendar .calendar-month-header .pager-button:insensitive,
   .calendar .calendar-month-header .unlock-dialog .pager-button:insensitive,
@@ -1468,7 +1468,10 @@ StScrollBar {
   .prompt-dialog .prompt-dialog-error-label,
   .prompt-dialog .prompt-dialog-info-label,
   .prompt-dialog .prompt-dialog-null-label {
-    text-align: center; }
+    text-align: center;
+    padding: 9px;
+    border-radius: 8px;
+    margin: 4px 0; }
   .prompt-dialog .prompt-dialog-error-label {
     color: #e5a50a; }
 
@@ -1814,7 +1817,9 @@ StScrollBar {
 #panel {
   background-color: #f0f0f0;
   font-weight: bold;
-  transition-duration: 250ms; }
+  height: 2.2em;
+  transition-duration: 250ms;
+  box-shadow: inset 0 -0.5px 0 0 rgba(34, 34, 38, 0.1); }
   #panel .panel-button {
     transition-duration: 150ms;
     border: 3px solid transparent;
@@ -1822,16 +1827,35 @@ StScrollBar {
     border-radius: 999px;
     font-weight: bold;
     color: #222226;
-    box-shadow: inset 0 0 0 100px transparent; }
+    box-shadow: inset 0 0 0 100px transparent;
+    -natural-hpadding: 12px;
+    -minimum-hpadding: 6px; }
     #panel .panel-button:focus, #panel .panel-button:hover {
       box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.17); }
     #panel .panel-button:active, #panel .panel-button:checked {
       box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.28); }
       #panel .panel-button:active:hover, #panel .panel-button:checked:hover {
         box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.32); }
+    #panel .panel-button .system-status-icon {
+      icon-size: 1.091em;
+      padding: 0 6px;
+      margin: 0 4px; }
+    #panel .panel-button .panel-status-indicators-box {
+      spacing: 4px; }
+      #panel .panel-button .panel-status-indicators-box > .system-status-icon {
+        padding: 0; }
+    #panel .panel-button#panelActivities StBoxLayout {
+      padding: 0 0.2045em;
+      spacing: 5px; }
     #panel .panel-button#panelActivities .workspace-dot {
       border-radius: 999px;
+      min-width: 0.5455em;
+      min-height: 0.5455em;
       background-color: #222226; }
+    #panel .panel-button.screen-recording-indicator StBoxLayout, #panel .panel-button.screen-sharing-indicator StBoxLayout {
+      spacing: 0.409em; }
+    #panel .panel-button.screen-recording-indicator StIcon, #panel .panel-button.screen-sharing-indicator StIcon {
+      icon-size: 1.091em; }
     #panel .panel-button.screen-recording-indicator {
       transition-duration: 150ms;
       border: 3px solid transparent;
@@ -1887,6 +1911,8 @@ StScrollBar {
         box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.28); }
         #panel .panel-button.clock-display:active .clock:hover, #panel .panel-button.clock-display:checked .clock:hover {
           box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.32); }
+      #panel .panel-button.clock-display .messages-indicator {
+        icon-size: 1.091em; }
   #panel:overview, #panel.unlock-screen, #panel.login-screen {
     background-color: transparent; }
     #panel:overview .panel-button.screen-recording-indicator, #panel.unlock-screen .panel-button.screen-recording-indicator, #panel.login-screen .panel-button.screen-recording-indicator {
@@ -2000,9 +2026,19 @@ StScrollBar {
       #panel:overview .panel-button.clock-display:active .clock, #panel:overview .panel-button.clock-display:checked .clock {
         box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.28); }
         #panel:overview .panel-button.clock-display:active .clock:hover, #panel:overview .panel-button.clock-display:checked .clock:hover {
-          box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.32); }
+          box-shadow: inset 0 0 0 100px rgba(250, 250, 251, 0.32); }
+  #panel .panel-status-indicators-box {
+    spacing: 2px; }
+  #panel .power-status.panel-status-indicators-box {
+    spacing: 0; }
   #panel .privacy-indicator {
-    color: #e66100; }
+    color: #ff7800; }
+
+  .clock-display-box {
+    spacing: 2px; }
+    .clock-display-box .clock {
+      padding-left: 0.818em;
+      padding-right: 0.818em; }
 
 /* Activities Ripple */
 .ripple-box {
@@ -2142,7 +2178,7 @@ StScrollBar {
 
 .quick-toggle-menu {
   border-radius: 24px;
-  margin: 12px 18px 0; }
+  margin: 12px 0 0; }
   .quick-toggle-menu:insensitive {
     color: #222226;
     background-color: st-mix(#222226, #fafafb, 12%); }
@@ -3047,7 +3083,11 @@ StScrollBar {
     text-align: center; }
   .conflicting-session-dialog-content .conflicting-session-dialog-desc-warning {
     text-align: center;
-    color: #e5a50a; }
+    color: #e5a50a;
+    background-color: rgba(229, 165, 10, 0.1);
+    padding: 9px;
+    border-radius: 8px;
+    margin: 4px 0; }
 
 .login-dialog-logo-bin {
   margin: 3em 0; }
@@ -3199,6 +3239,20 @@ StScrollBar {
     padding: 6px 18px;
     border-radius: 16px;
     font-weight: bold; }
+  
+.parental-controls-shield {
+  spacing: 0.75em; }
+  .parental-controls-shield .parental-controls-shield-title {
+    margin-top: 0.6em;
+    text-align: center; }
+  .parental-controls-shield .parental-controls-shield-description {
+    text-align: center; }
+  .parental-controls-shield .parental-controls-shield-button {
+    margin-top: 0.85em;
+    padding: 16px 44px;
+    color: #fafafb;
+    background-color: rgba(250, 250, 251, 0.1);
+    border-radius: 999px; }
 
 #unlockDialogNotifications > .vhandle, #unlockDialogNotifications > .hhandle {
   background-color: rgba(250, 250, 251, 0.3); }
@@ -3210,7 +3264,7 @@ StScrollBar {
 .unlock-dialog-notifications-container {
   margin: 12px;
   spacing: 6px;
-  width: 25em;
+  width: 29em;
   background-color: transparent; }
   .unlock-dialog-notifications-container .summary-notification-stack-scrollview {
     padding-top: 0;

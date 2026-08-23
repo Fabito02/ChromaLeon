@@ -407,11 +407,21 @@ class ChromaLeonUI {
     });
     colorsGroup.add(gnomeColorsRow);
 
-    const preferLightRow = new Adw.SwitchRow({
+    const preferLightRow = new Adw.ExpanderRow({
       title: _("Prefer Light Style"),
       subtitle: _("Use a light style for the Shell in the light theme."),
+      show_enable_switch: true,
     });
     colorsGroup.add(preferLightRow);
+
+    const fullLightRow = new Adw.SwitchRow({
+      title: _("Full Light"),
+      subtitle: _(
+        "Use a fully light style instead of the default style for the GNOME Shell light theme.",
+      ),
+    });
+
+    preferLightRow.add_row(fullLightRow);
 
     this._settings.bind(
       "gnome-colors",
@@ -423,8 +433,22 @@ class ChromaLeonUI {
     this._settings.bind(
       "prefer-light",
       preferLightRow,
+      "enable-expansion",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "full-light",
+      fullLightRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    preferLightRow.bind_property(
+      "enable-expansion",
+      preferLightRow,
+      "expanded",
+      GObject.BindingFlags.SYNC_CREATE,
     );
 
     const tintGnomeGroup = new Adw.PreferencesGroup({
