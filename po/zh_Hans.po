@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 21:13-0300\n"
-"PO-Revision-Date: 2026-08-14 06:51+0000\n"
+"PO-Revision-Date: 2026-08-24 11:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/chromaleon/extension/zh_Hans/>\n"
@@ -62,17 +62,17 @@ msgstr "背景列表"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon 项目的存续离不开像您一样的用户！"
 
 #: chromaleon.js:425
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
-msgstr ""
+msgstr "如果你很喜欢用 ChromaLeon 做设备个性化，欢迎小额捐赠以支持项目继续开发。"
 
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
-msgstr ""
+msgstr "感谢你支持 ChromaLeon 的开发工作！"
 
 #: chromaleon.js:486
 msgid "Colors"
@@ -96,14 +96,13 @@ msgstr "亮色模式下，为 Shell 采用浅色样式。"
 
 #: chromaleon.js:504
 msgid "Fully Light"
-msgstr ""
+msgstr "全亮色"
 
 #: chromaleon.js:506
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "亮色模式下，为 Shell 采用浅色样式。"
+msgstr "浅色主题下，为 GNOME Shell 采用全亮色样式而非默认样式。"
 
 #: chromaleon.js:541
 msgid "Tint GNOME"
@@ -122,13 +121,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "使用选定颜色为 GNOME Shell 界面叠加色调。"
 
 #: chromaleon.js:554
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "面板着色"
+msgstr "暗色面板着色"
 
 #: chromaleon.js:555
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "暗色样式下对面板叠加色调。"
 
 #: chromaleon.js:568
 msgid "Tint Apps"

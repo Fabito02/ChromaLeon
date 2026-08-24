@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 21:13-0300\n"
-"PO-Revision-Date: 2026-08-14 06:51+0000\n"
+"PO-Revision-Date: 2026-08-24 11:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -62,17 +62,19 @@ msgstr "Tapety"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon existuje jen díky uživatelům jako Vy!"
 
 #: chromaleon.js:425
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Pokud si ChromaLeon vydobyl místo v přizpůsobení Vašeho zařízení, zvažte "
+"možnost pomoci projektu posunout se kupředu malým darem."
 
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
-msgstr ""
+msgstr "Díky, že podporujete práci na ChromaLeon!"
 
 #: chromaleon.js:486
 msgid "Colors"
@@ -96,14 +98,13 @@ msgstr "Pro světlý motiv systému použít světlý styl."
 
 #: chromaleon.js:504
 msgid "Fully Light"
-msgstr ""
+msgstr "Zcela světlý"
 
 #: chromaleon.js:506
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "Pro světlý motiv systému použít světlý styl."
+msgstr "Použít zcela světlý styl namísto výchozího světlého stylu GNOME Shell."
 
 #: chromaleon.js:541
 msgid "Tint GNOME"
@@ -122,13 +123,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Zabarví GNOME Shell zvolenou barvou."
 
 #: chromaleon.js:554
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Zabarvit panel"
+msgstr "Zabarvit tmavý panel"
 
 #: chromaleon.js:555
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Zabarvit panel i v tmavém stylu."
 
 #: chromaleon.js:568
 msgid "Tint Apps"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 21:13-0300\n"
-"PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-08-24 11:51+0000\n"
+"Last-Translator: tupacamaru72 <tomino8552@prodbits.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/es/>\n"
 "Language: es\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: chromaleon.js:133
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Error generando miniatura: "
 
 #: chromaleon.js:142
 msgid "Wallpaper"
@@ -64,7 +64,7 @@ msgstr "Fondos de pantalla"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "¡ChromaLeon existe gracias a usuarios como tú!"
 
 #: chromaleon.js:425
 msgid ""
@@ -78,19 +78,21 @@ msgstr ""
 
 #: chromaleon.js:486
 msgid "Colors"
-msgstr ""
+msgstr "Colores"
 
 #: chromaleon.js:491
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Colores de GNOME"
 
 #: chromaleon.js:492
 msgid "Use native GNOME colors instead of wallpaper colors."
 msgstr ""
+"Usar los colores nativos de GNOME en vez de los colores del fondo de "
+"pantalla."
 
 #: chromaleon.js:497
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Preferir Estilo claro"
 
 #: chromaleon.js:498
 msgid "Use a light style for the Shell in the light theme."
@@ -157,7 +159,7 @@ msgstr ""
 
 #: chromaleon.js:605
 msgid "Default"
-msgstr ""
+msgstr "Predeterminado"
 
 #: chromaleon.js:606
 msgid "Strong"
@@ -213,7 +215,7 @@ msgstr "Aplica la integración con el paquete de iconos MoreWaita."
 
 #: chromaleon.js:719
 msgid "Customization"
-msgstr ""
+msgstr "Personalización"
 
 #: chromaleon.js:724
 msgid "Custom stylesheet"
@@ -231,7 +233,7 @@ msgstr ""
 
 #: chromaleon.js:751
 msgid "Open file"
-msgstr ""
+msgstr "Abrir archivo"
 
 #: chromaleon.js:764
 msgid ""
@@ -326,9 +328,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "¡Fondo de pantalla eliminado correctamente!"
 
 #: chromaleon.js:1059
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "No se pudo eliminar el fondo de pantalla"
+msgstr "Error al eliminar el fondo de escritorio: "
 
 #: chromaleon.js:1065
 msgid "Select a Wallpaper"
