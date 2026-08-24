@@ -68,8 +68,8 @@ msgstr "O ChromaLeon só existe graças a usuários como você!"
 
 #: chromaleon.js:425
 msgid ""
-"If ChromaLeon has earned a spot in your device's customization, you can help "
-"the project move forward by making a small donation."
+"If ChromaLeon has earned a place in your device's customization, consider "
+"helping the project move forward by making a small donation."
 msgstr ""
 
 #: chromaleon.js:426
