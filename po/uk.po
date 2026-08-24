@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 20:43-0300\n"
+"POT-Creation-Date: 2026-08-23 21:01-0300\n"
 "PO-Revision-Date: 2026-08-01 01:30+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/chromaleon/"
@@ -67,8 +67,8 @@ msgstr ""
 
 #: chromaleon.js:425
 msgid ""
-"If ChromaLeon has earned a spot in your device's customization, you can help "
-"the project move forward by making a small donation."
+"If ChromaLeon has earned a place in your device's customization, consider "
+"helping the project move forward by making a small donation."
 msgstr ""
 
 #: chromaleon.js:426
