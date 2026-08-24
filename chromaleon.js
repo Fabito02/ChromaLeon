@@ -423,7 +423,6 @@ class ChromaLeonUI {
 
     const titleSupport = _("ChromaLeon only exists thanks to users like you!")
     const contentSupport = _("If ChromaLeon has earned a place in your device's customization, consider helping the project move forward by making a small donation.")
-    const thankYou = _("Thank you for supporting the work behind ChromaLeon!")
     
     const label = new Gtk.Label({
         use_markup: true,
@@ -431,7 +430,7 @@ class ChromaLeonUI {
         wrap_mode: Pango.WrapMode.WORD_CHAR,
         justify: Gtk.Justification.CENTER,
         xalign: 0.5,
-        label: `<span size='x-large' weight='heavy'>${titleSupport}</span>\n\n${contentSupport}\n\n${thankYou}`
+        label: `<span size='x-large' weight='heavy'>${titleSupport}</span>\n\n${contentSupport}`
     });
     contentBox.append(label);
     
