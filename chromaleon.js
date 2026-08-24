@@ -461,8 +461,8 @@ class ChromaLeonUI {
         });
     };
     
-    const githubButton = generateDonateButton("github-symbolic", _("Sponsors"));
-    const kofiButton = generateDonateButton("ko-fi-symbolic", _("Ko-fi"));
+    const githubButton = generateDonateButton("github-symbolic", "Sponsors");
+    const kofiButton = generateDonateButton("ko-fi-symbolic", "Ko-fi");
 
     githubButton.add_css_class("pill");
     kofiButton.add_css_class("pill");
