@@ -66,12 +66,6 @@ msgstr "Planos de fundo"
 msgid "ChromaLeon only exists thanks to users like you!"
 msgstr "O ChromaLeon só existe graças a usuários como você!"
 
-#: chromaleon.js:425
-msgid ""
-"If ChromaLeon has earned a place in your device's customization, consider "
-"helping the project move forward by making a small donation."
-msgstr ""
-
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
 msgstr ""
