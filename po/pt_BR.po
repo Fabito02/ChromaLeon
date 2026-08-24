@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 20:43-0300\n"
-"PO-Revision-Date: 2026-08-23 17:44+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-08-24 00:03+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -64,7 +64,7 @@ msgstr "Planos de fundo"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "O ChromaLeon só existe graças a usuários como você!"
 
 #: chromaleon.js:425
 msgid ""
