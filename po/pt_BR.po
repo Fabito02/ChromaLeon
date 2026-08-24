@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 20:43-0300\n"
-"PO-Revision-Date: 2026-08-24 00:15+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"POT-Creation-Date: 2026-08-23 21:13-0300\n"
+"PO-Revision-Date: 2026-08-24 00:03+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -66,17 +66,17 @@ msgstr "Planos de fundo"
 msgid "ChromaLeon only exists thanks to users like you!"
 msgstr "O ChromaLeon só existe graças a usuários como você!"
 
+#: chromaleon.js:425
+msgid ""
+"If ChromaLeon has earned a place in your device's customization, consider "
+"helping the project move forward by making a small donation."
+msgstr ""
+"Se o ChromaLeon conquistou um espaço na personalização do seu dispositivo, "
+"considere ajudar o projeto a seguir em frente fazendo uma pequena doação."
+
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
 msgstr "Obrigado por apoiar o trabalho por trás do ChromaLeon!"
-
-#: chromaleon.js:464
-msgid "Sponsors"
-msgstr ""
-
-#: chromaleon.js:465
-msgid "Ko-fi"
-msgstr ""
 
 #: chromaleon.js:486
 msgid "Colors"
@@ -392,11 +392,11 @@ msgstr "Erro ao copiar plano de fundo: "
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: chromaleon.js:425
-msgid ""
-"If ChromaLeon has earned a place in your device's customization, consider "
-"helping the project move forward by making a small donation."
-msgstr ""
+#~ msgid "Sponsors"
+#~ msgstr "Sponsors"
+
+#~ msgid "Ko-fi"
+#~ msgstr "Ko-fi"
 
 #~ msgid "Support"
 #~ msgstr "Apoiar"
