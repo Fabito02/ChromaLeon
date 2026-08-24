@@ -422,7 +422,7 @@ class ChromaLeonUI {
     });
 
     const titleSupport = _("ChromaLeon only exists thanks to users like you!")
-    const contentSupport = _("If ChromaLeon has earned a spot in your device's customization, you can help the project move forward by making a small donation.")
+    const contentSupport = _("If ChromaLeon has earned a place in your device's customization, consider helping the project move forward by making a small donation.")
     const thankYou = _("Thank you for supporting the work behind ChromaLeon!")
     
     const label = new Gtk.Label({
