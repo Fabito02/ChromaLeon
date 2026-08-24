@@ -10,12 +10,11 @@
 Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors dynamically based on your wallpaper.
 
 ---
-
-[![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?cacheSeconds=60&logo=gnome&logoColor=white&color=3f86e3)](https://extensions.gnome.org/extension/10070/user-accent-colors/)
-[![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?color=50fa7b)](https://github.com/Fabito02/ChromaLeon/blob/main/LICENSE)
-[![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=social)](https://github.com/Fabito02/ChromaLeon/stargazers)
-[![Translation Status](https://hosted.weblate.org/widgets/chromaleon/-/svg-badge.svg)](https://hosted.weblate.org/engage/chromaleon/)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)
+[![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?style=flat&logo=gnome&logoColor=white&color=3f86e3)](https://extensions.gnome.org/extension/10070/user-accent-colors/)
+[![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?style=flat&logo=gplv3&logoColor=white&color=50fa7b)](https://github.com/Fabito02/ChromaLeon/blob/main/LICENSE)
+[![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=flat&logo=github&logoColor=white&color=f1fa8c)](https://github.com/Fabito02/ChromaLeon/stargazers)
+[![Translation Status](https://img.shields.io/weblate/progress/chromaleon?style=flat&logo=weblate&logoColor=white)](https://hosted.weblate.org/engage/chromaleon/)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02?style=flat&logo=githubsponsors&logoColor=white&color=ea4aaa)](https://github.com/sponsors/Fabito02)
 
 <br>
 
@@ -113,7 +112,7 @@ gnome-extensions enable user-accent-colors@fabito02
 **GitHub Sponsors:**
 <br>
 
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/Fabito02)](https://github.com/sponsors/Fabito02)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/Fabito02)
 <br>
 
 **Kofi:**
