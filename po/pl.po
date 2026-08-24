@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 21:13-0300\n"
-"PO-Revision-Date: 2026-08-23 17:21+0000\n"
+"PO-Revision-Date: 2026-08-25 18:23+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
@@ -63,17 +63,19 @@ msgstr "Tła"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon istnieje wyłącznie dzięki użytkownikom takim jak Ty!"
 
 #: chromaleon.js:425
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Jeśli ChromaLeon znalazł miejsce w personalizacji Twojego urządzenia, rozważ "
+"wsparcie projektu niewielką wpłatą, aby pomóc w jego dalszym rozwoju."
 
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
-msgstr ""
+msgstr "Dziękujemy za wsparcie pracy nad ChromaLeon!"
 
 #: chromaleon.js:486
 msgid "Colors"
@@ -97,10 +99,9 @@ msgstr "Użyj stylu jasnego powłoki w stylu domyślnym."
 
 #: chromaleon.js:504
 msgid "Fully Light"
-msgstr ""
+msgstr "W pełni jasny"
 
 #: chromaleon.js:506
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
@@ -123,7 +124,6 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Przyciemnia powłokę GNOME kolorem, który został wybrany."
 
 #: chromaleon.js:554
-#, fuzzy
 msgid "Tint Dark Panel"
 msgstr "Przyciemnij panel"
 
