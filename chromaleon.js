@@ -30,7 +30,7 @@ import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
 import * as Gettext from "gettext";
 import GdkPixbuf from "gi://GdkPixbuf";
-import Pango from 'gi://Pango';
+import Pango from "gi://Pango";
 import {
   rgbToHsl,
   _getRelativeLuminance,
@@ -401,65 +401,67 @@ class ChromaLeonUI {
 
     const supportGroup = new Adw.PreferencesGroup();
     this._optionsPage.add(supportGroup);
-    
+
     const supportRow = new Adw.PreferencesRow({
-        activatable: false,
-        focusable: false,
+      activatable: false,
+      focusable: false,
     });
     supportGroup.add(supportRow);
     supportRow.add_css_class("support-row");
     supportRow.add_css_class("dark");
-    
+
     const contentBox = new Gtk.Box({
-        orientation: Gtk.Orientation.VERTICAL,
-        spacing: 28,
-        margin_top: 24,
-        margin_bottom: 24,
-        margin_start: 24,
-        margin_end: 24,
-        hexpand: true,
-        halign: Gtk.Align.CENTER,
+      orientation: Gtk.Orientation.VERTICAL,
+      spacing: 28,
+      margin_top: 24,
+      margin_bottom: 24,
+      margin_start: 24,
+      margin_end: 24,
+      hexpand: true,
+      halign: Gtk.Align.CENTER,
     });
 
-    const titleSupport = _("ChromaLeon only exists thanks to users like you!")
-    const contentSupport = _("If ChromaLeon has earned a place in your device's customization, consider helping the project move forward by making a small donation.")
-    
+    const titleSupport = _("ChromaLeon only exists thanks to users like you!");
+    const contentSupport = _(
+      "If ChromaLeon has earned a place in your device's customization, consider helping the project move forward by making a small donation.",
+    );
+
     const label = new Gtk.Label({
-        use_markup: true,
-        wrap: true,
-        wrap_mode: Pango.WrapMode.WORD_CHAR,
-        justify: Gtk.Justification.CENTER,
-        xalign: 0.5,
-        label: `<span size='x-large' weight='heavy'>${titleSupport}</span>\n\n${contentSupport}`
+      use_markup: true,
+      wrap: true,
+      wrap_mode: Pango.WrapMode.WORD_CHAR,
+      justify: Gtk.Justification.CENTER,
+      xalign: 0.5,
+      label: `<span size='x-large' weight='heavy'>${titleSupport}</span>\n\n${contentSupport}`,
     });
     contentBox.append(label);
-    
+
     const buttonBox = new Gtk.Box({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        spacing: 12,
-        halign: Gtk.Align.CENTER,
+      orientation: Gtk.Orientation.HORIZONTAL,
+      spacing: 12,
+      halign: Gtk.Align.CENTER,
     });
-    
+
     const generateDonateButton = (iconName, labelText) => {
-        const box = new Gtk.Box({
-            orientation: Gtk.Orientation.HORIZONTAL,
-            spacing: 6,
-        });
-    
-        const icon = Gtk.Image.new_from_icon_name(iconName);
-        icon.add_css_class("symbolic");
-    
-        const btnLabel = new Gtk.Label({ label: labelText });
-    
-        box.append(icon);
-        box.append(btnLabel);
-    
-        return new Gtk.Button({
-            valign: Gtk.Align.CENTER,
-            child: box,
-        });
+      const box = new Gtk.Box({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        spacing: 6,
+      });
+
+      const icon = Gtk.Image.new_from_icon_name(iconName);
+      icon.add_css_class("symbolic");
+
+      const btnLabel = new Gtk.Label({ label: labelText });
+
+      box.append(icon);
+      box.append(btnLabel);
+
+      return new Gtk.Button({
+        valign: Gtk.Align.CENTER,
+        child: box,
+      });
     };
-    
+
     const githubButton = generateDonateButton("github-symbolic", "Sponsors");
     const kofiButton = generateDonateButton("ko-fi-symbolic", "Ko-fi");
 
@@ -467,18 +469,18 @@ class ChromaLeonUI {
     kofiButton.add_css_class("pill");
 
     githubButton.connect("clicked", () => {
-        Gtk.show_uri(null, "https://github.com/sponsors/Fabito02", null);
+      Gtk.show_uri(null, "https://github.com/sponsors/Fabito02", null);
     });
-    
+
     kofiButton.connect("clicked", () => {
-        Gtk.show_uri(null, "https://ko-fi.com/fabito02", null);
+      Gtk.show_uri(null, "https://ko-fi.com/fabito02", null);
     });
-    
+
     buttonBox.append(githubButton);
     buttonBox.append(kofiButton);
-    
+
     contentBox.append(buttonBox);
-    
+
     supportRow.set_child(contentBox);
 
     const colorsGroup = new Adw.PreferencesGroup({
