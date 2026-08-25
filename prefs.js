@@ -24,7 +24,7 @@ import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/
 import Adw from "gi://Adw";
 import { buildUI } from "./chromaleon.js";
 
-export default class CustomAccentPreferences extends ExtensionPreferences {
+export default class ChromaLeonPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
