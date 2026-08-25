@@ -125,6 +125,12 @@ gnome-extensions enable user-accent-colors@fabito02
 
 [<img height="60" alt="support_me_on_kofi_badge_beige" src="https://github.com/user-attachments/assets/2b1250e5-3e73-43be-b3a9-9e6f7c9dc187" />](https://ko-fi.com/fabito02)
 
+**Bitcoin:**
+<br><br>
+<img width="200" height="200" alt="Bitcoin" src="https://github.com/user-attachments/assets/480bcbe2-a436-4fd4-b965-b8db7fd43462" />
+<br><br>
+**Lightning Address:** `fabito02@bipa.app`
+
 **Pix (For Brazilian users 🇧🇷️):**
 <br>
 
