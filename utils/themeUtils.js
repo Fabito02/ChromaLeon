@@ -216,7 +216,7 @@ export async function updateShellStylesheet(
     );
   }
 
-  const customCss = Gio.File.new_for_path(
+  const customStylesheetFile = Gio.File.new_for_path(
     `${homeDir}/.config/ChromaLeon/custom.css`,
   );
 
@@ -261,13 +261,30 @@ export async function updateShellStylesheet(
       : tintedDarkTemplate
     : shellAccentTemplateDark;
 
+  if (!customStylesheetFile.query_exists(null)) {
+    try {
+      const parentDir = customStylesheetFile.get_parent();
+      if (parentDir && !parentDir.query_exists(null)) {
+        parentDir.make_directory_with_parents(null);
+      }
+
+      const templateHeader = `/*\n* ChromaLeon Shell — Custom User Styles\n*/`;
+      await writeFile(customStylesheetFile, templateHeader, cancellable);
+    } catch (e) {
+      if (isCancelledError(e)) throw e;
+    }
+  }
+
   const generateAndApplyFiles = async () => {
     try {
       let [contentsLight] = await fileLight.load_contents_async(cancellable);
       let [contentsDark] = await fileDark.load_contents_async(cancellable);
+      let [contentsCustom] =
+        await customStylesheetFile.load_contents_async(cancellable);
 
       let textLight = new TextDecoder().decode(contentsLight);
       let textDark = new TextDecoder().decode(contentsDark);
+      let textCustom = new TextDecoder().decode(contentsCustom);
 
       let cssLight = textLight
         .replace(/@@ACCENT@@/g, accentValue)
@@ -287,6 +304,10 @@ export async function updateShellStylesheet(
           `${getConvertedStrength(tintStrength, false)}%`,
         );
 
+      let customStylesheet = textCustom
+        .replace(/@@ACCENT@@/g, accentValue)
+        .replace(/-st-accent-color/g, accentValue);
+
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
         `${cacheDir}/chromaleon-shell.css`,
@@ -294,29 +315,19 @@ export async function updateShellStylesheet(
       let outputFileDark = Gio.File.new_for_path(
         `${cacheDir}/chromaleon-shell-dark.css`,
       );
+      let outputFileCustom = Gio.File.new_for_path(
+        `${cacheDir}/chromaleon-shell-custom.css`,
+      );
 
       await writeFile(outputFile, cssLight, cancellable);
       await writeFile(outputFileDark, cssDark, cancellable);
+      await writeFile(outputFileCustom, customStylesheet, cancellable);
 
       throwIfCancelled(cancellable);
     } catch (e) {
       if (isCancelledError(e)) throw e;
     }
   };
-
-  if (!customCss.query_exists(null)) {
-    try {
-      const parentDir = customCss.get_parent();
-      if (parentDir && !parentDir.query_exists(null)) {
-        parentDir.make_directory_with_parents(null);
-      }
-
-      const templateHeader = `/*\n* ChromaLeon Shell — Custom User Styles\n*/`;
-      await writeFile(customCss, templateHeader, cancellable);
-    } catch (e) {
-      if (isCancelledError(e)) throw e;
-    }
-  }
 
   await generateAndApplyFiles(null);
 }

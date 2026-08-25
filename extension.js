@@ -430,14 +430,13 @@ export default class ChromaLeon extends Extension {
     throwIfCancelled(cancellable);
 
     const cacheDir = GLib.get_user_cache_dir();
-    const configDir = GLib.get_user_config_dir();
 
     const lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
     const darkFile = Gio.File.new_for_path(
       `${cacheDir}/chromaleon-shell-dark.css`,
     );
     const customStylesheet = Gio.File.new_for_path(
-      `${configDir}/ChromaLeon/custom.css`,
+      `${cacheDir}/chromaleon-shell-custom.css`,
     );
 
     const isLight = this._shouldUseLightShell();
