@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-23 21:13-0300\n"
-"PO-Revision-Date: 2026-08-24 11:51+0000\n"
+"PO-Revision-Date: 2026-08-25 18:23+0000\n"
 "Last-Translator: tupacamaru72 <tomino8552@prodbits.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/es/>\n"
@@ -71,10 +71,12 @@ msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Si ChromaLeon ha sido útil en la personalización de tu dispositivo, "
+"considera apoyar el proyecto mediante una pequeña donación."
 
 #: chromaleon.js:426
 msgid "Thank you for supporting the work behind ChromaLeon!"
-msgstr ""
+msgstr "¡Gracias por apoyar al equipo detrás de ChromaLeon!"
 
 #: chromaleon.js:486
 msgid "Colors"
@@ -96,17 +98,19 @@ msgstr "Preferir Estilo claro"
 
 #: chromaleon.js:498
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Usa un estilo claro para el Shell en el tema claro."
 
 #: chromaleon.js:504
 msgid "Fully Light"
-msgstr ""
+msgstr "Completamente claro"
 
 #: chromaleon.js:506
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Usar un estilo puramente claro en vez del tema claro predeterminado de GNOME "
+"Shell."
 
 #: chromaleon.js:541
 msgid "Tint GNOME"
@@ -125,13 +129,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tiñe el GNOME Shell con el color de tu elección."
 
 #: chromaleon.js:554
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Teñir Shell"
+msgstr "Teñir Panel oscuro"
 
 #: chromaleon.js:555
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "También teñir el panel al usar el modo oscuro."
 
 #: chromaleon.js:568
 msgid "Tint Apps"
@@ -155,27 +158,27 @@ msgstr "Teñir Apps GTK3"
 
 #: chromaleon.js:604
 msgid "Subtle"
-msgstr ""
+msgstr "Suave"
 
 #: chromaleon.js:605
 msgid "Default"
-msgstr "Predeterminado"
+msgstr "Normal"
 
 #: chromaleon.js:606
 msgid "Strong"
-msgstr ""
+msgstr "Fuerte"
 
 #: chromaleon.js:607
 msgid "Stronger"
-msgstr ""
+msgstr "Notorio"
 
 #: chromaleon.js:611
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Fuerza tintórea"
 
 #: chromaleon.js:612
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Determina la intensidad del efecto de tintado."
 
 #: chromaleon.js:625
 msgid "Darker Tint"
@@ -251,7 +254,7 @@ msgstr ""
 
 #: chromaleon.js:771 chromaleon.js:839
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: chromaleon.js:793
 msgid "Failed to open custom.css: "
@@ -275,7 +278,7 @@ msgstr ""
 
 #: chromaleon.js:811
 msgid "Hot Reload"
-msgstr ""
+msgstr "Hot Reload"
 
 #: chromaleon.js:812
 msgid "Enables theme hot reloading for GTK4 applications."
