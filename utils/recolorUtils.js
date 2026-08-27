@@ -563,7 +563,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     },
     "org.gnome.Calculator.svg": {
       ff7800: modifyColor(baseColor, 0.0, 0.0),
-      c64600: modifyColor(baseColor, -0.08, 0.0),
+      c64600: modifyColor(baseColor, -0.14, -0.02),
     },
     "org.gnome.Contacts.svg": {
       "3584e4": colorMap["3584e4"],
