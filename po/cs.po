@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 08:46-0300\n"
+"POT-Creation-Date: 2026-08-27 16:22-0300\n"
 "PO-Revision-Date: 2026-08-24 11:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
@@ -64,7 +64,7 @@ msgstr "Tapety"
 msgid "ChromaLeon only exists thanks to users like you!"
 msgstr "ChromaLeon existuje jen díky uživatelům jako Vy!"
 
-#: chromaleon.js:425
+#: chromaleon.js:426
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
@@ -72,69 +72,69 @@ msgstr ""
 "Pokud si ChromaLeon vydobyl místo v přizpůsobení Vašeho zařízení, zvažte "
 "možnost pomoci projektu posunout se kupředu malým darem."
 
-#: chromaleon.js:485
+#: chromaleon.js:487
 msgid "Colors"
 msgstr "Barvy"
 
-#: chromaleon.js:490
+#: chromaleon.js:492
 msgid "GNOME Colors"
 msgstr "Barvy GNOME"
 
-#: chromaleon.js:491
+#: chromaleon.js:493
 msgid "Use native GNOME colors instead of wallpaper colors."
 msgstr "Použít nativní barvy GNOME namísto barev tapety."
 
-#: chromaleon.js:496
+#: chromaleon.js:498
 msgid "Prefer Light Style"
 msgstr "Upřednostnit světlý styl"
 
-#: chromaleon.js:497
+#: chromaleon.js:499
 msgid "Use a light style for the Shell in the light theme."
 msgstr "Pro světlý motiv systému použít světlý styl."
 
-#: chromaleon.js:503
+#: chromaleon.js:505
 msgid "Fully Light"
 msgstr "Zcela světlý"
 
-#: chromaleon.js:505
+#: chromaleon.js:507
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr "Použít zcela světlý styl namísto výchozího světlého stylu GNOME Shell."
 
-#: chromaleon.js:540
+#: chromaleon.js:542
 msgid "Tint GNOME"
 msgstr "Zabarvit GNOME"
 
-#: chromaleon.js:541
+#: chromaleon.js:543
 msgid "Based on Tint my GNOME"
 msgstr "Založeno na Tint my GNOME"
 
-#: chromaleon.js:546
+#: chromaleon.js:548
 msgid "Tint Shell"
 msgstr "Zabarvit systém"
 
-#: chromaleon.js:547
+#: chromaleon.js:549
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Zabarví GNOME Shell zvolenou barvou."
 
-#: chromaleon.js:553
+#: chromaleon.js:555
 msgid "Tint Dark Panel"
 msgstr "Zabarvit tmavý panel"
 
-#: chromaleon.js:554
+#: chromaleon.js:556
 msgid "Also tint the panel when in dark mode."
 msgstr "Zabarvit panel i v tmavém stylu."
 
-#: chromaleon.js:567
+#: chromaleon.js:569
 msgid "Tint Apps"
 msgstr "Zabarvit aplikace"
 
-#: chromaleon.js:569
+#: chromaleon.js:571
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Zabarví LibAdwaita aplikace zvolenou barvou."
 
-#: chromaleon.js:576
+#: chromaleon.js:578
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
@@ -142,79 +142,79 @@ msgstr ""
 "Zabarví také GTK3 aplikace (pro správné fungování je vyžadováno rozšíření "
 "{0} a motiv {1})."
 
-#: chromaleon.js:589
+#: chromaleon.js:591
 msgid "Tint GTK3 Apps"
 msgstr "Zabarvit GTK3 aplikace"
 
-#: chromaleon.js:603
+#: chromaleon.js:605
 msgid "Subtle"
 msgstr "Jemný"
 
-#: chromaleon.js:604
+#: chromaleon.js:606
 msgid "Default"
 msgstr "Výchozí"
 
-#: chromaleon.js:605
+#: chromaleon.js:607
 msgid "Strong"
 msgstr "Silný"
 
-#: chromaleon.js:606
+#: chromaleon.js:608
 msgid "Stronger"
 msgstr "Silnější"
 
-#: chromaleon.js:610
+#: chromaleon.js:612
 msgid "Tinting Strength"
 msgstr "Síla zabarvení"
 
-#: chromaleon.js:611
+#: chromaleon.js:613
 msgid "Determines the strength of the tint effect."
 msgstr "Určuje sílu efektu zabarvení."
 
-#: chromaleon.js:624
+#: chromaleon.js:626
 msgid "Darker Tint"
 msgstr "Tmavší nádech"
 
-#: chromaleon.js:625
+#: chromaleon.js:627
 msgid "Applies a darker tint."
 msgstr "Použije tmavší barevný nádech."
 
-#: chromaleon.js:665
+#: chromaleon.js:667
 msgid "Icon Theme"
 msgstr "Motiv ikon"
 
-#: chromaleon.js:670
+#: chromaleon.js:672
 msgid "Folder icon theme"
 msgstr "Motiv ikon složky"
 
-#: chromaleon.js:671
+#: chromaleon.js:673
 msgid "Applies the accent color to folder icons."
 msgstr "Aplikuje barvu nádechu na ikony složek."
 
-#: chromaleon.js:677
+#: chromaleon.js:679
 msgid "Application icon theme"
 msgstr "Motiv ikon aplikací"
 
-#: chromaleon.js:678
+#: chromaleon.js:680
 msgid "Applies the accent color to some app icons."
 msgstr "Aplikuje barvu nádechu na ikony některých aplikací."
 
-#: chromaleon.js:682
+#: chromaleon.js:684
 msgid "MoreWaita"
 msgstr "MoreWaita"
 
-#: chromaleon.js:683
+#: chromaleon.js:685
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "Aplikuje integraci s balíčkem ikon MoreWaita."
 
-#: chromaleon.js:718
+#: chromaleon.js:720
 msgid "Customization"
 msgstr "Přizpůsobení"
 
-#: chromaleon.js:723
+#: chromaleon.js:725
 msgid "Custom stylesheet"
 msgstr "Vlastní styly"
 
-#: chromaleon.js:725
+#: chromaleon.js:727
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
@@ -222,15 +222,15 @@ msgstr ""
 "Soubor, který přepisuje CSS uživatelského rozhraní a uživatelských doplňků, "
 "s podporou barev nádechu ChromaLeon."
 
-#: chromaleon.js:744 chromaleon.js:761 chromaleon.js:819
+#: chromaleon.js:746 chromaleon.js:763 chromaleon.js:821
 msgid "About the custom stylesheet"
 msgstr "O vlastních stylech"
 
-#: chromaleon.js:750
+#: chromaleon.js:752
 msgid "Open file"
 msgstr "Otevřít soubor"
 
-#: chromaleon.js:763
+#: chromaleon.js:765
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -253,43 +253,43 @@ msgstr ""
 "<b>Tip:</b> Pokud se změny neprojevují, zkuste do svých pravidel CSS přidat "
 "<b><tt>!important</tt></b>."
 
-#: chromaleon.js:770 chromaleon.js:838
+#: chromaleon.js:772 chromaleon.js:840
 msgid "Close"
 msgstr "Zavřít"
 
-#: chromaleon.js:792
+#: chromaleon.js:794
 msgid "Failed to open custom.css: "
 msgstr "Otevření custom.css selhalo: "
 
-#: chromaleon.js:799
+#: chromaleon.js:801
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: chromaleon.js:804
+#: chromaleon.js:806
 msgid "Disabled"
 msgstr "Zakázáno"
 
-#: chromaleon.js:805
+#: chromaleon.js:807
 msgid "Default (recommended)"
 msgstr "Výchozí (doporučeno)"
 
-#: chromaleon.js:806
+#: chromaleon.js:808
 msgid "Smooth (experimental)"
 msgstr "Plynulé (experimentální)"
 
-#: chromaleon.js:810
+#: chromaleon.js:812
 msgid "Hot Reload"
 msgstr "Okamžité znovu načtení"
 
-#: chromaleon.js:811
+#: chromaleon.js:813
 msgid "Enables theme hot reloading for GTK4 applications."
 msgstr "Umožňuje okamžité znovu načtení motivu pro aplikace GTK4."
 
-#: chromaleon.js:828
+#: chromaleon.js:830
 msgid "About Hot Reload"
 msgstr "O rychlém znovu načtení"
 
-#: chromaleon.js:830
+#: chromaleon.js:832
 msgid ""
 "Hot reload uses rapid switching between the high contrast theme and the "
 "default theme to force GTK4 applications to reload the stylesheet.\n"
@@ -324,59 +324,59 @@ msgstr ""
 "<b>Poznámka:</b> Toto se nevztahuje na nativní barvy odstínu GNOME, neboť to "
 "pro ně není nutné."
 
-#: chromaleon.js:853
+#: chromaleon.js:855
 msgid "Apply to Flatpaks"
 msgstr "Aplikovat na balíčky Flatpak"
 
-#: chromaleon.js:855
+#: chromaleon.js:857
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr "Dovolit balíčkům Flatpak přistupovat k Vašim barevným proměnným."
 
-#: chromaleon.js:861
+#: chromaleon.js:863
 msgid "Enable shortcut"
 msgstr "Vytvořit zástupce"
 
-#: chromaleon.js:863
+#: chromaleon.js:865
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr "Vytvoří zástupce v mřížce aplikací přidáním souboru .desktop."
 
-#: chromaleon.js:1054
+#: chromaleon.js:1056
 msgid "Wallpaper deleted successfully!"
 msgstr "Tapeta úspěšně odstraněna!"
 
-#: chromaleon.js:1058
+#: chromaleon.js:1060
 msgid "Error deleting wallpaper: "
 msgstr "Odstranění tapety selhalo "
 
-#: chromaleon.js:1064
+#: chromaleon.js:1066
 msgid "Select a Wallpaper"
 msgstr "Vyberte tapetu"
 
-#: chromaleon.js:1066
+#: chromaleon.js:1068
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: chromaleon.js:1067
+#: chromaleon.js:1069
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: chromaleon.js:1072
+#: chromaleon.js:1074
 msgid "All Images"
 msgstr "Všechny obrázky"
 
-#: chromaleon.js:1099
+#: chromaleon.js:1101
 msgid "Wallpaper already exists!"
 msgstr "Tapeta již existuje!"
 
-#: chromaleon.js:1115
+#: chromaleon.js:1117
 msgid "Wallpaper added successfully!"
 msgstr "Tapeta úspěšně přidána!"
 
-#: chromaleon.js:1119
+#: chromaleon.js:1121
 msgid "Error copying wallpaper: "
 msgstr "Chyba při kopírování tapety: "
 
-#: chromaleon.js:1561
+#: chromaleon.js:1563
 msgid "Unable to load colors."
 msgstr "Nelze načíst barvy."
 
