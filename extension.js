@@ -72,11 +72,11 @@ export default class ChromaLeon extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           this._settings.set_boolean("custom-color", false);
+          await this._updateShellStyles(cancellable);
+          throwIfCancelled(cancellable);
           await this._updateAppStyles(cancellable);
           throwIfCancelled(cancellable);
           await this._reloadGtkStylesheet(cancellable);
-          throwIfCancelled(cancellable);
-          await this._updateShellStyles(cancellable);
           throwIfCancelled(cancellable);
           await this._updateIconPack(cancellable);
         }),
