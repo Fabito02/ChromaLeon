@@ -26,6 +26,7 @@ import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
+import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
 
 export default class ChromaLeon extends Extension {
   constructor(metadata) {
@@ -226,6 +227,16 @@ export default class ChromaLeon extends Extension {
     this._runOperation((cancellable) => {
       this._updateStyles(false, true, cancellable);
     });
+
+    sessionMode.connectObject(
+      "updated",
+      () => {
+        if (Main.sessionMode.currentMode === "user") {
+          this._loadShellStylesheet();
+        }
+      },
+      this,
+    );
   }
 
   disable() {
@@ -236,6 +247,7 @@ export default class ChromaLeon extends Extension {
     this._settings?.disconnectObject(this);
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
+    sessionMode.disconnectObject(this);
 
     if (this._configId) {
       this._settings?.disconnect(this._configId);
