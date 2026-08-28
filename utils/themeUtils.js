@@ -306,7 +306,11 @@ export async function updateShellStylesheet(
 
       let customStylesheet = textCustom
         .replace(/@@ACCENT@@/g, accentValue)
-        .replace(/-st-accent-color/g, accentValue);
+        .replace(/-st-accent-color/g, accentValue)
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          `${getConvertedStrength(tintStrength, false)}%`,
+        );
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
