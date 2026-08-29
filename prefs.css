@@ -87,12 +87,12 @@ button.custom-color-btn:focus:active {
     ),
     conic-gradient(
       from 135deg,
-      #d4574d,
-      #dfad33,
-      #4b9e62,
-      #5589d8,
-      #985cd8,
-      #d4574d
+      #dc6e65,
+      #e5b94c,
+      #60ac75,
+      #6b9be0,
+      #a673df,
+      #dc6e65
     );
   min-width: 32px;
   min-height: 32px;
@@ -118,16 +118,17 @@ button.custom-color-btn.active:focus:active {
   box-shadow: none;
 }
 
-button.custom-color-btn:focus {
-  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.8), 0.6);
+button.custom-color-btn.active {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.3), 0.6);
+  outline-offset: -3px;
+}
+
+button.custom-color-btn:focus,
+button.custom-color-btn:focus:active {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.55), 0.6);
   outline-offset: -3px;
 }
 
 button.custom-color-btn image {
-  opacity: 0;
-}
-
-button.custom-color-btn.active image {
-  opacity: 1;
   color: white;
 }

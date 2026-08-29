@@ -1710,7 +1710,7 @@ class ChromaLeonUI {
         this._applyTheme();
       });
 
-      if (index < 9) {
+      if (index < 8) {
         this._mainColorBox.append(btn);
       } else {
         this._moreColorBox.append(btn);
