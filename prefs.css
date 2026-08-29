@@ -104,11 +104,6 @@ button.custom-color-btn:focus:active {
   box-shadow: none;
 }
 
-button.custom-color-btn:focus {
-  outline: 3px solid alpha(shade(var(--accent-bg-color), 0.8), 0.7);
-  outline-offset: -3px;
-}
-
 button.custom-color-btn.active,
 button.custom-color-btn.active:active,
 button.custom-color-btn.active:focus:active {
@@ -123,8 +118,8 @@ button.custom-color-btn.active:focus:active {
   box-shadow: none;
 }
 
-button.custom-color-btn.active:focus {
-  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.2), 0.7);
+button.custom-color-btn:focus {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.8), 0.6);
   outline-offset: -3px;
 }
 
