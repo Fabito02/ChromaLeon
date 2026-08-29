@@ -81,18 +81,18 @@ button.custom-color-btn:focus:active {
   background:
     radial-gradient(
       circle at center,
-      rgba(255, 255, 255, 0.6) 0%,
-      rgba(255, 255, 255, 0.15) 35%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.12) 35%,
       transparent 70%
     ),
     conic-gradient(
       from 135deg,
-      #ea5d51,
-      #fbc02d,
-      #4bb36a,
-      #5c97f4,
-      #b063f6,
-      #ea5d51
+      #d4574d,
+      #dfad33,
+      #4b9e62,
+      #5589d8,
+      #985cd8,
+      #d4574d
     );
   min-width: 32px;
   min-height: 32px;
