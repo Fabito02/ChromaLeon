@@ -46,6 +46,7 @@ export default class ChromaLeon extends Extension {
 
   enable() {
     this._settings = this.getSettings();
+    this._savedColorScheme = sessionMode.colorScheme;
 
     this._interfaceSettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.interface",
@@ -231,7 +232,7 @@ export default class ChromaLeon extends Extension {
     sessionMode.connectObject(
       "updated",
       () => {
-        if (Main.sessionMode.currentMode === "user") {
+        if (sessionMode.currentMode === "user") {
           this._loadShellStylesheet();
         }
       },
@@ -288,6 +289,7 @@ export default class ChromaLeon extends Extension {
     }
 
     this._reloadGtkStylesheet();
+    this._updateColorScheme(this._savedColorScheme);
 
     this._cancellable?.cancel();
     this._cancellable = null;
@@ -296,6 +298,7 @@ export default class ChromaLeon extends Extension {
     this._bgSettings = null;
     this._interfaceSettings = null;
     this._a11ySettings = null;
+    this._savedColorScheme = null;
   }
 
   _runOperation(fn) {
@@ -422,6 +425,9 @@ export default class ChromaLeon extends Extension {
     const tintPanel = this._settings.get_boolean("tint-panel");
     const tintStrength = this._settings.get_int("tinting-strength");
     const fullLight = this._settings.get_boolean("full-light");
+    const preferLight = this._settings.get_boolean("prefer-light");
+    
+    this._updateColorScheme(preferLight);
 
     await ThemeUtils.updateShellStylesheet(
       this.path,
@@ -508,6 +514,11 @@ export default class ChromaLeon extends Extension {
       return systemColorScheme !== "prefer-dark";
     }
     return false;
+  }
+
+  _updateColorScheme(isLight) {
+    sessionMode.colorScheme = isLight ? "prefer-light" : this._savedColorScheme;
+    St.Settings.get().notify('color-scheme');
   }
 
   _clearReloadTimeout(key) {
