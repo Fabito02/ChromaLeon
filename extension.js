@@ -426,7 +426,7 @@ export default class ChromaLeon extends Extension {
     const tintStrength = this._settings.get_int("tinting-strength");
     const fullLight = this._settings.get_boolean("full-light");
     const preferLight = this._settings.get_boolean("prefer-light");
-    
+
     this._updateColorScheme(preferLight);
 
     await ThemeUtils.updateShellStylesheet(
@@ -518,7 +518,7 @@ export default class ChromaLeon extends Extension {
 
   _updateColorScheme(isLight) {
     sessionMode.colorScheme = isLight ? "prefer-light" : this._savedColorScheme;
-    St.Settings.get().notify('color-scheme');
+    St.Settings.get().notify("color-scheme");
   }
 
   _clearReloadTimeout(key) {

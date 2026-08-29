@@ -880,22 +880,22 @@ class ChromaLeonUI {
           ["flatpak", "override", "--user", "--show"],
           Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
         );
-    
+
         const [, stdoutData] = proc.communicate_utf8(null, null);
         if (!stdoutData) return false;
-    
+
         const match = stdoutData.match(/^filesystems=(.*)$/m);
         if (!match) return false;
-    
+
         const entries = match[1].split(";").map((e) => e.trim());
-    
+
         const hasGtk3 = entries.some((e) =>
           /^xdg-config\/gtk-3\.0(:[a-z-]+)?$/.test(e),
         );
         const hasGtk4 = entries.some((e) =>
           /^xdg-config\/gtk-4\.0(:[a-z-]+)?$/.test(e),
         );
-    
+
         return hasGtk3 && hasGtk4;
       } catch (e) {
         return false;
