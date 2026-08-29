@@ -143,6 +143,8 @@ class ChromaLeonUI {
     this._page.set_icon_name("image-round-symbolic");
     this._page.add_css_class("symbolic");
 
+    this._customColor = false;
+
     this._optionsPage = new Adw.PreferencesPage({
       title: _("Preferences"),
       icon_name: "settings-symbolic",
@@ -201,34 +203,6 @@ class ChromaLeonUI {
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
     );
 
-    const accentGroup = new Adw.PreferencesGroup({
-      title: _("Accent Color"),
-    });
-    this._page.add(accentGroup);
-
-    accentGroup.set_visible(!this._settings.get_boolean("gnome-colors"));
-
-    this._settings.connect("changed::gnome-colors", () => {
-      accentGroup.set_visible(!this._settings.get_boolean("gnome-colors"));
-    });
-
-    const colorRow = new Adw.ActionRow({ title: _("Main color") });
-    const colorButton = new Gtk.ColorButton({
-      valign: Gtk.Align.CENTER,
-      halign: Gtk.Align.CENTER,
-      use_alpha: false,
-    });
-    colorRow.add_suffix(colorButton);
-    accentGroup.add(colorRow);
-
-    colorButton.connect("color-set", () => {
-      const { red, green, blue } = colorButton.get_rgba();
-      const hex = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
-
-      this._settings.set_string("accent-color", hex);
-      this._settings.set_boolean("custom-color", true);
-    });
-
     const wallpaperGroup = new Adw.PreferencesGroup();
 
     const updateGroupHeader = () => {
@@ -236,14 +210,6 @@ class ChromaLeonUI {
 
       wallpaperGroup.set_title(
         !useGnomeColors ? _("Wallpaper Colors") : _("Accent Color"),
-      );
-
-      wallpaperGroup.set_description(
-        !useGnomeColors
-          ? _(
-              "The system automatically updates the accent color based on your wallpaper.",
-            )
-          : "",
       );
     };
 
@@ -943,9 +909,14 @@ class ChromaLeonUI {
       const hex = this._settings.get_string("accent-color");
       const rgba = new Gdk.RGBA();
       rgba.parse(hex);
-      colorButton.set_rgba(rgba);
 
-      colorRow.set_subtitle(hex);
+      if (this._customColorBtn) {
+        if (this._customColor) {
+          this._customColorBtn.add_css_class("active");
+        } else {
+          this._customColorBtn.remove_css_class("active");
+        }
+      }
 
       if (this._wallpaperButtons) {
         this._wallpaperButtons.forEach((item) => item.updateStyle(hex));
@@ -1562,6 +1533,7 @@ class ChromaLeonUI {
         this._mainColorBox.remove(this._mainColorBox.get_first_child());
       }
     }
+
     if (this._moreColorBox) {
       while (this._moreColorBox.get_first_child()) {
         this._moreColorBox.remove(this._moreColorBox.get_first_child());
@@ -1596,6 +1568,64 @@ class ChromaLeonUI {
 
     this._applyTheme();
 
+    const iconEdit = new Gtk.Image({
+      icon_name: "edit-color-symbolic",
+      valign: Gtk.Align.CENTER,
+      halign: Gtk.Align.CENTER,
+    });
+
+    this._customColorBtn = new Gtk.Button({
+      valign: Gtk.Align.CENTER,
+      halign: Gtk.Align.CENTER,
+      child: iconEdit,
+    });
+
+    this._customColorBtn.add_css_class("custom-color-btn");
+
+    if (
+      !colors.includes(currentColor) &&
+      this._settings.get_boolean("custom-color")
+    ) {
+      this._customColorBtn.add_css_class("active");
+    }
+
+    const colorDialog = new Gtk.ColorDialog({
+      with_alpha: false,
+      title: _("Select Color"),
+    });
+
+    this._customColorBtn.connect("clicked", () => {
+      const currentHex = this._settings.get_string("accent-color");
+      const initialRgba = new Gdk.RGBA();
+      initialRgba.parse(currentHex || "#3584e4");
+
+      colorDialog.choose_rgba(
+        this._page.get_root(),
+        initialRgba,
+        null,
+        (dialog, res) => {
+          let rgba;
+          try {
+            rgba = dialog.choose_rgba_finish(res);
+          } catch (e) {
+            return;
+          }
+
+          if (!rgba) return;
+
+          const hex = `#${toHex(rgba.red)}${toHex(rgba.green)}${toHex(rgba.blue)}`;
+
+          this._settings.set_string("accent-color", hex);
+          this._settings.set_boolean("custom-color", true);
+          this._applyTheme();
+
+          this._runOperation(async (cancellable) => {
+            await this._renderColorUI(null, cancellable);
+          });
+        },
+      );
+    });
+
     colors.forEach((hexColor, index) => {
       let btn = new Gtk.Button({
         valign: Gtk.Align.CENTER,
@@ -1612,34 +1642,46 @@ class ChromaLeonUI {
           : this._settings.get_string("accent-color") === hexColor;
 
         let cssString = isActive
-          ? `button {
+          ? `button,
+              button:active,
+              button:focus:active {
                   background-color: ${color};
                   min-width: 20px;
                   min-height: 20px;
                   border-radius: 50%;
-                  padding: 0;
-                  margin: 5px;
+                  margin: 6px;
+                  border: none;
+                  padding: 0px;
                   outline: 3px solid ${color};
                   outline-offset: 3px;
+                  box-shadow: none;
                 }
                 button:focus {
-                  outline: 3px solid alpha(${color}, 0.6);
+                  outline: 3px solid alpha(${color}, 0.7);
+                  outline-offset: 3px;
                 }`
-          : `button {
+          : `button,
+              button:active,
+              button:focus:active {
                   background-color: ${color};
-                  min-width: 30px;
-                  min-height: 30px;
+                  min-width: 32px;
+                  min-height: 32px;
                   border-radius: 50%;
-                  padding: 0;
                   margin: 0px;
+                  border: none;
+                  padding: 0px;
                   outline: none;
+                  box-shadow: none;
                 }
                 button:focus {
                   min-width: 20px;
                   min-height: 20px;
-                  margin: 5px;
-                  outline: 3px solid alpha(${color}, 0.6);
+                  margin: 6px;
+                  border: none;
+                  padding: 0px;
+                  outline: 3px solid alpha(${color}, 0.7);
                   outline-offset: 3px;
+                  box-shadow: none;
                 }`;
 
         if (cssProvider.load_from_string)
@@ -1656,12 +1698,15 @@ class ChromaLeonUI {
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
       btn.connect("clicked", () => {
+        this._customColor = false;
+        this._settings.set_boolean("custom-color", false);
+
         if (isGnomeColor) {
           this._interfaceSettings.set_string("accent-color", hexColor);
         } else {
           this._settings.set_string("accent-color", hexColor);
         }
-        this._settings.set_boolean("custom-color", true);
+
         this._applyTheme();
       });
 
@@ -1671,6 +1716,10 @@ class ChromaLeonUI {
         this._moreColorBox.append(btn);
       }
     });
+
+    if (!this._settings.get_boolean("gnome-colors")) {
+      this._mainColorBox.append(this._customColorBtn);
+    }
   }
 
   _getWallpaperColorsAsync(uri, cancellable = null) {

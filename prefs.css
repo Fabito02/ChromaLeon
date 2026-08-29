@@ -21,57 +21,118 @@
  */
 
 .wallpaper-preview {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 button.wallpaper-button {
-    padding: 0;
-    border-radius: 8px;
+  padding: 0;
+  border-radius: 8px;
 }
 
 .heart-button {
-    color: #f66151;
+  color: #f66151;
 }
 
 .heart-button:hover {
-    color: #fa6e5f;
+  color: #fa6e5f;
 }
 
 .deleteBtn {
-    padding: 0px;
-    min-height: 30px;
-    min-width: 30px;
+  padding: 0px;
+  min-height: 30px;
+  min-width: 30px;
 }
 
 flowboxchild .wallpaper-overlay button {
-    opacity: 0;
-    transition: opacity 150ms ease-in-out;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
 }
 
 flowboxchild:hover .wallpaper-overlay button {
-    opacity: 1;
+  opacity: 1;
 }
 
 flowboxchild:focus .wallpaper-overlay button {
-    opacity: 1;
+  opacity: 1;
 }
 
 flowboxchild .wallpaper-overlay button:focus {
-    opacity: 1;
+  opacity: 1;
 }
 
 .support-row {
-    background: linear-gradient(
-        45deg,
-        mix(var(--accent-bg-color), white, 0.35) 0%,
-        var(--accent-bg-color) 40%,
-        var(--accent-bg-color) 60%,
-        mix(var(--accent-bg-color), black, 0.35) 100%
-    );
-    color: #ffffff;
+  background: linear-gradient(
+    45deg,
+    mix(var(--accent-bg-color), white, 0.35) 0%,
+    var(--accent-bg-color) 40%,
+    var(--accent-bg-color) 60%,
+    mix(var(--accent-bg-color), black, 0.35) 100%
+  );
+  color: #ffffff;
 }
 
 .support-row button {
-    color: #ffffff;
+  color: #ffffff;
 }
 
+button.custom-color-btn,
+button.custom-color-btn:active,
+button.custom-color-btn:focus:active {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0.15) 35%,
+      transparent 70%
+    ),
+    conic-gradient(
+      from 135deg,
+      #ea5d51,
+      #fbc02d,
+      #4bb36a,
+      #5c97f4,
+      #b063f6,
+      #ea5d51
+    );
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+button.custom-color-btn:focus {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 0.8), 0.7);
+  outline-offset: -3px;
+}
+
+button.custom-color-btn.active,
+button.custom-color-btn.active:active,
+button.custom-color-btn.active:focus:active {
+  background: var(--accent-bg-color);
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+button.custom-color-btn.active:focus {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.2), 0.7);
+  outline-offset: -3px;
+}
+
+button.custom-color-btn image {
+  opacity: 0;
+}
+
+button.custom-color-btn.active image {
+  opacity: 1;
+  color: white;
+}
