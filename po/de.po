@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-24 08:46-0300\n"
-"PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Christian Lauinger <christian.lauinger@gmail.com>\n"
+"PO-Revision-Date: 2026-08-30 08:51+0000\n"
+"Last-Translator: Lukas Kronberger <j13m126@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: chromaleon.js:133
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Fehler beim Abrufen der Miniaturansicht: "
 
 #: chromaleon.js:142
 msgid "Wallpaper"
@@ -64,43 +64,48 @@ msgstr "Hintergrundbilder"
 
 #: chromaleon.js:424
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon gibts es nur dank Nutzern wie dir!"
 
 #: chromaleon.js:425
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Wenn ChromaLeon sich einen Platz bei der Anpassung deines Geräts verdient "
+"hat, denke bitte darüber nach, das Projekt mit einer kleinen Spende zu "
+"unterstützen."
 
 #: chromaleon.js:485
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: chromaleon.js:490
 msgid "GNOME Colors"
-msgstr ""
+msgstr "GNOME Farben"
 
 #: chromaleon.js:491
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Verwende die nativen GNOME Farben anstelle der Hintergrundbildfarben."
 
 #: chromaleon.js:496
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Bevorzuge den hellen Stil"
 
 #: chromaleon.js:497
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Verwende einen hellen Stil für die Shell im hellen Design."
 
 #: chromaleon.js:503
 msgid "Fully Light"
-msgstr ""
+msgstr "Durchgehend hell"
 
 #: chromaleon.js:505
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Verwende ein durchgängigen hellen Stil anstelle des Standardstils für das "
+"helle Design der GNOME Shell."
 
 #: chromaleon.js:540
 msgid "Tint GNOME"
@@ -112,20 +117,19 @@ msgstr "Basiert auf Tint my GNOME"
 
 #: chromaleon.js:546
 msgid "Tint Shell"
-msgstr "Einfärbe-Shell"
+msgstr "Shell einfärben"
 
 #: chromaleon.js:547
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Färbt die GNOME Shell in den von dir gewählten Farben."
 
 #: chromaleon.js:553
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Einfärbe-Shell"
+msgstr "Obere Leiste im dunklen Stil einfärben"
 
 #: chromaleon.js:554
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Färbt im dunklen Stil auch die obere Leiste ein."
 
 #: chromaleon.js:567
 msgid "Tint Apps"
@@ -149,35 +153,35 @@ msgstr "GTK3-Anwendungen einfärben"
 
 #: chromaleon.js:603
 msgid "Subtle"
-msgstr ""
+msgstr "Dezent"
 
 #: chromaleon.js:604
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: chromaleon.js:605
 msgid "Strong"
-msgstr ""
+msgstr "Stark"
 
 #: chromaleon.js:606
 msgid "Stronger"
-msgstr ""
+msgstr "Stärker"
 
 #: chromaleon.js:610
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Einfärbeintensität"
 
 #: chromaleon.js:611
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Legt die Intensität des Einfärbeeffekts fest."
 
 #: chromaleon.js:624
 msgid "Darker Tint"
-msgstr ""
+msgstr "Dunkler einfärben"
 
 #: chromaleon.js:625
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Wendet eine dunklere Einfärbung an."
 
 #: chromaleon.js:665
 msgid "Icon Theme"
@@ -270,15 +274,15 @@ msgstr "Verschiedenes"
 
 #: chromaleon.js:804
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: chromaleon.js:805
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Standard (empfohlen)"
 
 #: chromaleon.js:806
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Sanft (experimentell)"
 
 #: chromaleon.js:810
 msgid "Hot Reload"
@@ -335,9 +339,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Hintergrundbild erfolgreich gelöscht!"
 
 #: chromaleon.js:1058
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Löschen von Hintergrundbild fehlgeschlagen"
+msgstr "Löschen von Hintergrundbild fehlgeschlagen: "
 
 #: chromaleon.js:1064
 msgid "Select a Wallpaper"
@@ -365,7 +368,7 @@ msgstr "Hintergrundbild erfolgreich hinzugefügt!"
 
 #: chromaleon.js:1119
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Fehler beim Kopieren des Hintergrundbildes: "
 
 #: chromaleon.js:1561
 msgid "Unable to load colors."
