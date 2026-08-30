@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-30 16:13-0300\n"
-"PO-Revision-Date: 2026-08-01 01:29+0000\n"
-"Last-Translator: Christian Lauinger <christian.lauinger@gmail.com>\n"
+"PO-Revision-Date: 2026-08-30 08:51+0000\n"
+"Last-Translator: Lukas Kronberger <j13m126@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -25,43 +25,48 @@ msgstr "Einstellungen"
 
 #: ui/preferencesPage.js:85
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon gibts es nur dank Nutzern wie dir!"
 
 #: ui/preferencesPage.js:87
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Wenn ChromaLeon sich einen Platz bei der Anpassung deines Geräts verdient "
+"hat, denke bitte darüber nach, das Projekt mit einer kleinen Spende zu "
+"unterstützen."
 
 #: ui/preferencesPage.js:148
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: ui/preferencesPage.js:153
 msgid "GNOME Colors"
-msgstr ""
+msgstr "GNOME Farben"
 
 #: ui/preferencesPage.js:154
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Verwende die nativen GNOME Farben anstelle der Hintergrundbildfarben."
 
 #: ui/preferencesPage.js:159
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Bevorzuge den hellen Stil"
 
 #: ui/preferencesPage.js:160
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Verwende einen hellen Stil für die Shell im hellen Design."
 
 #: ui/preferencesPage.js:166
 msgid "Fully Light"
-msgstr ""
+msgstr "Durchgehend hell"
 
 #: ui/preferencesPage.js:168
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Verwende ein durchgängigen hellen Stil anstelle des Standardstils für das "
+"helle Design der GNOME Shell."
 
 #: ui/preferencesPage.js:204
 msgid "Tint GNOME"
@@ -73,20 +78,19 @@ msgstr "Basiert auf Tint my GNOME"
 
 #: ui/preferencesPage.js:210
 msgid "Tint Shell"
-msgstr "Einfärbe-Shell"
+msgstr "Shell einfärben"
 
 #: ui/preferencesPage.js:211
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Färbt die GNOME Shell in den von dir gewählten Farben."
 
 #: ui/preferencesPage.js:217
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Einfärbe-Shell"
+msgstr "Obere Leiste im dunklen Stil einfärben"
 
 #: ui/preferencesPage.js:218
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Färbt im dunklen Stil auch die obere Leiste ein."
 
 #: ui/preferencesPage.js:230
 msgid "Tint Apps"
@@ -110,35 +114,35 @@ msgstr "GTK3-Anwendungen einfärben"
 
 #: ui/preferencesPage.js:264
 msgid "Subtle"
-msgstr ""
+msgstr "Dezent"
 
 #: ui/preferencesPage.js:265
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: ui/preferencesPage.js:266
 msgid "Strong"
-msgstr ""
+msgstr "Stark"
 
 #: ui/preferencesPage.js:267
 msgid "Stronger"
-msgstr ""
+msgstr "Stärker"
 
 #: ui/preferencesPage.js:271
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Einfärbeintensität"
 
 #: ui/preferencesPage.js:272
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Legt die Intensität des Einfärbeeffekts fest."
 
 #: ui/preferencesPage.js:278
 msgid "Darker Tint"
-msgstr ""
+msgstr "Dunkler einfärben"
 
 #: ui/preferencesPage.js:279
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Wendet eine dunklere Einfärbung an."
 
 #: ui/preferencesPage.js:328
 msgid "Icon Theme"
@@ -232,15 +236,15 @@ msgstr "Verschiedenes"
 
 #: ui/preferencesPage.js:471
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: ui/preferencesPage.js:472
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Standard (empfohlen)"
 
 #: ui/preferencesPage.js:473
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Sanft (experimentell)"
 
 #: ui/preferencesPage.js:477
 msgid "Hot Reload"
@@ -366,9 +370,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Hintergrundbild erfolgreich gelöscht!"
 
 #: ui/wallpaperPage.js:401
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Löschen von Hintergrundbild fehlgeschlagen"
+msgstr "Löschen von Hintergrundbild fehlgeschlagen: "
 
 #: ui/wallpaperPage.js:407
 msgid "Select a Wallpaper"
@@ -396,7 +399,7 @@ msgstr "Hintergrundbild erfolgreich hinzugefügt!"
 
 #: ui/wallpaperPage.js:462
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Fehler beim Kopieren des Hintergrundbildes: "
 
 #: ui/wallpaperPage.js:898
 msgid "Unable to load colors."
