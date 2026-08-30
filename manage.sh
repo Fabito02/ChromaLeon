@@ -72,7 +72,7 @@ if [ "$OPT_POT" = true ]; then
              --language=JavaScript \
              --keyword=_ \
              --output=po/chromaleon.pot \
-             *.js ./utils/*.js
+             *.js ./utils/*.js ./ui/*.js
 fi
 
 if [ "$OPT_PO" = true ]; then
@@ -101,6 +101,7 @@ if [ "$OPT_ZIP" = true ]; then
       --extra-source=templates \
       --extra-source=assets \
       --extra-source=utils \
+      --extra-source=ui \
       --extra-source=chromaleon.js \
       --extra-source=prefs.css \
       -f
