@@ -9,7 +9,6 @@
 ### Adapt GNOME colors like a chameleon
 Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors dynamically based on your wallpaper.
 
----
 [![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?style=flat&logo=gnome&logoColor=white&color=3f86e3)](https://extensions.gnome.org/extension/10070/user-accent-colors/)
 [![GitHub License](https://img.shields.io/github/license/fabito02/ChromaLeon?style=flat&logo=gplv3&logoColor=white&color=50fa7b)](https://github.com/Fabito02/ChromaLeon/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/Fabito02/ChromaLeon?style=flat&logo=github&logoColor=white&color=f1fa8c)](https://github.com/Fabito02/ChromaLeon/stargazers)
@@ -100,14 +99,19 @@ glib-compile-schemas ~/.local/share/gnome-shell/extensions/user-accent-colors@fa
 
 # Enable the extension
 gnome-extensions enable user-accent-colors@fabito02
-
 ```
 
 > **Note:** After enabling the extension for the first time, you need to restart the GNOME Shell to apply the core stylesheets.
 > * **On X11:** Press `Alt + F2`, type `r`, and hit `Enter`.
 > * **On Wayland:** Log out and log back into your session.
 
----
+<br>
+
+## Extended compatibility
+
+It is possible to expand ChromaLeon's color compatibility by performing an additional configuration. You can find the setup guide in the [ChromaLeon Preload repository](https://github.com/Fabito02/chromaleon-preload/).
+
+<br>
 
 ## 💛 Support the Project
 
