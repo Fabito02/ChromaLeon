@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 08:46-0300\n"
+"POT-Creation-Date: 2026-08-30 16:13-0300\n"
 "PO-Revision-Date: 2026-08-23 23:50+0000\n"
 "Last-Translator: ahmedz4de <rustamahmadzada@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
@@ -20,212 +20,176 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 2026.9.dev0\n"
 
-#: chromaleon.js:133
-msgid "Error getting thumbnail: "
-msgstr "Ошибка получения превью "
-
-#: chromaleon.js:142
-msgid "Wallpaper"
-msgstr "Обои"
-
-#: chromaleon.js:147
+#: ui/preferencesPage.js:46
 msgid "Preferences"
 msgstr "Параметры"
 
-#: chromaleon.js:205 chromaleon.js:238
-msgid "Accent Color"
-msgstr "Акцентный цвет"
-
-#: chromaleon.js:215
-msgid "Main color"
-msgstr "Основной цвет"
-
-#: chromaleon.js:238
-msgid "Wallpaper Colors"
-msgstr "Цвета Обоев"
-
-#: chromaleon.js:244
-msgid ""
-"The system automatically updates the accent color based on your wallpaper."
-msgstr "Система автоматически обновляет акцентный цвет на основе ваших обои."
-
-#: chromaleon.js:302
-msgid "Additional colors"
-msgstr "Дополнительные цвета"
-
-#: chromaleon.js:339
-msgid "Add wallpapers"
-msgstr "Добавить обои"
-
-#: chromaleon.js:353
-msgid "Wallpapers"
-msgstr "Обои"
-
-#: chromaleon.js:424
+#: ui/preferencesPage.js:85
 msgid "ChromaLeon only exists thanks to users like you!"
 msgstr ""
 
-#: chromaleon.js:425
+#: ui/preferencesPage.js:87
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
 
-#: chromaleon.js:485
+#: ui/preferencesPage.js:148
 msgid "Colors"
 msgstr "Цвета"
 
-#: chromaleon.js:490
+#: ui/preferencesPage.js:153
 msgid "GNOME Colors"
 msgstr "цвета GNOME"
 
-#: chromaleon.js:491
+#: ui/preferencesPage.js:154
 msgid "Use native GNOME colors instead of wallpaper colors."
 msgstr "Используй встроенные цвета GNOME вместо обоев."
 
-#: chromaleon.js:496
+#: ui/preferencesPage.js:159
 msgid "Prefer Light Style"
 msgstr "Предпочитать Светлый Стиль"
 
-#: chromaleon.js:497
+#: ui/preferencesPage.js:160
 msgid "Use a light style for the Shell in the light theme."
 msgstr ""
 
-#: chromaleon.js:503
+#: ui/preferencesPage.js:166
 msgid "Fully Light"
 msgstr ""
 
-#: chromaleon.js:505
+#: ui/preferencesPage.js:168
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
 
-#: chromaleon.js:540
+#: ui/preferencesPage.js:204
 msgid "Tint GNOME"
 msgstr ""
 
-#: chromaleon.js:541
+#: ui/preferencesPage.js:205
 msgid "Based on Tint my GNOME"
 msgstr ""
 
-#: chromaleon.js:546
+#: ui/preferencesPage.js:210
 msgid "Tint Shell"
 msgstr ""
 
-#: chromaleon.js:547
+#: ui/preferencesPage.js:211
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr ""
 
-#: chromaleon.js:553
+#: ui/preferencesPage.js:217
 msgid "Tint Dark Panel"
 msgstr ""
 
-#: chromaleon.js:554
+#: ui/preferencesPage.js:218
 msgid "Also tint the panel when in dark mode."
 msgstr ""
 
-#: chromaleon.js:567
+#: ui/preferencesPage.js:230
 msgid "Tint Apps"
 msgstr ""
 
-#: chromaleon.js:569
+#: ui/preferencesPage.js:232
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr ""
 
-#: chromaleon.js:576
+#: ui/preferencesPage.js:239
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
 
-#: chromaleon.js:589
+#: ui/preferencesPage.js:251
 msgid "Tint GTK3 Apps"
 msgstr ""
 
-#: chromaleon.js:603
+#: ui/preferencesPage.js:264
 msgid "Subtle"
 msgstr ""
 
-#: chromaleon.js:604
+#: ui/preferencesPage.js:265
 msgid "Default"
 msgstr ""
 
-#: chromaleon.js:605
+#: ui/preferencesPage.js:266
 msgid "Strong"
 msgstr ""
 
-#: chromaleon.js:606
+#: ui/preferencesPage.js:267
 msgid "Stronger"
 msgstr ""
 
-#: chromaleon.js:610
+#: ui/preferencesPage.js:271
 msgid "Tinting Strength"
 msgstr ""
 
-#: chromaleon.js:611
+#: ui/preferencesPage.js:272
 msgid "Determines the strength of the tint effect."
 msgstr ""
 
-#: chromaleon.js:624
+#: ui/preferencesPage.js:278
 msgid "Darker Tint"
 msgstr ""
 
-#: chromaleon.js:625
+#: ui/preferencesPage.js:279
 msgid "Applies a darker tint."
 msgstr ""
 
-#: chromaleon.js:665
+#: ui/preferencesPage.js:328
 msgid "Icon Theme"
 msgstr ""
 
-#: chromaleon.js:670
+#: ui/preferencesPage.js:333
 msgid "Folder icon theme"
 msgstr ""
 
-#: chromaleon.js:671
+#: ui/preferencesPage.js:334
 msgid "Applies the accent color to folder icons."
 msgstr ""
 
-#: chromaleon.js:677
+#: ui/preferencesPage.js:340
 msgid "Application icon theme"
 msgstr ""
 
-#: chromaleon.js:678
+#: ui/preferencesPage.js:341
 msgid "Applies the accent color to some app icons."
 msgstr ""
 
-#: chromaleon.js:682
+#: ui/preferencesPage.js:345
 msgid "MoreWaita"
 msgstr ""
 
-#: chromaleon.js:683
+#: ui/preferencesPage.js:346
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr ""
 
-#: chromaleon.js:718
+#: ui/preferencesPage.js:383
 msgid "Customization"
 msgstr ""
 
-#: chromaleon.js:723
+#: ui/preferencesPage.js:388
 msgid "Custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:725
+#: ui/preferencesPage.js:390
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
 
-#: chromaleon.js:744 chromaleon.js:761 chromaleon.js:819
+#: ui/preferencesPage.js:409 ui/preferencesPage.js:426
+#: ui/preferencesPage.js:486
 msgid "About the custom stylesheet"
 msgstr ""
 
-#: chromaleon.js:750
+#: ui/preferencesPage.js:415
 msgid "Open file"
 msgstr ""
 
-#: chromaleon.js:763
+#: ui/preferencesPage.js:428
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -239,43 +203,43 @@ msgid ""
 "important</tt></b> to your CSS rules."
 msgstr ""
 
-#: chromaleon.js:770 chromaleon.js:838
+#: ui/preferencesPage.js:435 ui/preferencesPage.js:504
 msgid "Close"
 msgstr ""
 
-#: chromaleon.js:792
+#: ui/preferencesPage.js:457
 msgid "Failed to open custom.css: "
 msgstr ""
 
-#: chromaleon.js:799
+#: ui/preferencesPage.js:466
 msgid "Miscellaneous"
 msgstr ""
 
-#: chromaleon.js:804
+#: ui/preferencesPage.js:471
 msgid "Disabled"
 msgstr ""
 
-#: chromaleon.js:805
+#: ui/preferencesPage.js:472
 msgid "Default (recommended)"
 msgstr ""
 
-#: chromaleon.js:806
+#: ui/preferencesPage.js:473
 msgid "Smooth (experimental)"
 msgstr ""
 
-#: chromaleon.js:810
+#: ui/preferencesPage.js:477
 msgid "Hot Reload"
 msgstr ""
 
-#: chromaleon.js:811
+#: ui/preferencesPage.js:478
 msgid "Enables theme hot reloading for GTK4 applications."
 msgstr ""
 
-#: chromaleon.js:828
+#: ui/preferencesPage.js:494
 msgid "About Hot Reload"
 msgstr ""
 
-#: chromaleon.js:830
+#: ui/preferencesPage.js:496
 msgid ""
 "Hot reload uses rapid switching between the high contrast theme and the "
 "default theme to force GTK4 applications to reload the stylesheet.\n"
@@ -294,58 +258,143 @@ msgid ""
 "necessary for them."
 msgstr ""
 
-#: chromaleon.js:853
+#: ui/preferencesPage.js:519
 msgid "Apply to Flatpaks"
 msgstr ""
 
-#: chromaleon.js:855
+#: ui/preferencesPage.js:521
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 
-#: chromaleon.js:861
+#: ui/preferencesPage.js:527
 msgid "Enable shortcut"
 msgstr ""
 
-#: chromaleon.js:863
+#: ui/preferencesPage.js:529
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 
-#: chromaleon.js:1054
+#: ui/preloadPage.js:46
+msgid "Compatibility"
+msgstr ""
+
+#: ui/preloadPage.js:69
+msgid "Target apps"
+msgstr ""
+
+#: ui/preloadPage.js:71
+msgid ""
+"Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
+"the ChromaLeon accent color."
+msgstr ""
+
+#: ui/preloadPage.js:77
+msgid "Add Application"
+msgstr ""
+
+#: ui/preloadPage.js:117
+msgid "Remove"
+msgstr ""
+
+#: ui/preloadPage.js:157
+msgid "Reinstall or Update"
+msgstr ""
+
+#: ui/preloadPage.js:158
+msgid "Access the setup guide to view instructions."
+msgstr ""
+
+#: ui/preloadPage.js:164
+msgid "View instructions"
+msgstr ""
+
+#: ui/preloadPage.js:202
+msgid "This option requires additional configuration."
+msgstr ""
+
+#: ui/preloadPage.js:204
+msgid ""
+"To synchronize accent colors with applications that do not support "
+"ChromaLeon colors, the preload library must be compiled and installed (this "
+"is not necessary if using GNOME colors)."
+msgstr ""
+
+#: ui/preloadPage.js:244
+msgid "Setup Guide"
+msgstr ""
+
+#: ui/wallpaperPage.js:85
+msgid "Error getting thumbnail: "
+msgstr "Ошибка получения превью "
+
+#: ui/wallpaperPage.js:96
+msgid "Wallpaper"
+msgstr "Обои"
+
+#: ui/wallpaperPage.js:166
+msgid "Additional colors"
+msgstr "Дополнительные цвета"
+
+#: ui/wallpaperPage.js:203
+msgid "Add wallpapers"
+msgstr "Добавить обои"
+
+#: ui/wallpaperPage.js:217
+msgid "Wallpapers"
+msgstr "Обои"
+
+#: ui/wallpaperPage.js:397
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: chromaleon.js:1058
+#: ui/wallpaperPage.js:401
 msgid "Error deleting wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1064
+#: ui/wallpaperPage.js:407
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: chromaleon.js:1066
+#: ui/wallpaperPage.js:409
 msgid "_Open"
 msgstr ""
 
-#: chromaleon.js:1067
+#: ui/wallpaperPage.js:410
 msgid "_Cancel"
 msgstr ""
 
-#: chromaleon.js:1072
+#: ui/wallpaperPage.js:415
 msgid "All Images"
 msgstr ""
 
-#: chromaleon.js:1099
+#: ui/wallpaperPage.js:442
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: chromaleon.js:1115
+#: ui/wallpaperPage.js:458
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: chromaleon.js:1119
+#: ui/wallpaperPage.js:462
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: chromaleon.js:1561
+#: ui/wallpaperPage.js:898
 msgid "Unable to load colors."
 msgstr ""
+
+#: ui/wallpaperPage.js:947
+#, fuzzy
+msgid "Select Color"
+msgstr "Акцентный цвет"
+
+#~ msgid "Main color"
+#~ msgstr "Основной цвет"
+
+#~ msgid "Wallpaper Colors"
+#~ msgstr "Цвета Обоев"
+
+#~ msgid ""
+#~ "The system automatically updates the accent color based on your wallpaper."
+#~ msgstr ""
+#~ "Система автоматически обновляет акцентный цвет на основе ваших обои."

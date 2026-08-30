@@ -21,57 +21,130 @@
  */
 
 .wallpaper-preview {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 button.wallpaper-button {
-    padding: 0;
-    border-radius: 8px;
+  padding: 0;
+  border-radius: 8px;
 }
 
 .heart-button {
-    color: #f66151;
+  color: #f66151;
 }
 
 .heart-button:hover {
-    color: #fa6e5f;
+  color: #fa6e5f;
 }
 
 .deleteBtn {
-    padding: 0px;
-    min-height: 30px;
-    min-width: 30px;
+  padding: 0px;
+  min-height: 30px;
+  min-width: 30px;
 }
 
 flowboxchild .wallpaper-overlay button {
-    opacity: 0;
-    transition: opacity 150ms ease-in-out;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
 }
 
 flowboxchild:hover .wallpaper-overlay button {
-    opacity: 1;
+  opacity: 1;
 }
 
 flowboxchild:focus .wallpaper-overlay button {
-    opacity: 1;
+  opacity: 1;
 }
 
 flowboxchild .wallpaper-overlay button:focus {
-    opacity: 1;
+  opacity: 1;
 }
 
 .support-row {
-    background: linear-gradient(
-        45deg,
-        mix(var(--accent-bg-color), white, 0.35) 0%,
-        var(--accent-bg-color) 40%,
-        var(--accent-bg-color) 60%,
-        mix(var(--accent-bg-color), black, 0.35) 100%
-    );
-    color: #ffffff;
+  background: linear-gradient(
+    45deg,
+    mix(var(--accent-bg-color), white, 0.35) 0%,
+    var(--accent-bg-color) 40%,
+    var(--accent-bg-color) 60%,
+    mix(var(--accent-bg-color), black, 0.35) 100%
+  );
+  color: #ffffff;
 }
 
 .support-row button {
-    color: #ffffff;
+  color: #ffffff;
 }
 
+button.custom-color-btn,
+button.custom-color-btn:active,
+button.custom-color-btn:focus:active {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.12) 35%,
+      transparent 70%
+    ),
+    conic-gradient(
+      from 135deg,
+      #dc6e65,
+      #e5b94c,
+      #60ac75,
+      #6b9be0,
+      #a673df,
+      #dc6e65
+    );
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+button.custom-color-btn.active,
+button.custom-color-btn.active:active,
+button.custom-color-btn.active:focus:active {
+  background: var(--accent-bg-color);
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+button.custom-color-btn.active {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.3), 0.6);
+  outline-offset: -3px;
+}
+
+button.custom-color-btn:focus,
+button.custom-color-btn:focus:active {
+  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.55), 0.6);
+  outline-offset: -3px;
+}
+
+button.custom-color-btn image {
+  color: white;
+}
+
+.tag {
+  background-color: alpha(currentColor, 0.1);
+  border-radius: 9999px;
+  padding: 3px 4px 3px 12px;
+}
+
+.tag:hover {
+  background-color: alpha(currentColor, 0.15);
+}
+
+.tag button {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+}

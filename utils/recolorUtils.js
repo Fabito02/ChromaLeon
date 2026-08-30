@@ -158,7 +158,7 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
   if (!dir.query_exists(null)) return;
 
   let enumerator = await dir.enumerate_children_async(
-    "standard::name,standard::type",
+    "standard::name,standard::type,standard::is-symlink",
     Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
     GLib.PRIORITY_DEFAULT,
     cancellable,
@@ -181,6 +181,7 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
       for (let info of infos) {
         filesToProcess.push({
           type: info.get_file_type(),
+          isSymlink: info.get_is_symlink(),
           child: dir.get_child(info.get_name()),
           name: info.get_name(),
         });
@@ -205,6 +206,7 @@ async function processDirectoryAsync(dirPath, colorMap, cancellable) {
           );
         } else if (
           item.type === Gio.FileType.REGULAR &&
+          !item.isSymlink &&
           item.name.endsWith(".svg")
         ) {
           await recolorSvgAsync(item.child, colorMap, cancellable);
@@ -331,47 +333,31 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
 
   const { applyApps = false, useMoreWaita = false } = options;
 
-  const darkAccent = modifyColor(baseColor, -0.08, 0.0);
-  const moreDarkAccent = modifyColor(baseColor, -0.12, 0.0);
-  const medAccent = modifyColor(baseColor, 0.0, 0.0);
-  const lightAccent = modifyColor(baseColor, 0.08, 0.0);
-  const bgSoft = modifyColor(baseColor, 0.25, 0.12);
-  const intenseGlow = modifyColor(baseColor, 0.3, 0.1);
-  const bgDiffuse = modifyColor(baseColor, 0.28, -0.2);
-
-  const deepShadow = modifyColor(baseColor, -0.16, -0.05);
-  const extremeLight = modifyColor(baseColor, 0.15, 0.05);
-  const superLight = modifyColor(baseColor, 0.4, 0.05);
-
   const colorMap = {
-    "3f8ae5": darkAccent,
-    "438de6": medAccent,
-    "62a0ea": extremeLight,
-    a4caee: bgSoft,
-    afd4ff: intenseGlow,
-    c0d5ea: bgDiffuse,
-    "3584e4": medAccent,
-    "1a5fb4": darkAccent,
-    "1c71d8": modifyColor(baseColor, -0.02, 0.0),
-    DEEP_SHADOW: deepShadow,
-    MORE_DARK: moreDarkAccent,
-    EXTREME_LIGHT: extremeLight,
-    "99c1f1": modifyColor(baseColor, 0.25, 0.05),
-    c3e5e7: extremeLight,
-    "14498a": deepShadow,
-    "1e77e1": darkAccent,
-    "1966c2": deepShadow,
-    d7e8fc: modifyColor(baseColor, 0.45, 0.05),
-    b3d3f9: modifyColor(baseColor, 0.35, 0.05),
-    SUPER_LIGHT: superLight,
-    cc9c54: darkAccent,
-    d5ae73: lightAccent,
-    cc920a: darkAccent,
-    ce9508: darkAccent,
-    ce9708: darkAccent,
+    "3f8ae5": modifyColor(baseColor, -0.08, 0.0),
+    "438de6": modifyColor(baseColor, 0.0, 0.0),
+    "62a0ea": modifyColor(baseColor, 0.096, 0.035),
+    a4caee: modifyColor(baseColor, 0.25, 0.12),
+    afd4ff: modifyColor(baseColor, 0.3, 0.1),
+    c0d5ea: modifyColor(baseColor, 0.28, -0.2),
+    "3584e4": modifyColor(baseColor, 0.0, 0.0),
+    "1a5fb4": modifyColor(baseColor, -0.17, 0.0),
+    "1c71d8": modifyColor(baseColor, -0.084, 0.075),
+    "99c1f1": modifyColor(baseColor, 0.222, 0.05),
+    c3e5e7: modifyColor(baseColor, 0.15, 0.05),
+    "14498a": modifyColor(baseColor, -0.2, -0.05),
+    "1e77e1": modifyColor(baseColor, -0.08, 0.0),
+    "1966c2": modifyColor(baseColor, -0.16, -0.02),
+    d7e8fc: modifyColor(baseColor, 0.35, 0.015),
+    b3d3f9: modifyColor(baseColor, 0.27, 0.08),
+    cc9c54: modifyColor(baseColor, -0.08, 0.0),
+    d5ae73: modifyColor(baseColor, 0.08, 0.0),
+    cc920a: modifyColor(baseColor, -0.17, 0.0),
+    ce9508: modifyColor(baseColor, -0.17, 0.0),
+    ce9708: modifyColor(baseColor, -0.17, 0.0),
     "98c1f1": modifyColor(baseColor, 0.23, 0.0),
-    d3e3f9: modifyColor(baseColor, 0.4, -0.15),
-    "4a86cf": medAccent,
+    d3e3f9: modifyColor(baseColor, 0.365, 0.02),
+    "4a86cf": modifyColor(baseColor, 0.0, 0.0),
   };
 
   const userIconsDir = GLib.build_filenamev([
@@ -414,7 +400,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     }
 
     const enumerator = await srcFile.enumerate_children_async(
-      "standard::name,standard::type",
+      "standard::name,standard::type,standard::is-symlink,standard::symlink-target",
       Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
       GLib.PRIORITY_DEFAULT,
       cancellable,
@@ -442,12 +428,25 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
               childSrc.get_path(),
               childDest.get_path(),
             );
+          } else if (info.get_is_symlink()) {
+            const target = info.get_symlink_target();
+            if (childDest.query_exists(null)) {
+              childDest.delete(null);
+            }
+            childDest.make_symbolic_link(target, cancellable);
           } else {
             await childSrc.copy_async(
               childDest,
               Gio.FileCopyFlags.OVERWRITE | Gio.FileCopyFlags.NOFOLLOW_SYMLINKS,
               GLib.PRIORITY_DEFAULT,
               cancellable,
+              null,
+            );
+
+            childDest.set_attribute_uint32(
+              "unix::mode",
+              0o644,
+              Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
               null,
             );
           }
@@ -485,6 +484,8 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
     "org.gnome.Logs.svg",
     "org.gnome.font-viewer.svg",
     "org.gnome.tweaks.svg",
+    "org.gnome.Extensions.svg",
+    "org.gnome.Shell.Extensions.svg",
     "ca.desrt.dconf-editor.svg",
     "com.mattjakeman.ExtensionManager.svg",
     "page.tesk.Refine.svg",
@@ -554,55 +555,77 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
 
   const rebelApps = {
     "org.gnome.Calendar.svg": {
-      "9141ac": colorMap["438de6"],
-      af60ef: colorMap["EXTREME_LIGHT"],
-      "874ab4": colorMap["62a0ea"],
-      613583: colorMap["3f8ae5"],
-      "3b214e": colorMap["DEEP_SHADOW"],
+      "9141ac": modifyColor(baseColor, 0.0, 0.0),
+      af60ef: modifyColor(baseColor, 0.15, 0.05),
+      "874ab4": modifyColor(baseColor, 0.15, 0.05),
+      613583: modifyColor(baseColor, -0.08, 0.0),
+      "3b214e": modifyColor(baseColor, -0.16, -0.05),
     },
     "org.gnome.Calculator.svg": {
-      ff7800: colorMap["438de6"],
-      c64600: colorMap["3f8ae5"],
+      ff7800: modifyColor(baseColor, 0.0, 0.0),
+      c64600: modifyColor(baseColor, -0.14, -0.02),
     },
     "org.gnome.Contacts.svg": {
-      "3584e4": colorMap["438de6"],
-      "2864b0": colorMap["3f8ae5"],
-      "1d60b5": colorMap["DEEP_SHADOW"],
+      "3584e4": colorMap["3584e4"],
+      "2864b0": modifyColor(baseColor, -0.08, 0.0),
+      "1d60b5": modifyColor(baseColor, -0.16, -0.05),
     },
     "org.gnome.Geary.svg": {
-      f6d32d: colorMap["438de6"],
-      f5c211: colorMap["62a0ea"],
-      e5a50a: colorMap["1a5fb4"],
-      c18b08: colorMap["DEEP_SHADOW"],
-      cc920a: colorMap["MORE_DARK"],
-      ce9508: colorMap["1a5fb4"],
-      ce9708: colorMap["1a5fb4"],
+      f6d32d: modifyColor(baseColor, 0.02, 0.02),
+      f5c211: modifyColor(baseColor, -0.06, 0.0),
+      e5a50a: modifyColor(baseColor, -0.13, 0.0),
+      c18b08: modifyColor(baseColor, -0.22, -0.05),
+      cc920a: colorMap["cc920a"],
+      ce9508: colorMap["ce9508"],
+      ce9708: colorMap["ce9708"],
     },
     "com.mattjakeman.ExtensionManager.svg": {
-      "0055d4": colorMap["438de6"],
-      "003380": colorMap["3f8ae5"],
-      "55ddff": colorMap["99c1f1"],
-      "80b3ff": colorMap["62a0ea"],
-      "0066ff": colorMap["3f8ae5"],
+      "0055d4": modifyColor(baseColor, 0.0, 0.0),
+      "003380": modifyColor(baseColor, -0.18, 0.05),
+      "55ddff": modifyColor(baseColor, 0.26, 0.12),
+      "80b3ff": modifyColor(baseColor, 0.12, 0.05),
+      "0066ff": modifyColor(baseColor, 0.03, 0.0),
     },
     "org.gnome.font-viewer.svg": {
-      c061cb: colorMap["438de6"],
-      a347ba: colorMap["3f8ae5"],
-      "813d9c": colorMap["DEEP_SHADOW"],
+      c061cb: modifyColor(baseColor, 0.0, 0.0),
+      a347ba: modifyColor(baseColor, -0.08, 0.0),
+      "813d9c": modifyColor(baseColor, -0.16, -0.05),
     },
     "page.tesk.Refine.svg": {
-      "3584e4": colorMap["438de6"],
-      "1c71d8": colorMap["3f8ae5"],
-      "62a0ea": colorMap["438de6"],
-      "99c1f1": colorMap["EXTREME_LIGHT"],
+      "3584e4": colorMap["3584e4"],
+      "1c71d8": colorMap["1c71d8"],
+      "62a0ea": colorMap["62a0ea"],
+      "99c1f1": colorMap["99c1f1"],
     },
     "io.github.Fabito02.chromaleon.svg": {
-      "33e281": colorMap["EXTREME_LIGHT"],
-      "2da964": colorMap["438de6"],
-      "1c8454": colorMap["DEEP_SHADOW"],
-      "8ff0a4": colorMap["99c1f1"],
-      e1ff6c: colorMap["SUPER_LIGHT"],
-      "2c604e": colorMap["DEEP_SHADOW"],
+      "33e281": modifyColor(baseColor, 0.08, 0.03),
+      "2da964": modifyColor(baseColor, 0.0, 0.0),
+      "1c8454": modifyColor(baseColor, -0.16, -0.05),
+      "8ff0a4": modifyColor(baseColor, 0.18, 0.05),
+      e1ff6c: modifyColor(baseColor, 0.28, 0.05),
+      "2c604e": modifyColor(baseColor, -0.16, -0.05),
+    },
+    "org.gnome.Shell.Extensions.svg": {
+      "1c774d": modifyColor(baseColor, -0.16, -0.05),
+      "1d7a4e": modifyColor(baseColor, -0.16, -0.05),
+      208757: modifyColor(baseColor, -0.08, 0.0),
+      "208a5a": modifyColor(baseColor, -0.08, 0.0),
+      "26a269": modifyColor(baseColor, 0.0, 0.0),
+      "28ab6f": modifyColor(baseColor, 0.0, 0.0),
+      "2ec27e": modifyColor(baseColor, 0.085, 0.055),
+      "33d17a": modifyColor(baseColor, 0.15, 0.05),
+      "48d493": modifyColor(baseColor, 0.222, 0.05),
+    },
+    "org.gnome.Extensions.svg": {
+      "1c774d": modifyColor(baseColor, -0.16, -0.05),
+      "1d7a4e": modifyColor(baseColor, -0.16, -0.05),
+      208757: modifyColor(baseColor, -0.08, 0.0),
+      "208a5a": modifyColor(baseColor, -0.08, 0.0),
+      "26a269": modifyColor(baseColor, 0.0, 0.0),
+      "28ab6f": modifyColor(baseColor, 0.0, 0.0),
+      "2ec27e": modifyColor(baseColor, 0.085, 0.055),
+      "33d17a": modifyColor(baseColor, 0.15, 0.05),
+      "48d493": modifyColor(baseColor, 0.222, 0.05),
     },
   };
 
