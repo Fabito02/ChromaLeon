@@ -120,22 +120,6 @@
    _buildUI() {
      const wallpaperGroup = new Adw.PreferencesGroup();
  
-     const updateGroupHeader = () => {
-       const useGnomeColors = this._settings.get_boolean("gnome-colors");
-       wallpaperGroup.set_title(
-         !useGnomeColors ? _("Wallpaper Colors") : _("Accent Color"),
-       );
-     };
- 
-     updateGroupHeader();
-     const headerSigId = this._settings.connect("changed::gnome-colors", () =>
-       updateGroupHeader(),
-     );
- 
-     wallpaperGroup.connect("destroy", () => {
-       this._settings.disconnect(headerSigId);
-     });
- 
      this.add(wallpaperGroup);
  
      const previewRow = new Adw.PreferencesRow({
@@ -918,9 +902,12 @@
  
      this._colorsRow.set_subtitle("");
      this._wallpaperButtons = [];
-     this._moreColors.set_visible(colors.length > 8);
  
      let isGnomeColor = this._settings.get_boolean("gnome-colors");
+
+     const maxMainColors = isGnomeColor ? colors.length : 8;
+     this._moreColors.set_visible(colors.length > maxMainColors);
+     
      let currentColor = isGnomeColor
        ? this._interfaceSettings.get_string("accent-color")
        : this._settings.get_string("accent-color");
@@ -1075,14 +1062,14 @@
          this._applyTheme();
        });
  
-       if (this._settings.get_boolean("gnome-colors") ? index < 9 : index < 8) {
+       if (index < maxMainColors) {
          this._mainColorBox.append(btn);
        } else {
          this._moreColorBox.append(btn);
        }
      });
  
-     if (!this._settings.get_boolean("gnome-colors")) {
+     if (!isGnomeColor) {
        this._mainColorBox.append(this._customColorBtn);
      }
  
