@@ -132,3 +132,19 @@ button.custom-color-btn:focus:active {
 button.custom-color-btn image {
   color: white;
 }
+
+.tag {
+  background-color: alpha(currentColor, 0.1);
+  border-radius: 9999px;
+  padding: 3px 4px 3px 12px;
+}
+
+.tag:hover {
+  background-color: alpha(currentColor, 0.15);
+}
+
+.tag button {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+}

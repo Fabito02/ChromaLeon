@@ -104,5 +104,9 @@
       <description
             >Create a shortcut in the app grid by adding a .desktop file.</description>
     </key>
+    <key name="target-apps" type="as">
+        <default>['firefox', 'thunderbird', 'zen-browser', 'zen-bin']</default>
+        <summary>Target applications for accent injection</summary>
+    </key>
   </schema>
 </schemalist>
