@@ -80,6 +80,42 @@ export function buildUI(window, settings) {
     schema_id: "org.gnome.desktop.interface",
   });
 
+  const toolbarView = new Adw.ToolbarView();
+
+  const headerBar = new Adw.HeaderBar({
+    centering_policy: Adw.CenteringPolicy.STRICT,
+  });
+
+  const titleWidget = new Adw.ViewSwitcherTitle({
+    title: "ChromaLeon",
+  });
+  headerBar.set_title_widget(titleWidget);
+
+  const viewStack = new Adw.ViewStack({
+    vexpand: true,
+    hexpand: true,
+  });
+  titleWidget.set_stack(viewStack);
+
+  const switcherBar = new Adw.ViewSwitcherBar({
+    stack: viewStack,
+    reveal: false,
+  });
+
+  toolbarView.add_top_bar(headerBar);
+  toolbarView.set_content(viewStack);
+  toolbarView.add_bottom_bar(switcherBar);
+
+  window.set_content(toolbarView);
+
+  const breakpoint = new Adw.Breakpoint({
+    condition: Adw.BreakpointCondition.parse("max-width: 600px"),
+  });
+
+  breakpoint.add_setter(titleWidget, "view-switcher-enabled", false);
+  breakpoint.add_setter(switcherBar, "reveal", true);
+  window.add_breakpoint(breakpoint);
+
   const wallpaperPage = new WallpaperPage(
     settings,
     bgSettings,
@@ -88,9 +124,16 @@ export function buildUI(window, settings) {
   const preferencesPage = new PreferencesPage(settings, window);
   const preloadPage = new PreloadPage(settings, window);
 
-  window.add(wallpaperPage);
-  window.add(preferencesPage);
-  window.add(preloadPage);
+  const addPage = (page) => {
+    const stackPage = viewStack.add(page);
+    if (page.name) stackPage.name = page.name;
+    if (page.title) stackPage.title = page.title;
+    if (page.icon_name) stackPage.icon_name = page.icon_name;
+  };
+
+  addPage(wallpaperPage);
+  addPage(preloadPage);
+  addPage(preferencesPage);
 }
 
 if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
@@ -101,8 +144,8 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
   });
 
   app.connect("activate", (app) => {
-    const window = new Adw.PreferencesWindow({ application: app });
-    window.set_default_size(520, 680);
+    const window = new Adw.ApplicationWindow({ application: app });
+    window.set_default_size(480, 670);
     window.set_title("ChromaLeon");
 
     const settings = new Gio.Settings({

@@ -27,7 +27,7 @@
    fillPreferencesWindow(window) {
      const settings = this.getSettings();
  
-     window.set_default_size(520, 680);
+     window.set_default_size(480, 670);
      buildUI(window, settings);
    }
  }
