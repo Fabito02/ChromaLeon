@@ -145,7 +145,7 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
 
   app.connect("activate", (app) => {
     const window = new Adw.ApplicationWindow({ application: app });
-    window.set_default_size(480, 670);
+    window.set_default_size(490, 670);
     window.set_title("ChromaLeon");
 
     const settings = new Gio.Settings({
