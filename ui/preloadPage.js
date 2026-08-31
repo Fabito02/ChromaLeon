@@ -158,21 +158,21 @@ export class PreloadPage extends Adw.PreferencesPage {
       subtitle: _("Access the setup guide to view instructions."),
     });
 
-    const terminalBtn = new Gtk.Button({
+    const setupGuideBtn = new Gtk.Button({
       icon_name: "external-link-symbolic",
       valign: Gtk.Align.CENTER,
       tooltip_text: _("View instructions"),
     });
-    terminalBtn.add_css_class("flat");
-    terminalBtn.connect("clicked", () => {
+    setupGuideBtn.add_css_class("flat");
+    setupGuideBtn.connect("clicked", () => {
       Gtk.show_uri(
         null,
-        "https://github.com/Fabito02/chromaleon-preload",
+        "https://github.com/Fabito02/chromaleon-preload#installation",
         null,
       );
     });
 
-    actionRow.add_suffix(terminalBtn);
+    actionRow.add_suffix(setupGuideBtn);
     optionsGroup.add(actionRow);
   }
 
@@ -248,7 +248,7 @@ export class PreloadPage extends Adw.PreferencesPage {
     instructionsButton.connect("clicked", () => {
       Gtk.show_uri(
         null,
-        "https://github.com/Fabito02/chromaleon-preload",
+        "https://github.com/Fabito02/chromaleon-preload#installation",
         null,
       );
     });
