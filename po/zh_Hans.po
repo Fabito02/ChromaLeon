@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-30 16:13-0300\n"
-"PO-Revision-Date: 2026-08-24 11:51+0000\n"
+"PO-Revision-Date: 2026-09-01 06:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/chromaleon/extension/zh_Hans/>\n"
@@ -297,41 +297,41 @@ msgstr "通过创建 .desktop 文件，在应用网格生成快捷入口。"
 
 #: ui/preloadPage.js:46
 msgid "Compatibility"
-msgstr ""
+msgstr "兼容性"
 
 #: ui/preloadPage.js:69
 msgid "Target apps"
-msgstr ""
+msgstr "目标应用"
 
 #: ui/preloadPage.js:71
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
-msgstr ""
+msgstr "输入进程名（如 firefox，thunderbird，zen-browser）以应用 ChromaLeon 强调色。"
 
 #: ui/preloadPage.js:77
 msgid "Add Application"
-msgstr ""
+msgstr "添加应用"
 
 #: ui/preloadPage.js:117
 msgid "Remove"
-msgstr ""
+msgstr "删除"
 
 #: ui/preloadPage.js:157
 msgid "Reinstall or Update"
-msgstr ""
+msgstr "重装或更新"
 
 #: ui/preloadPage.js:158
 msgid "Access the setup guide to view instructions."
-msgstr ""
+msgstr "查阅设置指南获取操作指引。"
 
 #: ui/preloadPage.js:164
 msgid "View instructions"
-msgstr ""
+msgstr "获取操作指引"
 
 #: ui/preloadPage.js:202
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "此选项需要额外配置。"
 
 #: ui/preloadPage.js:204
 msgid ""
@@ -339,10 +339,12 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"若要让不支持 ChromaLeon 颜色的应用同步强调色，必须编译并安装预加载库（使用 "
+"GNOME 强调色则无需此操作）。"
 
 #: ui/preloadPage.js:244
 msgid "Setup Guide"
-msgstr ""
+msgstr "设置指南"
 
 #: ui/wallpaperPage.js:85
 msgid "Error getting thumbnail: "
@@ -405,9 +407,8 @@ msgid "Unable to load colors."
 msgstr "加载颜色失败。"
 
 #: ui/wallpaperPage.js:947
-#, fuzzy
 msgid "Select Color"
-msgstr "强调色"
+msgstr "选择颜色"
 
 #~ msgid "Main color"
 #~ msgstr "主色"
