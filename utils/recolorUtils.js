@@ -598,12 +598,12 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
       "99c1f1": colorMap["99c1f1"],
     },
     "io.github.Fabito02.chromaleon.svg": {
-      "33e281": modifyColor(baseColor, 0.08, 0.03),
-      "2da964": modifyColor(baseColor, 0.0, 0.0),
-      "1c8454": modifyColor(baseColor, -0.16, -0.05),
-      "8ff0a4": modifyColor(baseColor, 0.18, 0.05),
-      e1ff6c: modifyColor(baseColor, 0.28, 0.05),
-      "2c604e": modifyColor(baseColor, -0.16, -0.05),
+      "33e281": modifyColor(baseColor, 0.08, 0.02),
+      "59e99a": modifyColor(baseColor, 0.18, 0.04),
+      "2dbe6e": modifyColor(baseColor, 0.0, 0.0),
+      "2ba361": modifyColor(baseColor, -0.07, -0.02),
+      "e1ff6c": modifyColor(baseColor, 0.30, 0.05),
+      "0f6e42": modifyColor(baseColor, -0.22, 0.0),
     },
     "org.gnome.Shell.Extensions.svg": {
       "1c774d": modifyColor(baseColor, -0.16, -0.05),
