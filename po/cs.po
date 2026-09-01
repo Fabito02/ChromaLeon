@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-30 16:13-0300\n"
-"PO-Revision-Date: 2026-08-24 11:51+0000\n"
+"PO-Revision-Date: 2026-09-01 06:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/chromaleon/"
 "extension/cs/>\n"
@@ -306,41 +306,43 @@ msgstr "Vytvoří zástupce v mřížce aplikací přidáním souboru .desktop."
 
 #: ui/preloadPage.js:46
 msgid "Compatibility"
-msgstr ""
+msgstr "Kompatibilita"
 
 #: ui/preloadPage.js:69
 msgid "Target apps"
-msgstr ""
+msgstr "Cílené aplikace"
 
 #: ui/preloadPage.js:71
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
+"Zadejte název procesu (např. firefox, thunderbird, zen-browser) pro použití "
+"barevného nádechu ChromaLeon."
 
 #: ui/preloadPage.js:77
 msgid "Add Application"
-msgstr ""
+msgstr "Přidat aplikaci"
 
 #: ui/preloadPage.js:117
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: ui/preloadPage.js:157
 msgid "Reinstall or Update"
-msgstr ""
+msgstr "Přeinstalovat nebo aktualizovat"
 
 #: ui/preloadPage.js:158
 msgid "Access the setup guide to view instructions."
-msgstr ""
+msgstr "Pokyny naleznete v průvodci nastavením."
 
 #: ui/preloadPage.js:164
 msgid "View instructions"
-msgstr ""
+msgstr "Zobrazit pokyny"
 
 #: ui/preloadPage.js:202
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "Tato možnost vyžaduje další konfiguraci."
 
 #: ui/preloadPage.js:204
 msgid ""
@@ -348,10 +350,13 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"Pro synchronizaci barev nádechu s aplikacemi, které nepodporují barvy "
+"ChromaLeon, je nutné zkompilovat a nainstalovat knihovnu preload (to není "
+"nutné, pokud používáte barvy GNOME)."
 
 #: ui/preloadPage.js:244
 msgid "Setup Guide"
-msgstr ""
+msgstr "Průvodce nastavením"
 
 #: ui/wallpaperPage.js:85
 msgid "Error getting thumbnail: "
@@ -414,9 +419,8 @@ msgid "Unable to load colors."
 msgstr "Nelze načíst barvy."
 
 #: ui/wallpaperPage.js:947
-#, fuzzy
 msgid "Select Color"
-msgstr "Barevný nádech"
+msgstr "Výběr barvy"
 
 #~ msgid "Main color"
 #~ msgstr "Hlavní barva"
