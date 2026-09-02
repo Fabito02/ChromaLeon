@@ -2,7 +2,7 @@
 
 # ChromaLeon
 
-<img width="250" alt="Gnome Extensions Icon" src="https://github.com/user-attachments/assets/a5c0c8e1-d11f-42c7-9a19-06746e26468b" />
+<img width="250" alt="ChromaLeon Icon" src="https://github.com/user-attachments/assets/69936dab-2287-4740-a17c-3e6de09d2b5f" />
 
 <br><br>
 
