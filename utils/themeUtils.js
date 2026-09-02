@@ -395,7 +395,6 @@ export async function updateGtkStylesheet(
 
         let template = new TextDecoder().decode(contents);
         let css = template
-          .replace(/@@ACCENT@@/g, gnomeColors ? "@accent_bg_color" : color)
           .replace(
             /@@TINT_STRENGTH@@/g,
             getConvertedStrength(tintStrength, true, 0.12),
@@ -479,10 +478,6 @@ export async function updateGtkStylesheet(
 
         let template = new TextDecoder().decode(contents);
         let css = template
-          .replace(
-            /@@ACCENT@@/g,
-            gnomeColors ? GNOME_ACCENTS_HEX[color] : color,
-          )
           .replace(
             /@@TINT_STRENGTH@@/g,
             getConvertedStrength(tintStrength, true, 0.12),

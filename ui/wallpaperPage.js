@@ -1036,8 +1036,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
                   outline-offset: 3px;
                   box-shadow: none;
                 }`;
-
-        cssProvider.load_from_string(cssString)
+        cssProvider.load_from_string(cssString);
       };
 
       updateButtonStyle();
