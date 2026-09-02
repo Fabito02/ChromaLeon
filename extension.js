@@ -157,10 +157,6 @@ export default class ChromaLeon extends Extension {
           const colorScheme =
             this._interfaceSettings.get_string("color-scheme");
 
-          if (this._settings.get_boolean("prefer-light"))
-            this._loadShellStylesheet(cancellable);
-          await this._updateAppStyles(cancellable);
-
           if (!this._settings.get_boolean("custom-color")) {
             let uri =
               colorScheme === "prefer-dark"
@@ -173,6 +169,9 @@ export default class ChromaLeon extends Extension {
             if (newColor !== currentColor) {
               await this._autoApplyWallpaperColor(newColor, cancellable);
             }
+          } else {
+            this._loadShellStylesheet(cancellable);
+            await this._updateAppStyles(cancellable);
           }
         }),
       "changed::accent-color",
@@ -338,7 +337,7 @@ export default class ChromaLeon extends Extension {
   async _autoApplyWallpaperColor(color, cancellable) {
     throwIfCancelled(cancellable);
     if (this._settings.get_boolean("custom-color")) {
-      await this._updateShellStyles(cancellable);
+      this._loadShellStylesheet(cancellable);
       await this._updateAppStyles(cancellable);
       return;
     }

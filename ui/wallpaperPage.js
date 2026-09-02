@@ -103,7 +103,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._bgSettings = bgSettings;
     this._interfaceSettings = interfaceSettings;
 
-    this._customColor = false;
+    this._manualColor = false;
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._bgUpdateTimeoutId = null;
@@ -325,11 +325,11 @@ export class WallpaperPage extends Adw.PreferencesPage {
     const rgba = new Gdk.RGBA();
     rgba.parse(hex);
 
-    if (this._customColorBtn) {
-      if (this._customColor) {
-        this._customColorBtn.add_css_class("active");
+    if (this._manualColorBtn) {
+      if (this._manualColor) {
+        this._manualColorBtn.add_css_class("active");
       } else {
-        this._customColorBtn.remove_css_class("active");
+        this._manualColorBtn.remove_css_class("active");
       }
     }
 
@@ -930,16 +930,16 @@ export class WallpaperPage extends Adw.PreferencesPage {
       halign: Gtk.Align.CENTER,
     });
 
-    this._customColorBtn = new Gtk.Button({
+    this._manualColorBtn = new Gtk.Button({
       valign: Gtk.Align.CENTER,
       halign: Gtk.Align.CENTER,
       child: iconEdit,
     });
 
-    this._customColorBtn.add_css_class("custom-color-btn");
+    this._manualColorBtn.add_css_class("custom-color-btn");
 
-    if (this._customColor) {
-      this._customColorBtn.add_css_class("active");
+    if (this._manualColor) {
+      this._manualColorBtn.add_css_class("active");
     }
 
     const colorDialog = new Gtk.ColorDialog({
@@ -947,7 +947,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
       title: _("Select Color"),
     });
 
-    this._customColorBtn.connect("clicked", () => {
+    this._manualColorBtn.connect("clicked", () => {
       const currentHex = this._settings.get_string("accent-color");
       const initialRgba = new Gdk.RGBA();
       initialRgba.parse(currentHex || "#3584e4");
@@ -967,7 +967,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
           if (!rgba) return;
 
           const hex = `#${toHex(rgba.red)}${toHex(rgba.green)}${toHex(rgba.blue)}`;
-          this._customColor = true;
+          this._manualColor = true;
           this._settings.set_string("accent-color", hex);
           this._settings.set_boolean("custom-color", true);
           this._applyTheme();
@@ -1037,9 +1037,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
                   box-shadow: none;
                 }`;
 
-        if (cssProvider.load_from_string)
-          cssProvider.load_from_string(cssString);
-        else cssProvider.load_from_data(cssString, -1);
+        cssProvider.load_from_string(cssString)
       };
 
       updateButtonStyle();
@@ -1050,8 +1048,8 @@ export class WallpaperPage extends Adw.PreferencesPage {
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
       btn.connect("clicked", () => {
-        this._customColor = false;
-        this._settings.set_boolean("custom-color", false);
+        this._manualColor = false;
+        this._settings.set_boolean("custom-color", true);
 
         if (isGnomeColor) {
           this._interfaceSettings.set_string("accent-color", hexColor);
@@ -1070,7 +1068,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
     });
 
     if (!isGnomeColor) {
-      this._mainColorBox.append(this._customColorBtn);
+      this._mainColorBox.append(this._manualColorBtn);
     }
 
     this._applyTheme();
