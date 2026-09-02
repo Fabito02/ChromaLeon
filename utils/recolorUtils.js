@@ -276,56 +276,48 @@ function getHicolorAppsDirectories() {
 async function deleteRecursiveAsync(file, cancellable) {
   throwIfCancelled(cancellable);
   if (!file.query_exists(null)) return;
+  const info = await file.query_info_async(
+    "standard::type",
+    Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+    GLib.PRIORITY_DEFAULT,
+    cancellable,
+  );
 
-  try {
-    const info = await file.query_info_async(
-      "standard::type",
+  if (info.get_file_type() === Gio.FileType.DIRECTORY) {
+    const iter = await file.enumerate_children_async(
+      "standard::name",
       Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
       GLib.PRIORITY_DEFAULT,
       cancellable,
     );
 
-    if (info.get_file_type() === Gio.FileType.DIRECTORY) {
-      const iter = await file.enumerate_children_async(
-        "standard::name",
-        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-        GLib.PRIORITY_DEFAULT,
-        cancellable,
-      );
+    if (iter) {
+      try {
+        while (true) {
+          throwIfCancelled(cancellable);
 
-      if (iter) {
-        try {
-          while (true) {
-            throwIfCancelled(cancellable);
+          const infos = await iter.next_files_async(
+            50,
+            GLib.PRIORITY_DEFAULT,
+            cancellable,
+          );
 
-            const infos = await iter.next_files_async(
-              50,
-              GLib.PRIORITY_DEFAULT,
-              cancellable,
-            );
+          if (!infos || infos.length === 0) break;
 
-            if (!infos || infos.length === 0) break;
+          const branches = infos.map((childInfo) => {
+            const child = iter.get_child(childInfo);
+            return deleteRecursiveAsync(child, cancellable);
+          });
 
-            const branches = infos.map((childInfo) => {
-              const child = iter.get_child(childInfo);
-              return deleteRecursiveAsync(child, cancellable);
-            });
-
-            await Promise.all(branches);
-          }
-        } finally {
-          iter.close(null);
+          await Promise.all(branches);
         }
+      } finally {
+        iter.close(null);
       }
     }
-
-    await file.delete_async(GLib.PRIORITY_DEFAULT, cancellable);
-  } catch (e) {
-    if (isCancelledError(e)) throw e;
-    console.error(
-      `ChromaLeon: Erro ao deletar ${file.get_path()}: ${e.message}`,
-    );
   }
+
+  await file.delete_async(GLib.PRIORITY_DEFAULT, cancellable);
 }
 
 export async function applyAccentTheme(baseColor, options = {}, cancellable) {
@@ -602,7 +594,7 @@ export async function applyAccentTheme(baseColor, options = {}, cancellable) {
       "59e99a": modifyColor(baseColor, 0.18, 0.04),
       "2dbe6e": modifyColor(baseColor, 0.0, 0.0),
       "2ba361": modifyColor(baseColor, -0.07, -0.02),
-      "e1ff6c": modifyColor(baseColor, 0.30, 0.05),
+      e1ff6c: modifyColor(baseColor, 0.3, 0.05),
       "0f6e42": modifyColor(baseColor, -0.22, 0.0),
     },
     "org.gnome.Shell.Extensions.svg": {
