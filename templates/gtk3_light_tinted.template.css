@@ -32,19 +32,19 @@
 @define-color popover_fg_color #333334;
 @define-color dialog_fg_color #323233;
 
-@define-color window_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color view_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color headerbar_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color headerbar_backdrop_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color popover_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color dialog_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color card_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH_CARD@@);
-@define-color sidebar_bg_color mix(#ebebed, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color sidebar_backdrop_color mix(#f2f2f4, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color sidebar_border_color mix(rgba(0, 0, 6, 0.07), @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color secondary_sidebar_bg_color mix(#f3f3f5, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @@ACCENT@@, @@TINT_STRENGTH@@);
-@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @@ACCENT@@, @@TINT_STRENGTH@@);
+@define-color window_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color view_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color headerbar_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color headerbar_backdrop_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color popover_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color dialog_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color card_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH_CARD@@);
+@define-color sidebar_bg_color mix(#ebebed, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color sidebar_backdrop_color mix(#f2f2f4, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color sidebar_border_color mix(rgba(0, 0, 6, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color secondary_sidebar_bg_color mix(#f3f3f5, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @accent_bg_color, @@TINT_STRENGTH@@);
+@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
 
 @define-color panel_bg_color @window_bg_color;
 @define-color panel_button_bg_color transparent;
@@ -52,7 +52,7 @@
 
 @define-color theme_bg_color @window_bg_color;
 @define-color theme_base_color @view_bg_color;
-@define-color theme_selected_bg_color @@ACCENT@@;
+@define-color theme_selected_bg_color @accent_bg_color;
 
 /* =========================================
  * Element Styling Rules

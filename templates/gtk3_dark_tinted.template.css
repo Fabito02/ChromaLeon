@@ -32,19 +32,19 @@
 @define-color popover_fg_color white;
 @define-color dialog_fg_color white;
 
-@define-color window_bg_color mix(#222226, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color view_bg_color mix(#1d1d20, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color headerbar_bg_color mix(#2e2e32, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color headerbar_backdrop_color mix(#222226, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color popover_bg_color mix(#36363a, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color dialog_bg_color mix(#36363a, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color sidebar_bg_color mix(#2e2e32, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color sidebar_backdrop_color mix(#28282c, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color secondary_sidebar_bg_color mix(#28282c, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color secondary_sidebar_backdrop_color mix(#252529, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+@define-color window_bg_color mix(#222226, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color view_bg_color mix(#1d1d20, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color headerbar_bg_color mix(#2e2e32, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color headerbar_backdrop_color mix(#222226, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color popover_bg_color mix(#36363a, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color dialog_bg_color mix(#36363a, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_bg_color mix(#2e2e32, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_backdrop_color mix(#28282c, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_bg_color mix(#28282c, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_backdrop_color mix(#252529, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+@define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
 
 @define-color panel_bg_color @window_bg_color;
 @define-color panel_button_bg_color transparent;
@@ -52,7 +52,7 @@
 
 @define-color theme_bg_color @window_bg_color;
 @define-color theme_base_color @view_bg_color;
-@define-color theme_selected_bg_color @@ACCENT@@;
+@define-color theme_selected_bg_color @accent_bg_color;
 
 /* =========================================
  * Element Styling Rules

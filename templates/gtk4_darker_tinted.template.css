@@ -25,19 +25,19 @@
  * ========================================= */
 @media (prefers-color-scheme: light) {
     /* Base Variables */
-    @define-color window_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color view_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color headerbar_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color headerbar_backdrop_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color popover_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color dialog_bg_color mix(#fafafb, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color card_bg_color mix(#ffffff, @@ACCENT@@, @@TINT_STRENGTH_CARD@@);
-    @define-color sidebar_bg_color mix(#ebebed, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color sidebar_backdrop_color mix(#f2f2f4, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color sidebar_border_color mix(rgba(0, 0, 3, 0.07), @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_bg_color mix(#f3f3f5, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @@ACCENT@@, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @@ACCENT@@, @@TINT_STRENGTH@@);
+    @define-color window_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color view_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color headerbar_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color headerbar_backdrop_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color popover_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color dialog_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color card_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH_CARD@@);
+    @define-color sidebar_bg_color mix(#ebebed, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color sidebar_backdrop_color mix(#f2f2f4, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color sidebar_border_color mix(rgba(0, 0, 3, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_bg_color mix(#f3f3f5, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
 
     /* Specific Element Overrides (Light) */
     @define-color panel_bg_color @window_bg_color;
@@ -47,7 +47,7 @@
     /* Compatibility Colors (Safety Fallback) */
     @define-color theme_bg_color @window_bg_color;
     @define-color theme_base_color @view_bg_color;
-    @define-color theme_selected_bg_color @@ACCENT@@;
+    @define-color theme_selected_bg_color @accent_bg_color;
 
     @define-color window_fg_color RGB(0 0 6 / 80%);
     @define-color view_fg_color RGB(0 0 6 / 80%);
@@ -64,19 +64,19 @@
  * ========================================= */
 @media (prefers-color-scheme: dark) {
     /* Base Variables */
-    @define-color window_bg_color mix(#111113, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color view_bg_color mix(#0e0e10, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color headerbar_bg_color mix(#171719, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color headerbar_backdrop_color mix(#111113, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color popover_bg_color mix(#1b1b1d, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color dialog_bg_color mix(#1b1b1d, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_bg_color mix(#171719, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_backdrop_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_bg_color mix(#141416, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_backdrop_color mix(#121214, @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @@ACCENT@@, @@TINT_STRENGTH_DARK@@);
+    @define-color window_bg_color mix(#111113, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color view_bg_color mix(#0e0e10, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color headerbar_bg_color mix(#171719, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color headerbar_backdrop_color mix(#111113, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color popover_bg_color mix(#1b1b1d, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color dialog_bg_color mix(#1b1b1d, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_bg_color mix(#171719, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_backdrop_color mix(#141416, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_bg_color mix(#141416, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_backdrop_color mix(#121214, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
 
     /* Specific Element Overrides (Dark) */
     @define-color panel_bg_color @window_bg_color;
@@ -86,7 +86,7 @@
     /* Compatibility Colors (Safety Fallback) */
     @define-color theme_bg_color @window_bg_color;
     @define-color theme_base_color @view_bg_color;
-    @define-color theme_selected_bg_color @@ACCENT@@;
+    @define-color theme_selected_bg_color @accent_bg_color;
 
     @define-color window_fg_color #ffffff;
     @define-color view_fg_color #ffffff;
@@ -105,7 +105,7 @@
 /* Force toasts to always use the dark base with white text
    to match Nautilus's native high-contrast alert style. */
 toast {
-    background-color: mix(#28282a, @@ACCENT@@, @@TINT_STRENGTH@@);
+    background-color: mix(#28282a, @accent_bg_color, @@TINT_STRENGTH@@);
     color: #ffffff;
 }
 
@@ -117,4 +117,4 @@ toggle:checked {
     background-color: rgba(0, 0, 0, 0);
 }
 
-banner { --banner-color: mix(#3e3e42, @@ACCENT@@, @@TINT_STRENGTH@@); }
+banner { --banner-color: mix(#3e3e42, @accent_bg_color, @@TINT_STRENGTH@@); }
