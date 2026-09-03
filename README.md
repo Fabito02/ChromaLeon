@@ -34,6 +34,7 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 ## Notes:
 > [!WARNING]
 > ChromaLeon **conflicts DIRECTLY** with the [User Theme](https://extensions.gnome.org/extension/19/user-themes/) extension. If you have this extension installed, please **REMOVE or DISABLE it** to avoid any errors.
+ - ChromaLeon was created within the context of the Adwaita theme. If you are experiencing any issues customizing applications or GNOME Shell, please ensure you are using the Adwaita theme before opening an issue.
  - A special thanks to [PakoVM](https://github.com/pakovm-git) for the inspiration behind the **tinted style**. The implementation in **ChromaLeon** was based on an idea from his [Tint My GNOME](https://github.com/pakovm-git/Tint-my-Gnome) extension.
 
 
