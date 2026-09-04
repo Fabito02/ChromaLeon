@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:13-0300\n"
+"POT-Creation-Date: 2026-09-04 18:36-0300\n"
 "PO-Revision-Date: 2026-08-25 18:23+0000\n"
 "Last-Translator: tupacamaru72 <tomino8552@prodbits.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
@@ -50,18 +50,26 @@ msgstr ""
 "pantalla."
 
 #: ui/preferencesPage.js:159
+msgid "Persistent Choices"
+msgstr ""
+
+#: ui/preferencesPage.js:161
+msgid "Persistently remember the manually selected colors for each wallpaper."
+msgstr ""
+
+#: ui/preferencesPage.js:167
 msgid "Prefer Light Style"
 msgstr "Preferir Estilo claro"
 
-#: ui/preferencesPage.js:160
+#: ui/preferencesPage.js:168
 msgid "Use a light style for the Shell in the light theme."
 msgstr "Usa un estilo claro para el Shell en el tema claro."
 
-#: ui/preferencesPage.js:166
+#: ui/preferencesPage.js:174
 msgid "Fully Light"
 msgstr "Completamente claro"
 
-#: ui/preferencesPage.js:168
+#: ui/preferencesPage.js:176
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
@@ -69,39 +77,39 @@ msgstr ""
 "Usar un estilo puramente claro en vez del tema claro predeterminado de GNOME "
 "Shell."
 
-#: ui/preferencesPage.js:204
+#: ui/preferencesPage.js:219
 msgid "Tint GNOME"
 msgstr "Teñir GNOME"
 
-#: ui/preferencesPage.js:205
+#: ui/preferencesPage.js:220
 msgid "Based on Tint my GNOME"
 msgstr "Basado en Tint my GNOME"
 
-#: ui/preferencesPage.js:210
+#: ui/preferencesPage.js:225
 msgid "Tint Shell"
 msgstr "Teñir Shell"
 
-#: ui/preferencesPage.js:211
+#: ui/preferencesPage.js:226
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tiñe el GNOME Shell con el color de tu elección."
 
-#: ui/preferencesPage.js:217
+#: ui/preferencesPage.js:232
 msgid "Tint Dark Panel"
 msgstr "Teñir Panel oscuro"
 
-#: ui/preferencesPage.js:218
+#: ui/preferencesPage.js:233
 msgid "Also tint the panel when in dark mode."
 msgstr "También teñir el panel al usar el modo oscuro."
 
-#: ui/preferencesPage.js:230
+#: ui/preferencesPage.js:245
 msgid "Tint Apps"
 msgstr "Teñir Apps"
 
-#: ui/preferencesPage.js:232
+#: ui/preferencesPage.js:247
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "Tiñe las aplicaciones LibAdwaita con el color de su elección."
 
-#: ui/preferencesPage.js:239
+#: ui/preferencesPage.js:254
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
@@ -109,94 +117,94 @@ msgstr ""
 "También tiñe las aplicaciones GTK3 (la extensión {0} y el tema {1} son "
 "necesarios para evitar errores)."
 
-#: ui/preferencesPage.js:251
+#: ui/preferencesPage.js:266
 msgid "Tint GTK3 Apps"
 msgstr "Teñir Apps GTK3"
 
-#: ui/preferencesPage.js:264
+#: ui/preferencesPage.js:279
 msgid "Subtle"
 msgstr "Suave"
 
-#: ui/preferencesPage.js:265
+#: ui/preferencesPage.js:280
 msgid "Default"
 msgstr "Normal"
 
-#: ui/preferencesPage.js:266
+#: ui/preferencesPage.js:281
 msgid "Strong"
 msgstr "Fuerte"
 
-#: ui/preferencesPage.js:267
+#: ui/preferencesPage.js:282
 msgid "Stronger"
 msgstr "Notorio"
 
-#: ui/preferencesPage.js:271
+#: ui/preferencesPage.js:286
 msgid "Tinting Strength"
 msgstr "Fuerza tintórea"
 
-#: ui/preferencesPage.js:272
+#: ui/preferencesPage.js:287
 msgid "Determines the strength of the tint effect."
 msgstr "Determina la intensidad del efecto de tintado."
 
-#: ui/preferencesPage.js:278
+#: ui/preferencesPage.js:293
 msgid "Darker Tint"
 msgstr ""
 
-#: ui/preferencesPage.js:279
+#: ui/preferencesPage.js:294
 msgid "Applies a darker tint."
 msgstr ""
 
-#: ui/preferencesPage.js:328
+#: ui/preferencesPage.js:343
 msgid "Icon Theme"
 msgstr "Tema de iconos"
 
-#: ui/preferencesPage.js:333
+#: ui/preferencesPage.js:348
 msgid "Folder icon theme"
 msgstr "Tema de iconos de carpeta"
 
-#: ui/preferencesPage.js:334
+#: ui/preferencesPage.js:349
 msgid "Applies the accent color to folder icons."
 msgstr "Aplica el color de acento a los iconos de las carpetas."
 
-#: ui/preferencesPage.js:340
+#: ui/preferencesPage.js:355
 msgid "Application icon theme"
 msgstr "Tema de iconos de aplicaciones"
 
-#: ui/preferencesPage.js:341
+#: ui/preferencesPage.js:356
 msgid "Applies the accent color to some app icons."
 msgstr "Aplica el color de acento a algunos iconos de aplicaciones."
 
-#: ui/preferencesPage.js:345
+#: ui/preferencesPage.js:360
 msgid "MoreWaita"
 msgstr "MoreWaita"
 
-#: ui/preferencesPage.js:346
+#: ui/preferencesPage.js:361
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "Aplica la integración con el paquete de iconos MoreWaita."
 
-#: ui/preferencesPage.js:383
+#: ui/preferencesPage.js:398
 msgid "Customization"
 msgstr "Personalización"
 
-#: ui/preferencesPage.js:388
+#: ui/preferencesPage.js:403
 msgid "Custom stylesheet"
 msgstr ""
 
-#: ui/preferencesPage.js:390
+#: ui/preferencesPage.js:405
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
 
-#: ui/preferencesPage.js:409 ui/preferencesPage.js:426
-#: ui/preferencesPage.js:486
+#: ui/preferencesPage.js:424 ui/preferencesPage.js:441
+#: ui/preferencesPage.js:501
 msgid "About the custom stylesheet"
 msgstr ""
 
-#: ui/preferencesPage.js:415
+#: ui/preferencesPage.js:430
 msgid "Open file"
 msgstr "Abrir archivo"
 
-#: ui/preferencesPage.js:428
+#: ui/preferencesPage.js:443
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -210,43 +218,43 @@ msgid ""
 "important</tt></b> to your CSS rules."
 msgstr ""
 
-#: ui/preferencesPage.js:435 ui/preferencesPage.js:504
+#: ui/preferencesPage.js:450 ui/preferencesPage.js:519
 msgid "Close"
 msgstr "Cerrar"
 
-#: ui/preferencesPage.js:457
+#: ui/preferencesPage.js:472
 msgid "Failed to open custom.css: "
 msgstr ""
 
-#: ui/preferencesPage.js:466
+#: ui/preferencesPage.js:481
 msgid "Miscellaneous"
 msgstr "Diversos"
 
-#: ui/preferencesPage.js:471
+#: ui/preferencesPage.js:486
 msgid "Disabled"
 msgstr ""
 
-#: ui/preferencesPage.js:472
+#: ui/preferencesPage.js:487
 msgid "Default (recommended)"
 msgstr ""
 
-#: ui/preferencesPage.js:473
+#: ui/preferencesPage.js:488
 msgid "Smooth (experimental)"
 msgstr ""
 
-#: ui/preferencesPage.js:477
+#: ui/preferencesPage.js:492
 msgid "Hot Reload"
 msgstr "Hot Reload"
 
-#: ui/preferencesPage.js:478
+#: ui/preferencesPage.js:493
 msgid "Enables theme hot reloading for GTK4 applications."
 msgstr ""
 
-#: ui/preferencesPage.js:494
+#: ui/preferencesPage.js:509
 msgid "About Hot Reload"
 msgstr ""
 
-#: ui/preferencesPage.js:496
+#: ui/preferencesPage.js:511
 msgid ""
 "Hot reload uses rapid switching between the high contrast theme and the "
 "default theme to force GTK4 applications to reload the stylesheet.\n"
@@ -265,21 +273,21 @@ msgid ""
 "necessary for them."
 msgstr ""
 
-#: ui/preferencesPage.js:519
+#: ui/preferencesPage.js:534
 msgid "Apply to Flatpaks"
 msgstr "Aplicar a Flatpacks"
 
-#: ui/preferencesPage.js:521
+#: ui/preferencesPage.js:536
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
 "Permitir que los Flatpaks accedan a tus variables de color de acento "
 "personalizadas."
 
-#: ui/preferencesPage.js:527
+#: ui/preferencesPage.js:542
 msgid "Enable shortcut"
 msgstr "Habilitar atajo"
 
-#: ui/preferencesPage.js:529
+#: ui/preferencesPage.js:544
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr ""
 "Crea un atajo en la cuadrícula de aplicaciones añadiendo un archivo .desktop."
@@ -333,67 +341,67 @@ msgstr ""
 msgid "Setup Guide"
 msgstr ""
 
-#: ui/wallpaperPage.js:85
+#: ui/wallpaperPage.js:86
 msgid "Error getting thumbnail: "
 msgstr "Error generando miniatura: "
 
-#: ui/wallpaperPage.js:96
+#: ui/wallpaperPage.js:97
 msgid "Wallpaper"
 msgstr "Fondo de pantalla"
 
-#: ui/wallpaperPage.js:166
+#: ui/wallpaperPage.js:167
 msgid "Additional colors"
 msgstr "Colores adicionales"
 
-#: ui/wallpaperPage.js:203
+#: ui/wallpaperPage.js:204
 msgid "Add wallpapers"
 msgstr "Añadir fondos de pantalla"
 
-#: ui/wallpaperPage.js:217
+#: ui/wallpaperPage.js:218
 msgid "Wallpapers"
 msgstr "Fondos de pantalla"
 
-#: ui/wallpaperPage.js:397
+#: ui/wallpaperPage.js:398
 msgid "Wallpaper deleted successfully!"
 msgstr "¡Fondo de pantalla eliminado correctamente!"
 
-#: ui/wallpaperPage.js:401
+#: ui/wallpaperPage.js:402
 msgid "Error deleting wallpaper: "
 msgstr "Error al eliminar el fondo de escritorio: "
 
-#: ui/wallpaperPage.js:407
+#: ui/wallpaperPage.js:408
 msgid "Select a Wallpaper"
 msgstr "Seleccione un fondo de pantalla"
 
-#: ui/wallpaperPage.js:409
+#: ui/wallpaperPage.js:410
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ui/wallpaperPage.js:410
+#: ui/wallpaperPage.js:411
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ui/wallpaperPage.js:415
+#: ui/wallpaperPage.js:416
 msgid "All Images"
 msgstr "Todas las imágenes"
 
-#: ui/wallpaperPage.js:442
+#: ui/wallpaperPage.js:443
 msgid "Wallpaper already exists!"
 msgstr "¡El fondo de pantalla ya existe!"
 
-#: ui/wallpaperPage.js:458
+#: ui/wallpaperPage.js:459
 msgid "Wallpaper added successfully!"
 msgstr "¡Fondo de pantalla añadido correctamente!"
 
-#: ui/wallpaperPage.js:462
+#: ui/wallpaperPage.js:463
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:898
+#: ui/wallpaperPage.js:931
 msgid "Unable to load colors."
 msgstr "Error al cargar los colores."
 
-#: ui/wallpaperPage.js:947
+#: ui/wallpaperPage.js:995
 #, fuzzy
 msgid "Select Color"
 msgstr "Color de acento"

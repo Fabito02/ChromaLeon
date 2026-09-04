@@ -105,8 +105,18 @@
             >Create a shortcut in the app grid by adding a .desktop file.</description>
     </key>
     <key name="target-apps" type="as">
-        <default>['firefox', 'thunderbird', 'zen-browser', 'zen-bin']</default>
-        <summary>Target applications for accent injection</summary>
+      <default>['firefox', 'thunderbird', 'zen-browser', 'zen-bin']</default>
+      <summary>Target Apps</summary>
+      <description
+            >The list of applications to which accent injection will be applied.
+      </description>
+    </key>
+    <key name="persistent-choices" type="b">
+      <default>true</default>
+      <summary>Persistent Choices</summary>
+      <description
+            >Persistently remember the manually selected colors for each wallpaper.
+      </description>
     </key>
   </schema>
 </schemalist>

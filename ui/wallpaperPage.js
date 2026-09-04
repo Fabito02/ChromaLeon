@@ -98,8 +98,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
       icon_name: "image-round-symbolic",
     });
 
-    this._wallpaperColorCache = {};
-
     this.add_css_class("symbolic");
 
     this._settings = settings;
@@ -116,7 +114,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
     this._loadWallpapersAsync();
     this._runOperation(async (cancellable) => {
-      this._wallpaperColorCache = (await getColorCache(cancellable)) ?? {};
       await this._updateWallpaperUI(cancellable);
     });
   }
@@ -883,25 +880,35 @@ export class WallpaperPage extends Adw.PreferencesPage {
   }
 
   async _renderColorUI(uri, cancellable = null) {
+    if (!uri) {
+      const colorScheme = this._interfaceSettings.get_string("color-scheme");
+      uri =
+        colorScheme === "prefer-dark"
+          ? this._bgSettings.get_string("picture-uri-dark")
+          : this._bgSettings.get_string("picture-uri");
+
+      if (uri && !uri.startsWith("file://") && uri.startsWith("/")) {
+        uri = Gio.File.new_for_path(uri).get_uri();
+      }
+    }
+
     let colors = [];
     const isGnomeColor = this._settings.get_boolean("gnome-colors");
+    let cached = null;
 
     if (isGnomeColor) {
       colors = await this._getColorsList(uri, cancellable);
     } else {
-      const cached = this._wallpaperColorCache[uri];
+      const colorCache = await getColorCache(cancellable);
+      cached = uri ? colorCache[uri] : null;
 
       if (cached?.all_colors) {
         colors = cached.all_colors;
       } else {
         colors = await this._getColorsList(uri, cancellable);
 
-        if (colors && colors.length > 0) {
-          this._wallpaperColorCache = await writeColorCacheFile(
-            uri,
-            { all_colors: colors },
-            cancellable,
-          );
+        if (colors && colors.length > 0 && uri) {
+          await writeColorCacheFile(uri, { all_colors: colors }, cancellable);
         }
       }
     }
@@ -936,15 +943,30 @@ export class WallpaperPage extends Adw.PreferencesPage {
       ? this._interfaceSettings.get_string("accent-color")
       : this._settings.get_string("accent-color");
 
-    this._customColor =
-      !colors.includes(currentColor) &&
-      this._settings.get_boolean("custom-color");
+    if (!isGnomeColor) {
+      if (cached?.persistentColor) {
+        currentColor = cached.persistentColor;
+        if (this._settings.get_string("accent-color") !== currentColor) {
+          this._settings.set_string("accent-color", currentColor);
+        }
+      } else if (!colors.includes(currentColor)) {
+        currentColor = colors[0];
+        this._settings.set_string("accent-color", currentColor);
+        if (uri) {
+          await writeColorCacheFile(
+            uri,
+            { persistentColor: currentColor },
+            cancellable,
+          );
+        }
+      }
 
-    if (!colors.includes(currentColor) && !this._customColor) {
-      if (isGnomeColor) {
-        this._interfaceSettings.set_string("accent-color", colors[0]);
-      } else {
-        this._settings.set_string("accent-color", colors[0]);
+      this._manualColor = !colors.includes(currentColor);
+    } else {
+      this._manualColor = false;
+      if (!colors.includes(currentColor)) {
+        currentColor = colors[0];
+        this._interfaceSettings.set_string("accent-color", currentColor);
       }
     }
 
@@ -964,6 +986,8 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
     if (this._manualColor) {
       this._manualColorBtn.add_css_class("active");
+    } else {
+      this._manualColorBtn.remove_css_class("active");
     }
 
     const colorDialog = new Gtk.ColorDialog({
@@ -980,7 +1004,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
         this.get_root(),
         initialRgba,
         null,
-        (dialog, res) => {
+        async (dialog, res) => {
           let rgba;
           try {
             rgba = dialog.choose_rgba_finish(res);
@@ -994,10 +1018,19 @@ export class WallpaperPage extends Adw.PreferencesPage {
           this._manualColor = true;
           this._settings.set_string("accent-color", hex);
           this._settings.set_boolean("custom-color", true);
+
+          if (uri) {
+            await writeColorCacheFile(
+              uri,
+              { persistentColor: hex },
+              cancellable,
+            );
+          }
+
           this._applyTheme();
 
           this._runOperation(async (cancellable) => {
-            await this._renderColorUI(null, cancellable);
+            await this._renderColorUI(uri, cancellable);
           });
         },
       );
@@ -1016,50 +1049,51 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
         const isActive = isGnomeColor
           ? this._interfaceSettings.get_string("accent-color") === hexColor
-          : this._settings.get_string("accent-color") === hexColor;
+          : !this._manualColor &&
+            this._settings.get_string("accent-color") === hexColor;
 
         let cssString = isActive
-          ? `button,
-              button:active,
-              button:focus:active {
-                  background-color: ${color};
-                  min-width: 20px;
-                  min-height: 20px;
-                  border-radius: 50%;
-                  margin: 6px;
-                  border: none;
-                  padding: 0px;
-                  outline: 3px solid ${color};
-                  outline-offset: 3px;
-                  box-shadow: none;
-                }
-                button:focus {
-                  outline: 3px solid alpha(${color}, 0.7);
-                  outline-offset: 3px;
-                }`
-          : `button,
-              button:active,
-              button:focus:active {
-                  background-color: ${color};
-                  min-width: 32px;
-                  min-height: 32px;
-                  border-radius: 50%;
-                  margin: 0px;
-                  border: none;
-                  padding: 0px;
-                  outline: none;
-                  box-shadow: none;
-                }
-                button:focus {
-                  min-width: 20px;
-                  min-height: 20px;
-                  margin: 6px;
-                  border: none;
-                  padding: 0px;
-                  outline: 3px solid alpha(${color}, 0.7);
-                  outline-offset: 3px;
-                  box-shadow: none;
-                }`;
+          ? `button, 
+               button:active, 
+               button:focus:active { 
+                   background-color: ${color}; 
+                   min-width: 20px; 
+                   min-height: 20px; 
+                   border-radius: 50%; 
+                   margin: 6px; 
+                   border: none; 
+                   padding: 0px; 
+                   outline: 3px solid ${color}; 
+                   outline-offset: 3px; 
+                   box-shadow: none; 
+                 } 
+                 button:focus { 
+                   outline: 3px solid alpha(${color}, 0.7); 
+                   outline-offset: 3px; 
+                 }`
+          : `button, 
+               button:active, 
+               button:focus:active { 
+                   background-color: ${color}; 
+                   min-width: 32px; 
+                   min-height: 32px; 
+                   border-radius: 50%; 
+                   margin: 0px; 
+                   border: none; 
+                   padding: 0px; 
+                   outline: none; 
+                   box-shadow: none; 
+                 } 
+                 button:focus { 
+                   min-width: 20px; 
+                   min-height: 20px; 
+                   margin: 6px; 
+                   border: none; 
+                   padding: 0px; 
+                   outline: 3px solid alpha(${color}, 0.7); 
+                   outline-offset: 3px; 
+                   box-shadow: none; 
+                 }`;
         cssProvider.load_from_string(cssString);
       };
 
@@ -1070,9 +1104,17 @@ export class WallpaperPage extends Adw.PreferencesPage {
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-      btn.connect("clicked", () => {
+      btn.connect("clicked", async () => {
         this._manualColor = false;
         this._settings.set_boolean("custom-color", true);
+
+        if (uri) {
+          await writeColorCacheFile(
+            uri,
+            { persistentColor: hexColor },
+            cancellable,
+          );
+        }
 
         if (isGnomeColor) {
           this._interfaceSettings.set_string("accent-color", hexColor);
@@ -1169,6 +1211,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
         let qr = Math.min(255, Math.floor(r / step) * step + step / 2);
         let qg = Math.min(255, Math.floor(g / step) * step + step / 2);
         let qb = Math.min(255, Math.floor(b / step) * step + step / 2);
+
         let hex = `#${Math.floor(qr).toString(16).padStart(2, "0")}${Math.floor(qg).toString(16).padStart(2, "0")}${Math.floor(qb).toString(16).padStart(2, "0")}`;
 
         if (!colorMap.has(hex))

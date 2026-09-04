@@ -155,6 +155,14 @@ export class PreferencesPage extends Adw.PreferencesPage {
     });
     colorsGroup.add(gnomeColorsRow);
 
+    const persistentChoicesRow = new Adw.SwitchRow({
+      title: _("Persistent Choices"),
+      subtitle: _(
+        "Persistently remember the manually selected colors for each wallpaper.",
+      ),
+    });
+    colorsGroup.add(persistentChoicesRow);
+
     const preferLightRow = new Adw.ExpanderRow({
       title: _("Prefer Light Style"),
       subtitle: _("Use a light style for the Shell in the light theme."),
@@ -173,6 +181,13 @@ export class PreferencesPage extends Adw.PreferencesPage {
     this._settings.bind(
       "gnome-colors",
       gnomeColorsRow,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    this._settings.bind(
+      "persistent-choices",
+      persistentChoicesRow,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );

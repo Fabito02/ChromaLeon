@@ -43,7 +43,6 @@ export default class ChromaLeon extends Extension {
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._customStylesheet = null;
-    this._wallpaperColorCache = {};
   }
 
   enable() {
@@ -51,7 +50,6 @@ export default class ChromaLeon extends Extension {
     this._savedColorScheme = sessionMode.colorScheme;
 
     this._runOperation(async (cancellable) => {
-      this._wallpaperColorCache = (await getColorCache(cancellable)) ?? {};
       await this._updateStyles(false, true, cancellable);
     });
 
@@ -315,26 +313,31 @@ export default class ChromaLeon extends Extension {
   async _autoApplyWallpaperColor(color = null, cancellable = null) {
     throwIfCancelled(cancellable);
 
-    if (this._settings.get_boolean("custom-color")) {
+    if (
+      this._settings.get_boolean("custom-color") &&
+      !this._settings.get_boolean("persistent-choices")
+    ) {
       await this._updateAppStyles(cancellable);
       return;
     }
 
     if (!color) {
       const uri = this._getWallpaperUri();
-      const cached = this._wallpaperColorCache[uri];
+      const colorCache = await getColorCache(cancellable);
+      const cached = colorCache[uri];
 
-      if (cached?.vibrant) {
+      if (
+        cached?.persistentColor &&
+        this._settings.get_boolean("persistent-choices")
+      ) {
+        color = cached.persistentColor;
+      } else if (cached?.vibrant) {
         color = cached.vibrant;
       } else {
         color = await ColorUtils.calculateVibrantColor(uri);
 
         if (color) {
-          this._wallpaperColorCache = await writeColorCacheFile(
-            uri,
-            { vibrant: color },
-            cancellable,
-          );
+          await writeColorCacheFile(uri, { vibrant: color }, cancellable);
         }
       }
     }
