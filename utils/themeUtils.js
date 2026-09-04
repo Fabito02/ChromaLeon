@@ -366,29 +366,29 @@ export async function updateGtkStylesheet(
 
     if (tinted) {
       let tintedGtk4Template = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
-        let [contents] =
-          await tintedGtk4Template.load_contents_async(cancellable);
+      let [contents] =
+        await tintedGtk4Template.load_contents_async(cancellable);
 
-        let template = new TextDecoder().decode(contents);
-        let css = template
-          .replace(
-            /@@TINT_STRENGTH@@/g,
-            getConvertedStrength(tintStrength, true, 0.12),
-          )
-          .replace(
-            /@@TINT_STRENGTH_DARK@@/g,
-            getConvertedStrength(tintStrength, true, 0.1),
-          )
-          .replace(
-            /@@TINT_STRENGTH_CARD@@/g,
-            getConvertedStrength(tintStrength, true, 0.06),
-          );
-
-        await writeFile(
-          accentFile,
-          !gnomeColors ? `${cssVars}\n${css}` : css,
-          cancellable,
+      let template = new TextDecoder().decode(contents);
+      let css = template
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          getConvertedStrength(tintStrength, true, 0.12),
+        )
+        .replace(
+          /@@TINT_STRENGTH_DARK@@/g,
+          getConvertedStrength(tintStrength, true, 0.1),
+        )
+        .replace(
+          /@@TINT_STRENGTH_CARD@@/g,
+          getConvertedStrength(tintStrength, true, 0.06),
         );
+
+      await writeFile(
+        accentFile,
+        !gnomeColors ? `${cssVars}\n${css}` : css,
+        cancellable,
+      );
     } else {
       gnomeColors
         ? await writeFile(accentFile, "\n", cancellable)
@@ -398,17 +398,17 @@ export async function updateGtkStylesheet(
     throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
-        let [contents] = await mainFile.load_contents_async(cancellable);
-        let mainContent = new TextDecoder().decode(contents);
+      let [contents] = await mainFile.load_contents_async(cancellable);
+      let mainContent = new TextDecoder().decode(contents);
 
-        if (!mainContent.includes(START_MARKER)) {
-          let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
-          await writeFile(
-            mainFile,
-            `${cleanContent}\n\n${cssBlock}\n`,
-            cancellable,
-          );
-        }
+      if (!mainContent.includes(START_MARKER)) {
+        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
+        await writeFile(
+          mainFile,
+          `${cleanContent}\n\n${cssBlock}\n`,
+          cancellable,
+        );
+      }
     } else {
       await writeFile(mainFile, `${cssBlock}\n`, cancellable);
     }
@@ -467,17 +467,17 @@ export async function updateGtkStylesheet(
     throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
-        let [contents] = await mainFile.load_contents_async(cancellable);
-        let mainContent = new TextDecoder().decode(contents);
+      let [contents] = await mainFile.load_contents_async(cancellable);
+      let mainContent = new TextDecoder().decode(contents);
 
-        if (!mainContent.includes(START_MARKER)) {
-          let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
-          await writeFile(
-            mainFile,
-            `${cleanContent}\n\n${cssBlock}\n`,
-            cancellable,
-          );
-        }
+      if (!mainContent.includes(START_MARKER)) {
+        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
+        await writeFile(
+          mainFile,
+          `${cleanContent}\n\n${cssBlock}\n`,
+          cancellable,
+        );
+      }
     } else {
       gnomeColors
         ? await writeFile(accentFile, "\n", cancellable)
