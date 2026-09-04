@@ -24,11 +24,12 @@ import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
-import { throwIfCancelled, isCancelledError } from "./cancellation.js";
+import { throwIfCancelled } from "./cancellation.js";
 import {
   setThemeStylesheet,
   loadTheme,
 } from "resource:///org/gnome/shell/ui/main.js";
+import { writeFile } from "./fileUtils.js";
 
 const GTK_VERSIONS = ["gtk-3.0", "gtk-4.0"];
 const REGEX_MARKER =
@@ -106,32 +107,8 @@ Gio._promisify(
   "load_contents_async",
   "load_contents_finish",
 );
-Gio._promisify(
-  Gio.File.prototype,
-  "replace_contents_bytes_async",
-  "replace_contents_finish",
-);
 Gio._promisify(Gio.File.prototype, "delete_async", "delete_finish");
-Gio._promisify(
-  Gio.OutputStream.prototype,
-  "write_bytes_async",
-  "write_bytes_finish",
-);
 Gio._promisify(Gio.OutputStream.prototype, "close_async", "close_finish");
-
-async function writeFile(file, content, cancellable) {
-  throwIfCancelled(cancellable);
-
-  const bytes = GLib.Bytes.new(new TextEncoder().encode(content));
-
-  await file.replace_contents_bytes_async(
-    bytes,
-    null,
-    false,
-    Gio.FileCreateFlags.NONE,
-    cancellable,
-  );
-}
 
 export function removeGtkStylesheet() {
   const configDir = GLib.get_user_config_dir();
@@ -277,10 +254,12 @@ export async function updateShellStylesheet(
 
   const generateAndApplyFiles = async () => {
     try {
-      let [contentsLight] = await fileLight.load_contents_async(cancellable);
-      let [contentsDark] = await fileDark.load_contents_async(cancellable);
-      let [contentsCustom] =
-        await customStylesheetFile.load_contents_async(cancellable);
+      const [[contentsLight], [contentsDark], [contentsCustom]] =
+        await Promise.all([
+          fileLight.load_contents_async(cancellable),
+          fileDark.load_contents_async(cancellable),
+          customStylesheetFile.load_contents_async(cancellable),
+        ]);
 
       let textLight = new TextDecoder().decode(contentsLight);
       let textDark = new TextDecoder().decode(contentsDark);
@@ -314,18 +293,20 @@ export async function updateShellStylesheet(
 
       let cacheDir = GLib.get_user_cache_dir();
       let outputFile = Gio.File.new_for_path(
-        `${cacheDir}/chromaleon-shell.css`,
+        `${cacheDir}/chromaleon/chromaleon-shell.css`,
       );
       let outputFileDark = Gio.File.new_for_path(
-        `${cacheDir}/chromaleon-shell-dark.css`,
+        `${cacheDir}/chromaleon/chromaleon-shell-dark.css`,
       );
       let outputFileCustom = Gio.File.new_for_path(
-        `${cacheDir}/chromaleon-shell-custom.css`,
+        `${cacheDir}/chromaleon/chromaleon-shell-custom.css`,
       );
 
-      await writeFile(outputFile, cssLight, cancellable);
-      await writeFile(outputFileDark, cssDark, cancellable);
-      await writeFile(outputFileCustom, customStylesheet, cancellable);
+      await Promise.all([
+        writeFile(outputFile, cssLight, cancellable),
+        writeFile(outputFileDark, cssDark, cancellable),
+        writeFile(outputFileCustom, customStylesheet, cancellable),
+      ]);
 
       throwIfCancelled(cancellable);
     } catch (e) {
@@ -333,7 +314,7 @@ export async function updateShellStylesheet(
     }
   };
 
-  await generateAndApplyFiles(null);
+  await generateAndApplyFiles();
 }
 
 export async function updateGtkStylesheet(
@@ -377,19 +358,14 @@ export async function updateGtkStylesheet(
     const parentDir = Gio.File.new_for_path(dirPath);
 
     if (!parentDir.query_exists(null)) {
-      try {
-        parentDir.make_directory_with_parents(null);
-        await writeFile(mainFile, "\n", cancellable);
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
+      parentDir.make_directory_with_parents(null);
+      await writeFile(mainFile, "\n", cancellable);
     } else if (!mainFile.query_exists(null)) {
       await writeFile(mainFile, "\n", cancellable);
     }
 
     if (tinted) {
       let tintedGtk4Template = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
-      try {
         let [contents] =
           await tintedGtk4Template.load_contents_async(cancellable);
 
@@ -413,9 +389,6 @@ export async function updateGtkStylesheet(
           !gnomeColors ? `${cssVars}\n${css}` : css,
           cancellable,
         );
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
     } else {
       gnomeColors
         ? await writeFile(accentFile, "\n", cancellable)
@@ -425,7 +398,6 @@ export async function updateGtkStylesheet(
     throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
-      try {
         let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
 
@@ -437,9 +409,6 @@ export async function updateGtkStylesheet(
             cancellable,
           );
         }
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
     } else {
       await writeFile(mainFile, `${cssBlock}\n`, cancellable);
     }
@@ -455,12 +424,8 @@ export async function updateGtkStylesheet(
     const parentDir = Gio.File.new_for_path(dirPath);
 
     if (!parentDir.query_exists(null)) {
-      try {
-        parentDir.make_directory_with_parents(null);
-        await writeFile(mainFile, "\n", cancellable);
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
+      parentDir.make_directory_with_parents(null);
+      await writeFile(mainFile, "\n", cancellable);
     } else if (!mainFile.query_exists(null)) {
       await writeFile(mainFile, "\n", cancellable);
     }
@@ -493,7 +458,7 @@ export async function updateGtkStylesheet(
 
         await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
       } catch (e) {
-        if (isCancelledError(e)) throw e;
+        throw e;
       }
     } else {
       await writeFile(accentFile, cssVars, cancellable);
@@ -502,7 +467,6 @@ export async function updateGtkStylesheet(
     throwIfCancelled(cancellable);
 
     if (mainFile.query_exists(null)) {
-      try {
         let [contents] = await mainFile.load_contents_async(cancellable);
         let mainContent = new TextDecoder().decode(contents);
 
@@ -514,9 +478,6 @@ export async function updateGtkStylesheet(
             cancellable,
           );
         }
-      } catch (e) {
-        if (isCancelledError(e)) throw e;
-      }
     } else {
       gnomeColors
         ? await writeFile(accentFile, "\n", cancellable)
@@ -524,9 +485,7 @@ export async function updateGtkStylesheet(
     }
   };
 
-  await gtk4();
-  throwIfCancelled(cancellable);
-  await gtk3();
+  await Promise.all([gtk4(), gtk3()]);
 }
 
 export async function updateIconPack(

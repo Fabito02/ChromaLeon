@@ -37,6 +37,7 @@ import {
   toHex,
 } from "../utils/colorUtils.js";
 import { throwIfCancelled, isCancelledError } from "../utils/cancellation.js";
+import { getColorCache, writeColorCacheFile } from "../utils/cacheUtils.js";
 
 const _ = (str) => {
   try {
@@ -97,6 +98,8 @@ export class WallpaperPage extends Adw.PreferencesPage {
       icon_name: "image-round-symbolic",
     });
 
+    this._wallpaperColorCache = {};
+
     this.add_css_class("symbolic");
 
     this._settings = settings;
@@ -113,6 +116,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
     this._loadWallpapersAsync();
     this._runOperation(async (cancellable) => {
+      this._wallpaperColorCache = (await getColorCache(cancellable)) ?? {};
       await this._updateWallpaperUI(cancellable);
     });
   }
@@ -879,7 +883,29 @@ export class WallpaperPage extends Adw.PreferencesPage {
   }
 
   async _renderColorUI(uri, cancellable = null) {
-    const colors = await this._getColorsList(uri, cancellable);
+    let colors = [];
+    const isGnomeColor = this._settings.get_boolean("gnome-colors");
+
+    if (isGnomeColor) {
+      colors = await this._getColorsList(uri, cancellable);
+    } else {
+      const cached = this._wallpaperColorCache[uri];
+
+      if (cached?.all_colors) {
+        colors = cached.all_colors;
+      } else {
+        colors = await this._getColorsList(uri, cancellable);
+
+        if (colors && colors.length > 0) {
+          this._wallpaperColorCache = await writeColorCacheFile(
+            uri,
+            { all_colors: colors },
+            cancellable,
+          );
+        }
+      }
+    }
+
     throwIfCancelled(cancellable);
 
     if (this._mainColorBox) {
@@ -902,8 +928,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
     this._colorsRow.set_subtitle("");
     this._wallpaperButtons = [];
-
-    let isGnomeColor = this._settings.get_boolean("gnome-colors");
 
     const maxMainColors = isGnomeColor ? colors.length : 8;
     this._moreColors.set_visible(colors.length > maxMainColors);

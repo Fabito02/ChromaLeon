@@ -27,6 +27,7 @@ import * as ThemeUtils from "./utils/themeUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
 import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
+import { getColorCache, writeColorCacheFile } from "./utils/cacheUtils.js";
 
 export default class ChromaLeon extends Extension {
   constructor(metadata) {
@@ -42,11 +43,17 @@ export default class ChromaLeon extends Extension {
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._customStylesheet = null;
+    this._wallpaperColorCache = {};
   }
 
   enable() {
     this._settings = this.getSettings();
     this._savedColorScheme = sessionMode.colorScheme;
+
+    this._runOperation(async (cancellable) => {
+      this._wallpaperColorCache = (await getColorCache(cancellable)) ?? {};
+      await this._updateStyles(false, true, cancellable);
+    });
 
     this._interfaceSettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.interface",
@@ -202,10 +209,6 @@ export default class ChromaLeon extends Extension {
 
     this._updateDesktopFile();
 
-    this._runOperation((cancellable) => {
-      this._updateStyles(false, true, cancellable);
-    });
-
     sessionMode.connectObject(
       "updated",
       () => {
@@ -311,14 +314,27 @@ export default class ChromaLeon extends Extension {
     throwIfCancelled(cancellable);
 
     if (this._settings.get_boolean("custom-color")) {
-      this._loadShellStylesheet()
-      await this._updateAppStyles(cancellable);
+      await this._updateStyles(false, false, cancellable);
       return;
     }
 
     if (!color) {
       const uri = this._getWallpaperUri();
-      color = await ColorUtils.calculateVibrantColor(uri);
+      const cached = this._wallpaperColorCache[uri];
+
+      if (cached?.vibrant) {
+        color = cached.vibrant;
+      } else {
+        color = await ColorUtils.calculateVibrantColor(uri);
+
+        if (color) {
+          this._wallpaperColorCache = await writeColorCacheFile(
+            uri,
+            { vibrant: color },
+            cancellable,
+          );
+        }
+      }
     }
 
     throwIfCancelled(cancellable);
@@ -328,8 +344,7 @@ export default class ChromaLeon extends Extension {
     if (color !== currentColor) {
       this._settings.set_string("accent-color", color);
     } else {
-      this._loadShellStylesheet()
-      await this._updateAppStyles(cancellable);
+      await this._updateStyles(false, false, cancellable);
     }
   }
 
@@ -420,12 +435,14 @@ export default class ChromaLeon extends Extension {
 
     const cacheDir = GLib.get_user_cache_dir();
 
-    const lightFile = Gio.File.new_for_path(`${cacheDir}/chromaleon-shell.css`);
+    const lightFile = Gio.File.new_for_path(
+      `${cacheDir}/chromaleon/chromaleon-shell.css`,
+    );
     const darkFile = Gio.File.new_for_path(
-      `${cacheDir}/chromaleon-shell-dark.css`,
+      `${cacheDir}/chromaleon/chromaleon-shell-dark.css`,
     );
     const customStylesheet = Gio.File.new_for_path(
-      `${cacheDir}/chromaleon-shell-custom.css`,
+      `${cacheDir}/chromaleon/chromaleon-shell-custom.css`,
     );
 
     const isLight = this._shouldUseLightShell();

@@ -22,6 +22,48 @@
 
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
+import { throwIfCancelled } from "./cancellation.js";
+
+Gio._promisify(
+  Gio.File.prototype,
+  "replace_contents_bytes_async",
+  "replace_contents_finish",
+);
+Gio._promisify(
+  Gio.File.prototype,
+  "load_contents_async",
+  "load_contents_finish",
+);
+
+export async function writeFile(file, content, cancellable = null) {
+  throwIfCancelled(cancellable);
+
+  const parentDir = file.get_parent();
+  if (parentDir && !parentDir.query_exists(null)) {
+    parentDir.make_directory_with_parents(null);
+  }
+
+  const bytes = GLib.Bytes.new(new TextEncoder().encode(content));
+
+  await file.replace_contents_bytes_async(
+    bytes,
+    null,
+    false,
+    Gio.FileCreateFlags.NONE,
+    cancellable,
+  );
+}
+
+export async function readFile(file, cancellable = null) {
+  throwIfCancelled(cancellable);
+
+  if (!file.query_exists(null)) {
+    return null;
+  }
+
+  const [content] = await file.load_contents_async(cancellable);
+  return new TextDecoder().decode(content);
+}
 
 export async function createDesktopFile(path) {
   const dataDir = GLib.get_user_data_dir();
