@@ -154,25 +154,7 @@ export default class ChromaLeon extends Extension {
       "changed::color-scheme",
       () =>
         this._runOperation(async (cancellable) => {
-          const colorScheme =
-            this._interfaceSettings.get_string("color-scheme");
-
-          if (!this._settings.get_boolean("custom-color")) {
-            let uri =
-              colorScheme === "prefer-dark"
-                ? this._bgSettings.get_string("picture-uri-dark")
-                : this._bgSettings.get_string("picture-uri");
-
-            let newColor = await ColorUtils.calculateVibrantColor(uri);
-            const currentColor = this._settings.get_string("accent-color");
-
-            if (newColor !== currentColor) {
-              await this._autoApplyWallpaperColor(newColor, cancellable);
-            }
-          } else {
-            this._loadShellStylesheet(cancellable);
-            await this._updateAppStyles(cancellable);
-          }
+          await this._autoApplyWallpaperColor(null, cancellable);
         }),
       "changed::accent-color",
       () => {
@@ -187,11 +169,7 @@ export default class ChromaLeon extends Extension {
     );
 
     const handleWallpaperChange = async () => {
-      let colorScheme = this._interfaceSettings.get_string("color-scheme");
-      let currentUri =
-        colorScheme === "prefer-dark"
-          ? this._bgSettings.get_string("picture-uri-dark")
-          : this._bgSettings.get_string("picture-uri");
+      let currentUri = this._getWallpaperUri();
 
       if (this._lastWallpaperUri === currentUri) return;
       this._lastWallpaperUri = currentUri;
@@ -264,11 +242,6 @@ export default class ChromaLeon extends Extension {
       this._reloadGtkTimeout = null;
     }
 
-    if (this._reloadGtkTimeout) {
-      GLib.Source.remove(this._reloadGtkTimeout);
-      this._reloadGtkTimeout = null;
-    }
-
     if (this._restoreTimeout) {
       GLib.Source.remove(this._restoreTimeout);
       this._restoreTimeout = null;
@@ -334,30 +307,29 @@ export default class ChromaLeon extends Extension {
     }
   }
 
-  async _autoApplyWallpaperColor(color, cancellable) {
+  async _autoApplyWallpaperColor(color = null, cancellable = null) {
     throwIfCancelled(cancellable);
+
     if (this._settings.get_boolean("custom-color")) {
-      this._loadShellStylesheet(cancellable);
+      this._loadShellStylesheet()
       await this._updateAppStyles(cancellable);
       return;
     }
 
-    let colorScheme = this._interfaceSettings.get_string("color-scheme");
-    let uri =
-      colorScheme === "prefer-dark"
-        ? this._bgSettings.get_string("picture-uri-dark")
-        : this._bgSettings.get_string("picture-uri");
+    if (!color) {
+      const uri = this._getWallpaperUri();
+      color = await ColorUtils.calculateVibrantColor(uri);
+    }
 
-    if (!color) color = await ColorUtils.calculateVibrantColor(uri);
     throwIfCancelled(cancellable);
 
     const currentColor = this._settings.get_string("accent-color");
-    const colorChanged = color !== currentColor;
 
-    if (colorChanged) {
+    if (color !== currentColor) {
       this._settings.set_string("accent-color", color);
     } else {
-      await this._updateStyles(false, false, cancellable);
+      this._loadShellStylesheet()
+      await this._updateAppStyles(cancellable);
     }
   }
 
@@ -525,6 +497,13 @@ export default class ChromaLeon extends Extension {
       GLib.Source.remove(this[key]);
       this[key] = null;
     }
+  }
+
+  _getWallpaperUri() {
+    const isDark =
+      this._interfaceSettings.get_string("color-scheme") === "prefer-dark";
+    const key = isDark ? "picture-uri-dark" : "picture-uri";
+    return this._bgSettings.get_string(key);
   }
 
   async _reloadGtkStylesheet(cancellable = null) {
