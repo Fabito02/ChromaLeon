@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 18:36-0300\n"
+"POT-Creation-Date: 2026-09-04 19:35-0300\n"
 "PO-Revision-Date: 2026-08-23 23:50+0000\n"
 "Last-Translator: ahmedz4de <rustamahmadzada@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
@@ -51,7 +51,7 @@ msgid "Persistent Choices"
 msgstr ""
 
 #: ui/preferencesPage.js:161
-msgid "Persistently remember the manually selected colors for each wallpaper."
+msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
 
 #: ui/preferencesPage.js:167
@@ -339,59 +339,59 @@ msgstr "Ошибка получения превью "
 msgid "Wallpaper"
 msgstr "Обои"
 
-#: ui/wallpaperPage.js:167
+#: ui/wallpaperPage.js:168
 msgid "Additional colors"
 msgstr "Дополнительные цвета"
 
-#: ui/wallpaperPage.js:204
+#: ui/wallpaperPage.js:205
 msgid "Add wallpapers"
 msgstr "Добавить обои"
 
-#: ui/wallpaperPage.js:218
+#: ui/wallpaperPage.js:219
 msgid "Wallpapers"
 msgstr "Обои"
 
-#: ui/wallpaperPage.js:398
+#: ui/wallpaperPage.js:410
 msgid "Wallpaper deleted successfully!"
 msgstr ""
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:414
 msgid "Error deleting wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:408
+#: ui/wallpaperPage.js:420
 msgid "Select a Wallpaper"
 msgstr ""
 
-#: ui/wallpaperPage.js:410
+#: ui/wallpaperPage.js:422
 msgid "_Open"
 msgstr ""
 
-#: ui/wallpaperPage.js:411
+#: ui/wallpaperPage.js:423
 msgid "_Cancel"
 msgstr ""
 
-#: ui/wallpaperPage.js:416
+#: ui/wallpaperPage.js:428
 msgid "All Images"
 msgstr ""
 
-#: ui/wallpaperPage.js:443
+#: ui/wallpaperPage.js:455
 msgid "Wallpaper already exists!"
 msgstr ""
 
-#: ui/wallpaperPage.js:459
+#: ui/wallpaperPage.js:471
 msgid "Wallpaper added successfully!"
 msgstr ""
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:475
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:931
+#: ui/wallpaperPage.js:943
 msgid "Unable to load colors."
 msgstr ""
 
-#: ui/wallpaperPage.js:995
+#: ui/wallpaperPage.js:1037
 #, fuzzy
 msgid "Select Color"
 msgstr "Акцентный цвет"

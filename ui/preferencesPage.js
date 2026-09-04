@@ -158,7 +158,7 @@ export class PreferencesPage extends Adw.PreferencesPage {
     const persistentChoicesRow = new Adw.SwitchRow({
       title: _("Persistent Choices"),
       subtitle: _(
-        "Persistently remember the manually selected colors for each wallpaper.",
+        "Remember the colors manually selected for each wallpaper.",
       ),
     });
     colorsGroup.add(persistentChoicesRow);

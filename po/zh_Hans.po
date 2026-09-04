@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 18:36-0300\n"
+"POT-Creation-Date: 2026-09-04 19:35-0300\n"
 "PO-Revision-Date: 2026-09-01 06:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -51,7 +51,7 @@ msgid "Persistent Choices"
 msgstr ""
 
 #: ui/preferencesPage.js:161
-msgid "Persistently remember the manually selected colors for each wallpaper."
+msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
 
 #: ui/preferencesPage.js:167
@@ -363,59 +363,59 @@ msgstr "获取缩略图失败： "
 msgid "Wallpaper"
 msgstr "背景"
 
-#: ui/wallpaperPage.js:167
+#: ui/wallpaperPage.js:168
 msgid "Additional colors"
 msgstr "更多颜色"
 
-#: ui/wallpaperPage.js:204
+#: ui/wallpaperPage.js:205
 msgid "Add wallpapers"
 msgstr "添加背景"
 
-#: ui/wallpaperPage.js:218
+#: ui/wallpaperPage.js:219
 msgid "Wallpapers"
 msgstr "背景列表"
 
-#: ui/wallpaperPage.js:398
+#: ui/wallpaperPage.js:410
 msgid "Wallpaper deleted successfully!"
 msgstr "背景移除成功！"
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:414
 msgid "Error deleting wallpaper: "
 msgstr "移除背景失败： "
 
-#: ui/wallpaperPage.js:408
+#: ui/wallpaperPage.js:420
 msgid "Select a Wallpaper"
 msgstr "选择背景"
 
-#: ui/wallpaperPage.js:410
+#: ui/wallpaperPage.js:422
 msgid "_Open"
 msgstr "打开"
 
-#: ui/wallpaperPage.js:411
+#: ui/wallpaperPage.js:423
 msgid "_Cancel"
 msgstr "取消"
 
-#: ui/wallpaperPage.js:416
+#: ui/wallpaperPage.js:428
 msgid "All Images"
 msgstr "所有图像"
 
-#: ui/wallpaperPage.js:443
+#: ui/wallpaperPage.js:455
 msgid "Wallpaper already exists!"
 msgstr "背景已存在！"
 
-#: ui/wallpaperPage.js:459
+#: ui/wallpaperPage.js:471
 msgid "Wallpaper added successfully!"
 msgstr "背景添加成功！"
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:475
 msgid "Error copying wallpaper: "
 msgstr "复制背景失败： "
 
-#: ui/wallpaperPage.js:931
+#: ui/wallpaperPage.js:943
 msgid "Unable to load colors."
 msgstr "加载颜色失败。"
 
-#: ui/wallpaperPage.js:995
+#: ui/wallpaperPage.js:1037
 msgid "Select Color"
 msgstr "选择颜色"
 

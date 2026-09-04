@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 18:36-0300\n"
+"POT-Creation-Date: 2026-09-04 19:35-0300\n"
 "PO-Revision-Date: 2026-08-25 18:23+0000\n"
 "Last-Translator: tupacamaru72 <tomino8552@prodbits.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
@@ -54,7 +54,7 @@ msgid "Persistent Choices"
 msgstr ""
 
 #: ui/preferencesPage.js:161
-msgid "Persistently remember the manually selected colors for each wallpaper."
+msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
 
 #: ui/preferencesPage.js:167
@@ -349,59 +349,59 @@ msgstr "Error generando miniatura: "
 msgid "Wallpaper"
 msgstr "Fondo de pantalla"
 
-#: ui/wallpaperPage.js:167
+#: ui/wallpaperPage.js:168
 msgid "Additional colors"
 msgstr "Colores adicionales"
 
-#: ui/wallpaperPage.js:204
+#: ui/wallpaperPage.js:205
 msgid "Add wallpapers"
 msgstr "Añadir fondos de pantalla"
 
-#: ui/wallpaperPage.js:218
+#: ui/wallpaperPage.js:219
 msgid "Wallpapers"
 msgstr "Fondos de pantalla"
 
-#: ui/wallpaperPage.js:398
+#: ui/wallpaperPage.js:410
 msgid "Wallpaper deleted successfully!"
 msgstr "¡Fondo de pantalla eliminado correctamente!"
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:414
 msgid "Error deleting wallpaper: "
 msgstr "Error al eliminar el fondo de escritorio: "
 
-#: ui/wallpaperPage.js:408
+#: ui/wallpaperPage.js:420
 msgid "Select a Wallpaper"
 msgstr "Seleccione un fondo de pantalla"
 
-#: ui/wallpaperPage.js:410
+#: ui/wallpaperPage.js:422
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ui/wallpaperPage.js:411
+#: ui/wallpaperPage.js:423
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ui/wallpaperPage.js:416
+#: ui/wallpaperPage.js:428
 msgid "All Images"
 msgstr "Todas las imágenes"
 
-#: ui/wallpaperPage.js:443
+#: ui/wallpaperPage.js:455
 msgid "Wallpaper already exists!"
 msgstr "¡El fondo de pantalla ya existe!"
 
-#: ui/wallpaperPage.js:459
+#: ui/wallpaperPage.js:471
 msgid "Wallpaper added successfully!"
 msgstr "¡Fondo de pantalla añadido correctamente!"
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:475
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:931
+#: ui/wallpaperPage.js:943
 msgid "Unable to load colors."
 msgstr "Error al cargar los colores."
 
-#: ui/wallpaperPage.js:995
+#: ui/wallpaperPage.js:1037
 #, fuzzy
 msgid "Select Color"
 msgstr "Color de acento"

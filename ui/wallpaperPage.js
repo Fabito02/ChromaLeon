@@ -105,6 +105,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._interfaceSettings = interfaceSettings;
 
     this._manualColor = false;
+    this._lastWallpaperUri = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._bgUpdateTimeoutId = null;
@@ -272,6 +273,15 @@ export class WallpaperPage extends Adw.PreferencesPage {
       });
     });
 
+    this._persistentChoicesId = this._settings.connect(
+      "changed::persistent-choices",
+      () => {
+        this._runOperation(async (cancellable) => {
+          await this._updateWallpaperUI(cancellable);
+        });
+      },
+    );
+
     this._lastErrorId = this._settings.connect("changed::last-error", () => {
       const errorMsg = this._settings.get_string("last-error");
       if (errorMsg && errorMsg !== "") {
@@ -305,6 +315,8 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
   _onDestroy() {
     if (this._settingsId) this._settings.disconnect(this._settingsId);
+    if (this._persistentChoicesId)
+      this._settings.disconnect(this._persistentChoicesId);
     if (this._lastErrorId) this._settings.disconnect(this._lastErrorId);
     if (this._bgChangedId1) this._bgSettings.disconnect(this._bgChangedId1);
     if (this._bgChangedId2) this._bgSettings.disconnect(this._bgChangedId2);
@@ -933,6 +945,9 @@ export class WallpaperPage extends Adw.PreferencesPage {
       return;
     }
 
+    const wallpaperChanged = this._lastWallpaperUri !== uri;
+    this._lastWallpaperUri = uri;
+
     this._colorsRow.set_subtitle("");
     this._wallpaperButtons = [];
 
@@ -944,27 +959,54 @@ export class WallpaperPage extends Adw.PreferencesPage {
       : this._settings.get_string("accent-color");
 
     if (!isGnomeColor) {
-      if (cached?.persistentColor) {
-        currentColor = cached.persistentColor;
+      const isPersistentChoice =
+        this._settings.get_boolean("persistent-choices");
+
+      if (wallpaperChanged) {
+        if (isPersistentChoice && cached?.persistentColor) {
+          currentColor = cached.persistentColor;
+        } else {
+          currentColor = colors[0];
+
+          if (!isPersistentChoice && cached?.persistentColor && uri) {
+            await writeColorCacheFile(
+              uri,
+              { persistentColor: null },
+              cancellable,
+            );
+            cached.persistentColor = null;
+          }
+        }
+
         if (this._settings.get_string("accent-color") !== currentColor) {
           this._settings.set_string("accent-color", currentColor);
         }
-      } else if (!colors.includes(currentColor)) {
-        currentColor = colors[0];
-        this._settings.set_string("accent-color", currentColor);
-        if (uri) {
+      } else {
+        if (isPersistentChoice && uri && currentColor) {
+          if (cached?.persistentColor !== currentColor) {
+            await writeColorCacheFile(
+              uri,
+              { persistentColor: currentColor },
+              cancellable,
+            );
+            if (cached) cached.persistentColor = currentColor;
+          }
+        } else if (!isPersistentChoice && cached?.persistentColor && uri) {
           await writeColorCacheFile(
             uri,
-            { persistentColor: currentColor },
+            { persistentColor: null },
             cancellable,
           );
+          if (cached) cached.persistentColor = null;
         }
       }
 
-      this._manualColor = !colors.includes(currentColor);
+      const currentLower = currentColor ? currentColor.toLowerCase() : "";
+      this._manualColor = !colors.some((c) => c.toLowerCase() === currentLower);
     } else {
       this._manualColor = false;
-      if (!colors.includes(currentColor)) {
+      const currentLower = currentColor ? currentColor.toLowerCase() : "";
+      if (!colors.some((c) => c.toLowerCase() === currentLower)) {
         currentColor = colors[0];
         this._interfaceSettings.set_string("accent-color", currentColor);
       }
@@ -1004,7 +1046,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
         this.get_root(),
         initialRgba,
         null,
-        async (dialog, res) => {
+        (dialog, res) => {
           let rgba;
           try {
             rgba = dialog.choose_rgba_finish(res);
@@ -1015,22 +1057,22 @@ export class WallpaperPage extends Adw.PreferencesPage {
           if (!rgba) return;
 
           const hex = `#${toHex(rgba.red)}${toHex(rgba.green)}${toHex(rgba.blue)}`;
-          this._manualColor = true;
-          this._settings.set_string("accent-color", hex);
-          this._settings.set_boolean("custom-color", true);
-
-          if (uri) {
-            await writeColorCacheFile(
-              uri,
-              { persistentColor: hex },
-              cancellable,
-            );
-          }
-
-          this._applyTheme();
-
           this._runOperation(async (cancellable) => {
-            await this._renderColorUI(uri, cancellable);
+            this._manualColor = true;
+            this._settings.set_string("accent-color", hex);
+            this._settings.set_boolean("custom-color", true);
+            const isPersistentChoice =
+              this._settings.get_boolean("persistent-choices");
+
+            if (uri) {
+              await writeColorCacheFile(
+                uri,
+                { persistentColor: isPersistentChoice ? hex : null },
+                cancellable,
+              );
+            }
+
+            this._applyTheme();
           });
         },
       );
@@ -1047,52 +1089,58 @@ export class WallpaperPage extends Adw.PreferencesPage {
       const updateButtonStyle = () => {
         let color = isGnomeColor ? `var(--accent-${hexColor})` : hexColor;
 
+        const activeHex = this._settings
+          .get_string("accent-color")
+          ?.toLowerCase();
+        const itemHex = hexColor.toLowerCase();
+
         const isActive = isGnomeColor
-          ? this._interfaceSettings.get_string("accent-color") === hexColor
-          : !this._manualColor &&
-            this._settings.get_string("accent-color") === hexColor;
+          ? this._interfaceSettings
+              .get_string("accent-color")
+              ?.toLowerCase() === itemHex
+          : !this._manualColor && activeHex === itemHex;
 
         let cssString = isActive
-          ? `button, 
-               button:active, 
-               button:focus:active { 
-                   background-color: ${color}; 
-                   min-width: 20px; 
-                   min-height: 20px; 
-                   border-radius: 50%; 
-                   margin: 6px; 
-                   border: none; 
-                   padding: 0px; 
-                   outline: 3px solid ${color}; 
-                   outline-offset: 3px; 
-                   box-shadow: none; 
-                 } 
-                 button:focus { 
-                   outline: 3px solid alpha(${color}, 0.7); 
-                   outline-offset: 3px; 
+          ? `button,  
+               button:active,  
+               button:focus:active {  
+                   background-color: ${color};  
+                   min-width: 20px;  
+                   min-height: 20px;  
+                   border-radius: 50%;  
+                   margin: 6px;  
+                   border: none;  
+                   padding: 0px;  
+                   outline: 3px solid ${color};  
+                   outline-offset: 3px;  
+                   box-shadow: none;  
+                 }  
+                 button:focus {  
+                   outline: 3px solid alpha(${color}, 0.7);  
+                   outline-offset: 3px;  
                  }`
-          : `button, 
-               button:active, 
-               button:focus:active { 
-                   background-color: ${color}; 
-                   min-width: 32px; 
-                   min-height: 32px; 
-                   border-radius: 50%; 
-                   margin: 0px; 
-                   border: none; 
-                   padding: 0px; 
-                   outline: none; 
-                   box-shadow: none; 
-                 } 
-                 button:focus { 
-                   min-width: 20px; 
-                   min-height: 20px; 
-                   margin: 6px; 
-                   border: none; 
-                   padding: 0px; 
-                   outline: 3px solid alpha(${color}, 0.7); 
-                   outline-offset: 3px; 
-                   box-shadow: none; 
+          : `button,  
+               button:active,  
+               button:focus:active {  
+                   background-color: ${color};  
+                   min-width: 32px;  
+                   min-height: 32px;  
+                   border-radius: 50%;  
+                   margin: 0px;  
+                   border: none;  
+                   padding: 0px;  
+                   outline: none;  
+                   box-shadow: none;  
+                 }  
+                 button:focus {  
+                   min-width: 20px;  
+                   min-height: 20px;  
+                   margin: 6px;  
+                   border: none;  
+                   padding: 0px;  
+                   outline: 3px solid alpha(${color}, 0.7);  
+                   outline-offset: 3px;  
+                   box-shadow: none;  
                  }`;
         cssProvider.load_from_string(cssString);
       };
@@ -1104,25 +1152,29 @@ export class WallpaperPage extends Adw.PreferencesPage {
         .get_style_context()
         .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-      btn.connect("clicked", async () => {
-        this._manualColor = false;
-        this._settings.set_boolean("custom-color", true);
+      btn.connect("clicked", () => {
+        this._runOperation(async (cancellable) => {
+          this._manualColor = false;
+          this._settings.set_boolean("custom-color", true);
+          const isPersistentChoice =
+            this._settings.get_boolean("persistent-choices");
 
-        if (uri) {
-          await writeColorCacheFile(
-            uri,
-            { persistentColor: hexColor },
-            cancellable,
-          );
-        }
+          if (uri) {
+            await writeColorCacheFile(
+              uri,
+              { persistentColor: isPersistentChoice ? hexColor : null },
+              cancellable,
+            );
+          }
 
-        if (isGnomeColor) {
-          this._interfaceSettings.set_string("accent-color", hexColor);
-        } else {
-          this._settings.set_string("accent-color", hexColor);
-        }
+          if (isGnomeColor) {
+            this._interfaceSettings.set_string("accent-color", hexColor);
+          } else {
+            this._settings.set_string("accent-color", hexColor);
+          }
 
-        this._applyTheme();
+          this._applyTheme();
+        });
       });
 
       if (index < maxMainColors) {
