@@ -161,6 +161,8 @@ export default class ChromaLeon extends Extension {
       "changed::color-scheme",
       () =>
         this._runOperation(async (cancellable) => {
+          this._loadShellStylesheet(cancellable);
+
           await this._autoApplyWallpaperColor(null, cancellable);
         }),
       "changed::accent-color",
@@ -314,7 +316,7 @@ export default class ChromaLeon extends Extension {
     throwIfCancelled(cancellable);
 
     if (this._settings.get_boolean("custom-color")) {
-      await this._updateStyles(false, false, cancellable);
+      await this._updateAppStyles(cancellable);
       return;
     }
 
@@ -344,7 +346,7 @@ export default class ChromaLeon extends Extension {
     if (color !== currentColor) {
       this._settings.set_string("accent-color", color);
     } else {
-      await this._updateStyles(false, false, cancellable);
+      await this._updateAppStyles(cancellable);
     }
   }
 
