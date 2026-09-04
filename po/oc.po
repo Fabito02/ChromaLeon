@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-30 16:13-0300\n"
-"PO-Revision-Date: 2026-08-14 06:51+0000\n"
+"PO-Revision-Date: 2026-09-03 08:01+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/chromaleon/"
 "extension/oc/>\n"
@@ -25,13 +25,15 @@ msgstr "Preferéncias"
 
 #: ui/preferencesPage.js:85
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon existís pas que gràcia als utilizaires coma vos !"
 
 #: ui/preferencesPage.js:87
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Se ChromaLeon a ganhat una plaça dins la personalizacion de vòstre aparelh, "
+"consideratz d'ajudar lo projècte a progressar en fasent un pichon don."
 
 #: ui/preferencesPage.js:148
 msgid "Colors"
@@ -57,7 +59,7 @@ msgstr "Utilizatz un estil clar pel Shell dins lo tèma clar."
 
 #: ui/preferencesPage.js:166
 msgid "Fully Light"
-msgstr ""
+msgstr "Compètament clar"
 
 #: ui/preferencesPage.js:168
 #, fuzzy
@@ -83,9 +85,8 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Tinta lo GNOME Shell amb la color de vòstra causida."
 
 #: ui/preferencesPage.js:217
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Tintar lo panèl"
+msgstr "Tintar lo panèl en escur"
 
 #: ui/preferencesPage.js:218
 msgid "Also tint the panel when in dark mode."
