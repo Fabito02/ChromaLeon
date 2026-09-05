@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 19:35-0300\n"
-"PO-Revision-Date: 2026-09-01 06:51+0000\n"
+"PO-Revision-Date: 2026-09-05 22:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/chromaleon/extension/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -48,11 +48,11 @@ msgstr "使用 GNOME 原生强调色，而非背景提取颜色。"
 
 #: ui/preferencesPage.js:159
 msgid "Persistent Choices"
-msgstr ""
+msgstr "持久选项"
 
 #: ui/preferencesPage.js:161
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "记住为每张壁纸手动选定的颜色。"
 
 #: ui/preferencesPage.js:167
 msgid "Prefer Light Style"
