@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 19:35-0300\n"
-"PO-Revision-Date: 2026-09-01 06:51+0000\n"
+"PO-Revision-Date: 2026-09-05 22:51+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -50,11 +50,11 @@ msgstr "Użyj natywnych kolorów GNOME zamiast kolorów tła."
 
 #: ui/preferencesPage.js:159
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Trwałe wybory"
 
 #: ui/preferencesPage.js:161
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Zapamiętaj kolory wybrane ręcznie dla każdego tła."
 
 #: ui/preferencesPage.js:167
 msgid "Prefer Light Style"
