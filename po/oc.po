@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 19:35-0300\n"
-"PO-Revision-Date: 2026-09-07 16:51+0000\n"
+"PO-Revision-Date: 2026-09-12 09:51+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/chromaleon/"
 "extension/oc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.9.1.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -351,15 +351,15 @@ msgstr "Reinstallar o actualizar"
 
 #: ui/preloadPage.js:158
 msgid "Access the setup guide to view instructions."
-msgstr ""
+msgstr "Accedir a la guida d'installacion per veire las instruccions."
 
 #: ui/preloadPage.js:164
 msgid "View instructions"
-msgstr ""
+msgstr "Veire las instruccions"
 
 #: ui/preloadPage.js:202
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "Aquesta opcion requerís una configuracion suplementària."
 
 #: ui/preloadPage.js:204
 msgid ""
@@ -367,10 +367,13 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"Per sincronizar las colors de refortiment amb las aplicacions que supòrtan "
+"pas las colors ChromaLeon, cal compilar e installar la bibliotèca de "
+"precargament (aquò es pas necessari se s'utilizan las colors GNOME)."
 
 #: ui/preloadPage.js:244
 msgid "Setup Guide"
-msgstr ""
+msgstr "Guida d’installacion"
 
 #: ui/wallpaperPage.js:86
 msgid "Error getting thumbnail: "
