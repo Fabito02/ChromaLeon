@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 19:35-0300\n"
-"PO-Revision-Date: 2026-08-11 16:51+0000\n"
+"PO-Revision-Date: 2026-09-07 16:51+0000\n"
 "Last-Translator: Amedeo Trotta <paperella@duck.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -25,13 +25,16 @@ msgstr "Preferenze"
 
 #: ui/preferencesPage.js:85
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon esiste solo grazie a utenti come te!"
 
 #: ui/preferencesPage.js:87
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Se ChromaLeon si è guadagnato un posto nella personalizzazione del tuo "
+"dispositivo, considera la possibilità di aiutare il progetto a crescere con "
+"una piccola donazione."
 
 #: ui/preferencesPage.js:148
 msgid "Colors"
@@ -47,11 +50,11 @@ msgstr "Usa i colori nativi di GNOME invece dei colori dello sfondo."
 
 #: ui/preferencesPage.js:159
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Scelte persistenti"
 
 #: ui/preferencesPage.js:161
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Ricorda i colori selezionati manualmente per ogni sfondo."
 
 #: ui/preferencesPage.js:167
 msgid "Prefer Light Style"
@@ -63,14 +66,15 @@ msgstr "Usa uno stile chiaro per la Shell con il tema chiaro."
 
 #: ui/preferencesPage.js:174
 msgid "Fully Light"
-msgstr ""
+msgstr "Completamente chiaro"
 
 #: ui/preferencesPage.js:176
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "Usa uno stile chiaro per la Shell con il tema chiaro."
+msgstr ""
+"Usa uno stile completamente chiaro invece dello stile predefinito per il "
+"tema chiaro della Shell di GNOME."
 
 #: ui/preferencesPage.js:219
 msgid "Tint GNOME"
@@ -89,13 +93,12 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "Colora la Shell di GNOME con il colore che preferisci."
 
 #: ui/preferencesPage.js:232
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "Colora il pannello"
+msgstr "Colora il pannello scuro"
 
 #: ui/preferencesPage.js:233
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Colora anche il pannello quando è attiva la modalità scura."
 
 #: ui/preferencesPage.js:245
 msgid "Tint Apps"
@@ -119,27 +122,27 @@ msgstr "Colora le applicazioni GTK3"
 
 #: ui/preferencesPage.js:279
 msgid "Subtle"
-msgstr ""
+msgstr "Delicato"
 
 #: ui/preferencesPage.js:280
 msgid "Default"
-msgstr ""
+msgstr "Predefinito"
 
 #: ui/preferencesPage.js:281
 msgid "Strong"
-msgstr ""
+msgstr "Intenso"
 
 #: ui/preferencesPage.js:282
 msgid "Stronger"
-msgstr ""
+msgstr "Più intenso"
 
 #: ui/preferencesPage.js:286
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Intensità della colorazione"
 
 #: ui/preferencesPage.js:287
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Determina l'intensità dell'effetto di colorazione."
 
 #: ui/preferencesPage.js:293
 msgid "Darker Tint"
@@ -241,27 +244,27 @@ msgstr "Varie"
 
 #: ui/preferencesPage.js:486
 msgid "Disabled"
-msgstr ""
+msgstr "Disabilitato"
 
 #: ui/preferencesPage.js:487
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Predefinito (consigliato)"
 
 #: ui/preferencesPage.js:488
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Fluido (sperimentale)"
 
 #: ui/preferencesPage.js:492
 msgid "Hot Reload"
-msgstr ""
+msgstr "Ricaricamento automatico"
 
 #: ui/preferencesPage.js:493
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Abilita il ricaricamento automatico del tema per le applicazioni GTK4."
 
 #: ui/preferencesPage.js:509
 msgid "About Hot Reload"
-msgstr ""
+msgstr "Informazioni sul ricaricamento automatico"
 
 #: ui/preferencesPage.js:511
 msgid ""
@@ -281,6 +284,24 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"Il ricaricamento automatico utilizza il passaggio rapido tra il tema ad alto "
+"contrasto e quello predefinito per forzare le applicazioni GTK4 a ricaricare "
+"il foglio di stile.\n"
+"\n"
+"<b>Ricaricamento predefinito:</b> Questa è l'opzione nativa e consigliata. "
+"Sebbene in alcuni casi possa causare uno sfarfallio durante il passaggio da "
+"un tema all'altro, è l'opzione più sicura e quella meno soggetta a problemi "
+"durante la transizione.\n"
+"\n"
+"<b>Ricaricamento fluido:</b> Questa opzione utilizza un sottoprocesso per "
+"velocizzare l'esecuzione, riducendo drasticamente lo sfarfallio durante il "
+"passaggio da un tema all'altro. Tuttavia, è l'opzione meno affidabile, "
+"poiché può causare errori, come il mancato ricaricamento o il blocco sul "
+"tema ad alto contrasto (o viceversa, se utilizzi GNOME con questo stile "
+"abilitato).\n"
+"\n"
+"<b>Nota:</b> Questo non si applica ai colori d'accento nativi di GNOME, "
+"poiché per questi non è necessario."
 
 #: ui/preferencesPage.js:534
 msgid "Apply to Flatpaks"
@@ -304,41 +325,43 @@ msgstr ""
 
 #: ui/preloadPage.js:46
 msgid "Compatibility"
-msgstr ""
+msgstr "Compatibilità"
 
 #: ui/preloadPage.js:69
 msgid "Target apps"
-msgstr ""
+msgstr "Applicazioni di destinazione"
 
 #: ui/preloadPage.js:71
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
+"Inserisci il nome del processo (ad es. firefox, thunderbird, zen-browser) a "
+"cui applicare il colore d'accento di ChromaLeon."
 
 #: ui/preloadPage.js:77
 msgid "Add Application"
-msgstr ""
+msgstr "Aggiungi applicazione"
 
 #: ui/preloadPage.js:117
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: ui/preloadPage.js:157
 msgid "Reinstall or Update"
-msgstr ""
+msgstr "Reinstalla o aggiorna"
 
 #: ui/preloadPage.js:158
 msgid "Access the setup guide to view instructions."
-msgstr ""
+msgstr "Accedi alla guida alla configurazione per visualizzare le istruzioni."
 
 #: ui/preloadPage.js:164
 msgid "View instructions"
-msgstr ""
+msgstr "Visualizza le istruzioni"
 
 #: ui/preloadPage.js:202
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "Questa opzione richiede una configurazione aggiuntiva."
 
 #: ui/preloadPage.js:204
 msgid ""
@@ -346,10 +369,14 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"Per sincronizzare i colori d'accento con le applicazioni che non supportano "
+"i colori di ChromaLeon, è necessario compilare e installare la libreria di "
+"precaricamento (questa operazione non è necessaria se si utilizzano i colori "
+"di GNOME)."
 
 #: ui/preloadPage.js:244
 msgid "Setup Guide"
-msgstr ""
+msgstr "Guida alla configurazione"
 
 #: ui/wallpaperPage.js:86
 msgid "Error getting thumbnail: "
@@ -412,9 +439,8 @@ msgid "Unable to load colors."
 msgstr "Impossibile caricare i colori."
 
 #: ui/wallpaperPage.js:1037
-#, fuzzy
 msgid "Select Color"
-msgstr "Colore d'accento"
+msgstr "Seleziona colore"
 
 #~ msgid "Main color"
 #~ msgstr "Colore principale"

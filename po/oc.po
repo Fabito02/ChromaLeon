@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 19:35-0300\n"
-"PO-Revision-Date: 2026-09-03 08:01+0000\n"
+"PO-Revision-Date: 2026-09-07 16:51+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/chromaleon/"
 "extension/oc/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
@@ -51,11 +51,12 @@ msgstr ""
 
 #: ui/preferencesPage.js:159
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Causidas persistentas"
 
 #: ui/preferencesPage.js:161
 msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
+"Se remembrar de la color seleccionada manualament per cada fons d'ecran."
 
 #: ui/preferencesPage.js:167
 msgid "Prefer Light Style"
@@ -70,11 +71,10 @@ msgid "Fully Light"
 msgstr "Compètament clar"
 
 #: ui/preferencesPage.js:176
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "Utilizatz un estil clar pel Shell dins lo tèma clar."
+msgstr "Utilizatz un estil complètament clar pel tèma clar de Shell de GNOME."
 
 #: ui/preferencesPage.js:219
 msgid "Tint GNOME"
@@ -98,7 +98,7 @@ msgstr "Tintar lo panèl en escur"
 
 #: ui/preferencesPage.js:233
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Tintar tanben lo panèl en mòde escur."
 
 #: ui/preferencesPage.js:245
 msgid "Tint Apps"
@@ -259,11 +259,11 @@ msgstr "Recargament a caud"
 
 #: ui/preferencesPage.js:493
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Activa lo recargament a caud dels tèmas per las aplicacions GTK4."
 
 #: ui/preferencesPage.js:509
 msgid "About Hot Reload"
-msgstr ""
+msgstr "A prepaus del recargament a caud"
 
 #: ui/preferencesPage.js:511
 msgid ""
@@ -283,6 +283,23 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"Lo recargament a caud utiliza un cambiament rapid entre lo tèma de naut "
+"contraste e lo tèma per defaut per forçar las aplicacions GTK4 a recargar lo "
+"fuèlh d'estil.\n"
+"\n"
+"<b>Recargament per defaut :</b> es l'opcion nativa recomandada. Malgrat que "
+"pòsca provocar de parpellejaments pendent lo cambiament dins d'unes cases, "
+"es l'opcion la mai segura e la mens propensa a de problèmas pendent la "
+"transicion.\n"
+"\n"
+"<b>Recargament doç :</b> aquela opcion utiliza un sosprocès per accelerar "
+"l'execucion, redusent drasticament lo parpellejament al moment de cambiar de "
+"tèma. Pasmens, es l'opcion la mens fisabla, car pòt menar a d'errors coma de "
+"recargas fracassadas o lo blocatge sul tèma de naut contraste (o "
+"inversament, se utilizatz GNOME amb aquel estil activat).\n"
+"\n"
+"<b>Nòta :</b> aquò s'aplica pas a las colors d'accentuacion nativas de "
+"GNOME, car es pas necessari per elas."
 
 #: ui/preferencesPage.js:534
 msgid "Apply to Flatpaks"
@@ -306,29 +323,31 @@ msgstr ""
 
 #: ui/preloadPage.js:46
 msgid "Compatibility"
-msgstr ""
+msgstr "Compatibilitat"
 
 #: ui/preloadPage.js:69
 msgid "Target apps"
-msgstr ""
+msgstr "Aplicacionq ciblas"
 
 #: ui/preloadPage.js:71
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
+"Picatz lo nom del procèssus (per ex., firefox, thunderbird, zen-browser) per "
+"aplicar la color de refortiment ChromaLeon."
 
 #: ui/preloadPage.js:77
 msgid "Add Application"
-msgstr ""
+msgstr "Apondre aplicacion"
 
 #: ui/preloadPage.js:117
 msgid "Remove"
-msgstr ""
+msgstr "Tirar"
 
 #: ui/preloadPage.js:157
 msgid "Reinstall or Update"
-msgstr ""
+msgstr "Reinstallar o actualizar"
 
 #: ui/preloadPage.js:158
 msgid "Access the setup guide to view instructions."
@@ -414,9 +433,8 @@ msgid "Unable to load colors."
 msgstr "Cargament impossible de las colors."
 
 #: ui/wallpaperPage.js:1037
-#, fuzzy
 msgid "Select Color"
-msgstr "Color afortida"
+msgstr "Causir la color"
 
 #~ msgid "Main color"
 #~ msgstr "Color principala"
