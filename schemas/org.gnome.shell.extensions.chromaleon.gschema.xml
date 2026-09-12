@@ -118,5 +118,12 @@
             >Persistently remember the manually selected colors for each wallpaper.
       </description>
     </key>
+    <key name="user-themes-warning" type="b">
+      <default>true</default>
+      <summary>User Themes Warning</summary>
+      <description
+            >User Themes incompatibility warning.
+      </description>
+    </key>
   </schema>
 </schemalist>

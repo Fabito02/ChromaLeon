@@ -55,6 +55,14 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
   Gettext.bindtextdomain("chromaleon", localeDir);
 }
 
+const _ = (str) => {
+  try {
+    return Gettext.dgettext("chromaleon", str);
+  } catch (e) {
+    return str;
+  }
+};
+
 const currentModulePath = import.meta.url;
 const extensionDirPath = currentModulePath.startsWith("file://")
   ? Gio.File.new_for_uri(currentModulePath).get_parent().get_path()
@@ -134,6 +142,26 @@ export function buildUI(window, settings) {
   addPage(wallpaperPage);
   addPage(preloadPage);
   addPage(preferencesPage);
+
+  if (settings.get_boolean("user-themes-warning")) {
+    const dialog = new Adw.AlertDialog({
+      heading: _("User Themes incompatibility warning."),
+      body: _(
+        "ChromaLeon is incompatible with the User Themes extension. Keep the User Themes extension disabled to avoid visual conflicts and unexpected behavior.",
+      ),
+    });
+
+    dialog.add_response("confirm", _("I understood"));
+    dialog.set_default_response("confirm");
+
+    dialog.connect("response", (_dialog, response) => {
+      if (response === "confirm") {
+        settings.set_boolean("user-themes-warning", false);
+      }
+    });
+
+    dialog.present(window);
+  }
 }
 
 if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {

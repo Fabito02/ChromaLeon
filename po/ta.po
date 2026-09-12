@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 19:35-0300\n"
+"POT-Creation-Date: 2026-09-12 14:01-0300\n"
 "PO-Revision-Date: 2026-08-01 01:30+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/chromaleon/"
@@ -18,6 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.8.dev0\n"
+
+#: chromaleon.js:148
+msgid "User Themes incompatibility warning."
+msgstr ""
+
+#: chromaleon.js:150
+msgid ""
+"ChromaLeon is incompatible with the User Themes extension. Keep the User "
+"Themes extension disabled to avoid visual conflicts and unexpected behavior."
+msgstr ""
+
+#: chromaleon.js:154
+msgid "I understood"
+msgstr ""
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"

@@ -53,7 +53,7 @@
     @define-color view_fg_color RGB(0 0 6 / 80%);
     @define-color headerbar_fg_color RGB(0 0 6 / 80%);
     @define-color sidebar_fg_color RGB(0 0 6 / 80%);
-    @define-color secondary_sidebar_fg_color RGB(0 0 6 / 80%);;
+    @define-color secondary_sidebar_fg_color RGB(0 0 6 / 80%);
     @define-color card_fg_color RGB(0 0 6 / 80%);
     @define-color popover_fg_color RGB(0 0 6 / 80%);
     @define-color dialog_fg_color RGB(0 0 6 / 80%); 
