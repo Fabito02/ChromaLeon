@@ -55,13 +55,7 @@ if (GLib.getenv("CHROMALEON_LAUNCH") === "1") {
   Gettext.bindtextdomain("chromaleon", localeDir);
 }
 
-const _ = (str) => {
-  try {
-    return Gettext.dgettext("chromaleon", str);
-  } catch (e) {
-    return str;
-  }
-};
+export const _ = Gettext.dgettext.bind(null, "chromaleon");
 
 const currentModulePath = import.meta.url;
 const extensionDirPath = currentModulePath.startsWith("file://")

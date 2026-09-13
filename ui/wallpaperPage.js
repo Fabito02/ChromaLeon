@@ -26,9 +26,9 @@ import GLib from "gi://GLib";
 import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
-import * as Gettext from "gettext";
+import {_} from "../chromaleon.js";
 import GdkPixbuf from "gi://GdkPixbuf";
-import GnomeDesktop from "gi://GnomeDesktop?version=4.0";
+import GnomeDesktop from "gi://GnomeDesktop";
 import {
   rgbToHsl,
   _getRelativeLuminance,
@@ -38,14 +38,6 @@ import {
 } from "../utils/colorUtils.js";
 import { throwIfCancelled, isCancelledError } from "../utils/cancellation.js";
 import { getColorCache, writeColorCacheFile } from "../utils/cacheUtils.js";
-
-const _ = (str) => {
-  try {
-    return Gettext.dgettext("chromaleon", str);
-  } catch (e) {
-    return str;
-  }
-};
 
 const thumbnailFactory = GnomeDesktop.DesktopThumbnailFactory.new(
   GnomeDesktop.DesktopThumbnailSize.LARGE,

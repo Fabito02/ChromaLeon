@@ -26,15 +26,7 @@ import GLib from "gi://GLib";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
 import Pango from "gi://Pango";
-import * as Gettext from "gettext";
-
-const _ = (str) => {
-  try {
-    return Gettext.dgettext("chromaleon", str);
-  } catch (e) {
-    return str;
-  }
-};
+import {_} from "../chromaleon.js";
 
 export class PreloadPage extends Adw.PreferencesPage {
   static {
