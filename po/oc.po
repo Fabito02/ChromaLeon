@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-12 14:01-0300\n"
-"PO-Revision-Date: 2026-09-12 09:51+0000\n"
+"PO-Revision-Date: 2026-09-14 07:51+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/chromaleon/"
 "extension/oc/>\n"
@@ -21,17 +21,20 @@ msgstr ""
 
 #: chromaleon.js:148
 msgid "User Themes incompatibility warning."
-msgstr ""
+msgstr "Avertiment per l'incompatibilitat de User Themes."
 
 #: chromaleon.js:150
 msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
 msgstr ""
+"ChromaLeon es incompatible amb l'extension User Themes. Daissatz l'extension "
+"User Themes desactivada per evitar conflictes visuals e compòrtaments "
+"inesperats."
 
 #: chromaleon.js:154
 msgid "I understood"
-msgstr ""
+msgstr "Plan comprés"
 
 #: ui/preferencesPage.js:46
 msgid "Preferences"
