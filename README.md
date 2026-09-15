@@ -150,11 +150,11 @@ It is possible to expand ChromaLeon's color compatibility by performing an addit
 
 ## 🌟️ Star History
 
-<a href="https://star-history.dera.page/#Fabito02/ChromaLeon&legend=bottom-right">
+<a href="https://www.star-history.com/?repos=fabito02%2Fchromaleon&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=Fabito02/ChromaLeon&theme=dark&legend=bottom-right" />
-   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=Fabito02/ChromaLeon&legend=bottom-right" />
-   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=Fabito02/ChromaLeon&legend=bottom-right" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=fabito02/chromaleon&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=fabito02/chromaleon&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=fabito02/chromaleon&type=date&legend=top-left" />
  </picture>
 </a>
 
