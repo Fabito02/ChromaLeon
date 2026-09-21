@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-13 15:27-0300\n"
 "PO-Revision-Date: 2026-08-23 23:50+0000\n"
-"Last-Translator: ahmedz4de <rustamahmadzada@gmail.com>\n"
+"Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/ru/>\n"
 "Language: ru\n"
@@ -18,21 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: chromaleon.js:142
 msgid "User Themes incompatibility warning."
-msgstr ""
+msgstr "Предупреждение о несовместимости c User Themes."
 
 #: chromaleon.js:144
 msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
 msgstr ""
+"ChromaLeon несовместим с расширением User Themes. Держите расширение User "
+"Themes отключенным, чтобы избежать визуальных конфликтов и неожиданной "
+"работы программы."
 
 #: chromaleon.js:148
 msgid "I understood"
-msgstr ""
+msgstr "Понятно"
 
 #: ui/preferencesPage.js:38
 msgid "Preferences"
@@ -40,13 +43,15 @@ msgstr "Параметры"
 
 #: ui/preferencesPage.js:77
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon существует только благодаря таким пользователям, как вы!"
 
 #: ui/preferencesPage.js:79
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Если вам нравится ChromaLeon, подумайте о том, чтобы поддержать развитие "
+"проекта, сделав небольшое пожертвование."
 
 #: ui/preferencesPage.js:140
 msgid "Colors"
@@ -66,7 +71,7 @@ msgstr ""
 
 #: ui/preferencesPage.js:153
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Сохранять цвета, выбранные вручную для каждого фона."
 
 #: ui/preferencesPage.js:159
 msgid "Prefer Light Style"
@@ -74,21 +79,23 @@ msgstr "Предпочитать Светлый Стиль"
 
 #: ui/preferencesPage.js:160
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Использовать светлый стиль оболочки в светлой теме."
 
 #: ui/preferencesPage.js:166
 msgid "Fully Light"
-msgstr ""
+msgstr "Полностью светлый"
 
 #: ui/preferencesPage.js:168
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Использовать полностью светлый стиль вместо стандартного стиля светлой темы "
+"GNOME Shell."
 
 #: ui/preferencesPage.js:211
 msgid "Tint GNOME"
-msgstr ""
+msgstr "Добавлять оттенок к GNOME"
 
 #: ui/preferencesPage.js:212
 msgid "Based on Tint my GNOME"
