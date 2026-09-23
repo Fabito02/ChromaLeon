@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-13 15:27-0300\n"
-"PO-Revision-Date: 2026-08-23 23:50+0000\n"
+"PO-Revision-Date: 2026-09-23 02:51+0000\n"
 "Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/ru/>\n"
@@ -67,7 +67,7 @@ msgstr "Используй встроенные цвета GNOME вместо о
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Запомнить выбор"
 
 #: ui/preferencesPage.js:153
 msgid "Remember the colors manually selected for each wallpaper."
@@ -103,120 +103,124 @@ msgstr ""
 
 #: ui/preferencesPage.js:217
 msgid "Tint Shell"
-msgstr ""
+msgstr "Перекрашивать оболочку"
 
 #: ui/preferencesPage.js:218
 msgid "Tints the GNOME Shell with the color of your choice."
-msgstr ""
+msgstr "Окрашивает GNOME Shell в выбранный вами цвет."
 
 #: ui/preferencesPage.js:224
 msgid "Tint Dark Panel"
-msgstr ""
+msgstr "Перекрашивать темную панель"
 
 #: ui/preferencesPage.js:225
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Перекрашивать панель в темном режиме."
 
 #: ui/preferencesPage.js:237
 msgid "Tint Apps"
-msgstr ""
+msgstr "Перекрашивать приложения"
 
 #: ui/preferencesPage.js:239
 msgid "Tints the LibAdwaita applications with the color of your choice."
-msgstr ""
+msgstr "Перекрашивает приложения LibAdwaitaвыбранным вами цветом."
 
 #: ui/preferencesPage.js:246
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
+"Также перекрашивать GTK3 приложения (чтобы избежать баги вам необходимы "
+"расширение {0} extension и тема {1})."
 
 #: ui/preferencesPage.js:258
 msgid "Tint GTK3 Apps"
-msgstr ""
+msgstr "Перекрашивать GTK3 приложения"
 
 #: ui/preferencesPage.js:271
 msgid "Subtle"
-msgstr ""
+msgstr "Лёгкий"
 
 #: ui/preferencesPage.js:272
 msgid "Default"
-msgstr ""
+msgstr "Стандартный"
 
 #: ui/preferencesPage.js:273
 msgid "Strong"
-msgstr ""
+msgstr "Сильный"
 
 #: ui/preferencesPage.js:274
 msgid "Stronger"
-msgstr ""
+msgstr "Очень сильный"
 
 #: ui/preferencesPage.js:278
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Сила эффекта перекрашивания"
 
 #: ui/preferencesPage.js:279
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Определяет интенсивность эффекта перекрашивания."
 
 #: ui/preferencesPage.js:285
 msgid "Darker Tint"
-msgstr ""
+msgstr "Более тёмная перекраска"
 
 #: ui/preferencesPage.js:286
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Применяет более тёмную перекраску."
 
 #: ui/preferencesPage.js:335
 msgid "Icon Theme"
-msgstr ""
+msgstr "Тема иконок"
 
 #: ui/preferencesPage.js:340
 msgid "Folder icon theme"
-msgstr ""
+msgstr "Тема иконок папок"
 
 #: ui/preferencesPage.js:341
 msgid "Applies the accent color to folder icons."
-msgstr ""
+msgstr "Применяет акцентный цвет к иконкам папок."
 
 #: ui/preferencesPage.js:347
 msgid "Application icon theme"
-msgstr ""
+msgstr "Тема иконок приложений"
 
 #: ui/preferencesPage.js:348
 msgid "Applies the accent color to some app icons."
-msgstr ""
+msgstr "Применяет акцентный цвет к иконкам некоторых приложений."
 
 #: ui/preferencesPage.js:352
 msgid "MoreWaita"
-msgstr ""
+msgstr "MoreWaita"
 
 #: ui/preferencesPage.js:353
 msgid "Applies integration with the MoreWaita icon pack."
-msgstr ""
+msgstr "Реализует интеграцию с набором иконок MoreWaita."
 
 #: ui/preferencesPage.js:390
 msgid "Customization"
-msgstr ""
+msgstr "Кастомизация"
 
 #: ui/preferencesPage.js:395
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Пользовательская таблица стилей"
 
 #: ui/preferencesPage.js:397
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Файл, переопределяющий CSS оболочки и пользовательских расширений, с "
+"поддержкой акцентных цветов ChromaLeon."
 
 #: ui/preferencesPage.js:416 ui/preferencesPage.js:433
 #: ui/preferencesPage.js:493
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "О пользовательской таблице стилей"
 
 #: ui/preferencesPage.js:422
 msgid "Open file"
-msgstr ""
+msgstr "Открыть файл"
 
 #: ui/preferencesPage.js:435
 msgid ""
@@ -231,30 +235,40 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Этот файл используется для применения пользовательского CSS к GNOME Shell.\n"
+"\n"
+"Расширение обрабатывает содержимое файла, заменяя переменные <b><tt>"
+"@@ACCENT@@</tt></b> и <b><tt>-st-accent-color</tt></b> на цвет, выбранный в "
+"настройках ChromaLeon, перед применением изменений в системе. Это может быть "
+"полезно, если акцентные цвета в каком-либо расширении применяются "
+"некорректно.\n"
+"\n"
+"<b>Совет:</b> Если внесённые изменения не применяются, попробуйте добавить "
+"<b><tt>!important</tt></b> к вашим CSS-правилам."
 
 #: ui/preferencesPage.js:442 ui/preferencesPage.js:511
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: ui/preferencesPage.js:464
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "Ошибка открытия файла custom.css "
 
 #: ui/preferencesPage.js:473
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Разное"
 
 #: ui/preferencesPage.js:478
 msgid "Disabled"
-msgstr ""
+msgstr "Отключено"
 
 #: ui/preferencesPage.js:479
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Стандартный (рекомендуемый)"
 
 #: ui/preferencesPage.js:480
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Плавный (экспериментальный)"
 
 #: ui/preferencesPage.js:484
 msgid "Hot Reload"
@@ -262,7 +276,7 @@ msgstr ""
 
 #: ui/preferencesPage.js:485
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Включает «горячую» перезагрузку темы для приложений GTK4."
 
 #: ui/preferencesPage.js:501
 msgid "About Hot Reload"
@@ -289,57 +303,61 @@ msgstr ""
 
 #: ui/preferencesPage.js:526
 msgid "Apply to Flatpaks"
-msgstr ""
+msgstr "Применять к Flatpak-приложениям"
 
 #: ui/preferencesPage.js:528
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
+"Разрешить пакетам Flatpak доступ к вашим пользовательским переменным цвета "
+"акцента."
 
 #: ui/preferencesPage.js:534
 msgid "Enable shortcut"
-msgstr ""
+msgstr "Включить сочетание клавиш"
 
 #: ui/preferencesPage.js:536
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr ""
+msgstr "Создать ярлык в сетке приложений, добавив файл .desktop."
 
 #: ui/preloadPage.js:38
 msgid "Compatibility"
-msgstr ""
+msgstr "Совместимость"
 
 #: ui/preloadPage.js:61
 msgid "Target apps"
-msgstr ""
+msgstr "Целевые приложения"
 
 #: ui/preloadPage.js:63
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
+"Введите имя процесса (например, firefox, thunderbird, zen-browser), чтобы "
+"применить акцентный цвет ChromaLeon."
 
 #: ui/preloadPage.js:69
 msgid "Add Application"
-msgstr ""
+msgstr "Добавить приложение"
 
 #: ui/preloadPage.js:109
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: ui/preloadPage.js:149
 msgid "Reinstall or Update"
-msgstr ""
+msgstr "Переустановить или обновить"
 
 #: ui/preloadPage.js:150
 msgid "Access the setup guide to view instructions."
-msgstr ""
+msgstr "Откройте руководство по настройке, чтобы ознакомиться с инструкциями."
 
 #: ui/preloadPage.js:156
 msgid "View instructions"
-msgstr ""
+msgstr "Посмотреть инструкции"
 
 #: ui/preloadPage.js:194
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "Этот параметр требует дополнительной настройки."
 
 #: ui/preloadPage.js:196
 msgid ""
@@ -347,10 +365,13 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"Для синхронизации акцентных цветов с приложениями, не поддерживающими цвета "
+"ChromaLeon, необходимо скомпилировать и установить библиотеку "
+"предварительной загрузки (это не требуется при использовании цветов GNOME)."
 
 #: ui/preloadPage.js:236
 msgid "Setup Guide"
-msgstr ""
+msgstr "Руководство по настройке"
 
 #: ui/wallpaperPage.js:78
 msgid "Error getting thumbnail: "
@@ -374,43 +395,43 @@ msgstr "Обои"
 
 #: ui/wallpaperPage.js:402
 msgid "Wallpaper deleted successfully!"
-msgstr ""
+msgstr "Обои успешно удалены!"
 
 #: ui/wallpaperPage.js:406
 msgid "Error deleting wallpaper: "
-msgstr ""
+msgstr "Ошибка при удалении обоев: "
 
 #: ui/wallpaperPage.js:412
 msgid "Select a Wallpaper"
-msgstr ""
+msgstr "Выбрать обои"
 
 #: ui/wallpaperPage.js:414
 msgid "_Open"
-msgstr ""
+msgstr "Открыть"
 
 #: ui/wallpaperPage.js:415
 msgid "_Cancel"
-msgstr ""
+msgstr "Закрыть"
 
 #: ui/wallpaperPage.js:420
 msgid "All Images"
-msgstr ""
+msgstr "Все изображения"
 
 #: ui/wallpaperPage.js:447
 msgid "Wallpaper already exists!"
-msgstr ""
+msgstr "Обои уже существуют!"
 
 #: ui/wallpaperPage.js:463
 msgid "Wallpaper added successfully!"
-msgstr ""
+msgstr "Обои успешно добавлены!"
 
 #: ui/wallpaperPage.js:467
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Ошибка копирования обоев: "
 
 #: ui/wallpaperPage.js:935
 msgid "Unable to load colors."
-msgstr ""
+msgstr "Не удалось загрузить цвета."
 
 #: ui/wallpaperPage.js:1029
 #, fuzzy
