@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-13 15:27-0300\n"
-"PO-Revision-Date: 2026-09-23 02:51+0000\n"
+"PO-Revision-Date: 2026-09-24 14:51+0000\n"
 "Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/ru/>\n"
@@ -99,7 +99,7 @@ msgstr "Добавлять оттенок к GNOME"
 
 #: ui/preferencesPage.js:212
 msgid "Based on Tint my GNOME"
-msgstr ""
+msgstr "Базируется на Tint my GNOME"
 
 #: ui/preferencesPage.js:217
 msgid "Tint Shell"
@@ -272,7 +272,7 @@ msgstr "Плавный (экспериментальный)"
 
 #: ui/preferencesPage.js:484
 msgid "Hot Reload"
-msgstr ""
+msgstr "«Горячая» перезагрузка"
 
 #: ui/preferencesPage.js:485
 msgid "Enables theme hot reloading for GTK4 applications."
@@ -280,7 +280,7 @@ msgstr "Включает «горячую» перезагрузку темы д
 
 #: ui/preferencesPage.js:501
 msgid "About Hot Reload"
-msgstr ""
+msgstr "О «горячей» перезагрузке"
 
 #: ui/preferencesPage.js:503
 msgid ""
@@ -300,6 +300,22 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"Функция «горячей» перезагрузки использует быстрое переключение между "
+"высококонтрастной и стандартной темами, чтобы принудительно заставить "
+"приложения GTK4 обновить таблицу стилей.\n"
+"\n"
+"<b>Стандартный режим:</b> Это рекомендуемый, нативный способ. Хотя в "
+"некоторых случаях при переключении может возникать мерцание, этот вариант — "
+"самый надежный и наименее подверженный сбоям в процессе перехода.\n"
+"\n"
+"<b>Плавный режим:</b> В этом режиме для ускорения выполнения используется "
+"отдельный подпроцесс, что позволяет существенно уменьшить мерцание при смене "
+"тем. Однако этот способ наименее надежен, так как может приводить к ошибкам "
+"— например, к сбоям перезагрузки или «застреванию» в высококонтрастной теме "
+"(или наоборот, если вы используете GNOME с включенным таким стилем).\n"
+"\n"
+"<b>Примечание:</b> Это не относится к нативным акцентным цветам GNOME, так "
+"как для них данная процедура не требуется."
 
 #: ui/preferencesPage.js:526
 msgid "Apply to Flatpaks"
