@@ -7,6 +7,7 @@
 <br><br>
 
 ### Adapt GNOME colors like a chameleon
+
 Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors dynamically based on your wallpaper.
 
 [![GNOME Extensions Downloads](https://img.shields.io/gnome-extensions/dt/user-accent-colors@fabito02?style=flat&logo=gnome&logoColor=white&color=3f86e3)](https://extensions.gnome.org/extension/10070/user-accent-colors/)
@@ -22,22 +23,23 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
 <br>
 <br>
 
-| Base Style | Dark Mode Example | Light Mode Example |
-| :--- | :--- | :--- |
-| **Tinted** | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/ef98ba16-7151-4360-b783-8c302cd66cee" /> | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/98a9cfad-80a1-49c2-b8aa-990860daa3e2" /> |
-| **Standard** | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/fda49284-95dd-49b0-a4c4-2099c8cc31f5" /> | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/ce4f87fe-6deb-4368-aa8e-a2c4eabd93f1" /> |
+| Base Style           | Dark Mode Example                                                                                                                                    | Light Mode Example                                                                                                                                    |
+| :------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tinted**           | <img width="1366" height="768" alt="Tinted Dark" src="https://github.com/user-attachments/assets/ef98ba16-7151-4360-b783-8c302cd66cee" />            | <img width="1366" height="768" alt="Tinted Light" src="https://github.com/user-attachments/assets/98a9cfad-80a1-49c2-b8aa-990860daa3e2" />            |
+| **Standard**         | <img width="1366" height="768" alt="Standard Dark" src="https://github.com/user-attachments/assets/fda49284-95dd-49b0-a4c4-2099c8cc31f5" />          | <img width="1366" height="768" alt="Standard Light" src="https://github.com/user-attachments/assets/ce4f87fe-6deb-4368-aa8e-a2c4eabd93f1" />          |
 | **Folders and Apps** | <img width="1366" height="768" alt="Folders and Icons Dark" src="https://github.com/user-attachments/assets/40289967-4f5a-48ca-8360-97ba85a3c221" /> | <img width="1366" height="768" alt="Folders and Icons Light" src="https://github.com/user-attachments/assets/705b5c0e-6e1d-459f-9862-73ac319a58c5" /> |
 
 <br>
 </div>
 
 ## Notes:
+
 > [!WARNING]
 > ChromaLeon **conflicts DIRECTLY** with the [User Theme](https://extensions.gnome.org/extension/19/user-themes/) extension. If you have this extension installed, please **REMOVE or DISABLE it** to avoid any errors.
- - ChromaLeon was created within the context of the Adwaita theme. If you are experiencing any issues customizing applications or GNOME Shell, please ensure you are using the Adwaita theme before opening an issue.
- - A special thanks to [PakoVM](https://github.com/pakovm-git) for the inspiration behind the **tinted style**. The implementation in **ChromaLeon** was based on an idea from his [Tint My GNOME](https://github.com/pakovm-git/Tint-my-Gnome) extension.
- - ChromaLeon is a project I maintain in my spare time. If possible, please consider making a [small donation to support my work](https://ko-fi.com/fabito02)!
 
+- ChromaLeon was created within the context of the Adwaita theme. If you are experiencing any issues customizing applications or GNOME Shell, please ensure you are using the Adwaita theme before opening an issue.
+- A special thanks to [PakoVM](https://github.com/pakovm-git) for the inspiration behind the **tinted style**. The implementation in **ChromaLeon** was based on an idea from his [Tint My GNOME](https://github.com/pakovm-git/Tint-my-Gnome) extension.
+- ChromaLeon is a project I maintain in my spare time. If possible, please consider making a [small donation to support my work](https://ko-fi.com/fabito02)!
 
 ## Features
 
@@ -65,9 +67,9 @@ Change your GNOME Shell, Adwaita, adw-gtk3, and app/folder icons accent colors d
     <h3>Help Translate ChromaLeon</h3>
     <p>Contribute to making the project accessible in your language via Weblate!</p>
   </div>
-  
+
   <br />
-  
+
   <a href="https://hosted.weblate.org/engage/chromaleon/">
     <img src="https://hosted.weblate.org/widget/chromaleon/multi-auto.svg" alt="Translation Status" style="vertical-align: middle;" />
   </a>
@@ -104,8 +106,9 @@ gnome-extensions enable user-accent-colors@fabito02
 ```
 
 > **Note:** After enabling the extension for the first time, you need to restart the GNOME Shell to apply the core stylesheets.
-> * **On X11:** Press `Alt + F2`, type `r`, and hit `Enter`.
-> * **On Wayland:** Log out and log back into your session.
+>
+> - **On X11:** Press `Alt + F2`, type `r`, and hit `Enter`.
+> - **On Wayland:** Log out and log back into your session.
 
 <br>
 
@@ -118,6 +121,7 @@ It is possible to expand ChromaLeon's color compatibility by performing an addit
 ## 💖️ Support the Project
 
 ### ChromaLeon is a project I maintain in my spare time. If it helps you customize your device, please consider supporting my work with a small contribution :)
+
 <br>
 
 **GitHub Sponsors:**

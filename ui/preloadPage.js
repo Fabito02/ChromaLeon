@@ -26,14 +26,14 @@ import GLib from "gi://GLib";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
 import Pango from "gi://Pango";
-import {_} from "../chromaleon.js";
+import { _ } from "../chromaleon.js";
 
 export class PreloadPage extends Adw.PreferencesPage {
   static {
     GObject.registerClass(this);
   }
 
-  constructor(settings, window) {
+  constructor(settings, window, banner) {
     super({
       title: _("Compatibility"),
       icon_name: "puzzle-piece-symbolic",
@@ -42,7 +42,11 @@ export class PreloadPage extends Adw.PreferencesPage {
     this.add_css_class("symbolic");
     this._settings = settings;
     this._window = window;
+    this._banner = banner;
 
+    this._targetsFile = Gio.File.new_for_path(
+      `${GLib.get_user_config_dir()}/ChromaLeon/targets`,
+    );
     this._preloadPath = Gio.File.new_for_path(
       `${GLib.get_home_dir()}/.local/lib/libchromaleon.so`,
     );
@@ -54,8 +58,162 @@ export class PreloadPage extends Adw.PreferencesPage {
     }
   }
 
+  _readTargets() {
+    if (!this._targetsFile.query_exists(null)) return [];
+
+    const [, bytes] = this._targetsFile.load_contents(null);
+    const text = new TextDecoder("utf-8").decode(bytes);
+
+    return text.split(/[\s,]+/).filter((s) => s.length > 0);
+  }
+
+  _saveTargets(apps) {
+    const parent = this._targetsFile.get_parent();
+    if (parent && !parent.query_exists(null)) {
+      try {
+        parent.make_directory_with_parents(null);
+      } catch (_) {}
+    }
+
+    const bytes = new GLib.Bytes(
+      new TextEncoder().encode(apps.join("\n") + "\n"),
+    );
+    this._targetsFile.replace_contents(
+      bytes.get_data(),
+      null,
+      false,
+      Gio.FileCreateFlags.REPLACE_DESTINATION,
+      null,
+    );
+  }
+
+  _checkUpdate(callback) {
+    const localFile = Gio.File.new_for_path(
+      `${GLib.get_user_config_dir()}/ChromaLeon/preload_version`,
+    );
+
+    let local;
+    if (localFile.query_exists(null)) {
+      const [, bytes] = localFile.load_contents(null);
+      local = new TextDecoder().decode(bytes).trim();
+    } else {
+      local = null;
+    }
+
+    const remoteFile = Gio.File.new_for_uri(
+      "https://raw.githubusercontent.com/Fabito02/chromaleon-preload/main/VERSION",
+    );
+
+    const cancellable = new Gio.Cancellable();
+    const timeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 8, () => {
+      cancellable.cancel();
+      return GLib.SOURCE_REMOVE;
+    });
+
+    remoteFile.load_contents_async(cancellable, (src, res) => {
+      if (timeoutId) {
+        GLib.source_remove(timeoutId);
+      }
+
+      let remote;
+      try {
+        const [, bytes] = src.load_contents_finish(res);
+        remote = new TextDecoder().decode(bytes).trim();
+      } catch (_) {
+        callback({ state: "offline", local });
+        return;
+      }
+
+      if (!remote) {
+        callback({ state: "offline", local });
+        return;
+      }
+      callback({
+        state: local === remote ? "current" : "outdated",
+        local,
+        remote,
+      });
+    });
+  }
+
   _buildInstalledUI() {
-    let activeApps = [...this._settings.get_strv("target-apps")];
+    let activeApps = this._readTargets();
+
+    const versionGroup = new Adw.PreferencesGroup({
+      title: _("Preload version"),
+    });
+    this.add(versionGroup);
+
+    const versionRow = new Adw.ActionRow({
+      title: _("Version status"),
+      subtitle: _("Checking..."),
+      activatable: true,
+      selectable: true,
+    });
+
+    versionGroup.add(versionRow);
+    versionRow.add_css_class("action-row-button");
+
+    versionRow.connect("activated", () => {
+      Gtk.show_uri(
+        null,
+        "https://github.com/Fabito02/chromaleon-preload#installation",
+        null,
+      );
+    });
+
+    const statusIcon = new Gtk.Image({
+      icon_name: "content-loading-symbolic",
+    });
+
+    const setupGuideExternalIcon = new Gtk.Image({
+      icon_name: "external-link-symbolic",
+    });
+
+    versionRow.add_prefix(statusIcon);
+    versionRow.add_suffix(setupGuideExternalIcon);
+
+    this._checkUpdate((result) => {
+      for (const c of ["success", "warning", "regular", "dim-label"])
+        statusIcon.remove_css_class(c);
+
+      if (result.state === "offline") {
+        versionRow.set_title(_("Offline"));
+        versionRow.set_subtitle(
+          result.local
+            ? _("Installed: %s (could not check).").replace("%s", result.local)
+            : _("Could not check for updates."),
+        );
+        statusIcon.set_from_icon_name("network-offline-symbolic");
+        statusIcon.add_css_class("dim-label");
+        this._banner.revealed = false;
+        return;
+      }
+
+      if (result.state === "current") {
+        versionRow.set_title(_("Current"));
+        versionRow.set_subtitle(
+          _("Installed: %s — up to date.").replace("%s", result.local),
+        );
+        statusIcon.set_from_icon_name("object-select-symbolic");
+        statusIcon.add_css_class("success");
+        this._banner.revealed = false;
+        return;
+      }
+
+      if (result.state === "outdated") {
+        versionRow.set_title(_("Outdated"));
+        versionRow.set_subtitle(
+          _("Installed: %s — %s available.")
+            .replace("%s", result.local ?? _("Unknown"))
+            .replace("%s", result.remote),
+        );
+        statusIcon.set_from_icon_name("software-update-available-symbolic");
+        statusIcon.add_css_class("warning");
+        this._banner.revealed = true;
+        return;
+      }
+    });
 
     const optionsGroup = new Adw.PreferencesGroup({
       title: _("Target apps"),
@@ -116,7 +274,7 @@ export class PreloadPage extends Adw.PreferencesPage {
         const index = activeApps.indexOf(appName);
         if (index > -1) {
           activeApps.splice(index, 1);
-          this._settings.set_strv("target-apps", activeApps);
+          this._saveTargets(activeApps);
         }
       });
 
@@ -131,7 +289,7 @@ export class PreloadPage extends Adw.PreferencesPage {
       const rawText = entryRow.get_text().trim().toLowerCase();
       if (rawText && !rawText.includes(" ") && !activeApps.includes(rawText)) {
         activeApps.push(rawText);
-        this._settings.set_strv("target-apps", activeApps);
+        this._saveTargets(activeApps);
         createTagChip(rawText);
         entryRow.set_text("");
       }
@@ -144,28 +302,6 @@ export class PreloadPage extends Adw.PreferencesPage {
 
     optionsGroup.add(entryRow);
     optionsGroup.add(tagsRow);
-
-    const actionRow = new Adw.ActionRow({
-      title: _("Reinstall or Update"),
-      subtitle: _("Access the setup guide to view instructions."),
-    });
-
-    const setupGuideBtn = new Gtk.Button({
-      icon_name: "external-link-symbolic",
-      valign: Gtk.Align.CENTER,
-      tooltip_text: _("View instructions"),
-    });
-    setupGuideBtn.add_css_class("flat");
-    setupGuideBtn.connect("clicked", () => {
-      Gtk.show_uri(
-        null,
-        "https://github.com/Fabito02/chromaleon-preload#installation",
-        null,
-      );
-    });
-
-    actionRow.add_suffix(setupGuideBtn);
-    optionsGroup.add(actionRow);
   }
 
   _buildSupportGroup() {

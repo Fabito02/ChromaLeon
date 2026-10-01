@@ -26,7 +26,7 @@ import GLib from "gi://GLib";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
 import Pango from "gi://Pango";
-import {_} from "../chromaleon.js";
+import { _ } from "../chromaleon.js";
 
 export class PreferencesPage extends Adw.PreferencesPage {
   static {
@@ -149,9 +149,7 @@ export class PreferencesPage extends Adw.PreferencesPage {
 
     const persistentChoicesRow = new Adw.SwitchRow({
       title: _("Persistent Choices"),
-      subtitle: _(
-        "Remember the colors manually selected for each wallpaper.",
-      ),
+      subtitle: _("Remember the colors manually selected for each wallpaper."),
     });
     colorsGroup.add(persistentChoicesRow);
 

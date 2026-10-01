@@ -20,14 +20,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
- import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
- import { buildUI } from "./chromaleon.js";
- 
- export default class ChromaLeonPreferences extends ExtensionPreferences {
-   fillPreferencesWindow(window) {
-     const settings = this.getSettings();
- 
-     window.set_default_size(490, 670);
-     buildUI(window, settings);
-   }
- }
+import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+import { buildUI } from "./chromaleon.js";
+
+export default class ChromaLeonPreferences extends ExtensionPreferences {
+  fillPreferencesWindow(window) {
+    const settings = this.getSettings();
+
+    window.set_default_size(490, 670);
+    buildUI(window, settings);
+  }
+}

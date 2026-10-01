@@ -26,7 +26,7 @@ import GLib from "gi://GLib";
 import Gdk from "gi://Gdk";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
-import {_} from "../chromaleon.js";
+import { _ } from "../chromaleon.js";
 import GdkPixbuf from "gi://GdkPixbuf";
 import GnomeDesktop from "gi://GnomeDesktop";
 import {

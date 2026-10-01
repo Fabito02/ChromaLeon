@@ -105,7 +105,6 @@ export function buildUI(window, settings) {
   });
 
   toolbarView.add_top_bar(headerBar);
-  toolbarView.set_content(viewStack);
   toolbarView.add_bottom_bar(switcherBar);
 
   window.set_content(toolbarView);
@@ -118,13 +117,36 @@ export function buildUI(window, settings) {
   breakpoint.add_setter(switcherBar, "reveal", true);
   window.add_breakpoint(breakpoint);
 
+  const contentBox = new Gtk.Box({
+    orientation: Gtk.Orientation.VERTICAL,
+  });
+
+  const banner = new Adw.Banner({
+    title: _("A new version of ChromaLeon Preload is available."),
+    button_label: _("Update"),
+    button_style: Adw.BannerButtonStyle.SUGGESTED,
+    revealed: false,
+  });
+
+  banner.connect("button-clicked", () => {
+    Gtk.show_uri(
+      null,
+      "https://github.com/Fabito02/chromaleon-preload#installation",
+      null,
+    );
+  });
+
+  contentBox.append(banner);
+  contentBox.append(viewStack);
+  toolbarView.set_content(contentBox);
+
   const wallpaperPage = new WallpaperPage(
     settings,
     bgSettings,
     interfaceSettings,
   );
   const preferencesPage = new PreferencesPage(settings, window);
-  const preloadPage = new PreloadPage(settings, window);
+  const preloadPage = new PreloadPage(settings, window, banner);
 
   const addPage = (page) => {
     const stackPage = viewStack.add(page);
