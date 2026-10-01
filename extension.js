@@ -287,35 +287,31 @@ export default class ChromaLeon extends Extension {
       this._dirtyTimeoutId = null;
     }
 
-    this._dirtyTimeoutId = GLib.timeout_add(
-      GLib.PRIORITY_DEFAULT,
-      150,
-      () => {
-        this._dirtyTimeoutId = null;
+    this._dirtyTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
+      this._dirtyTimeoutId = null;
 
-        const pending = this._dirty;
-        this._dirty = null;
+      const pending = this._dirty;
+      this._dirty = null;
 
-        if (!pending || pending.size === 0) return GLib.SOURCE_REMOVE;
+      if (!pending || pending.size === 0) return GLib.SOURCE_REMOVE;
 
-        this._runOperation(async (cancellable) => {
-          if (pending.has("shell")) {
-            await this._updateShellStyles(cancellable);
-            throwIfCancelled(cancellable);
-          }
-          if (pending.has("apps")) {
-            await this._updateAppStyles(cancellable);
-            throwIfCancelled(cancellable);
-          }
-          if (pending.has("reload")) {
-            await this._reloadGtkStylesheet(cancellable);
-            throwIfCancelled(cancellable);
-          }
-        });
+      this._runOperation(async (cancellable) => {
+        if (pending.has("shell")) {
+          await this._updateShellStyles(cancellable);
+          throwIfCancelled(cancellable);
+        }
+        if (pending.has("apps")) {
+          await this._updateAppStyles(cancellable);
+          throwIfCancelled(cancellable);
+        }
+        if (pending.has("reload")) {
+          await this._reloadGtkStylesheet(cancellable);
+          throwIfCancelled(cancellable);
+        }
+      });
 
-        return GLib.SOURCE_REMOVE;
-      },
-    );
+      return GLib.SOURCE_REMOVE;
+    });
   }
 
   _updateDesktopFile() {
