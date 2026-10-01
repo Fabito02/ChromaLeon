@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-13 15:27-0300\n"
+"POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-09-14 07:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -19,11 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2026.10.dev0\n"
 
-#: chromaleon.js:142
+#: chromaleon.js:125
+msgid "A new version of ChromaLeon Preload is available."
+msgstr ""
+
+#: chromaleon.js:126
+msgid "Update"
+msgstr ""
+
+#: chromaleon.js:164
 msgid "User Themes incompatibility warning."
 msgstr "User Themes 不兼容警告。"
 
-#: chromaleon.js:144
+#: chromaleon.js:166
 msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
@@ -31,7 +39,7 @@ msgstr ""
 "ChromaLeon 与 User Themes 扩展不兼容。请保持用户主题扩展处于禁用状态，避免显"
 "示冲突与异常行为。"
 
-#: chromaleon.js:148
+#: chromaleon.js:170
 msgid "I understood"
 msgstr "我已知晓"
 
@@ -66,156 +74,156 @@ msgstr "使用 GNOME 原生强调色，而非背景提取颜色。"
 msgid "Persistent Choices"
 msgstr "持久选项"
 
-#: ui/preferencesPage.js:153
+#: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
 msgstr "记住为每张壁纸手动选定的颜色。"
 
-#: ui/preferencesPage.js:159
+#: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
 msgstr "偏好亮色样式"
 
-#: ui/preferencesPage.js:160
+#: ui/preferencesPage.js:158
 msgid "Use a light style for the Shell in the light theme."
 msgstr "亮色模式下，为 Shell 采用浅色样式。"
 
-#: ui/preferencesPage.js:166
+#: ui/preferencesPage.js:164
 msgid "Fully Light"
 msgstr "全亮色"
 
-#: ui/preferencesPage.js:168
+#: ui/preferencesPage.js:166
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr "为 GNOME Shell 采用全亮色样式而非默认样式。"
 
-#: ui/preferencesPage.js:211
+#: ui/preferencesPage.js:209
 msgid "Tint GNOME"
 msgstr "GNOME 界面着色"
 
-#: ui/preferencesPage.js:212
+#: ui/preferencesPage.js:210
 msgid "Based on Tint my GNOME"
 msgstr "基于 Tint my GNOME 项目"
 
-#: ui/preferencesPage.js:217
+#: ui/preferencesPage.js:215
 msgid "Tint Shell"
 msgstr "Shell 界面着色"
 
-#: ui/preferencesPage.js:218
+#: ui/preferencesPage.js:216
 msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "使用选定颜色为 GNOME Shell 界面叠加色调。"
 
-#: ui/preferencesPage.js:224
+#: ui/preferencesPage.js:222
 msgid "Tint Dark Panel"
 msgstr "暗色面板着色"
 
-#: ui/preferencesPage.js:225
+#: ui/preferencesPage.js:223
 msgid "Also tint the panel when in dark mode."
 msgstr "暗色样式下对面板叠加色调。"
 
-#: ui/preferencesPage.js:237
+#: ui/preferencesPage.js:235
 msgid "Tint Apps"
 msgstr "应用着色"
 
-#: ui/preferencesPage.js:239
+#: ui/preferencesPage.js:237
 msgid "Tints the LibAdwaita applications with the color of your choice."
 msgstr "使用选定颜色为 LibAdwaita 应用叠加色调。"
 
-#: ui/preferencesPage.js:246
+#: ui/preferencesPage.js:244
 msgid ""
 "Also tint the GTK3 apps (the {0} extension and the {1} theme are required to "
 "avoid bugs)."
 msgstr ""
 "使用选定颜色为 GTK3 应用叠加色调（需安装 {0} 扩展与 {1} 主题以规避故障）。"
 
-#: ui/preferencesPage.js:258
+#: ui/preferencesPage.js:256
 msgid "Tint GTK3 Apps"
 msgstr "GTK3 应用着色"
 
-#: ui/preferencesPage.js:271
+#: ui/preferencesPage.js:269
 msgid "Subtle"
 msgstr "柔和"
 
-#: ui/preferencesPage.js:272
+#: ui/preferencesPage.js:270
 msgid "Default"
 msgstr "默认"
 
-#: ui/preferencesPage.js:273
+#: ui/preferencesPage.js:271
 msgid "Strong"
 msgstr "浓郁"
 
-#: ui/preferencesPage.js:274
+#: ui/preferencesPage.js:272
 msgid "Stronger"
 msgstr "浓烈"
 
-#: ui/preferencesPage.js:278
+#: ui/preferencesPage.js:276
 msgid "Tinting Strength"
 msgstr "着色强度"
 
-#: ui/preferencesPage.js:279
+#: ui/preferencesPage.js:277
 msgid "Determines the strength of the tint effect."
 msgstr "调节着色效果强度。"
 
-#: ui/preferencesPage.js:285
+#: ui/preferencesPage.js:283
 msgid "Darker Tint"
 msgstr "加深着色色调"
 
-#: ui/preferencesPage.js:286
+#: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
 msgstr "启用加深着色效果。"
 
-#: ui/preferencesPage.js:335
+#: ui/preferencesPage.js:333
 msgid "Icon Theme"
 msgstr "图标主题"
 
-#: ui/preferencesPage.js:340
+#: ui/preferencesPage.js:338
 msgid "Folder icon theme"
 msgstr "文件夹图标主题"
 
-#: ui/preferencesPage.js:341
+#: ui/preferencesPage.js:339
 msgid "Applies the accent color to folder icons."
 msgstr "将强调色应用至文件夹图标。"
 
-#: ui/preferencesPage.js:347
+#: ui/preferencesPage.js:345
 msgid "Application icon theme"
 msgstr "应用图标主题"
 
-#: ui/preferencesPage.js:348
+#: ui/preferencesPage.js:346
 msgid "Applies the accent color to some app icons."
 msgstr "将强调色应用至部分应用图标。"
 
-#: ui/preferencesPage.js:352
+#: ui/preferencesPage.js:350
 msgid "MoreWaita"
 msgstr "MoreWaita"
 
-#: ui/preferencesPage.js:353
+#: ui/preferencesPage.js:351
 msgid "Applies integration with the MoreWaita icon pack."
 msgstr "启用与 MoreWaita 图标包的适配集成。"
 
-#: ui/preferencesPage.js:390
+#: ui/preferencesPage.js:388
 msgid "Customization"
 msgstr "自定义"
 
-#: ui/preferencesPage.js:395
+#: ui/preferencesPage.js:393
 msgid "Custom stylesheet"
 msgstr "自定义样式表"
 
-#: ui/preferencesPage.js:397
+#: ui/preferencesPage.js:395
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
 "该文件可覆盖 Shell 与用户扩展的样式（CSS），支持使用 ChromaLeon 强调色变量。"
 
-#: ui/preferencesPage.js:416 ui/preferencesPage.js:433
-#: ui/preferencesPage.js:493
+#: ui/preferencesPage.js:414 ui/preferencesPage.js:431
+#: ui/preferencesPage.js:491
 msgid "About the custom stylesheet"
 msgstr "关于自定义样式表"
 
-#: ui/preferencesPage.js:422
+#: ui/preferencesPage.js:420
 msgid "Open file"
 msgstr "打开文件"
 
-#: ui/preferencesPage.js:435
+#: ui/preferencesPage.js:433
 msgid ""
 "This file is used to apply custom CSS to GNOME Shell.\n"
 "\n"
@@ -237,43 +245,43 @@ msgstr ""
 "<b>提示：</b> 若修改未生效，可尝试在 CSS 规则中添加 <b><tt>!important</tt></"
 "b>。"
 
-#: ui/preferencesPage.js:442 ui/preferencesPage.js:511
+#: ui/preferencesPage.js:440 ui/preferencesPage.js:509
 msgid "Close"
 msgstr "关闭"
 
-#: ui/preferencesPage.js:464
+#: ui/preferencesPage.js:462
 msgid "Failed to open custom.css: "
 msgstr "无法打开 custom.css 文件： "
 
-#: ui/preferencesPage.js:473
+#: ui/preferencesPage.js:471
 msgid "Miscellaneous"
 msgstr "杂项"
 
-#: ui/preferencesPage.js:478
+#: ui/preferencesPage.js:476
 msgid "Disabled"
 msgstr "禁用"
 
-#: ui/preferencesPage.js:479
+#: ui/preferencesPage.js:477
 msgid "Default (recommended)"
 msgstr "默认（推荐）"
 
-#: ui/preferencesPage.js:480
+#: ui/preferencesPage.js:478
 msgid "Smooth (experimental)"
 msgstr "平滑（实验性）"
 
-#: ui/preferencesPage.js:484
+#: ui/preferencesPage.js:482
 msgid "Hot Reload"
 msgstr "热重载"
 
-#: ui/preferencesPage.js:485
+#: ui/preferencesPage.js:483
 msgid "Enables theme hot reloading for GTK4 applications."
 msgstr "为 GTK4 应用启用主题热重载。"
 
-#: ui/preferencesPage.js:501
+#: ui/preferencesPage.js:499
 msgid "About Hot Reload"
 msgstr "关于热重载"
 
-#: ui/preferencesPage.js:503
+#: ui/preferencesPage.js:501
 msgid ""
 "Hot reload uses rapid switching between the high contrast theme and the "
 "default theme to force GTK4 applications to reload the stylesheet.\n"
@@ -303,19 +311,19 @@ msgstr ""
 "\n"
 "<b>注意：</b> 该功能不适用于 GNOME 原生强调色，原生强调色无需此机制。"
 
-#: ui/preferencesPage.js:526
+#: ui/preferencesPage.js:524
 msgid "Apply to Flatpaks"
 msgstr "应用至 Flatpak 应用"
 
-#: ui/preferencesPage.js:528
+#: ui/preferencesPage.js:526
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr "允许 Flatpak 应用访问自定义强调色变量。"
 
-#: ui/preferencesPage.js:534
+#: ui/preferencesPage.js:532
 msgid "Enable shortcut"
 msgstr "启用快捷入口"
 
-#: ui/preferencesPage.js:536
+#: ui/preferencesPage.js:534
 msgid "Create a shortcut in the app grid by adding a .desktop file."
 msgstr "通过创建 .desktop 文件，在应用网格生成快捷入口。"
 
@@ -323,42 +331,77 @@ msgstr "通过创建 .desktop 文件，在应用网格生成快捷入口。"
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: ui/preloadPage.js:61
+#: ui/preloadPage.js:143
+msgid "Preload version"
+msgstr ""
+
+#: ui/preloadPage.js:148
+msgid "Version status"
+msgstr ""
+
+#: ui/preloadPage.js:149
+msgid "Checking..."
+msgstr ""
+
+#: ui/preloadPage.js:181
+msgid "Offline"
+msgstr ""
+
+#: ui/preloadPage.js:184
+#, javascript-format
+msgid "Installed: %s (could not check)."
+msgstr ""
+
+#: ui/preloadPage.js:185
+msgid "Could not check for updates."
+msgstr ""
+
+#: ui/preloadPage.js:194
+msgid "Current"
+msgstr ""
+
+#: ui/preloadPage.js:196
+#, javascript-format
+msgid "Installed: %s — up to date."
+msgstr ""
+
+#: ui/preloadPage.js:205
+msgid "Outdated"
+msgstr ""
+
+#: ui/preloadPage.js:207
+#, javascript-format
+msgid "Installed: %s — %s available."
+msgstr ""
+
+#: ui/preloadPage.js:208
+msgid "Unknown"
+msgstr ""
+
+#: ui/preloadPage.js:219
 msgid "Target apps"
 msgstr "目标应用"
 
-#: ui/preloadPage.js:63
+#: ui/preloadPage.js:221
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
 "输入进程名（如 firefox，thunderbird，zen-browser）以应用 ChromaLeon 强调色。"
 
-#: ui/preloadPage.js:69
+#: ui/preloadPage.js:227
 msgid "Add Application"
 msgstr "添加应用"
 
-#: ui/preloadPage.js:109
+#: ui/preloadPage.js:267
 msgid "Remove"
 msgstr "删除"
 
-#: ui/preloadPage.js:149
-msgid "Reinstall or Update"
-msgstr "重装或更新"
-
-#: ui/preloadPage.js:150
-msgid "Access the setup guide to view instructions."
-msgstr "查阅设置指南获取操作指引。"
-
-#: ui/preloadPage.js:156
-msgid "View instructions"
-msgstr "获取操作指引"
-
-#: ui/preloadPage.js:194
+#: ui/preloadPage.js:330
 msgid "This option requires additional configuration."
 msgstr "此选项需要额外配置。"
 
-#: ui/preloadPage.js:196
+#: ui/preloadPage.js:332
 msgid ""
 "To synchronize accent colors with applications that do not support "
 "ChromaLeon colors, the preload library must be compiled and installed (this "
@@ -367,7 +410,7 @@ msgstr ""
 "若要让不支持 ChromaLeon 颜色的应用同步强调色，必须编译并安装预加载库（使用 "
 "GNOME 强调色则无需此操作）。"
 
-#: ui/preloadPage.js:236
+#: ui/preloadPage.js:372
 msgid "Setup Guide"
 msgstr "设置指南"
 
@@ -434,6 +477,15 @@ msgstr "加载颜色失败。"
 #: ui/wallpaperPage.js:1029
 msgid "Select Color"
 msgstr "选择颜色"
+
+#~ msgid "Reinstall or Update"
+#~ msgstr "重装或更新"
+
+#~ msgid "Access the setup guide to view instructions."
+#~ msgstr "查阅设置指南获取操作指引。"
+
+#~ msgid "View instructions"
+#~ msgstr "获取操作指引"
 
 #~ msgid "Main color"
 #~ msgstr "主色"
