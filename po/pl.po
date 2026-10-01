@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-09-18 16:51+0000\n"
+"PO-Revision-Date: 2026-10-02 06:51+0000\n"
 "Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pl/>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
-msgstr ""
+msgstr "Dostępna jest nowa wersja ChromaLeon Preload."
 
 #: chromaleon.js:126
 msgid "Update"
-msgstr ""
+msgstr "Aktualizacja"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
@@ -350,50 +350,50 @@ msgstr "Kompatybilność"
 
 #: ui/preloadPage.js:143
 msgid "Preload version"
-msgstr ""
+msgstr "Wersja Preload"
 
 #: ui/preloadPage.js:148
 msgid "Version status"
-msgstr ""
+msgstr "Status wersji"
 
 #: ui/preloadPage.js:149
 msgid "Checking..."
-msgstr ""
+msgstr "Sprawdzanie..."
 
 #: ui/preloadPage.js:181
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: ui/preloadPage.js:184
 #, javascript-format
 msgid "Installed: %s (could not check)."
-msgstr ""
+msgstr "Zainstalowano: %s (nie można sprawdzić)."
 
 #: ui/preloadPage.js:185
 msgid "Could not check for updates."
-msgstr ""
+msgstr "Nie można sprawdzić dostępności aktualizacji."
 
 #: ui/preloadPage.js:194
 msgid "Current"
-msgstr ""
+msgstr "Aktualna"
 
 #: ui/preloadPage.js:196
 #, javascript-format
 msgid "Installed: %s — up to date."
-msgstr ""
+msgstr "Zainstalowana: %s - najnowsza."
 
 #: ui/preloadPage.js:205
 msgid "Outdated"
-msgstr ""
+msgstr "Przeterminowana"
 
 #: ui/preloadPage.js:207
 #, javascript-format
 msgid "Installed: %s — %s available."
-msgstr ""
+msgstr "Zainstalowano: %s - %s dostępna."
 
 #: ui/preloadPage.js:208
 msgid "Unknown"
-msgstr ""
+msgstr "Nieznana"
 
 #: ui/preloadPage.js:219
 msgid "Target apps"
