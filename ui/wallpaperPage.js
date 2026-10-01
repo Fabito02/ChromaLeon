@@ -534,10 +534,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
           name: nameMatch ? nameMatch[1] : "",
           pathLight,
           pathDark,
-          thumbLight: await getThumbnail(pathLight),
-          thumbDark: pathDark
-            ? await getThumbnail(pathDark)
-            : await getThumbnail(pathLight),
           slideshow: isSlideshow,
         });
       }
@@ -576,7 +572,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
           userWallpapers.push({
             name: fileInfo.get_name(),
             path: fileChild.get_path(),
-            thumbnail: await getThumbnail(fileChild.get_path()),
             mtime: fileInfo.get_attribute_uint64("time::modified"),
           });
         }
@@ -602,7 +597,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
         cardBox.add_css_class("wallpaper-preview");
 
         const preview = new Gtk.Picture({
-          file: Gio.File.new_for_path(file.thumbnail),
           height_request: 125,
           content_fit: Gtk.ContentFit.COVER,
           can_shrink: true,
@@ -635,7 +629,12 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
         const fileUri = `${GLib.get_user_data_dir()}/backgrounds/${file.name}`;
         child.wallpaperUri = fileUri;
+        
         this._containerUserWallpapers.insert(child, -1);
+
+        getThumbnail(file.path).then((thumbPath) => {
+          preview.set_file(Gio.File.new_for_path(thumbPath));
+        }).catch(() => {});
       });
 
       this._containerUserWallpapers.connect(
@@ -727,46 +726,21 @@ export class WallpaperPage extends Adw.PreferencesPage {
           overlay.add_overlay(clockIcon);
         }
 
-        try {
-          const pbLight = GdkPixbuf.Pixbuf.new_from_file(file.thumbLight);
-          const w = Math.floor(pbLight.get_width() / 2);
+        const picLight = new Gtk.Picture({
+          can_shrink: true,
+          content_fit: Gtk.ContentFit.COVER,
+          hexpand: true,
+          vexpand: true,
+        });
+        cardBox.append(picLight);
 
-          cardBox.append(
-            new Gtk.Picture({
-              paintable: Gdk.Texture.new_for_pixbuf(
-                pbLight.new_subpixbuf(0, 0, w, pbLight.get_height()),
-              ),
-              can_shrink: true,
-              content_fit: Gtk.ContentFit.COVER,
-              hexpand: true,
-              vexpand: true,
-            }),
-          );
-
-          const darkPath = file.pathDark ? file.thumbDark : file.thumbLight;
-          const pbDark = GdkPixbuf.Pixbuf.new_from_file(darkPath);
-          const dw = Math.floor(pbDark.get_width() / 2);
-
-          cardBox.append(
-            new Gtk.Picture({
-              paintable: Gdk.Texture.new_for_pixbuf(
-                pbDark.new_subpixbuf(dw, 0, dw, pbDark.get_height()),
-              ),
-              can_shrink: true,
-              content_fit: Gtk.ContentFit.COVER,
-              hexpand: true,
-              vexpand: true,
-            }),
-          );
-        } catch (e) {
-          cardBox.append(
-            new Gtk.Picture({
-              file: Gio.File.new_for_path(file.thumbLight),
-              can_shrink: true,
-              content_fit: Gtk.ContentFit.COVER,
-            }),
-          );
-        }
+        const picDark = new Gtk.Picture({
+          can_shrink: true,
+          content_fit: Gtk.ContentFit.COVER,
+          hexpand: true,
+          vexpand: true,
+        });
+        cardBox.append(picDark);
 
         child.set_child(overlay);
         const systemUris = {
@@ -778,6 +752,52 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
         child.wallpaperUris = systemUris;
         this._containerSystemWallpapers.insert(child, -1);
+
+        async function getThumbnail(path) {
+          try {
+            const file = Gio.File.new_for_path(path);
+            const uri = file.get_uri();
+        
+            const info = await file.query_info_async(
+              "standard::content-type,time::modified",
+              Gio.FileQueryInfoFlags.NONE,
+              GLib.PRIORITY_DEFAULT,
+              null,
+            );
+        
+            const mimeType = info.get_content_type();
+            const mtime = info.get_attribute_uint64("time::modified");
+        
+            let thumb = thumbnailFactory.lookup(uri, mtime);
+            if (thumb) return thumb;
+        
+            if (!thumbnailFactory.can_thumbnail(uri, mimeType, mtime)) return path;
+        
+            const pixbuf = thumbnailFactory.generate_thumbnail(uri, mimeType);
+            if (!pixbuf) return path;
+        
+            thumbnailFactory.save_thumbnail(pixbuf, uri, mtime);
+            thumb = thumbnailFactory.lookup(uri, mtime);
+        
+            return thumb ?? path;
+          } catch (e) {
+            console.error(`Error generating thumbnail for ${path}: ${e.message}`);
+            return path;
+          }
+        }
+
+        const darkPath = file.pathDark ? file.pathDark : file.pathLight;
+        getThumbnail(darkPath).then((thumbDark) => {
+          try {
+            const pbDark = GdkPixbuf.Pixbuf.new_from_file(thumbDark);
+            const dw = Math.floor(pbDark.get_width() / 2);
+            picDark.set_paintable(Gdk.Texture.new_for_pixbuf(
+              pbDark.new_subpixbuf(dw, 0, dw, pbDark.get_height())
+            ));
+          } catch (e) {
+            picDark.set_file(Gio.File.new_for_path(thumbDark));
+          }
+        }).catch(() => {});
       });
 
       this._containerSystemWallpapers.connect(
