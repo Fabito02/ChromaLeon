@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-09-12 17:09+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa "
-"<fabianojuniorlimaba2@gmail.com>\n"
+"PO-Revision-Date: 2026-10-01 05:25+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -22,11 +22,11 @@ msgstr ""
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
-msgstr ""
+msgstr "Uma nova versão do ChromaLeon Preload está disponível."
 
 #: chromaleon.js:126
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
@@ -350,50 +350,50 @@ msgstr "Compatibilidade"
 
 #: ui/preloadPage.js:143
 msgid "Preload version"
-msgstr ""
+msgstr "Versão do Preload"
 
 #: ui/preloadPage.js:148
 msgid "Version status"
-msgstr ""
+msgstr "Status da versão"
 
 #: ui/preloadPage.js:149
 msgid "Checking..."
-msgstr ""
+msgstr "Checando..."
 
 #: ui/preloadPage.js:181
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: ui/preloadPage.js:184
 #, javascript-format
 msgid "Installed: %s (could not check)."
-msgstr ""
+msgstr "Instalado: %s (não foi possível verificar)."
 
 #: ui/preloadPage.js:185
 msgid "Could not check for updates."
-msgstr ""
+msgstr "Não foi possível verificar se há atualizações."
 
 #: ui/preloadPage.js:194
 msgid "Current"
-msgstr ""
+msgstr "Mais recente"
 
 #: ui/preloadPage.js:196
 #, javascript-format
 msgid "Installed: %s — up to date."
-msgstr ""
+msgstr "Instalado: %s — atualizado."
 
 #: ui/preloadPage.js:205
 msgid "Outdated"
-msgstr ""
+msgstr "Desatualizado"
 
 #: ui/preloadPage.js:207
 #, javascript-format
 msgid "Installed: %s — %s available."
-msgstr ""
+msgstr "Instalado: %s — %s disponível."
 
 #: ui/preloadPage.js:208
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: ui/preloadPage.js:219
 msgid "Target apps"
