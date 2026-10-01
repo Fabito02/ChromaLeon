@@ -39,6 +39,8 @@ export default class ChromaLeon extends Extension {
     this._timeoutId = null;
     this._reloadGtkTimeout = null;
     this._restoreTimeout = null;
+    this._dirtyTimeoutId = null;
+    this._dirty = null;
     this._a11ySettings = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
@@ -88,45 +90,23 @@ export default class ChromaLeon extends Extension {
           await this._updateIconPack(cancellable);
         }),
       "changed::tint-shell",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateShellStyles(cancellable);
-        }),
+      () => this._markDirty("shell"),
       "changed::tint-panel",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateShellStyles(cancellable);
-        }),
+      () => this._markDirty("shell"),
       "changed::custom-css",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateShellStyles(cancellable);
-        }),
+      () => this._markDirty("shell"),
       "changed::tint-apps",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateAppStyles(cancellable);
-          await this._reloadGtkStylesheet(cancellable);
-        }),
+      () => this._markDirty("apps", "reload"),
       "changed::tint-gtk3",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateAppStyles(cancellable);
-        }),
+      () => this._markDirty("apps"),
       "changed::tinting-strength",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateShellStyles(cancellable);
-          await this._updateAppStyles(cancellable);
-          await this._reloadGtkStylesheet(cancellable);
-        }),
+      () => this._markDirty("shell", "apps", "reload"),
       "changed::darker",
-      () =>
-        this._runOperation(async (cancellable) => {
-          await this._updateShellStyles(cancellable);
-          await this._updateAppStyles(cancellable);
-          await this._reloadGtkStylesheet(cancellable);
-        }),
+      () => this._markDirty("shell", "apps", "reload"),
+      "changed::prefer-light",
+      () => this._markDirty("shell"),
+      "changed::full-light",
+      () => this._markDirty("shell"),
       "changed::recolor-folders",
       () =>
         this._runOperation(async (cancellable) => {
@@ -141,16 +121,6 @@ export default class ChromaLeon extends Extension {
       () =>
         this._runOperation(async (cancellable) => {
           await this._updateIconPack(cancellable);
-        }),
-      "changed::prefer-light",
-      () =>
-        this._runOperation((cancellable) => {
-          this._updateShellStyles(cancellable);
-        }),
-      "changed::full-light",
-      () =>
-        this._runOperation((cancellable) => {
-          this._updateShellStyles(cancellable);
         }),
       this,
     );
@@ -250,6 +220,13 @@ export default class ChromaLeon extends Extension {
       this._restoreTimeout = null;
     }
 
+    if (this._dirtyTimeoutId) {
+      GLib.Source.remove(this._dirtyTimeoutId);
+      this._dirtyTimeoutId = null;
+    }
+
+    this._dirty = null;
+
     ThemeUtils.resetShellThemeBase();
     ThemeUtils.removeGtkStylesheet();
     FileUtils.removeDesktopFile();
@@ -299,6 +276,46 @@ export default class ChromaLeon extends Extension {
           }
         }
       });
+  }
+
+  _markDirty(...flags) {
+    if (!this._dirty) this._dirty = new Set();
+    for (const f of flags) this._dirty.add(f);
+
+    if (this._dirtyTimeoutId) {
+      GLib.Source.remove(this._dirtyTimeoutId);
+      this._dirtyTimeoutId = null;
+    }
+
+    this._dirtyTimeoutId = GLib.timeout_add(
+      GLib.PRIORITY_DEFAULT,
+      150,
+      () => {
+        this._dirtyTimeoutId = null;
+
+        const pending = this._dirty;
+        this._dirty = null;
+
+        if (!pending || pending.size === 0) return GLib.SOURCE_REMOVE;
+
+        this._runOperation(async (cancellable) => {
+          if (pending.has("shell")) {
+            await this._updateShellStyles(cancellable);
+            throwIfCancelled(cancellable);
+          }
+          if (pending.has("apps")) {
+            await this._updateAppStyles(cancellable);
+            throwIfCancelled(cancellable);
+          }
+          if (pending.has("reload")) {
+            await this._reloadGtkStylesheet(cancellable);
+            throwIfCancelled(cancellable);
+          }
+        });
+
+        return GLib.SOURCE_REMOVE;
+      },
+    );
   }
 
   _updateDesktopFile() {
