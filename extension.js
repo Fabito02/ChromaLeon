@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -51,9 +51,7 @@ export default class ChromaLeon extends Extension {
     this._settings = this.getSettings();
     this._savedColorScheme = sessionMode.colorScheme;
 
-    this._runOperation(async (cancellable) => {
-      await this._updateStyles(false, true, cancellable);
-    });
+    this._applyInitialStyles();
 
     this._interfaceSettings = new Gio.Settings({
       schema_id: "org.gnome.desktop.interface",
@@ -251,6 +249,19 @@ export default class ChromaLeon extends Extension {
     this._interfaceSettings = null;
     this._a11ySettings = null;
     this._savedColorScheme = null;
+  }
+
+  async _applyInitialStyles() {
+    try {
+      const gnomeColors = this._settings.get_boolean("gnome-colors");
+      await this._updateShellStyles(null);
+      await this._updateAppStyles(null);
+      if (!gnomeColors) await this._reloadGtkStylesheet(null);
+    } catch (e) {
+      if (!isCancelledError(e)) {
+        this._settings?.set_string("last-error", e.message ?? String(e));
+      }
+    }
   }
 
   _runOperation(fn) {
@@ -466,7 +477,10 @@ export default class ChromaLeon extends Extension {
     const isLight = this._shouldUseLightShell();
     const activeFilePath = isLight ? lightFile.get_path() : darkFile.get_path();
 
-    if (activeFilePath) {
+    if (
+      activeFilePath &&
+      Gio.File.new_for_path(activeFilePath).query_exists(null)
+    ) {
       ThemeUtils.applyShellThemeBase(activeFilePath);
     }
 
