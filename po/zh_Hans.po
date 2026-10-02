@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-10-02 06:51+0000\n"
+"PO-Revision-Date: 2026-10-03 09:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/chromaleon/extension/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
@@ -29,7 +29,7 @@ msgstr "更新"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr "User Themes 扩展兼容警告。"
+msgstr "User Themes 扩展不兼容警告。"
 
 #: chromaleon.js:166
 msgid ""
@@ -79,35 +79,31 @@ msgstr "记住每张壁纸手动选定的颜色。"
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
-msgstr "亮色优先"
+msgstr "应用浅色样式"
 
 #: ui/preferencesPage.js:158
 msgid "Use a light style for the Shell in the light theme."
 msgstr "亮色模式下，为 Shell 采用浅色样式。"
 
 #: ui/preferencesPage.js:164
-#, fuzzy
 msgid "Fully Light"
-msgstr "完整亮色"
+msgstr "全亮强化"
 
 #: ui/preferencesPage.js:166
-#, fuzzy
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
-msgstr "为 GNOME Shell 采用全亮色样式而非默认样式。"
+msgstr "为 Shell 采用强化全亮样式而非默认样式。"
 
 #: ui/preferencesPage.js:209
-#, fuzzy
 msgid "Tint GNOME"
-msgstr "着色 GNOME"
+msgstr "GNOME 着色"
 
 #: ui/preferencesPage.js:210
 msgid "Based on Tint my GNOME"
 msgstr "基于 Tint my GNOME"
 
 #: ui/preferencesPage.js:215
-#, fuzzy
 msgid "Tint Shell"
 msgstr "着色 Shell"
 
@@ -116,16 +112,14 @@ msgid "Tints the GNOME Shell with the color of your choice."
 msgstr "使用选定颜色为 Shell 叠加色调。"
 
 #: ui/preferencesPage.js:222
-#, fuzzy
 msgid "Tint Dark Panel"
-msgstr "着色暗色面板"
+msgstr "着色面板"
 
 #: ui/preferencesPage.js:223
 msgid "Also tint the panel when in dark mode."
-msgstr "暗色样式下对面板叠加色调。"
+msgstr "暗色模式下为面板叠加色调。"
 
 #: ui/preferencesPage.js:235
-#, fuzzy
 msgid "Tint Apps"
 msgstr "着色应用"
 
@@ -141,7 +135,6 @@ msgstr ""
 "使用选定颜色为 GTK3 应用叠加色调（需安装 {0} 扩展与 {1} 主题以规避故障）。"
 
 #: ui/preferencesPage.js:256
-#, fuzzy
 msgid "Tint GTK3 Apps"
 msgstr "着色 GTK3 应用"
 
@@ -167,15 +160,13 @@ msgstr "着色强度"
 
 #: ui/preferencesPage.js:277
 msgid "Determines the strength of the tint effect."
-msgstr "调节着色效果强度。"
+msgstr "控制着色效果的强度。"
 
 #: ui/preferencesPage.js:283
-#, fuzzy
 msgid "Darker Tint"
 msgstr "加深色调"
 
 #: ui/preferencesPage.js:284
-#, fuzzy
 msgid "Applies a darker tint."
 msgstr "应用更深色调。"
 
@@ -282,9 +273,8 @@ msgid "Hot Reload"
 msgstr "热重载"
 
 #: ui/preferencesPage.js:483
-#, fuzzy
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr "为 GTK4 应用启用主题热重载。"
+msgstr "GTK4 应用的主题热重载。"
 
 #: ui/preferencesPage.js:499
 msgid "About Hot Reload"
@@ -334,11 +324,11 @@ msgstr "启用快捷入口"
 
 #: ui/preferencesPage.js:534
 msgid "Create a shortcut in the app grid by adding a .desktop file."
-msgstr "通过创建 .desktop 文件，在应用网格生成快捷入口。"
+msgstr "创建 .desktop 文件，在应用网格生成快捷入口。"
 
 #: ui/preloadPage.js:38
 msgid "Compatibility"
-msgstr "兼容性"
+msgstr "适配"
 
 #: ui/preloadPage.js:143
 msgid "Preload version"
@@ -416,8 +406,8 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
-"若要让不支持 ChromaLeon 颜色的应用同步强调色，必须编译并安装预加载库（使用 "
-"GNOME 强调色则无需此操作）。"
+"若要让不支持 ChromaLeon 的应用同步强调色，必须编译并安装预加载库（使用 GNOME "
+"强调色则无需此操作）。"
 
 #: ui/preloadPage.js:372
 msgid "Setup Guide"
@@ -429,7 +419,7 @@ msgstr "获取缩略图失败： "
 
 #: ui/wallpaperPage.js:89
 msgid "Wallpaper"
-msgstr "背景"
+msgstr "壁纸"
 
 #: ui/wallpaperPage.js:160
 msgid "Additional colors"
@@ -437,23 +427,23 @@ msgstr "更多颜色"
 
 #: ui/wallpaperPage.js:197
 msgid "Add wallpapers"
-msgstr "添加背景"
+msgstr "添加壁纸"
 
 #: ui/wallpaperPage.js:211
 msgid "Wallpapers"
-msgstr "背景列表"
+msgstr "壁纸列表"
 
 #: ui/wallpaperPage.js:402
 msgid "Wallpaper deleted successfully!"
-msgstr "背景移除成功！"
+msgstr "壁纸移除成功！"
 
 #: ui/wallpaperPage.js:406
 msgid "Error deleting wallpaper: "
-msgstr "移除背景失败： "
+msgstr "壁纸移除失败： "
 
 #: ui/wallpaperPage.js:412
 msgid "Select a Wallpaper"
-msgstr "选择背景"
+msgstr "选择一张壁纸"
 
 #: ui/wallpaperPage.js:414
 msgid "_Open"
@@ -469,15 +459,15 @@ msgstr "所有图像"
 
 #: ui/wallpaperPage.js:447
 msgid "Wallpaper already exists!"
-msgstr "背景已存在！"
+msgstr "此壁纸已存在！"
 
 #: ui/wallpaperPage.js:463
 msgid "Wallpaper added successfully!"
-msgstr "背景添加成功！"
+msgstr "壁纸添加成功！"
 
 #: ui/wallpaperPage.js:467
 msgid "Error copying wallpaper: "
-msgstr "复制背景失败： "
+msgstr "壁纸复制失败： "
 
 #: ui/wallpaperPage.js:935
 msgid "Unable to load colors."
