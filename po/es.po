@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-10-02 06:51+0000\n"
-"Last-Translator: tupacamaru72 <tomino8552@prodbits.com>\n"
+"PO-Revision-Date: 2026-10-07 18:52+0000\n"
+"Last-Translator: Unai Lomas Javaloyes <unaibenidorm@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/es/>\n"
 "Language: es\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
-msgstr ""
+msgstr "Una nueva versión de ChromaLeon Preload está disponible."
 
 #: chromaleon.js:126
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr ""
+msgstr "Advertencia de incompatibilidad de User Themes."
 
 #: chromaleon.js:166
 msgid ""
@@ -76,11 +76,12 @@ msgstr ""
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Opciones persistentes"
 
 #: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
+"Recuerde los colores seleccionados manualmente para cada fondo de pantalla."
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
@@ -172,11 +173,11 @@ msgstr "Determina la intensidad del efecto de tintado."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr ""
+msgstr "Tinte más oscuro"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Aplica un tinte más oscuro."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -212,18 +213,20 @@ msgstr "Personalización"
 
 #: ui/preferencesPage.js:393
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Hoja de estilo personalizada"
 
 #: ui/preferencesPage.js:395
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Un archivo que anula el CSS de las extensiones de shell y de usuario, con "
+"soporte para los colores de acento de ChromaLeon."
 
 #: ui/preferencesPage.js:414 ui/preferencesPage.js:431
 #: ui/preferencesPage.js:491
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "Acerca de la hoja de estilo personalizada"
 
 #: ui/preferencesPage.js:420
 msgid "Open file"
@@ -242,6 +245,16 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Este archivo se utiliza para aplicar CSS personalizado a GNOME Shell.\n"
+"\n"
+"La extensión procesa todo el contenido dentro de este archivo, reemplazando "
+"las variables <b><tt>@@ACCENT@</tt></b> y <b><tt>-st-accent-color</tt></b> "
+"con el color seleccionado en los ajustes de ChromaLeon antes de aplicarlos "
+"al sistema. Esto puede ser útil si una extensión no tiene los colores de "
+"acento aplicados correctamente.\n"
+"\n"
+"<b>Consejo:</b> Si tus cambios no entran en vigor, intenta añadir <b><tt>! "
+"Importante </tt></b> a sus reglas CSS."
 
 #: ui/preferencesPage.js:440 ui/preferencesPage.js:509
 msgid "Close"
@@ -249,7 +262,7 @@ msgstr "Cerrar"
 
 #: ui/preferencesPage.js:462
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "No se pudo abrir custom.css: "
 
 #: ui/preferencesPage.js:471
 msgid "Miscellaneous"
@@ -257,15 +270,15 @@ msgstr "Diversos"
 
 #: ui/preferencesPage.js:476
 msgid "Disabled"
-msgstr ""
+msgstr "Desactivado"
 
 #: ui/preferencesPage.js:477
 msgid "Default (recommended)"
-msgstr ""
+msgstr "Predeterminado (recomendado)"
 
 #: ui/preferencesPage.js:478
 msgid "Smooth (experimental)"
-msgstr ""
+msgstr "Suave (experimental)"
 
 #: ui/preferencesPage.js:482
 msgid "Hot Reload"
@@ -273,11 +286,11 @@ msgstr "Recarga en caliente"
 
 #: ui/preferencesPage.js:483
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Permite la recarga en caliente del tema para aplicaciones GTK4."
 
 #: ui/preferencesPage.js:499
 msgid "About Hot Reload"
-msgstr ""
+msgstr "Acerca de recarga en caliente"
 
 #: ui/preferencesPage.js:501
 msgid ""
@@ -297,6 +310,22 @@ msgid ""
 "<b>Note:</b> This does not apply to native GNOME accent colors, as it is not "
 "necessary for them."
 msgstr ""
+"La recarga en caliente utiliza un cambio rápido entre el tema de alto "
+"contraste y el tema predeterminado para obligar a las aplicaciones de GTK4 a "
+"recargar la hoja de estilo.\n"
+"\n"
+"<b>Recarga predeterminada:</b> Esta es la opción nativa recomendada. Si bien "
+"puede causar parpadeo durante el interruptor en algunos casos, es la opción "
+"más segura y la menos propensa a los problemas durante la transición.\n"
+"\n"
+"<b>Smooth reload:</b> Esta opción utiliza un subproceso para acelerar la "
+"ejecución, reduciendo drásticamente el parpadeo al cambiar de tema. Sin "
+"embargo, es la opción menos confiable, ya que puede provocar errores como "
+"recargas fallidas o quedarse atascado en el tema de alto contraste (o "
+"viceversa, si usa GNOME con ese estilo habilitado).\n"
+"\n"
+"<b>Nota:</b> Esto no se aplica a los colores de acento nativos de GNOME, ya "
+"que no es necesario para ellos."
 
 #: ui/preferencesPage.js:524
 msgid "Apply to Flatpaks"
@@ -319,76 +348,78 @@ msgstr ""
 
 #: ui/preloadPage.js:38
 msgid "Compatibility"
-msgstr ""
+msgstr "Compatibilidad"
 
 #: ui/preloadPage.js:143
 msgid "Preload version"
-msgstr ""
+msgstr "Versión de Preload"
 
 #: ui/preloadPage.js:148
 msgid "Version status"
-msgstr ""
+msgstr "Estado de la versión"
 
 #: ui/preloadPage.js:149
 msgid "Checking..."
-msgstr ""
+msgstr "Comprobando..."
 
 #: ui/preloadPage.js:181
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: ui/preloadPage.js:184
 #, javascript-format
 msgid "Installed: %s (could not check)."
-msgstr ""
+msgstr "Instalado: %s (no se pudo comprobar)."
 
 #: ui/preloadPage.js:185
 msgid "Could not check for updates."
-msgstr ""
+msgstr "No se pudo comprobar si había actualizaciones."
 
 #: ui/preloadPage.js:194
 msgid "Current"
-msgstr ""
+msgstr "Actual"
 
 #: ui/preloadPage.js:196
 #, javascript-format
 msgid "Installed: %s — up to date."
-msgstr ""
+msgstr "Instalado: %s — actualizado."
 
 #: ui/preloadPage.js:205
 msgid "Outdated"
-msgstr ""
+msgstr "Desactualizado"
 
 #: ui/preloadPage.js:207
 #, javascript-format
 msgid "Installed: %s — %s available."
-msgstr ""
+msgstr "Instalado: %s — %s disponibles."
 
 #: ui/preloadPage.js:208
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: ui/preloadPage.js:219
 msgid "Target apps"
-msgstr ""
+msgstr "Aplicaciones de destino"
 
 #: ui/preloadPage.js:221
 msgid ""
 "Enter the process name (e.g., firefox, thunderbird, zen-browser) to apply "
 "the ChromaLeon accent color."
 msgstr ""
+"Ingrese el nombre del proceso (por ejemplo, firefox, Thunderbird, zen-"
+"browser) para aplicar el color del acento de ChromaLeon."
 
 #: ui/preloadPage.js:227
 msgid "Add Application"
-msgstr ""
+msgstr "Añadir Aplicación"
 
 #: ui/preloadPage.js:267
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: ui/preloadPage.js:330
 msgid "This option requires additional configuration."
-msgstr ""
+msgstr "Esta opción requiere una configuración adicional."
 
 #: ui/preloadPage.js:332
 msgid ""
@@ -396,10 +427,13 @@ msgid ""
 "ChromaLeon colors, the preload library must be compiled and installed (this "
 "is not necessary if using GNOME colors)."
 msgstr ""
+"Para sincronizar los colores de acento con aplicaciones que no soportan los "
+"colores de ChromaLeon, la biblioteca de precarga debe ser compilada e "
+"instalada (esto no es necesario si se usan los colores GNOME)."
 
 #: ui/preloadPage.js:372
 msgid "Setup Guide"
-msgstr ""
+msgstr "Guía de configuración"
 
 #: ui/wallpaperPage.js:78
 msgid "Error getting thumbnail: "
@@ -455,16 +489,15 @@ msgstr "¡Fondo de pantalla añadido correctamente!"
 
 #: ui/wallpaperPage.js:467
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Error copiando el fondo de pantalla: "
 
 #: ui/wallpaperPage.js:935
 msgid "Unable to load colors."
 msgstr "Error al cargar los colores."
 
 #: ui/wallpaperPage.js:1029
-#, fuzzy
 msgid "Select Color"
-msgstr "Color de acento"
+msgstr "Seleccione Color"
 
 #~ msgid "Main color"
 #~ msgstr "Color principal"
