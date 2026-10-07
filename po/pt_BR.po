@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ChromaLeon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 01:31-0300\n"
+"POT-Creation-Date: 2026-10-01 17:41-0300\n"
 "PO-Revision-Date: 2026-10-01 05:25+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "chromaleon/extension/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -489,11 +489,11 @@ msgstr "Plano de fundo adicionado com sucesso!"
 msgid "Error copying wallpaper: "
 msgstr "Erro ao copiar plano de fundo: "
 
-#: ui/wallpaperPage.js:935
+#: ui/wallpaperPage.js:955
 msgid "Unable to load colors."
 msgstr "Não foi possível carregar as cores."
 
-#: ui/wallpaperPage.js:1029
+#: ui/wallpaperPage.js:1049
 msgid "Select Color"
 msgstr "Selecionar Cor"
 

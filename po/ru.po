@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 01:31-0300\n"
+"POT-Creation-Date: 2026-10-01 17:41-0300\n"
 "PO-Revision-Date: 2026-09-24 14:51+0000\n"
 "Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/chromaleon/"
@@ -488,11 +488,11 @@ msgstr "Обои успешно добавлены!"
 msgid "Error copying wallpaper: "
 msgstr "Ошибка копирования обоев: "
 
-#: ui/wallpaperPage.js:935
+#: ui/wallpaperPage.js:955
 msgid "Unable to load colors."
 msgstr "Не удалось загрузить цвета."
 
-#: ui/wallpaperPage.js:1029
+#: ui/wallpaperPage.js:1049
 #, fuzzy
 msgid "Select Color"
 msgstr "Акцентный цвет"
