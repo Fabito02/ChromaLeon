@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-10-07 18:52+0000\n"
-"Last-Translator: Unai Lomas Javaloyes <unaibenidorm@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 14:47+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/chromaleon/"
 "extension/es/>\n"
 "Language: es\n"
@@ -29,7 +30,7 @@ msgstr "Actualizar"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr "Advertencia de incompatibilidad de User Themes."
+msgstr "Aviso de incompatibilidad con User Themes."
 
 #: chromaleon.js:166
 msgid ""
@@ -76,12 +77,12 @@ msgstr ""
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr "Opciones persistentes"
+msgstr "Opciones Persistentes"
 
 #: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
 msgstr ""
-"Recuerde los colores seleccionados manualmente para cada fondo de pantalla."
+"Recuerda los colores seleccionados manualmente para cada fondo de pantalla."
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
@@ -173,11 +174,11 @@ msgstr "Determina la intensidad del efecto de tintado."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr "Tinte más oscuro"
+msgstr "Tono más oscuro"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr "Aplica un tinte más oscuro."
+msgstr "Aplica un tono más oscuro."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -213,15 +214,15 @@ msgstr "Personalización"
 
 #: ui/preferencesPage.js:393
 msgid "Custom stylesheet"
-msgstr "Hoja de estilo personalizada"
+msgstr "Hoja de estilos personalizada"
 
 #: ui/preferencesPage.js:395
 msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
-"Un archivo que anula el CSS de las extensiones de shell y de usuario, con "
-"soporte para los colores de acento de ChromaLeon."
+"Un archivo que anula el CSS del shell y de las extensiones de usuario, y que "
+"es compatible con los colores de acento de ChromaLeon."
 
 #: ui/preferencesPage.js:414 ui/preferencesPage.js:431
 #: ui/preferencesPage.js:491
@@ -253,8 +254,8 @@ msgstr ""
 "al sistema. Esto puede ser útil si una extensión no tiene los colores de "
 "acento aplicados correctamente.\n"
 "\n"
-"<b>Consejo:</b> Si tus cambios no entran en vigor, intenta añadir <b><tt>! "
-"Importante </tt></b> a sus reglas CSS."
+"<b>Consejo:</b> Si tus cambios no entran en vigor, intenta añadir <b><tt>"
+"!Important</tt></b> a sus reglas CSS."
 
 #: ui/preferencesPage.js:440 ui/preferencesPage.js:509
 msgid "Close"
