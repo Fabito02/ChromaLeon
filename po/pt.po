@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-08-01 01:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-10-08 14:47+0000\n"
+"Last-Translator: Eduardo Barbosa <eduardorbarbosa@pm.me>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pt/>\n"
 "Language: pt\n"
@@ -17,29 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
-msgstr ""
+msgstr "Uma nova versão do ChromaLeon Preload está disponível."
 
 #: chromaleon.js:126
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr ""
+msgstr "Aviso de incompatibilidade com o User Themes."
 
 #: chromaleon.js:166
 msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
 msgstr ""
+"O ChromaLeon é incompatível com a extensão User Themes. Desative a extensão "
+"User Themes para evitar conflitos e comportamentos inesperados."
 
 #: chromaleon.js:170
 msgid "I understood"
-msgstr ""
+msgstr "Entendi"
 
 #: ui/preferencesPage.js:38
 msgid "Preferences"
@@ -47,51 +49,55 @@ msgstr "Preferências"
 
 #: ui/preferencesPage.js:77
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "O ChromaLeon só existe graças a utilizadores como você!"
 
 #: ui/preferencesPage.js:79
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Se o ChromaLeon tem lugar na personalização do seu dispositivo, considere "
+"ajudar o projeto a avançar fazendo um pequeno donativo."
 
 #: ui/preferencesPage.js:140
 msgid "Colors"
-msgstr ""
+msgstr "Cores"
 
 #: ui/preferencesPage.js:145
 msgid "GNOME Colors"
-msgstr ""
+msgstr "Cores GNOME"
 
 #: ui/preferencesPage.js:146
 msgid "Use native GNOME colors instead of wallpaper colors."
-msgstr ""
+msgstr "Usar cores GNOME nativas em vez das cores do fundo."
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Escolhas Persistentes"
 
 #: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Lembrar as cores selecionadas manualmente para cada fundo."
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Preferir Estilo Claro"
 
 #: ui/preferencesPage.js:158
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Usar um estilo claro para o Shell no tema claro."
 
 #: ui/preferencesPage.js:164
 msgid "Fully Light"
-msgstr ""
+msgstr "Totalmente Claro"
 
 #: ui/preferencesPage.js:166
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Usar um estilo totalmente claro em vez do estilo predefinido para o tema "
+"claro do Shell do GNOME."
 
 #: ui/preferencesPage.js:209
 msgid "Tint GNOME"
@@ -116,7 +122,7 @@ msgstr "Tingir o Shell"
 
 #: ui/preferencesPage.js:223
 msgid "Also tint the panel when in dark mode."
-msgstr ""
+msgstr "Tingir também o painel no modo escuro."
 
 #: ui/preferencesPage.js:235
 msgid "Tint Apps"
@@ -140,35 +146,35 @@ msgstr "Tingir Apps GTK3"
 
 #: ui/preferencesPage.js:269
 msgid "Subtle"
-msgstr ""
+msgstr "Subtil"
 
 #: ui/preferencesPage.js:270
 msgid "Default"
-msgstr ""
+msgstr "Predefinido"
 
 #: ui/preferencesPage.js:271
 msgid "Strong"
-msgstr ""
+msgstr "Intenso"
 
 #: ui/preferencesPage.js:272
 msgid "Stronger"
-msgstr ""
+msgstr "Mais Intenso"
 
 #: ui/preferencesPage.js:276
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Intensidade do Tingimento"
 
 #: ui/preferencesPage.js:277
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Determina a intensidade do efeito de tingimento."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr ""
+msgstr "Tingimento Mais Escuro"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Aplica um tingimento mais escuro."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -200,11 +206,11 @@ msgstr "Aplica a integração com o pacote de ícones MoreWaita."
 
 #: ui/preferencesPage.js:388
 msgid "Customization"
-msgstr ""
+msgstr "Personalização"
 
 #: ui/preferencesPage.js:393
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Stylesheet personalizada"
 
 #: ui/preferencesPage.js:395
 msgid ""
@@ -292,12 +298,12 @@ msgstr ""
 
 #: ui/preferencesPage.js:524
 msgid "Apply to Flatpaks"
-msgstr "Aplicar em Flatpaks"
+msgstr "Aplicar a Flatpaks"
 
 #: ui/preferencesPage.js:526
 msgid "Allow Flatpaks to access your custom accent color variables."
 msgstr ""
-"Permitir que os Flatpaks acedam as suas variáveis de cor de destaque "
+"Permitir que os Flatpaks acedam às suas variáveis de cor de destaque "
 "personalizadas."
 
 #: ui/preferencesPage.js:532
