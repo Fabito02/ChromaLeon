@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: ardev <ardev@tuta.com>\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: French <https://hosted.weblate.org/projects/chromaleon/"
 "extension/fr/>\n"
 "Language: fr\n"
@@ -47,13 +48,15 @@ msgstr "Préférences"
 
 #: ui/preferencesPage.js:77
 msgid "ChromaLeon only exists thanks to users like you!"
-msgstr ""
+msgstr "ChromaLeon existe seulement grâce aux utilisateur comme vous !"
 
 #: ui/preferencesPage.js:79
 msgid ""
 "If ChromaLeon has earned a place in your device's customization, consider "
 "helping the project move forward by making a small donation."
 msgstr ""
+"Si ChromaLeon a gagné une place dans la personnalisation de votre appareil, "
+"pensez à soutenir le développement du projet en faisant un petit don."
 
 #: ui/preferencesPage.js:140
 msgid "Colors"
@@ -66,7 +69,7 @@ msgstr "Couleurs de GNOME"
 #: ui/preferencesPage.js:146
 msgid "Use native GNOME colors instead of wallpaper colors."
 msgstr ""
-"Utiliser les couleurs natives de GNOME au lieu des couleurs du fond d'écran"
+"Utiliser les couleurs natives de GNOME au lieu des couleurs du fond d'écran."
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
@@ -82,17 +85,19 @@ msgstr "Préferer le Style Clair"
 
 #: ui/preferencesPage.js:158
 msgid "Use a light style for the Shell in the light theme."
-msgstr ""
+msgstr "Utiliser un style clair pour le Shell avec un thème clair."
 
 #: ui/preferencesPage.js:164
 msgid "Fully Light"
-msgstr ""
+msgstr "Entièrement Clair"
 
 #: ui/preferencesPage.js:166
 msgid ""
 "Use a fully light style instead of the default style for the GNOME Shell "
 "light theme."
 msgstr ""
+"Utiliser un style entièrement clair au lieu du style par défaut pour le "
+"thème clair du Shell GNOME."
 
 #: ui/preferencesPage.js:209
 msgid "Tint GNOME"
@@ -141,27 +146,27 @@ msgstr "Teinter les applications GTK3"
 
 #: ui/preferencesPage.js:269
 msgid "Subtle"
-msgstr ""
+msgstr "Subtile"
 
 #: ui/preferencesPage.js:270
 msgid "Default"
-msgstr ""
+msgstr "Par défaut"
 
 #: ui/preferencesPage.js:271
 msgid "Strong"
-msgstr ""
+msgstr "Fort"
 
 #: ui/preferencesPage.js:272
 msgid "Stronger"
-msgstr ""
+msgstr "Intense"
 
 #: ui/preferencesPage.js:276
 msgid "Tinting Strength"
-msgstr ""
+msgstr "Intensité de la teinte"
 
 #: ui/preferencesPage.js:277
 msgid "Determines the strength of the tint effect."
-msgstr ""
+msgstr "Détermine l'intensité de la teinte."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
@@ -169,7 +174,7 @@ msgstr "Teinte plus sombre"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr ""
+msgstr "Applique une teinte plus sombre."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -201,7 +206,7 @@ msgstr "Applique l'intégration avec le pack d'icônes MoreWaita."
 
 #: ui/preferencesPage.js:388
 msgid "Customization"
-msgstr ""
+msgstr "Personnalisation"
 
 #: ui/preferencesPage.js:393
 msgid "Custom stylesheet"
@@ -213,7 +218,7 @@ msgid ""
 "for ChromaLeon accent colors."
 msgstr ""
 "Un fichier qui remplace le CSS du shell et des autres extensions, compatible "
-"avec les couleurs d'accentuation de ChromaLeon"
+"avec les couleurs d'accentuation de ChromaLeon."
 
 #: ui/preferencesPage.js:414 ui/preferencesPage.js:431
 #: ui/preferencesPage.js:491
@@ -222,7 +227,7 @@ msgstr "A propos de la feuille de style personnalisée"
 
 #: ui/preferencesPage.js:420
 msgid "Open file"
-msgstr ""
+msgstr "Ouvrir le fichier"
 
 #: ui/preferencesPage.js:433
 msgid ""
@@ -237,24 +242,24 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
-"Ce fichier est utilisé pour appliquer un CSS personnalisé au shell GNOME. \n"
-" \n"
+"Ce fichier est utilisé pour appliquer un CSS personnalisé au shell GNOME.\n"
+"\n"
 "L'extension parcourt tout le contenu de ce fichier et remplace les variables "
 "<b><tt>@@ACCENT@@</tt></b> et <b><tt>st-accent-color</tt></b> par la couleur "
 "sélectionnée dans les paramètres de ChromaLeon avant de les appliquer au "
 "système. Cela peut être utile si la couleur d'accentuation n'a pas été "
-"appliquée correctement sur une extension. \n"
+"appliquée correctement sur une extension.\n"
 "\n"
-"<b>Astuce : </b> Si vos modifications ne sont pas prises en compte, essayez "
+"<b>Astuce :</b> Si vos modifications ne sont pas prises en compte, essayez "
 "d'ajouter <b><tt>!important</tt></b> à vos règles CSS."
 
 #: ui/preferencesPage.js:440 ui/preferencesPage.js:509
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: ui/preferencesPage.js:462
 msgid "Failed to open custom.css: "
-msgstr ""
+msgstr "Impossible d'ouvrir custom.css : "
 
 #: ui/preferencesPage.js:471
 msgid "Miscellaneous"
@@ -409,7 +414,7 @@ msgstr ""
 
 #: ui/wallpaperPage.js:78
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Erreur lors de la récupération de la miniature : "
 
 #: ui/wallpaperPage.js:89
 msgid "Wallpaper"
