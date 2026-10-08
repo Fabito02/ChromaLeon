@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Eduardo Barbosa <eduardorbarbosa@pm.me>\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/chromaleon/"
 "extension/pt/>\n"
 "Language: pt\n"
@@ -423,9 +424,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Plano de fundo apagado com sucesso!"
 
 #: ui/wallpaperPage.js:406
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Falha ao apagar plano de fundo"
+msgstr "Falha ao apagar plano de fundo: "
 
 #: ui/wallpaperPage.js:412
 msgid "Select a Wallpaper"
