@@ -78,7 +78,7 @@ msgstr ""
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
-msgstr ""
+msgstr "Préferer le Style Clair"
 
 #: ui/preferencesPage.js:158
 msgid "Use a light style for the Shell in the light theme."
@@ -165,7 +165,7 @@ msgstr ""
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr ""
+msgstr "Teinte plus sombre"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
@@ -212,6 +212,8 @@ msgid ""
 "A file that overrides the CSS of the shell and user extensions, with support "
 "for ChromaLeon accent colors."
 msgstr ""
+"Un fichier qui remplace le CSS du shell et des autres extensions, compatible "
+"avec les couleurs d'accentuation de ChromaLeon"
 
 #: ui/preferencesPage.js:414 ui/preferencesPage.js:431
 #: ui/preferencesPage.js:491
