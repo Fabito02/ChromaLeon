@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Felix Schramm <yoink@felixschramm.eu>\n"
+"Last-Translator: Lukas Kronberger <j13m126@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -91,7 +91,7 @@ msgstr "Verwende einen hellen Stil für die Shell im hellen Design."
 
 #: ui/preferencesPage.js:164
 msgid "Fully Light"
-msgstr "Durchgehend hell"
+msgstr "Vollständig hell"
 
 #: ui/preferencesPage.js:166
 msgid ""
@@ -285,11 +285,11 @@ msgstr ""
 
 #: ui/preferencesPage.js:483
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Aktiviert das Design hot reloading für GTK4-Applikationen."
 
 #: ui/preferencesPage.js:499
 msgid "About Hot Reload"
-msgstr ""
+msgstr "Über Hot Reload"
 
 #: ui/preferencesPage.js:501
 msgid ""
