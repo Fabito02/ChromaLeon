@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Felix Schramm <yoink@felixschramm.eu>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -37,10 +36,13 @@ msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
 msgstr ""
+"ChromaLeon ist inkompatibel mit der User Themes Erweiterung. Lasse die User "
+"Theme Erweiterung deaktivert, um visuelle Konflikte und unerwartetes "
+"Verhalten zu vermeiden."
 
 #: chromaleon.js:170
 msgid "I understood"
-msgstr ""
+msgstr "Ich verstehe"
 
 #: ui/preferencesPage.js:38
 msgid "Preferences"
@@ -73,11 +75,11 @@ msgstr "Verwende die nativen GNOME Farben anstelle der Hintergrundbildfarben."
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Permamente Auswahl"
 
 #: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Merke die manuell ausgewählten Farben für jedes Hintergrundbild."
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
