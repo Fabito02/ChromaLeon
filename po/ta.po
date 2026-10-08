@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
-"PO-Revision-Date: 2026-08-01 01:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-10-08 14:47+0000\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/chromaleon/"
 "extension/ta/>\n"
 "Language: ta\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
@@ -415,9 +416,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "வால்பேப்பர் வெற்றிகரமாக நீக்கப்பட்டது!"
 
 #: ui/wallpaperPage.js:406
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "வால்பேப்பரை நீக்க முடியவில்லை"
+msgstr "வால்பேப்பரை நீக்க முடியவில்லை. "
 
 #: ui/wallpaperPage.js:412
 msgid "Select a Wallpaper"
