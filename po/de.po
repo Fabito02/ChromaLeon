@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 17:41-0300\n"
-"PO-Revision-Date: 2026-08-30 08:51+0000\n"
+"POT-Creation-Date: 2026-10-01 01:31-0300\n"
+"PO-Revision-Date: 2026-10-08 14:47+0000\n"
 "Last-Translator: Lukas Kronberger <j13m126@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
@@ -29,17 +29,20 @@ msgstr ""
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr ""
+msgstr "User Theme Inkompatibilitätswarnung."
 
 #: chromaleon.js:166
 msgid ""
 "ChromaLeon is incompatible with the User Themes extension. Keep the User "
 "Themes extension disabled to avoid visual conflicts and unexpected behavior."
 msgstr ""
+"ChromaLeon ist inkompatibel mit der User Themes Erweiterung. Lasse die User "
+"Theme Erweiterung deaktivert, um visuelle Konflikte und unerwartetes "
+"Verhalten zu vermeiden."
 
 #: chromaleon.js:170
 msgid "I understood"
-msgstr ""
+msgstr "Ich verstehe"
 
 #: ui/preferencesPage.js:38
 msgid "Preferences"
@@ -72,11 +75,11 @@ msgstr "Verwende die nativen GNOME Farben anstelle der Hintergrundbildfarben."
 
 #: ui/preferencesPage.js:151
 msgid "Persistent Choices"
-msgstr ""
+msgstr "Permamente Auswahl"
 
 #: ui/preferencesPage.js:152
 msgid "Remember the colors manually selected for each wallpaper."
-msgstr ""
+msgstr "Merke die manuell ausgewählten Farben für jedes Hintergrundbild."
 
 #: ui/preferencesPage.js:157
 msgid "Prefer Light Style"
@@ -88,7 +91,7 @@ msgstr "Verwende einen hellen Stil für die Shell im hellen Design."
 
 #: ui/preferencesPage.js:164
 msgid "Fully Light"
-msgstr "Durchgehend hell"
+msgstr "Vollständig hell"
 
 #: ui/preferencesPage.js:166
 msgid ""
@@ -168,11 +171,11 @@ msgstr "Legt die Intensität des Einfärbeeffekts fest."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr "Dunkler einfärben"
+msgstr "Dunklerer Farbton"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr "Wendet eine dunklere Einfärbung an."
+msgstr "Verwendet einen dunkleren Farbton."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -282,11 +285,11 @@ msgstr ""
 
 #: ui/preferencesPage.js:483
 msgid "Enables theme hot reloading for GTK4 applications."
-msgstr ""
+msgstr "Aktiviert das Design hot reloading für GTK4-Applikationen."
 
 #: ui/preferencesPage.js:499
 msgid "About Hot Reload"
-msgstr ""
+msgstr "Über Hot Reload"
 
 #: ui/preferencesPage.js:501
 msgid ""
@@ -412,7 +415,7 @@ msgstr ""
 
 #: ui/wallpaperPage.js:78
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Fehler beim Abrufen der Miniaturansicht: "
 
 #: ui/wallpaperPage.js:89
 msgid "Wallpaper"

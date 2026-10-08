@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 17:41-0300\n"
-"PO-Revision-Date: 2026-08-01 01:30+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"POT-Creation-Date: 2026-10-01 01:31-0300\n"
+"PO-Revision-Date: 2026-10-08 14:47+0000\n"
+"Last-Translator: Herbatka <viktor.beskorovainyi@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/chromaleon/"
 "extension/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: chromaleon.js:125
 msgid "A new version of ChromaLeon Preload is available."
@@ -104,7 +104,7 @@ msgstr "На основі відтінку GNOME"
 
 #: ui/preferencesPage.js:215
 msgid "Tint Shell"
-msgstr ""
+msgstr "Додати відтінок до оболонки"
 
 #: ui/preferencesPage.js:216
 msgid "Tints the GNOME Shell with the color of your choice."
