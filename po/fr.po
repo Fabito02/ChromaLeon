@@ -467,11 +467,11 @@ msgstr "Fond d'écran ajouté avec succès !"
 msgid "Error copying wallpaper: "
 msgstr "Erreur de copie du fond d'écran "
 
-#: ui/wallpaperPage.js:935
+#: ui/wallpaperPage.js:955
 msgid "Unable to load colors."
 msgstr "Incapable de charger les couleurs."
 
-#: ui/wallpaperPage.js:1029
+#: ui/wallpaperPage.js:1049
 #, fuzzy
 msgid "Select Color"
 msgstr "Couleur d'accent"

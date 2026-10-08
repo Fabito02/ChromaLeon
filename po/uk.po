@@ -458,11 +458,11 @@ msgstr ""
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:935
+#: ui/wallpaperPage.js:955
 msgid "Unable to load colors."
 msgstr ""
 
-#: ui/wallpaperPage.js:1029
+#: ui/wallpaperPage.js:1049
 #, fuzzy
 msgid "Select Color"
 msgstr "Акцентний колір"
