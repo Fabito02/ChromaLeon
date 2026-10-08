@@ -218,7 +218,7 @@ msgstr ""
 #: ui/preferencesPage.js:414 ui/preferencesPage.js:431
 #: ui/preferencesPage.js:491
 msgid "About the custom stylesheet"
-msgstr ""
+msgstr "A propos de la feuille de style personnalisée"
 
 #: ui/preferencesPage.js:420
 msgid "Open file"
@@ -237,6 +237,16 @@ msgid ""
 "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!"
 "important</tt></b> to your CSS rules."
 msgstr ""
+"Ce fichier est utilisé pour appliquer un CSS personnalisé au shell GNOME. \n"
+" \n"
+"L'extension parcourt tout le contenu de ce fichier et remplace les variables "
+"<b><tt>@@ACCENT@@</tt></b> et <b><tt>st-accent-color</tt></b> par la couleur "
+"sélectionnée dans les paramètres de ChromaLeon avant de les appliquer au "
+"système. Cela peut être utile si la couleur d'accentuation n'a pas été "
+"appliquée correctement sur une extension. \n"
+"\n"
+"<b>Astuce : </b> Si vos modifications ne sont pas prises en compte, essayez "
+"d'ajouter <b><tt>!important</tt></b> à vos règles CSS."
 
 #: ui/preferencesPage.js:440 ui/preferencesPage.js:509
 msgid "Close"
