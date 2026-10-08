@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: ardev <ardev@tuta.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/chromaleon/"
 "extension/fr/>\n"
 "Language: fr\n"
@@ -437,9 +436,8 @@ msgid "Wallpaper deleted successfully!"
 msgstr "Fond d'écran supprimé avec succès !"
 
 #: ui/wallpaperPage.js:406
-#, fuzzy
 msgid "Error deleting wallpaper: "
-msgstr "Échec de la suppresion du fond d'écran"
+msgstr "Échec de la suppression du fond d'écran "
 
 #: ui/wallpaperPage.js:412
 msgid "Select a Wallpaper"
@@ -467,7 +465,7 @@ msgstr "Fond d'écran ajouté avec succès !"
 
 #: ui/wallpaperPage.js:467
 msgid "Error copying wallpaper: "
-msgstr ""
+msgstr "Erreur de copie du fond d'écran "
 
 #: ui/wallpaperPage.js:935
 msgid "Unable to load colors."
