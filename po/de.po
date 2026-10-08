@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-01 01:31-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Felix Schramm <yoink@felixschramm.eu>\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
+"\n"
 "Language-Team: German <https://hosted.weblate.org/projects/chromaleon/"
 "extension/de/>\n"
 "Language: de\n"
@@ -29,7 +30,7 @@ msgstr ""
 
 #: chromaleon.js:164
 msgid "User Themes incompatibility warning."
-msgstr "User Theme Inkompatibilitätswarnung"
+msgstr "User Theme Inkompatibilitätswarnung."
 
 #: chromaleon.js:166
 msgid ""
@@ -168,11 +169,11 @@ msgstr "Legt die Intensität des Einfärbeeffekts fest."
 
 #: ui/preferencesPage.js:283
 msgid "Darker Tint"
-msgstr "Dunkler einfärben"
+msgstr "Dunklerer Farbton"
 
 #: ui/preferencesPage.js:284
 msgid "Applies a darker tint."
-msgstr "Wendet eine dunklere Einfärbung an."
+msgstr "Verwendet einen dunkleren Farbton."
 
 #: ui/preferencesPage.js:333
 msgid "Icon Theme"
@@ -412,7 +413,7 @@ msgstr ""
 
 #: ui/wallpaperPage.js:78
 msgid "Error getting thumbnail: "
-msgstr ""
+msgstr "Fehler beim Abrufen der Miniaturansicht: "
 
 #: ui/wallpaperPage.js:89
 msgid "Wallpaper"
