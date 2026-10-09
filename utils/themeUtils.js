@@ -24,7 +24,7 @@ import St from "gi://St";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import { applyAccentTheme } from "./recolorUtils.js";
-import { throwIfCancelled } from "./cancellation.js";
+import { throwIfCancelled, isCancelledError } from "./cancellation.js";
 import {
   setThemeStylesheet,
   loadTheme,
@@ -127,18 +127,17 @@ export function removeGtkStylesheet() {
       if (ok) {
         let mainContent = new TextDecoder().decode(contents);
         let newContent = mainContent.replace(REGEX_MARKER, "").trim();
-
-        let safeContent = newContent ? `${newContent}\n` : "";
-
-        let buffer = new TextEncoder().encode(safeContent);
-
-        mainFile.replace_contents(
-          buffer,
-          null,
-          false,
-          Gio.FileCreateFlags.NONE,
-          null,
-        );
+    
+        if (newContent) {
+          const buffer = new TextEncoder().encode(`${newContent}\n`);
+          mainFile.replace_contents(
+            buffer,
+            null,
+            false,
+            Gio.FileCreateFlags.NONE,
+            null,
+          );
+        }
       }
     }
   }
@@ -350,139 +349,84 @@ export async function updateGtkStylesheet(
   );
 
   const gtk4 = async () => {
-    let dirPath = `${configDir}/gtk-4.0`;
-    let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
-    let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-    const cssVars = `@define-color accent_bg_color ${color};\n`;
-
-    const parentDir = Gio.File.new_for_path(dirPath);
-
+    const dirPath = `${configDir}/gtk-4.0`;
+    const mainFile   = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    const accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    const parentDir  = Gio.File.new_for_path(dirPath);
+  
     if (!parentDir.query_exists(null)) {
       parentDir.make_directory_with_parents(null);
-      await writeFile(mainFile, "\n", cancellable);
-    } else if (!mainFile.query_exists(null)) {
-      await writeFile(mainFile, "\n", cancellable);
     }
-
+  
+    let accentContent;
     if (tinted) {
-      let tintedGtk4Template = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
-      let [contents] =
-        await tintedGtk4Template.load_contents_async(cancellable);
-
-      let template = new TextDecoder().decode(contents);
-      let css = template
-        .replace(
-          /@@TINT_STRENGTH@@/g,
-          getConvertedStrength(tintStrength, true, 0.12),
-        )
-        .replace(
-          /@@TINT_STRENGTH_DARK@@/g,
-          getConvertedStrength(tintStrength, true, 0.1),
-        )
-        .replace(
-          /@@TINT_STRENGTH_CARD@@/g,
-          getConvertedStrength(tintStrength, true, 0.06),
-        );
-
-      await writeFile(
-        accentFile,
-        !gnomeColors ? `${cssVars}\n${css}` : css,
-        cancellable,
-      );
+      const templateFile = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
+      const [contents] = await templateFile.load_contents_async(cancellable);
+      const css = new TextDecoder().decode(contents)
+        .replace(/@@TINT_STRENGTH@@/g,      getConvertedStrength(tintStrength, true, 0.12))
+        .replace(/@@TINT_STRENGTH_DARK@@/g, getConvertedStrength(tintStrength, true, 0.10))
+        .replace(/@@TINT_STRENGTH_CARD@@/g, getConvertedStrength(tintStrength, true, 0.06));
+      accentContent = gnomeColors ? css : `@define-color accent_bg_color ${color};\n\n${css}`;
     } else {
-      gnomeColors
-        ? await writeFile(accentFile, "\n", cancellable)
-        : await writeFile(accentFile, cssVars, cancellable);
+      accentContent = gnomeColors ? "" : `@define-color accent_bg_color ${color};\n`;
     }
-
-    throwIfCancelled(cancellable);
-
+  
+    let existing = "";
     if (mainFile.query_exists(null)) {
-      let [contents] = await mainFile.load_contents_async(cancellable);
-      let mainContent = new TextDecoder().decode(contents);
-
-      if (!mainContent.includes(START_MARKER)) {
-        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
-        await writeFile(
-          mainFile,
-          `${cleanContent}\n\n${cssBlock}\n`,
-          cancellable,
-        );
-      }
-    } else {
-      await writeFile(mainFile, `${cssBlock}\n`, cancellable);
+      const [contents] = await mainFile.load_contents_async(cancellable);
+      existing = new TextDecoder().decode(contents);
     }
+    const cleaned = existing.replace(REGEX_MARKER, "").trim();
+    const mainContent = `${cleaned ? cleaned + "\n" : ""}${cssBlock}\n`;
+  
+    throwIfCancelled(cancellable);
+    
+    await writeFile(accentFile, accentContent, cancellable);
+    throwIfCancelled(cancellable);
+    await writeFile(mainFile, mainContent, cancellable);
   };
 
   const gtk3 = async () => {
-    let dirPath = `${configDir}/gtk-3.0`;
-    let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
-    let accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-    let hexColor = gnomeColors ? GNOME_ACCENTS_HEX[color] : color;
-    const cssVars = `@define-color accent_bg_color ${hexColor};\n`;
-
-    const parentDir = Gio.File.new_for_path(dirPath);
-
+    const dirPath = `${configDir}/gtk-3.0`;
+    const mainFile   = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    const accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
+    const parentDir  = Gio.File.new_for_path(dirPath);
+  
     if (!parentDir.query_exists(null)) {
       parentDir.make_directory_with_parents(null);
-      await writeFile(mainFile, "\n", cancellable);
-    } else if (!mainFile.query_exists(null)) {
-      await writeFile(mainFile, "\n", cancellable);
     }
-
+  
+    let accentContent;
     if (tinted && tintGTK3) {
-      let tintedGtk3Template = isDark
+      const templateFile = isDark
         ? darker
           ? tintedGtk3DarkerStyle
           : tintedGtk3DarkStyle
         : tintedGtk3LightStyle;
-
-      try {
-        let [contents] =
-          await tintedGtk3Template.load_contents_async(cancellable);
-
-        let template = new TextDecoder().decode(contents);
-        let css = template
-          .replace(
-            /@@TINT_STRENGTH@@/g,
-            getConvertedStrength(tintStrength, true, 0.12),
-          )
-          .replace(
-            /@@TINT_STRENGTH_DARK@@/g,
-            getConvertedStrength(tintStrength, true, 0.1),
-          )
-          .replace(
-            /@@TINT_STRENGTH_CARD@@/g,
-            getConvertedStrength(tintStrength, true, 0.06),
-          );
-
-        await writeFile(accentFile, `${cssVars}\n${css}`, cancellable);
-      } catch (e) {
-        throw e;
-      }
+      
+      const [contents] = await templateFile.load_contents_async(cancellable);
+      const css = new TextDecoder().decode(contents)
+        .replace(/@@TINT_STRENGTH@@/g,      getConvertedStrength(tintStrength, true, 0.12))
+        .replace(/@@TINT_STRENGTH_DARK@@/g, getConvertedStrength(tintStrength, true, 0.10))
+        .replace(/@@TINT_STRENGTH_CARD@@/g, getConvertedStrength(tintStrength, true, 0.06));
+      accentContent = `@define-color accent_bg_color ${color};\n\n${css}`;
     } else {
-      await writeFile(accentFile, cssVars, cancellable);
+      accentContent = `@define-color accent_bg_color ${color};\n`;
     }
-
-    throwIfCancelled(cancellable);
-
+  
+    let existing = "";
     if (mainFile.query_exists(null)) {
-      let [contents] = await mainFile.load_contents_async(cancellable);
-      let mainContent = new TextDecoder().decode(contents);
-
-      if (!mainContent.includes(START_MARKER)) {
-        let cleanContent = mainContent.replace(REGEX_MARKER, "").trim();
-        await writeFile(
-          mainFile,
-          `${cleanContent}\n\n${cssBlock}\n`,
-          cancellable,
-        );
-      }
-    } else {
-      gnomeColors
-        ? await writeFile(accentFile, "\n", cancellable)
-        : await writeFile(accentFile, cssVars, cancellable);
+      const [contents] = await mainFile.load_contents_async(cancellable);
+      existing = new TextDecoder().decode(contents);
     }
+    const cleaned = existing.replace(REGEX_MARKER, "").trim();
+    const mainContent = `${cleaned ? cleaned + "\n" : ""}${cssBlock}\n`;
+  
+    throwIfCancelled(cancellable);
+  
+    await writeFile(accentFile, accentContent, cancellable);
+    throwIfCancelled(cancellable);
+    await writeFile(mainFile, mainContent, cancellable);
   };
 
   await Promise.all([gtk4(), gtk3()]);
