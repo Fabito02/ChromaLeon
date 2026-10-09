@@ -26,7 +26,14 @@ import * as FileUtils from "./utils/fileUtils.js";
 import * as ThemeUtils from "./utils/themeUtils.js";
 import { clearRecolorTimeout } from "./utils/recolorUtils.js";
 import { throwIfCancelled, isCancelledError } from "./utils/cancellation.js";
-import { sessionMode } from "resource:///org/gnome/shell/ui/main.js";
+import {
+  sessionMode,
+  messageTray,
+} from "resource:///org/gnome/shell/ui/main.js";
+import {
+  Source,
+  Notification,
+} from "resource:///org/gnome/shell/ui/messageTray.js";
 import { getColorCache, writeColorCacheFile } from "./utils/cacheUtils.js";
 
 export default class ChromaLeon extends Extension {
@@ -45,11 +52,43 @@ export default class ChromaLeon extends Extension {
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._customStylesheet = null;
+    this._lastErrorId = null;
+    this._notifSource = null;
   }
 
   enable() {
     this._settings = this.getSettings();
     this._savedColorScheme = sessionMode.colorScheme;
+
+    this._settings.set_string("last-error", "");
+
+    this._notifSource = new Source({
+      title: "ChromaLeon",
+      iconName: "preferences-desktop-theme-symbolic",
+    });
+    this._notifSource.connect("destroy", () => {
+      this._notifSource = null;
+    });
+    messageTray.add(this._notifSource);
+
+    this._lastErrorId = this._settings.connect("changed::last-error", () => {
+      const msg = this._settings.get_string("last-error");
+      if (!msg) return;
+
+      try {
+        const notification = new Notification({
+          source: this._notifSource,
+          title: "ChromaLeon",
+          body: msg,
+          isTransient: false,
+        });
+        this._notifSource.addNotification(notification);
+      } catch (e) {
+        console.error("ChromaLeon: failed to send notification", e);
+      }
+
+      this._settings.set_string("last-error", "");
+    });
 
     this._applyInitialStyles();
 
@@ -201,6 +240,16 @@ export default class ChromaLeon extends Extension {
     if (this._configId) {
       this._settings?.disconnect(this._configId);
       this._configId = null;
+    }
+
+    if (this._lastErrorId) {
+      this._settings?.disconnect(this._lastErrorId);
+      this._lastErrorId = null;
+    }
+
+    if (this._notifSource) {
+      this._notifSource.destroy();
+      this._notifSource = null;
     }
 
     if (this._timeoutId) {
@@ -494,9 +543,16 @@ export default class ChromaLeon extends Extension {
     }
 
     const customCSS = this._settings.get_boolean("custom-css");
-    if (customCSS && customStylesheet.query_exists(null)) {
+    if (!customCSS || !customStylesheet.query_exists(null)) return;
+
+    try {
       theme.load_stylesheet(customStylesheet);
       this._customStylesheet = customStylesheet;
+    } catch (e) {
+      this._settings?.set_string(
+        "last-error",
+        `Invalid custom stylesheet: ${e.message}`,
+      );
     }
   }
 

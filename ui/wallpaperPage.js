@@ -274,15 +274,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
       },
     );
 
-    this._lastErrorId = this._settings.connect("changed::last-error", () => {
-      const errorMsg = this._settings.get_string("last-error");
-      if (errorMsg && errorMsg !== "") {
-        const toast = new Adw.Toast({ title: _(errorMsg) });
-        this.get_root()?.add_toast(toast);
-        this._settings.set_string("last-error", "");
-      }
-    });
-
     const handleBgChange = () => {
       this._runOperation(async (cancellable) => {
         await this._updateWallpaperUI(cancellable);
@@ -309,7 +300,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
     if (this._settingsId) this._settings.disconnect(this._settingsId);
     if (this._persistentChoicesId)
       this._settings.disconnect(this._persistentChoicesId);
-    if (this._lastErrorId) this._settings.disconnect(this._lastErrorId);
     if (this._bgChangedId1) this._bgSettings.disconnect(this._bgChangedId1);
     if (this._bgChangedId2) this._bgSettings.disconnect(this._bgChangedId2);
     if (this._colorSchemeId)
