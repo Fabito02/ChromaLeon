@@ -127,7 +127,7 @@ export function removeGtkStylesheet() {
       if (ok) {
         let mainContent = new TextDecoder().decode(contents);
         let newContent = mainContent.replace(REGEX_MARKER, "").trim();
-    
+
         if (newContent) {
           const buffer = new TextEncoder().encode(`${newContent}\n`);
           mainFile.replace_contents(
@@ -350,27 +350,41 @@ export async function updateGtkStylesheet(
 
   const gtk4 = async () => {
     const dirPath = `${configDir}/gtk-4.0`;
-    const mainFile   = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    const mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     const accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-    const parentDir  = Gio.File.new_for_path(dirPath);
-  
+    const parentDir = Gio.File.new_for_path(dirPath);
+
     if (!parentDir.query_exists(null)) {
       parentDir.make_directory_with_parents(null);
     }
-  
+
     let accentContent;
     if (tinted) {
       const templateFile = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
       const [contents] = await templateFile.load_contents_async(cancellable);
-      const css = new TextDecoder().decode(contents)
-        .replace(/@@TINT_STRENGTH@@/g,      getConvertedStrength(tintStrength, true, 0.12))
-        .replace(/@@TINT_STRENGTH_DARK@@/g, getConvertedStrength(tintStrength, true, 0.10))
-        .replace(/@@TINT_STRENGTH_CARD@@/g, getConvertedStrength(tintStrength, true, 0.06));
-      accentContent = gnomeColors ? css : `@define-color accent_bg_color ${color};\n\n${css}`;
+      const css = new TextDecoder()
+        .decode(contents)
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          getConvertedStrength(tintStrength, true, 0.12),
+        )
+        .replace(
+          /@@TINT_STRENGTH_DARK@@/g,
+          getConvertedStrength(tintStrength, true, 0.1),
+        )
+        .replace(
+          /@@TINT_STRENGTH_CARD@@/g,
+          getConvertedStrength(tintStrength, true, 0.06),
+        );
+      accentContent = gnomeColors
+        ? css
+        : `@define-color accent_bg_color ${color};\n\n${css}`;
     } else {
-      accentContent = gnomeColors ? "" : `@define-color accent_bg_color ${color};\n`;
+      accentContent = gnomeColors
+        ? ""
+        : `@define-color accent_bg_color ${color};\n`;
     }
-  
+
     let existing = "";
     if (mainFile.query_exists(null)) {
       const [contents] = await mainFile.load_contents_async(cancellable);
@@ -378,9 +392,9 @@ export async function updateGtkStylesheet(
     }
     const cleaned = existing.replace(REGEX_MARKER, "").trim();
     const mainContent = `${cleaned ? cleaned + "\n" : ""}${cssBlock}\n`;
-  
+
     throwIfCancelled(cancellable);
-    
+
     await writeFile(accentFile, accentContent, cancellable);
     throwIfCancelled(cancellable);
     await writeFile(mainFile, mainContent, cancellable);
@@ -388,14 +402,14 @@ export async function updateGtkStylesheet(
 
   const gtk3 = async () => {
     const dirPath = `${configDir}/gtk-3.0`;
-    const mainFile   = Gio.File.new_for_path(`${dirPath}/gtk.css`);
+    const mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
     const accentFile = Gio.File.new_for_path(`${dirPath}/custom-accent.css`);
-    const parentDir  = Gio.File.new_for_path(dirPath);
-  
+    const parentDir = Gio.File.new_for_path(dirPath);
+
     if (!parentDir.query_exists(null)) {
       parentDir.make_directory_with_parents(null);
     }
-  
+
     let accentContent;
     if (tinted && tintGTK3) {
       const templateFile = isDark
@@ -403,17 +417,27 @@ export async function updateGtkStylesheet(
           ? tintedGtk3DarkerStyle
           : tintedGtk3DarkStyle
         : tintedGtk3LightStyle;
-      
+
       const [contents] = await templateFile.load_contents_async(cancellable);
-      const css = new TextDecoder().decode(contents)
-        .replace(/@@TINT_STRENGTH@@/g,      getConvertedStrength(tintStrength, true, 0.12))
-        .replace(/@@TINT_STRENGTH_DARK@@/g, getConvertedStrength(tintStrength, true, 0.10))
-        .replace(/@@TINT_STRENGTH_CARD@@/g, getConvertedStrength(tintStrength, true, 0.06));
+      const css = new TextDecoder()
+        .decode(contents)
+        .replace(
+          /@@TINT_STRENGTH@@/g,
+          getConvertedStrength(tintStrength, true, 0.12),
+        )
+        .replace(
+          /@@TINT_STRENGTH_DARK@@/g,
+          getConvertedStrength(tintStrength, true, 0.1),
+        )
+        .replace(
+          /@@TINT_STRENGTH_CARD@@/g,
+          getConvertedStrength(tintStrength, true, 0.06),
+        );
       accentContent = `@define-color accent_bg_color ${color};\n\n${css}`;
     } else {
       accentContent = `@define-color accent_bg_color ${color};\n`;
     }
-  
+
     let existing = "";
     if (mainFile.query_exists(null)) {
       const [contents] = await mainFile.load_contents_async(cancellable);
@@ -421,9 +445,9 @@ export async function updateGtkStylesheet(
     }
     const cleaned = existing.replace(REGEX_MARKER, "").trim();
     const mainContent = `${cleaned ? cleaned + "\n" : ""}${cssBlock}\n`;
-  
+
     throwIfCancelled(cancellable);
-  
+
     await writeFile(accentFile, accentContent, cancellable);
     throwIfCancelled(cancellable);
     await writeFile(mainFile, mainContent, cancellable);
