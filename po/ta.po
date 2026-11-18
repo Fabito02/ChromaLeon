@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 01:31-0300\n"
+"POT-Creation-Date: 2026-11-18 02:21-0300\n"
 "PO-Revision-Date: 2026-10-08 14:47+0000\n"
-"Last-Translator: Fabiano Júnior Lima Barbosa <fabianojuniorlimaba2@gmail.com>"
-"\n"
+"Last-Translator: Fabiano Júnior Lima Barbosa "
+"<fabianojuniorlimaba2@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/chromaleon/"
 "extension/ta/>\n"
 "Language: ta\n"
@@ -411,47 +411,47 @@ msgstr "வால்பேப்பர்களைச் சேர்க்க�
 msgid "Wallpapers"
 msgstr "வால்பேப்பர்கள்"
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:392
 msgid "Wallpaper deleted successfully!"
 msgstr "வால்பேப்பர் வெற்றிகரமாக நீக்கப்பட்டது!"
 
-#: ui/wallpaperPage.js:406
+#: ui/wallpaperPage.js:396
 msgid "Error deleting wallpaper: "
 msgstr "வால்பேப்பரை நீக்க முடியவில்லை. "
 
-#: ui/wallpaperPage.js:412
+#: ui/wallpaperPage.js:402
 msgid "Select a Wallpaper"
 msgstr "வால்பேப்பரைத் தேர்ந்தெடுக்கவும்"
 
-#: ui/wallpaperPage.js:414
+#: ui/wallpaperPage.js:404
 msgid "_Open"
 msgstr "_திற"
 
-#: ui/wallpaperPage.js:415
+#: ui/wallpaperPage.js:405
 msgid "_Cancel"
 msgstr "_ரத்துசெய்"
 
-#: ui/wallpaperPage.js:420
+#: ui/wallpaperPage.js:410
 msgid "All Images"
 msgstr "அனைத்து படங்கள்"
 
-#: ui/wallpaperPage.js:447
+#: ui/wallpaperPage.js:437
 msgid "Wallpaper already exists!"
 msgstr "வால்பேப்பர் ஏற்கனவே உள்ளது!"
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:453
 msgid "Wallpaper added successfully!"
 msgstr "வால்பேப்பர் சேர்க்கப்பட்டது!"
 
-#: ui/wallpaperPage.js:467
+#: ui/wallpaperPage.js:457
 msgid "Error copying wallpaper: "
 msgstr ""
 
-#: ui/wallpaperPage.js:955
+#: ui/wallpaperPage.js:945
 msgid "Unable to load colors."
 msgstr "வண்ணங்களை ஏற்ற முடியவில்லை."
 
-#: ui/wallpaperPage.js:1049
+#: ui/wallpaperPage.js:1039
 #, fuzzy
 msgid "Select Color"
 msgstr "உச்சரிப்பு நிறம்"

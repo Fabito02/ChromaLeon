@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 17:41-0300\n"
+"POT-Creation-Date: 2026-11-18 02:21-0300\n"
 "PO-Revision-Date: 2026-10-16 21:45+0000\n"
 "Last-Translator: Quentin PAGÈS <quenti@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/chromaleon/"
@@ -455,47 +455,47 @@ msgstr "Apondre de fonzes d’ecran"
 msgid "Wallpapers"
 msgstr "Fonzes d’ecran"
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:392
 msgid "Wallpaper deleted successfully!"
 msgstr "Fons d'ecran suprimit amb succès !"
 
-#: ui/wallpaperPage.js:406
+#: ui/wallpaperPage.js:396
 msgid "Error deleting wallpaper: "
 msgstr "Error de supression del fons d'ecran : "
 
-#: ui/wallpaperPage.js:412
+#: ui/wallpaperPage.js:402
 msgid "Select a Wallpaper"
 msgstr "Seleccionar un fons d'ecran"
 
-#: ui/wallpaperPage.js:414
+#: ui/wallpaperPage.js:404
 msgid "_Open"
 msgstr "_Dobrir"
 
-#: ui/wallpaperPage.js:415
+#: ui/wallpaperPage.js:405
 msgid "_Cancel"
 msgstr "_Anullar"
 
-#: ui/wallpaperPage.js:420
+#: ui/wallpaperPage.js:410
 msgid "All Images"
 msgstr "Totes los imatges"
 
-#: ui/wallpaperPage.js:447
+#: ui/wallpaperPage.js:437
 msgid "Wallpaper already exists!"
 msgstr "Lo fons d'ecran existís ja !"
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:453
 msgid "Wallpaper added successfully!"
 msgstr "Fons d'ecran apondut amb succès !"
 
-#: ui/wallpaperPage.js:467
+#: ui/wallpaperPage.js:457
 msgid "Error copying wallpaper: "
 msgstr "Error en copiant lo fons d'ecran : "
 
-#: ui/wallpaperPage.js:955
+#: ui/wallpaperPage.js:945
 msgid "Unable to load colors."
 msgstr "Cargament impossible de las colors."
 
-#: ui/wallpaperPage.js:1049
+#: ui/wallpaperPage.js:1039
 msgid "Select Color"
 msgstr "Causir la color"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 17:41-0300\n"
+"POT-Creation-Date: 2026-11-18 02:21-0300\n"
 "PO-Revision-Date: 2026-10-03 09:51+0000\n"
 "Last-Translator: lein <cayin0219@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -433,47 +433,47 @@ msgstr "添加壁纸"
 msgid "Wallpapers"
 msgstr "壁纸列表"
 
-#: ui/wallpaperPage.js:402
+#: ui/wallpaperPage.js:392
 msgid "Wallpaper deleted successfully!"
 msgstr "壁纸移除成功！"
 
-#: ui/wallpaperPage.js:406
+#: ui/wallpaperPage.js:396
 msgid "Error deleting wallpaper: "
 msgstr "壁纸移除失败： "
 
-#: ui/wallpaperPage.js:412
+#: ui/wallpaperPage.js:402
 msgid "Select a Wallpaper"
 msgstr "选择一张壁纸"
 
-#: ui/wallpaperPage.js:414
+#: ui/wallpaperPage.js:404
 msgid "_Open"
 msgstr "打开"
 
-#: ui/wallpaperPage.js:415
+#: ui/wallpaperPage.js:405
 msgid "_Cancel"
 msgstr "取消"
 
-#: ui/wallpaperPage.js:420
+#: ui/wallpaperPage.js:410
 msgid "All Images"
 msgstr "所有图像"
 
-#: ui/wallpaperPage.js:447
+#: ui/wallpaperPage.js:437
 msgid "Wallpaper already exists!"
 msgstr "此壁纸已存在！"
 
-#: ui/wallpaperPage.js:463
+#: ui/wallpaperPage.js:453
 msgid "Wallpaper added successfully!"
 msgstr "壁纸添加成功！"
 
-#: ui/wallpaperPage.js:467
+#: ui/wallpaperPage.js:457
 msgid "Error copying wallpaper: "
 msgstr "壁纸复制失败： "
 
-#: ui/wallpaperPage.js:955
+#: ui/wallpaperPage.js:945
 msgid "Unable to load colors."
 msgstr "加载颜色失败。"
 
-#: ui/wallpaperPage.js:1049
+#: ui/wallpaperPage.js:1039
 msgid "Select Color"
 msgstr "选择颜色"
 
