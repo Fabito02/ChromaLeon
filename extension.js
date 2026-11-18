@@ -66,9 +66,13 @@ export default class ChromaLeon extends Extension {
       title: "ChromaLeon",
       iconName: "preferences-desktop-theme-symbolic",
     });
-    this._notifSource.connect("destroy", () => {
-      this._notifSource = null;
-    });
+    this._notifSource.connectObject(
+      "destroy",
+      () => {
+        this._notifSource = null;
+      },
+      this,
+    );
     messageTray.add(this._notifSource);
 
     this._lastErrorId = this._settings.connect("changed::last-error", () => {
@@ -270,6 +274,12 @@ export default class ChromaLeon extends Extension {
     if (this._dirtyTimeoutId) {
       GLib.Source.remove(this._dirtyTimeoutId);
       this._dirtyTimeoutId = null;
+    }
+
+    if (this._notifSource) {
+      this._notifSource.disconnectObject(this);
+      this._notifSource.destroy();
+      this._notifSource = null;
     }
 
     this._dirty = null;
