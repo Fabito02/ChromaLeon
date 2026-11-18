@@ -197,31 +197,31 @@ export async function updateShellStylesheet(
   );
 
   const shellAccentTemplateLight = Gio.File.new_for_path(
-    `${extensionPath}/templates/shell_accent_light.template.css`,
+    `${extensionPath}/templates/shell/accent_light.template.css`,
   );
 
   const shellAccentTemplateFullLight = Gio.File.new_for_path(
-    `${extensionPath}/templates/light_full.template.css`,
+    `${extensionPath}/templates/shell/accent_light_full.template.css`,
   );
 
   const shellAccentTemplateDark = Gio.File.new_for_path(
-    `${extensionPath}/templates/shell_accent_dark.template.css`,
+    `${extensionPath}/templates/shell/accent_dark.template.css`,
   );
 
   const tintedDarkTemplate = Gio.File.new_for_path(
-    `${extensionPath}/templates/tinted_dark.template.css`,
+    `${extensionPath}/templates/shell/tinted_dark.template.css`,
   );
 
   const tintedLightTemplate = Gio.File.new_for_path(
-    `${extensionPath}/templates/tinted_light.template.css`,
+    `${extensionPath}/templates/shell/tinted_light.template.css`,
   );
 
   const tintedLightFullTemplate = Gio.File.new_for_path(
-    `${extensionPath}/templates/tinted_light_full.template.css`,
+    `${extensionPath}/templates/shell/tinted_light_full.template.css`,
   );
 
   const tintedDarkerTemplate = Gio.File.new_for_path(
-    `${extensionPath}/templates/tinted_darker.template.css`,
+    `${extensionPath}/templates/shell/tinted_darker.template.css`,
   );
 
   const fileLight = tinted
@@ -333,19 +333,19 @@ export async function updateGtkStylesheet(
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
 
   const tintedGtk3LightStyle = Gio.File.new_for_path(
-    `${extensionPath}/templates/gtk3_light_tinted.template.css`,
+    `${extensionPath}/templates/gtk/gtk3_light_tinted.template.css`,
   );
   const tintedGtk3DarkStyle = Gio.File.new_for_path(
-    `${extensionPath}/templates/gtk3_dark_tinted.template.css`,
+    `${extensionPath}/templates/gtk/gtk3_dark_tinted.template.css`,
   );
   const tintedGtk3DarkerStyle = Gio.File.new_for_path(
-    `${extensionPath}/templates/gtk3_darker_tinted.template.css`,
+    `${extensionPath}/templates/gtk/gtk3_darker_tinted.template.css`,
   );
   const tintedGtk4Style = Gio.File.new_for_path(
-    `${extensionPath}/templates/gtk4_tinted.template.css`,
+    `${extensionPath}/templates/gtk/gtk4_tinted.template.css`,
   );
   const tintedGtk4DarkerStyle = Gio.File.new_for_path(
-    `${extensionPath}/templates/gtk4_darker_tinted.template.css`,
+    `${extensionPath}/templates/gtk/gtk4_darker_tinted.template.css`,
   );
 
   const gtk4 = async () => {
