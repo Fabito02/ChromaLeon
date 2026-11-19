@@ -120,26 +120,6 @@ export function removeGtkStylesheet() {
     if (accentFile.query_exists(null)) {
       accentFile.delete(null);
     }
-
-    let mainFile = Gio.File.new_for_path(`${dirPath}/gtk.css`);
-    if (mainFile.query_exists(null)) {
-      let [ok, contents] = mainFile.load_contents(null);
-      if (ok) {
-        let mainContent = new TextDecoder().decode(contents);
-        let newContent = mainContent.replace(REGEX_MARKER, "").trim();
-
-        if (newContent) {
-          const buffer = new TextEncoder().encode(`${newContent}\n`);
-          mainFile.replace_contents(
-            buffer,
-            null,
-            false,
-            Gio.FileCreateFlags.NONE,
-            null,
-          );
-        }
-      }
-    }
   }
 }
 
