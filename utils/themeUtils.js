@@ -358,11 +358,11 @@ export async function updateGtkStylesheet(
         );
       accentContent = gnomeColors
         ? css
-        : `@define-color accent_bg_color ${color};\n\n${css}`;
+        : `@define-color accent_bg_color ${color};\n@define-color accent_color oklab(from ${color} min(l, 0.5) a b);\n\n${css}`;
     } else {
       accentContent = gnomeColors
         ? ""
-        : `@define-color accent_bg_color ${color};\n`;
+        : `@define-color accent_bg_color ${color};\n@define-color accent_color oklab(from ${color} min(l, 0.5) a b);\n`;
     }
 
     let existing = "";
@@ -413,9 +413,9 @@ export async function updateGtkStylesheet(
           /@@TINT_STRENGTH_CARD@@/g,
           getConvertedStrength(tintStrength, true, 0.06),
         );
-      accentContent = `@define-color accent_bg_color ${color};\n\n${css}`;
+      accentContent = `@define-color accent_bg_color ${color};\n@define-color accent_color mix(${color},${isDark ? "white,0.4" : "black,0.17"});\n\n${css}`;
     } else {
-      accentContent = `@define-color accent_bg_color ${color};\n`;
+      accentContent = `@define-color accent_bg_color ${color};\n@define-color accent_color mix(${color},${isDark ? "white,0.4" : "black,0.17"});\n`;
     }
 
     let existing = "";
