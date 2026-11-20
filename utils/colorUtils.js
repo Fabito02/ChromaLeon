@@ -124,10 +124,13 @@ function _processPixbuf(pixbuf) {
   let pixels = pixbuf.get_pixels();
   let rowstride = pixbuf.get_rowstride();
   let channels = pixbuf.get_n_channels();
+  let width = pixbuf.get_width();
+  let height = pixbuf.get_height();
+  let totalPixels = width * height;
   let colorMap = new Map();
 
-  for (let y = 0; y < pixbuf.get_height(); y++) {
-    for (let x = 0; x < pixbuf.get_width(); x++) {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
       let offset = y * rowstride + x * channels;
       let r = pixels[offset],
         g = pixels[offset + 1],
@@ -159,6 +162,15 @@ function _processPixbuf(pixbuf) {
     });
   }
 
+  if (colorsList.length === 0) return null;
+
+  let dominant = colorsList[0];
+  for (let color of colorsList) {
+    if (color.count > dominant.count) {
+      dominant = color;
+    }
+  }
+
   let vibrantRanking = [...colorsList].sort((a, b) => {
     let lScoreA = 1 - Math.abs(a.l - 50) / 50;
     let lScoreB = 1 - Math.abs(b.l - 50) / 50;
@@ -167,20 +179,32 @@ function _processPixbuf(pixbuf) {
     return scoreB - scoreA;
   });
 
-  let dominantColor = null;
+  let chosen = null;
+  let weightD = dominant.s * (1 - Math.abs(dominant.l - 50) / 50);
+
   for (let color of vibrantRanking) {
-    _adjustContrast(color);
+    let weight = color.s * (1 - Math.abs(color.l - 50) / 50);
+    let diff = weight - weightD;
 
-    dominantColor = color.hex;
-    break;
+    if (diff > 0) {
+      let ratio = Math.min(1.0, diff / 50.0);
+      let minPct = 0.1 - 0.1 * ratio;
+      let minCount = Math.floor(totalPixels * minPct);
+
+      if (color.count >= minCount) {
+        chosen = color;
+        break;
+      }
+    }
   }
 
-  if (!dominantColor && colorsList.length > 0) {
-    let frequencyRanking = [...colorsList].sort((a, b) => b.count - a.count);
-    dominantColor = frequencyRanking[0].hex;
+  if (chosen === null) {
+    chosen = dominant;
   }
 
-  return dominantColor;
+  _adjustContrast(chosen);
+
+  return chosen.hex;
 }
 
 export const toHex = (val) =>
