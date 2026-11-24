@@ -10,10 +10,22 @@
       <description
             >The custom color applied to GNOME Shell and GTK elements.</description>
     </key>
+    <key name="tint-color" type="s">
+      <default>'#785ef0'</default>
+      <summary>Tint Color</summary>
+      <description
+            >The base color used to tint windows and GNOME Shell surfaces.</description>
+    </key>
     <key name="gnome-colors" type="b">
       <default>false</default>
       <summary>Gnome Colors</summary>
       <description>Use native GNOME colors instead of wallpaper colors.</description>
+    </key>
+    <key name="gnome-tint-colors" type="b">
+      <default>false</default>
+      <summary>GNOME Tint Colors</summary>
+      <description
+            >Use native GNOME colors instead of wallpaper colors for tinting.</description>
     </key>
     <key name="prefer-light" type="b">
       <default>false</default>
@@ -66,6 +78,12 @@
       <summary>Custom Color</summary>
       <description
             >Controls the status of applied colors, in case the user has applied a custom color.</description>
+    </key>
+    <key name="custom-tint-color" type="b">
+      <default>false</default>
+      <summary>Custom Tint Color</summary>
+      <description
+            >Controls whether the user has manually selected a custom tint color.</description>
     </key>
     <key name="recolor-folders" type="b">
       <default>false</default>

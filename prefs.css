@@ -107,7 +107,6 @@ button.custom-color-btn:focus:active {
 button.custom-color-btn.active,
 button.custom-color-btn.active:active,
 button.custom-color-btn.active:focus:active {
-  background: var(--accent-bg-color);
   min-width: 32px;
   min-height: 32px;
   border-radius: 50%;
@@ -116,11 +115,6 @@ button.custom-color-btn.active:focus:active {
   padding: 0px;
   outline: none;
   box-shadow: none;
-}
-
-button.custom-color-btn.active {
-  outline: 3px solid alpha(shade(var(--accent-bg-color), 1.3), 0.6);
-  outline-offset: -3px;
 }
 
 button.custom-color-btn:focus,

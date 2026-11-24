@@ -31,13 +31,11 @@ import GdkPixbuf from "gi://GdkPixbuf";
 import GnomeDesktop from "gi://GnomeDesktop";
 import {
   rgbToHsl,
-  _getRelativeLuminance,
-  _getContrastRatio,
   _adjustContrast,
-  toHex,
 } from "../utils/colorUtils.js";
 import { throwIfCancelled, isCancelledError } from "../utils/cancellation.js";
 import { getColorCache, writeColorCacheFile } from "../utils/cacheUtils.js";
+import { ColorSelector } from "./colorSelector.js";
 
 const thumbnailFactory = GnomeDesktop.DesktopThumbnailFactory.new(
   GnomeDesktop.DesktopThumbnailSize.LARGE,
@@ -96,7 +94,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._bgSettings = bgSettings;
     this._interfaceSettings = interfaceSettings;
 
-    this._manualColor = false;
     this._lastWallpaperUri = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
@@ -143,46 +140,32 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._previewPicture.add_css_class("wallpaper-preview");
     this._previewContainer.append(this._previewPicture);
 
-    this._colorsRow = new Adw.ActionRow();
-
-    this._mainColorBox = new Adw.WrapBox({
-      child_spacing: 12,
-      line_spacing: 12,
-      align: 0.5,
-      margin_top: 12,
-      margin_bottom: 12,
-      line_homogeneous: true,
-      margin_start: 12,
-      margin_end: 12,
+    this._tintSelector = new ColorSelector({
+      title: _("Window Tint Color"),
+      settings: this._settings,
+      interfaceSettings: this._interfaceSettings,
+      colorKey: "tint-color",
+      gnomeColorsKey: "gnome-tint-colors",
+      customFlagKey: "custom-tint-color",
+      cacheKey: "persistentTintColor",
+      syncInterfaceAccent: false,
+      runOperation: (fn) => this._runOperation(fn),
     });
+    this.add(this._tintSelector);
 
-    this._moreColors = new Adw.ExpanderRow({
-      title: _("Additional colors"),
+    this._accentSelector = new ColorSelector({
+      title: _("Accent Color"),
+      settings: this._settings,
+      interfaceSettings: this._interfaceSettings,
+      colorKey: "accent-color",
+      gnomeColorsKey: "gnome-colors",
+      customFlagKey: "custom-color",
+      cacheKey: "persistentAccentColor",
+      legacyCacheKey: "persistentColor",
+      syncInterfaceAccent: true,
+      runOperation: (fn) => this._runOperation(fn),
     });
-
-    this._moreColorBox = new Adw.WrapBox({
-      child_spacing: 12,
-      line_spacing: 12,
-      align: 0.5,
-      margin_top: 12,
-      margin_bottom: 12,
-      line_homogeneous: true,
-      margin_start: 12,
-      margin_end: 12,
-    });
-
-    const colorRowWrapper = new Gtk.ListBoxRow({
-      activatable: false,
-      focusable: false,
-      selectable: false,
-      child: this._moreColorBox,
-    });
-
-    this._moreColors.add_row(colorRowWrapper);
-    this._colorsRow.set_child(this._mainColorBox);
-
-    wallpaperGroup.add(this._colorsRow);
-    wallpaperGroup.add(this._moreColors);
+    this.add(this._accentSelector);
 
     const addButtonBox = new Gtk.Box({
       orientation: Gtk.Orientation.HORIZONTAL,
@@ -261,9 +244,24 @@ export class WallpaperPage extends Adw.PreferencesPage {
   _setupSignals() {
     this._settingsId = this._settings.connect("changed::gnome-colors", () => {
       this._runOperation(async (cancellable) => {
-        await this._updateWallpaperUI(cancellable);
+        await this._renderColorUI(this._lastWallpaperUri, cancellable, {
+          updateTint: false,
+          updateAccent: true,
+        });
       });
     });
+
+    this._tintSettingsId = this._settings.connect(
+      "changed::gnome-tint-colors",
+      () => {
+        this._runOperation(async (cancellable) => {
+          await this._renderColorUI(this._lastWallpaperUri, cancellable, {
+            updateTint: true,
+            updateAccent: false,
+          });
+        });
+      },
+    );
 
     this._persistentChoicesId = this._settings.connect(
       "changed::persistent-choices",
@@ -298,6 +296,7 @@ export class WallpaperPage extends Adw.PreferencesPage {
 
   _onDestroy() {
     if (this._settingsId) this._settings.disconnect(this._settingsId);
+    if (this._tintSettingsId) this._settings.disconnect(this._tintSettingsId);
     if (this._persistentChoicesId)
       this._settings.disconnect(this._persistentChoicesId);
     if (this._bgChangedId1) this._bgSettings.disconnect(this._bgChangedId1);
@@ -313,24 +312,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._cancellable?.cancel();
     this._cancellable = null;
     this._opChain = Promise.resolve();
-  }
-
-  _applyTheme() {
-    const hex = this._settings.get_string("accent-color");
-    const rgba = new Gdk.RGBA();
-    rgba.parse(hex);
-
-    if (this._manualColorBtn) {
-      if (this._manualColor) {
-        this._manualColorBtn.add_css_class("active");
-      } else {
-        this._manualColorBtn.remove_css_class("active");
-      }
-    }
-
-    if (this._wallpaperButtons) {
-      this._wallpaperButtons.forEach((item) => item.updateStyle(hex));
-    }
   }
 
   _setWallpaper(uriDark, uriLight) {
@@ -852,22 +833,6 @@ export class WallpaperPage extends Adw.PreferencesPage {
   }
 
   async _getColorsList(uri, cancellable = null) {
-    const colorsGnome = [
-      "blue",
-      "teal",
-      "green",
-      "yellow",
-      "orange",
-      "red",
-      "pink",
-      "purple",
-      "slate",
-    ];
-
-    if (this._settings.get_boolean("gnome-colors")) {
-      return colorsGnome;
-    }
-
     try {
       let activeUri = uri;
       if (!activeUri) {
@@ -893,7 +858,11 @@ export class WallpaperPage extends Adw.PreferencesPage {
     }
   }
 
-  async _renderColorUI(uri, cancellable = null) {
+  async _renderColorUI(
+    uri,
+    cancellable = null,
+    { updateTint = true, updateAccent = true } = {},
+  ) {
     if (!uri) {
       const colorScheme = this._interfaceSettings.get_string("color-scheme");
       uri =
@@ -906,291 +875,51 @@ export class WallpaperPage extends Adw.PreferencesPage {
       }
     }
 
-    let colors = [];
-    const isGnomeColor = this._settings.get_boolean("gnome-colors");
+    const needWallpaperColors =
+      (updateTint && !this._settings.get_boolean("gnome-tint-colors")) ||
+      (updateAccent && !this._settings.get_boolean("gnome-colors"));
+
+    let wallpaperColors = [];
     let cached = null;
 
-    if (isGnomeColor) {
-      colors = await this._getColorsList(uri, cancellable);
-    } else {
+    if (needWallpaperColors) {
       const colorCache = await getColorCache(cancellable);
       cached = uri ? colorCache[uri] : null;
 
       if (cached?.all_colors) {
-        colors = cached.all_colors;
+        wallpaperColors = cached.all_colors;
       } else {
-        colors = await this._getColorsList(uri, cancellable);
+        wallpaperColors = await this._getColorsList(uri, cancellable);
 
-        if (colors && colors.length > 0 && uri) {
-          await writeColorCacheFile(uri, { all_colors: colors }, cancellable);
+        if (wallpaperColors && wallpaperColors.length > 0 && uri) {
+          await writeColorCacheFile(
+            uri,
+            { all_colors: wallpaperColors },
+            cancellable,
+          );
         }
       }
     }
 
     throwIfCancelled(cancellable);
 
-    if (this._mainColorBox) {
-      while (this._mainColorBox.get_first_child()) {
-        this._mainColorBox.remove(this._mainColorBox.get_first_child());
-      }
-    }
-
-    if (this._moreColorBox) {
-      while (this._moreColorBox.get_first_child()) {
-        this._moreColorBox.remove(this._moreColorBox.get_first_child());
-      }
-    }
-
-    if (!colors || colors.length === 0) {
-      this._colorsRow.set_subtitle(_("Unable to load colors."));
-      this._moreColors.set_visible(false);
-      return;
-    }
-
     const wallpaperChanged = this._lastWallpaperUri !== uri;
     this._lastWallpaperUri = uri;
 
-    this._colorsRow.set_subtitle("");
-    this._wallpaperButtons = [];
+    const renderParams = {
+      uri,
+      wallpaperColors,
+      cached,
+      wallpaperChanged,
+      cancellable,
+    };
 
-    const maxMainColors = isGnomeColor ? colors.length : 8;
-    this._moreColors.set_visible(colors.length > maxMainColors);
-
-    let currentColor = isGnomeColor
-      ? this._interfaceSettings.get_string("accent-color")
-      : this._settings.get_string("accent-color");
-
-    if (!isGnomeColor) {
-      const isPersistentChoice =
-        this._settings.get_boolean("persistent-choices");
-
-      if (wallpaperChanged) {
-        if (isPersistentChoice && cached?.persistentColor) {
-          currentColor = cached.persistentColor;
-        } else {
-          currentColor = colors[0];
-
-          if (!isPersistentChoice && cached?.persistentColor && uri) {
-            await writeColorCacheFile(
-              uri,
-              { persistentColor: null },
-              cancellable,
-            );
-            cached.persistentColor = null;
-          }
-        }
-
-        if (this._settings.get_string("accent-color") !== currentColor) {
-          this._settings.set_string("accent-color", currentColor);
-        }
-      } else {
-        if (isPersistentChoice && uri && currentColor) {
-          if (cached?.persistentColor !== currentColor) {
-            await writeColorCacheFile(
-              uri,
-              { persistentColor: currentColor },
-              cancellable,
-            );
-            if (cached) cached.persistentColor = currentColor;
-          }
-        } else if (!isPersistentChoice && cached?.persistentColor && uri) {
-          await writeColorCacheFile(
-            uri,
-            { persistentColor: null },
-            cancellable,
-          );
-          if (cached) cached.persistentColor = null;
-        }
-      }
-
-      const currentLower = currentColor ? currentColor.toLowerCase() : "";
-      this._manualColor = !colors.some((c) => c.toLowerCase() === currentLower);
-    } else {
-      this._manualColor = false;
-      const currentLower = currentColor ? currentColor.toLowerCase() : "";
-      if (!colors.some((c) => c.toLowerCase() === currentLower)) {
-        currentColor = colors[0];
-        this._interfaceSettings.set_string("accent-color", currentColor);
-      }
+    if (updateTint) {
+      await this._tintSelector.render(renderParams);
     }
-
-    const iconEdit = new Gtk.Image({
-      icon_name: "edit-color-symbolic",
-      valign: Gtk.Align.CENTER,
-      halign: Gtk.Align.CENTER,
-    });
-
-    this._manualColorBtn = new Gtk.Button({
-      valign: Gtk.Align.CENTER,
-      halign: Gtk.Align.CENTER,
-      child: iconEdit,
-    });
-
-    this._manualColorBtn.add_css_class("custom-color-btn");
-
-    if (this._manualColor) {
-      this._manualColorBtn.add_css_class("active");
-    } else {
-      this._manualColorBtn.remove_css_class("active");
+    if (updateAccent) {
+      await this._accentSelector.render(renderParams);
     }
-
-    const colorDialog = new Gtk.ColorDialog({
-      with_alpha: false,
-      title: _("Select Color"),
-    });
-
-    this._manualColorBtn.connect("clicked", () => {
-      const currentHex = this._settings.get_string("accent-color");
-      const initialRgba = new Gdk.RGBA();
-      initialRgba.parse(currentHex || "#3584e4");
-
-      colorDialog.choose_rgba(
-        this.get_root(),
-        initialRgba,
-        null,
-        (dialog, res) => {
-          let rgba;
-          try {
-            rgba = dialog.choose_rgba_finish(res);
-          } catch (e) {
-            return;
-          }
-
-          if (!rgba) return;
-
-          const hex = `#${toHex(rgba.red)}${toHex(rgba.green)}${toHex(rgba.blue)}`;
-          this._runOperation(async (cancellable) => {
-            this._manualColor = true;
-            this._settings.set_string("accent-color", hex);
-            this._settings.set_boolean("custom-color", true);
-            const isPersistentChoice =
-              this._settings.get_boolean("persistent-choices");
-
-            if (uri) {
-              await writeColorCacheFile(
-                uri,
-                { persistentColor: isPersistentChoice ? hex : null },
-                cancellable,
-              );
-            }
-
-            this._applyTheme();
-          });
-        },
-      );
-    });
-
-    colors.forEach((hexColor, index) => {
-      let btn = new Gtk.Button({
-        valign: Gtk.Align.CENTER,
-        halign: Gtk.Align.CENTER,
-      });
-
-      let cssProvider = new Gtk.CssProvider();
-
-      const updateButtonStyle = () => {
-        let color = isGnomeColor ? `var(--accent-${hexColor})` : hexColor;
-
-        const activeHex = this._settings
-          .get_string("accent-color")
-          ?.toLowerCase();
-        const itemHex = hexColor.toLowerCase();
-
-        const isActive = isGnomeColor
-          ? this._interfaceSettings
-              .get_string("accent-color")
-              ?.toLowerCase() === itemHex
-          : !this._manualColor && activeHex === itemHex;
-
-        let cssString = isActive
-          ? `button,  
-               button:active,  
-               button:focus:active {  
-                   background-color: ${color};  
-                   min-width: 20px;  
-                   min-height: 20px;  
-                   border-radius: 50%;  
-                   margin: 6px;  
-                   border: none;  
-                   padding: 0px;  
-                   outline: 3px solid ${color};  
-                   outline-offset: 3px;  
-                   box-shadow: none;  
-                 }  
-                 button:focus {  
-                   outline: 3px solid alpha(${color}, 0.7);  
-                   outline-offset: 3px;  
-                 }`
-          : `button,  
-               button:active,  
-               button:focus:active {  
-                   background-color: ${color};  
-                   min-width: 32px;  
-                   min-height: 32px;  
-                   border-radius: 50%;  
-                   margin: 0px;  
-                   border: none;  
-                   padding: 0px;  
-                   outline: none;  
-                   box-shadow: none;  
-                 }  
-                 button:focus {  
-                   min-width: 20px;  
-                   min-height: 20px;  
-                   margin: 6px;  
-                   border: none;  
-                   padding: 0px;  
-                   outline: 3px solid alpha(${color}, 0.7);  
-                   outline-offset: 3px;  
-                   box-shadow: none;  
-                 }`;
-        cssProvider.load_from_string(cssString);
-      };
-
-      updateButtonStyle();
-      this._wallpaperButtons.push({ updateStyle: updateButtonStyle });
-
-      btn
-        .get_style_context()
-        .add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-      btn.connect("clicked", () => {
-        this._runOperation(async (cancellable) => {
-          this._manualColor = false;
-          this._settings.set_boolean("custom-color", true);
-          const isPersistentChoice =
-            this._settings.get_boolean("persistent-choices");
-
-          if (uri) {
-            await writeColorCacheFile(
-              uri,
-              { persistentColor: isPersistentChoice ? hexColor : null },
-              cancellable,
-            );
-          }
-
-          if (isGnomeColor) {
-            this._interfaceSettings.set_string("accent-color", hexColor);
-          } else {
-            this._settings.set_string("accent-color", hexColor);
-          }
-
-          this._applyTheme();
-        });
-      });
-
-      if (index < maxMainColors) {
-        this._mainColorBox.append(btn);
-      } else {
-        this._moreColorBox.append(btn);
-      }
-    });
-
-    if (!isGnomeColor) {
-      this._mainColorBox.append(this._manualColorBtn);
-    }
-
-    this._applyTheme();
   }
 
   _getWallpaperColorsAsync(uri, cancellable = null) {

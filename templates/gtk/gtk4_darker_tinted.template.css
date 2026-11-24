@@ -25,19 +25,19 @@
  * ========================================= */
 @media (prefers-color-scheme: light) {
     /* Base Variables */
-    @define-color window_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color view_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color headerbar_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color headerbar_backdrop_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color popover_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color dialog_bg_color mix(#fafafb, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color card_bg_color mix(#ffffff, @accent_bg_color, @@TINT_STRENGTH_CARD@@);
-    @define-color sidebar_bg_color mix(#ebebed, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color sidebar_backdrop_color mix(#f2f2f4, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color sidebar_border_color mix(rgba(0, 0, 3, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_bg_color mix(#f3f3f5, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @accent_bg_color, @@TINT_STRENGTH@@);
-    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @accent_bg_color, @@TINT_STRENGTH@@);
+    @define-color window_bg_color mix(#fafafb, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color view_bg_color mix(#ffffff, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color headerbar_bg_color mix(#ffffff, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color headerbar_backdrop_color mix(#fafafb, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color popover_bg_color mix(#ffffff, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color dialog_bg_color mix(#fafafb, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color card_bg_color mix(#ffffff, @chromaleon_tint_color, @@TINT_STRENGTH_CARD@@);
+    @define-color sidebar_bg_color mix(#ebebed, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color sidebar_backdrop_color mix(#f2f2f4, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color sidebar_border_color mix(rgba(0, 0, 3, 0.07), @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_bg_color mix(#f3f3f5, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_backdrop_color mix(#f6f6fa, @chromaleon_tint_color, @@TINT_STRENGTH@@);
+    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.07), @chromaleon_tint_color, @@TINT_STRENGTH@@);
 
     /* Specific Element Overrides (Light) */
     @define-color panel_bg_color @window_bg_color;
@@ -64,19 +64,19 @@
  * ========================================= */
 @media (prefers-color-scheme: dark) {
     /* Base Variables */
-    @define-color window_bg_color mix(#111113, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color view_bg_color mix(#0e0e10, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color headerbar_bg_color mix(#171719, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color headerbar_backdrop_color mix(#111113, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color popover_bg_color mix(#1b1b1d, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color dialog_bg_color mix(#1b1b1d, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_bg_color mix(#171719, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_backdrop_color mix(#141416, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_bg_color mix(#141416, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_backdrop_color mix(#121214, @accent_bg_color, @@TINT_STRENGTH_DARK@@);
-    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @accent_bg_color, @@TINT_STRENGTH_DARK@@);
+    @define-color window_bg_color mix(#111113, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color view_bg_color mix(#0e0e10, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color headerbar_bg_color mix(#171719, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color headerbar_backdrop_color mix(#111113, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color popover_bg_color mix(#1b1b1d, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color dialog_bg_color mix(#1b1b1d, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color card_bg_color mix(rgba(255, 255, 255, 0.08), @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_bg_color mix(#171719, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_backdrop_color mix(#141416, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color sidebar_border_color mix(rgba(0, 0, 0, 0.36), @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_bg_color mix(#141416, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_backdrop_color mix(#121214, @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
+    @define-color secondary_sidebar_border_color mix(rgba(0, 0, 0, 0.25), @chromaleon_tint_color, @@TINT_STRENGTH_DARK@@);
 
     /* Specific Element Overrides (Dark) */
     @define-color panel_bg_color @window_bg_color;
@@ -105,7 +105,7 @@
 /* Force toasts to always use the dark base with white text
    to match Nautilus's native high-contrast alert style. */
 toast {
-    background-color: mix(#28282a, @accent_bg_color, @@TINT_STRENGTH@@);
+    background-color: mix(#28282a, @chromaleon_tint_color, @@TINT_STRENGTH@@);
     color: #ffffff;
 }
 
@@ -117,4 +117,4 @@ toggle:checked {
     background-color: rgba(0, 0, 0, 0);
 }
 
-banner { --banner-color: mix(#3e3e42, @accent_bg_color, @@TINT_STRENGTH@@); }
+banner { --banner-color: mix(#3e3e42, @chromaleon_tint_color, @@TINT_STRENGTH@@); }

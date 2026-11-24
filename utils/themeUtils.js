@@ -36,7 +36,7 @@ const REGEX_MARKER =
   /\/\* CustomAccentExtension Start \*\/[\s\S]*?\/\* CustomAccentExtension End \*\/\n?/g;
 const START_MARKER = "/* CustomAccentExtension Start */";
 const END_MARKER = "/* CustomAccentExtension End */";
-const GNOME_ACCENTS_HEX = {
+export const GNOME_ACCENTS_HEX = {
   blue: "#3584e4",
   teal: "#2190a4",
   green: "#3a944a",
@@ -47,6 +47,12 @@ const GNOME_ACCENTS_HEX = {
   purple: "#9141ac",
   slate: "#6f8396",
 };
+
+export function resolveColorHex(color) {
+  if (!color) return "#785ef0";
+  const lower = color.toLowerCase();
+  return GNOME_ACCENTS_HEX[lower] ?? color;
+}
 
 const getConvertedStrength = (strength, decimal, pct = 10) => {
   if (decimal) {
@@ -125,7 +131,8 @@ export function removeGtkStylesheet() {
 
 export async function updateShellStylesheet(
   extensionPath,
-  color,
+  accentColor,
+  tintColor,
   tinted,
   darker,
   gnomeColors,
@@ -136,15 +143,16 @@ export async function updateShellStylesheet(
 ) {
   throwIfCancelled(cancellable);
 
-  if (gnomeColors) color = "-st-accent-color";
-
   const homeDir = GLib.get_home_dir();
 
-  let accentValue = gnomeColors ? "-st-accent-color" : color;
+  const accentValue = gnomeColors
+    ? "-st-accent-color"
+    : resolveColorHex(accentColor);
+  const tintValue = resolveColorHex(tintColor);
 
   const panelStyle = (colorBg, pctBg, colorShadow, pctShadow) =>
     tintPanel
-      ? `#panel {\n      background-color: st-mix(${accentValue}, ${colorBg}, ${pctBg});\n      box-shadow: inset 0 -0.5px 0 0 st-mix(${accentValue}, ${colorShadow}, ${pctShadow}%);\n    }\n\n`
+      ? `#panel {\n      background-color: st-mix(${tintValue}, ${colorBg}, ${pctBg});\n      box-shadow: inset 0 -0.5px 0 0 st-mix(${tintValue}, ${colorShadow}, ${pctShadow}%);\n    }\n\n`
       : "";
 
   let cssPanel = "";
@@ -245,6 +253,7 @@ export async function updateShellStylesheet(
       let textCustom = new TextDecoder().decode(contentsCustom);
 
       let cssLight = textLight
+        .replace(/@@TINT@@/g, tintValue)
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
         .replace(/@@PANEL@@/g, cssPanel)
@@ -254,6 +263,7 @@ export async function updateShellStylesheet(
         );
 
       let cssDark = textDark
+        .replace(/@@TINT@@/g, tintValue)
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
         .replace(/@@PANEL@@/g, darker ? cssPanelDarker : cssPanelDark)
@@ -263,6 +273,7 @@ export async function updateShellStylesheet(
         );
 
       let customStylesheet = textCustom
+        .replace(/@@TINT@@/g, tintValue)
         .replace(/@@ACCENT@@/g, accentValue)
         .replace(/-st-accent-color/g, accentValue)
         .replace(
@@ -298,7 +309,8 @@ export async function updateShellStylesheet(
 
 export async function updateGtkStylesheet(
   extensionPath,
-  color,
+  accentColor,
+  tintColor,
   tinted,
   isDark,
   tintGTK3,
@@ -309,6 +321,8 @@ export async function updateGtkStylesheet(
 ) {
   throwIfCancelled(cancellable);
 
+  const accentHex = resolveColorHex(accentColor);
+  const tintHex = resolveColorHex(tintColor);
   const configDir = GLib.get_user_config_dir();
   const cssBlock = `${START_MARKER}\n@import url("custom-accent.css");\n${END_MARKER}`;
 
@@ -338,7 +352,11 @@ export async function updateGtkStylesheet(
       parentDir.make_directory_with_parents(null);
     }
 
-    let accentContent;
+    const accentBlock = gnomeColors
+      ? ""
+      : `@define-color accent_bg_color ${accentHex};\n@define-color accent_color oklab(from ${accentHex} min(l, 0.5) a b);\n`;
+
+    let tintBlock = "";
     if (tinted) {
       const templateFile = darker ? tintedGtk4DarkerStyle : tintedGtk4Style;
       const [contents] = await templateFile.load_contents_async(cancellable);
@@ -356,14 +374,10 @@ export async function updateGtkStylesheet(
           /@@TINT_STRENGTH_CARD@@/g,
           getConvertedStrength(tintStrength, true, 0.06),
         );
-      accentContent = gnomeColors
-        ? css
-        : `@define-color accent_bg_color ${color};\n@define-color accent_color oklab(from ${color} min(l, 0.5) a b);\n\n${css}`;
-    } else {
-      accentContent = gnomeColors
-        ? ""
-        : `@define-color accent_bg_color ${color};\n@define-color accent_color oklab(from ${color} min(l, 0.5) a b);\n`;
+      tintBlock = `@define-color chromaleon_tint_color ${tintHex};\n\n${css}`;
     }
+
+    const accentContent = [accentBlock, tintBlock].filter(Boolean).join("\n");
 
     let existing = "";
     if (mainFile.query_exists(null)) {
@@ -390,7 +404,11 @@ export async function updateGtkStylesheet(
       parentDir.make_directory_with_parents(null);
     }
 
-    let accentContent;
+    const accentBlock = gnomeColors
+      ? ""
+      : `@define-color accent_bg_color ${accentHex};\n@define-color accent_color mix(${accentHex},${isDark ? "white,0.4" : "black,0.17"});\n`;
+
+    let tintBlock = "";
     if (tinted && tintGTK3) {
       const templateFile = isDark
         ? darker
@@ -413,10 +431,10 @@ export async function updateGtkStylesheet(
           /@@TINT_STRENGTH_CARD@@/g,
           getConvertedStrength(tintStrength, true, 0.06),
         );
-      accentContent = `@define-color accent_bg_color ${color};\n@define-color accent_color mix(${color},${isDark ? "white,0.4" : "black,0.17"});\n\n${css}`;
-    } else {
-      accentContent = `@define-color accent_bg_color ${color};\n@define-color accent_color mix(${color},${isDark ? "white,0.4" : "black,0.17"});\n`;
+      tintBlock = `@define-color chromaleon_tint_color ${tintHex};\n\n${css}`;
     }
+
+    const accentContent = [accentBlock, tintBlock].filter(Boolean).join("\n");
 
     let existing = "";
     if (mainFile.query_exists(null)) {
