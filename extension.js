@@ -51,6 +51,7 @@ export default class ChromaLeon extends Extension {
     this._a11ySettings = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
+    this._updatingColors = false;
     this._customStylesheet = null;
     this._lastErrorId = null;
     this._notifSource = null;
@@ -110,18 +111,48 @@ export default class ChromaLeon extends Extension {
 
     this._settings.connectObject(
       "changed::accent-color",
-      () =>
+      () => {
+        if (this._updatingColors) return;
         this._runOperation(async (cancellable) => {
           await this._updateStyles(
             this._settings.get_boolean("recolor-folders"),
             true,
             cancellable,
           );
-        }),
+        });
+      },
+      "changed::tint-color",
+      () => {
+        if (this._updatingColors) return;
+        this._runOperation(async (cancellable) => {
+          if (this._settings.get_boolean("tint-shell")) {
+            await this._updateShellStyles(cancellable);
+            throwIfCancelled(cancellable);
+          }
+          if (this._settings.get_boolean("tint-apps")) {
+            await this._updateAppStyles(cancellable);
+            throwIfCancelled(cancellable);
+            await this._reloadGtkStylesheet(cancellable);
+          }
+        });
+      },
       "changed::gnome-colors",
       () =>
         this._runOperation(async (cancellable) => {
           this._settings.set_boolean("custom-color", false);
+          if (this._settings.get_boolean("gnome-colors")) {
+            const nativeAccent =
+              this._interfaceSettings.get_string("accent-color");
+            if (nativeAccent) {
+              this._setColorKey("accent-color", nativeAccent);
+            }
+          } else {
+            await this._applyWallpaperColorsInternal(null, cancellable, {
+              applyAccent: true,
+              applyTint: false,
+            });
+          }
+          throwIfCancelled(cancellable);
           await this._updateShellStyles(cancellable);
           throwIfCancelled(cancellable);
           await this._updateAppStyles(cancellable);
@@ -129,6 +160,35 @@ export default class ChromaLeon extends Extension {
           await this._reloadGtkStylesheet(cancellable);
           throwIfCancelled(cancellable);
           await this._updateIconPack(cancellable);
+        }),
+      "changed::gnome-tint-colors",
+      () =>
+        this._runOperation(async (cancellable) => {
+          this._settings.set_boolean("custom-tint-color", false);
+          if (this._settings.get_boolean("gnome-tint-colors")) {
+            const current = this._settings.get_string("tint-color");
+            if (
+              !current ||
+              !Object.hasOwn(ThemeUtils.GNOME_ACCENTS_HEX, current.toLowerCase())
+            ) {
+              this._setColorKey("tint-color", "blue");
+            }
+          } else {
+            await this._applyWallpaperColorsInternal(null, cancellable, {
+              applyAccent: false,
+              applyTint: true,
+            });
+          }
+          throwIfCancelled(cancellable);
+          if (this._settings.get_boolean("tint-shell")) {
+            await this._updateShellStyles(cancellable);
+            throwIfCancelled(cancellable);
+          }
+          if (this._settings.get_boolean("tint-apps")) {
+            await this._updateAppStyles(cancellable);
+            throwIfCancelled(cancellable);
+            await this._reloadGtkStylesheet(cancellable);
+          }
         }),
       "changed::tint-shell",
       () => this._markDirty("shell"),
@@ -194,6 +254,7 @@ export default class ChromaLeon extends Extension {
 
       this._runOperation(async (cancellable) => {
         this._settings.set_boolean("custom-color", false);
+        this._settings.set_boolean("custom-tint-color", false);
         await this._autoApplyWallpaperColor(null, cancellable);
       });
       return GLib.SOURCE_REMOVE;
@@ -313,9 +374,10 @@ export default class ChromaLeon extends Extension {
   async _applyInitialStyles() {
     try {
       const gnomeColors = this._settings.get_boolean("gnome-colors");
+      const tintApps = this._settings.get_boolean("tint-apps");
       await this._updateShellStyles(null);
       await this._updateAppStyles(null);
-      if (!gnomeColors) await this._reloadGtkStylesheet(null);
+      if (!gnomeColors || tintApps) await this._reloadGtkStylesheet(null);
     } catch (e) {
       if (!isCancelledError(e)) {
         this._settings?.set_string("last-error", e.message ?? String(e));
@@ -393,44 +455,123 @@ export default class ChromaLeon extends Extension {
     }
   }
 
-  async _autoApplyWallpaperColor(color = null, cancellable = null) {
+  _setColorKey(key, value) {
+    if (!value || this._settings.get_string(key) === value) return false;
+    this._updatingColors = true;
+    try {
+      this._settings.set_string(key, value);
+    } finally {
+      this._updatingColors = false;
+    }
+    return true;
+  }
+
+  async _applyWallpaperColorsInternal(
+    color = null,
+    cancellable = null,
+    { applyAccent = true, applyTint = true } = {},
+  ) {
     throwIfCancelled(cancellable);
 
-    if (
-      this._settings.get_boolean("custom-color") &&
-      !this._settings.get_boolean("persistent-choices")
-    ) {
-      await this._updateAppStyles(cancellable);
-      return;
+    const persistentChoices = this._settings.get_boolean("persistent-choices");
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
+    const gnomeTintColors = this._settings.get_boolean("gnome-tint-colors");
+
+    const shouldUpdateAccent =
+      applyAccent &&
+      !gnomeColors &&
+      !(this._settings.get_boolean("custom-color") && !persistentChoices);
+    const shouldUpdateTint =
+      applyTint &&
+      !gnomeTintColors &&
+      !(this._settings.get_boolean("custom-tint-color") && !persistentChoices);
+
+    if (!shouldUpdateAccent && !shouldUpdateTint) {
+      return { accentChanged: false, tintChanged: false };
     }
 
-    if (!color) {
+    let cached = null;
+    let vibrant = color;
+
+    if (!vibrant) {
       const uri = this._getWallpaperUri();
       const colorCache = await getColorCache(cancellable);
-      const cached = colorCache[uri];
+      cached = colorCache[uri] ?? null;
 
-      if (
-        cached?.persistentColor &&
-        this._settings.get_boolean("persistent-choices")
-      ) {
-        color = cached.persistentColor;
-      } else if (cached?.vibrant) {
-        color = cached.vibrant;
-      } else {
-        color = await ColorUtils.calculateVibrantColor(uri);
+      const needsVibrant =
+        (shouldUpdateAccent &&
+          !(persistentChoices && (cached?.persistentAccentColor || cached?.persistentColor))) ||
+        (shouldUpdateTint && !(persistentChoices && cached?.persistentTintColor));
 
-        if (color) {
-          await writeColorCacheFile(uri, { vibrant: color }, cancellable);
+      if (needsVibrant) {
+        if (cached?.vibrant) {
+          vibrant = cached.vibrant;
+        } else {
+          vibrant = await ColorUtils.calculateVibrantColor(uri);
+          if (vibrant) {
+            await writeColorCacheFile(uri, { vibrant }, cancellable);
+          }
         }
       }
     }
 
     throwIfCancelled(cancellable);
 
-    const currentColor = this._settings.get_string("accent-color");
+    let accentChanged = false;
+    if (shouldUpdateAccent) {
+      const nextAccent =
+        color ??
+        (persistentChoices
+          ? (cached?.persistentAccentColor ?? cached?.persistentColor)
+          : null) ??
+        vibrant;
+      accentChanged = this._setColorKey("accent-color", nextAccent);
+    }
 
-    if (color !== currentColor) {
-      this._settings.set_string("accent-color", color);
+    let tintChanged = false;
+    if (shouldUpdateTint) {
+      const nextTint =
+        color ??
+        (persistentChoices ? cached?.persistentTintColor : null) ??
+        vibrant;
+      tintChanged = this._setColorKey("tint-color", nextTint);
+    }
+
+    return { accentChanged, tintChanged };
+  }
+
+  async _autoApplyWallpaperColor(color = null, cancellable = null) {
+    throwIfCancelled(cancellable);
+
+    const { accentChanged, tintChanged } =
+      await this._applyWallpaperColorsInternal(color, cancellable);
+
+    throwIfCancelled(cancellable);
+
+    const gnomeColors = this._settings.get_boolean("gnome-colors");
+    const tintShell = this._settings.get_boolean("tint-shell");
+    const tintApps = this._settings.get_boolean("tint-apps");
+
+    if (accentChanged) {
+      await this._updateStyles(
+        this._settings.get_boolean("recolor-folders"),
+        true,
+        cancellable,
+      );
+      if (gnomeColors && tintChanged && tintApps) {
+        throwIfCancelled(cancellable);
+        await this._reloadGtkStylesheet(cancellable);
+      }
+    } else if (tintChanged) {
+      if (tintShell) {
+        await this._updateShellStyles(cancellable);
+        throwIfCancelled(cancellable);
+      }
+      if (tintApps) {
+        await this._updateAppStyles(cancellable);
+        throwIfCancelled(cancellable);
+        await this._reloadGtkStylesheet(cancellable);
+      }
     } else {
       await this._updateAppStyles(cancellable);
     }
@@ -492,7 +633,8 @@ export default class ChromaLeon extends Extension {
   async _updateShellStyles(cancellable) {
     throwIfCancelled(cancellable);
 
-    const color = this._settings.get_string("accent-color");
+    const accentColor = this._settings.get_string("accent-color");
+    const tintColor = this._settings.get_string("tint-color");
     const darker = this._settings.get_boolean("darker");
     const tintShell = this._settings.get_boolean("tint-shell");
     const gnomeColors = this._settings.get_boolean("gnome-colors");
@@ -505,7 +647,8 @@ export default class ChromaLeon extends Extension {
 
     await ThemeUtils.updateShellStylesheet(
       this.path,
-      color,
+      accentColor,
+      tintColor,
       tintShell,
       darker,
       gnomeColors,
@@ -569,7 +712,8 @@ export default class ChromaLeon extends Extension {
   async _updateAppStyles(cancellable) {
     throwIfCancelled(cancellable);
 
-    const color = this._settings.get_string("accent-color");
+    const accentColor = this._settings.get_string("accent-color");
+    const tintColor = this._settings.get_string("tint-color");
     const gtk3 = this._settings.get_boolean("tint-gtk3");
     const darker = this._settings.get_boolean("darker");
     const isDark =
@@ -580,7 +724,8 @@ export default class ChromaLeon extends Extension {
 
     await ThemeUtils.updateGtkStylesheet(
       this.path,
-      color,
+      accentColor,
+      tintColor,
       tintApps,
       isDark,
       gtk3,
