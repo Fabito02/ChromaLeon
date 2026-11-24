@@ -66,51 +66,51 @@ stage {
 .icon-button, .login-dialog-button.next-button, .login-dialog-button.a11y-button, .login-dialog-button.cancel-button, .login-dialog-button.switch-user-button, .login-dialog-button.login-dialog-auth-menu-button, .login-dialog-button.login-dialog-session-list-button, .screenshot-ui-show-pointer-button, .message .message-header .message-expand-button,
 .message .message-header .message-close-button, .message-notification-group .message-collapse-button, .calendar .calendar-month-header .pager-button, .button {
   color: #222226;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
   .icon-button:focus, .login-dialog-button.next-button:focus, .login-dialog-button.a11y-button:focus, .login-dialog-button.cancel-button:focus, .login-dialog-button.switch-user-button:focus, .login-dialog-button.login-dialog-auth-menu-button:focus, .login-dialog-button.login-dialog-session-list-button:focus, .screenshot-ui-show-pointer-button:focus, .message .message-header .message-expand-button:focus,
   .message .message-header .message-close-button:focus, .message-notification-group .message-collapse-button:focus, .calendar .calendar-month-header .pager-button:focus, .button:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 5%); }
     .icon-button:focus:hover, .login-dialog-button.next-button:focus:hover, .login-dialog-button.a11y-button:focus:hover, .login-dialog-button.cancel-button:focus:hover, .login-dialog-button.switch-user-button:focus:hover, .login-dialog-button.login-dialog-auth-menu-button:focus:hover, .login-dialog-button.login-dialog-session-list-button:focus:hover, .screenshot-ui-show-pointer-button:focus:hover, .message .message-header .message-expand-button:focus:hover,
     .message .message-header .message-close-button:focus:hover, .message-notification-group .message-collapse-button:focus:hover, .calendar .calendar-month-header .pager-button:focus:hover, .button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .icon-button:hover, .login-dialog-button.next-button:hover, .login-dialog-button.a11y-button:hover, .login-dialog-button.cancel-button:hover, .login-dialog-button.switch-user-button:hover, .login-dialog-button.login-dialog-auth-menu-button:hover, .login-dialog-button.login-dialog-session-list-button:hover, .screenshot-ui-show-pointer-button:hover, .message .message-header .message-expand-button:hover,
   .message .message-header .message-close-button:hover, .message-notification-group .message-collapse-button:hover, .calendar .calendar-month-header .pager-button:hover, .button:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
   .icon-button:insensitive, .login-dialog-button.next-button:insensitive, .login-dialog-button.a11y-button:insensitive, .login-dialog-button.cancel-button:insensitive, .login-dialog-button.switch-user-button:insensitive, .login-dialog-button.login-dialog-auth-menu-button:insensitive, .login-dialog-button.login-dialog-session-list-button:insensitive, .screenshot-ui-show-pointer-button:insensitive, .message .message-header .message-expand-button:insensitive,
   .message .message-header .message-close-button:insensitive, .message-notification-group .message-collapse-button:insensitive, .calendar .calendar-month-header .pager-button:insensitive, .button:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 3%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 3%); }
   .icon-button:selected, .login-dialog-button.next-button:selected, .login-dialog-button.a11y-button:selected, .login-dialog-button.cancel-button:selected, .login-dialog-button.switch-user-button:selected, .login-dialog-button.login-dialog-auth-menu-button:selected, .login-dialog-button.login-dialog-session-list-button:selected, .screenshot-ui-show-pointer-button:selected, .message .message-header .message-expand-button:selected,
   .message .message-header .message-close-button:selected, .message-notification-group .message-collapse-button:selected, .calendar .calendar-month-header .pager-button:selected, .button:selected, .icon-button:active, .login-dialog-button.next-button:active, .login-dialog-button.a11y-button:active, .login-dialog-button.cancel-button:active, .login-dialog-button.switch-user-button:active, .login-dialog-button.login-dialog-auth-menu-button:active, .login-dialog-button.login-dialog-session-list-button:active, .screenshot-ui-show-pointer-button:active, .message .message-header .message-expand-button:active,
   .message .message-header .message-close-button:active, .message-notification-group .message-collapse-button:active, .calendar .calendar-month-header .pager-button:active, .button:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
     .icon-button:selected:hover, .login-dialog-button.next-button:selected:hover, .login-dialog-button.a11y-button:selected:hover, .login-dialog-button.cancel-button:selected:hover, .login-dialog-button.switch-user-button:selected:hover, .login-dialog-button.login-dialog-auth-menu-button:selected:hover, .login-dialog-button.login-dialog-session-list-button:selected:hover, .screenshot-ui-show-pointer-button:selected:hover, .message .message-header .message-expand-button:selected:hover,
     .message .message-header .message-close-button:selected:hover, .message-notification-group .message-collapse-button:selected:hover, .calendar .calendar-month-header .pager-button:selected:hover, .button:selected:hover, .icon-button:active:hover, .login-dialog-button.next-button:active:hover, .login-dialog-button.a11y-button:active:hover, .login-dialog-button.cancel-button:active:hover, .login-dialog-button.switch-user-button:active:hover, .login-dialog-button.login-dialog-auth-menu-button:active:hover, .login-dialog-button.login-dialog-session-list-button:active:hover, .screenshot-ui-show-pointer-button:active:hover, .message .message-header .message-expand-button:active:hover,
     .message .message-header .message-close-button:active:hover, .message-notification-group .message-collapse-button:active:hover, .calendar .calendar-month-header .pager-button:active:hover, .button:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     .icon-button:selected:focus, .login-dialog-button.next-button:selected:focus, .login-dialog-button.a11y-button:selected:focus, .login-dialog-button.cancel-button:selected:focus, .login-dialog-button.switch-user-button:selected:focus, .login-dialog-button.login-dialog-auth-menu-button:selected:focus, .login-dialog-button.login-dialog-session-list-button:selected:focus, .screenshot-ui-show-pointer-button:selected:focus, .message .message-header .message-expand-button:selected:focus,
     .message .message-header .message-close-button:selected:focus, .message-notification-group .message-collapse-button:selected:focus, .calendar .calendar-month-header .pager-button:selected:focus, .button:selected:focus, .icon-button:active:focus, .login-dialog-button.next-button:active:focus, .login-dialog-button.a11y-button:active:focus, .login-dialog-button.cancel-button:active:focus, .login-dialog-button.switch-user-button:active:focus, .login-dialog-button.login-dialog-auth-menu-button:active:focus, .login-dialog-button.login-dialog-session-list-button:active:focus, .screenshot-ui-show-pointer-button:active:focus, .message .message-header .message-expand-button:active:focus,
     .message .message-header .message-close-button:active:focus, .message-notification-group .message-collapse-button:active:focus, .calendar .calendar-month-header .pager-button:active:focus, .button:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .icon-button:checked, .login-dialog-button.next-button:checked, .login-dialog-button.a11y-button:checked, .login-dialog-button.cancel-button:checked, .login-dialog-button.switch-user-button:checked, .login-dialog-button.login-dialog-auth-menu-button:checked, .login-dialog-button.login-dialog-session-list-button:checked, .screenshot-ui-show-pointer-button:checked, .message .message-header .message-expand-button:checked,
   .message .message-header .message-close-button:checked, .message-notification-group .message-collapse-button:checked, .calendar .calendar-month-header .pager-button:checked, .button:checked {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
     .icon-button:checked:hover, .login-dialog-button.next-button:checked:hover, .login-dialog-button.a11y-button:checked:hover, .login-dialog-button.cancel-button:checked:hover, .login-dialog-button.switch-user-button:checked:hover, .login-dialog-button.login-dialog-auth-menu-button:checked:hover, .login-dialog-button.login-dialog-session-list-button:checked:hover, .screenshot-ui-show-pointer-button:checked:hover, .message .message-header .message-expand-button:checked:hover,
     .message .message-header .message-close-button:checked:hover, .message-notification-group .message-collapse-button:checked:hover, .calendar .calendar-month-header .pager-button:checked:hover, .button:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .icon-button:checked:active, .login-dialog-button.next-button:checked:active, .login-dialog-button.a11y-button:checked:active, .login-dialog-button.cancel-button:checked:active, .login-dialog-button.switch-user-button:checked:active, .login-dialog-button.login-dialog-auth-menu-button:checked:active, .login-dialog-button.login-dialog-session-list-button:checked:active, .screenshot-ui-show-pointer-button:checked:active, .message .message-header .message-expand-button:checked:active,
     .message .message-header .message-close-button:checked:active, .message-notification-group .message-collapse-button:checked:active, .calendar .calendar-month-header .pager-button:checked:active, .button:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
 
 .calendar .calendar-day-heading, .calendar .calendar-day, .calendar .calendar-month-header .calendar-month-label, .icon-button.flat, .flat.login-dialog-button.next-button, .flat.login-dialog-button.a11y-button, .flat.login-dialog-button.cancel-button, .flat.login-dialog-button.switch-user-button, .flat.login-dialog-button.login-dialog-auth-menu-button, .flat.login-dialog-button.login-dialog-session-list-button, .flat.screenshot-ui-show-pointer-button, .message .message-header .flat.message-expand-button,
 .message .message-header .flat.message-close-button, .message-notification-group .flat.message-collapse-button, .calendar .calendar-month-header .pager-button, .button.flat {
   color: #222226;
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
   .calendar .calendar-day-heading:focus, .calendar .calendar-day:focus, .calendar .calendar-month-header .calendar-month-label:focus, .icon-button.flat:focus, .flat.login-dialog-button.next-button:focus, .flat.login-dialog-button.a11y-button:focus, .flat.login-dialog-button.cancel-button:focus, .flat.login-dialog-button.switch-user-button:focus, .flat.login-dialog-button.login-dialog-auth-menu-button:focus, .flat.login-dialog-button.login-dialog-session-list-button:focus, .flat.screenshot-ui-show-pointer-button:focus, .message .message-header .flat.message-expand-button:focus,
   .message .message-header .flat.message-close-button:focus, .message-notification-group .flat.message-collapse-button:focus, .calendar .calendar-month-header .pager-button:focus, .button.flat:focus {
     color: #222226;
@@ -118,38 +118,38 @@ stage {
     background-color: st-mix(-st-accent-color, rgba(250, 250, 251, 0.25), 5%); }
     .calendar .calendar-day-heading:focus:hover, .calendar .calendar-day:focus:hover, .calendar .calendar-month-header .calendar-month-label:focus:hover, .icon-button.flat:focus:hover, .flat.login-dialog-button.next-button:focus:hover, .flat.login-dialog-button.a11y-button:focus:hover, .flat.login-dialog-button.cancel-button:focus:hover, .flat.login-dialog-button.switch-user-button:focus:hover, .flat.login-dialog-button.login-dialog-auth-menu-button:focus:hover, .flat.login-dialog-button.login-dialog-session-list-button:focus:hover, .flat.screenshot-ui-show-pointer-button:focus:hover, .message .message-header .flat.message-expand-button:focus:hover,
     .message .message-header .flat.message-close-button:focus:hover, .message-notification-group .flat.message-collapse-button:focus:hover, .calendar .calendar-month-header .pager-button:focus:hover, .button.flat:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
   .calendar .calendar-day-heading:hover, .calendar .calendar-day:hover, .calendar .calendar-month-header .calendar-month-label:hover, .icon-button.flat:hover, .flat.login-dialog-button.next-button:hover, .flat.login-dialog-button.a11y-button:hover, .flat.login-dialog-button.cancel-button:hover, .flat.login-dialog-button.switch-user-button:hover, .flat.login-dialog-button.login-dialog-auth-menu-button:hover, .flat.login-dialog-button.login-dialog-session-list-button:hover, .flat.screenshot-ui-show-pointer-button:hover, .message .message-header .flat.message-expand-button:hover,
   .message .message-header .flat.message-close-button:hover, .message-notification-group .flat.message-collapse-button:hover, .calendar .calendar-month-header .pager-button:hover, .button.flat:hover {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
   .calendar .calendar-day-heading:insensitive, .calendar .calendar-day:insensitive, .calendar .calendar-month-header .calendar-month-label:insensitive, .icon-button.flat:insensitive, .flat.login-dialog-button.next-button:insensitive, .flat.login-dialog-button.a11y-button:insensitive, .flat.login-dialog-button.cancel-button:insensitive, .flat.login-dialog-button.switch-user-button:insensitive, .flat.login-dialog-button.login-dialog-auth-menu-button:insensitive, .flat.login-dialog-button.login-dialog-session-list-button:insensitive, .flat.screenshot-ui-show-pointer-button:insensitive, .message .message-header .flat.message-expand-button:insensitive,
   .message .message-header .flat.message-close-button:insensitive, .message-notification-group .flat.message-collapse-button:insensitive, .calendar .calendar-month-header .pager-button:insensitive, .button.flat:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
   .calendar .calendar-day-heading:selected, .calendar .calendar-day:selected, .calendar .calendar-month-header .calendar-month-label:selected, .icon-button.flat:selected, .flat.login-dialog-button.next-button:selected, .flat.login-dialog-button.a11y-button:selected, .flat.login-dialog-button.cancel-button:selected, .flat.login-dialog-button.switch-user-button:selected, .flat.login-dialog-button.login-dialog-auth-menu-button:selected, .flat.login-dialog-button.login-dialog-session-list-button:selected, .flat.screenshot-ui-show-pointer-button:selected, .message .message-header .flat.message-expand-button:selected,
   .message .message-header .flat.message-close-button:selected, .message-notification-group .flat.message-collapse-button:selected, .calendar .calendar-month-header .pager-button:selected, .button.flat:selected, .calendar .calendar-day-heading:active, .calendar .calendar-day:active, .calendar .calendar-month-header .calendar-month-label:active, .icon-button.flat:active, .flat.login-dialog-button.next-button:active, .flat.login-dialog-button.a11y-button:active, .flat.login-dialog-button.cancel-button:active, .flat.login-dialog-button.switch-user-button:active, .flat.login-dialog-button.login-dialog-auth-menu-button:active, .flat.login-dialog-button.login-dialog-session-list-button:active, .flat.screenshot-ui-show-pointer-button:active, .message .message-header .flat.message-expand-button:active,
   .message .message-header .flat.message-close-button:active, .message-notification-group .flat.message-collapse-button:active, .calendar .calendar-month-header .pager-button:active, .button.flat:active {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
     .calendar .calendar-day-heading:selected:hover, .calendar .calendar-day:selected:hover, .calendar .calendar-month-header .calendar-month-label:selected:hover, .icon-button.flat:selected:hover, .flat.login-dialog-button.next-button:selected:hover, .flat.login-dialog-button.a11y-button:selected:hover, .flat.login-dialog-button.cancel-button:selected:hover, .flat.login-dialog-button.switch-user-button:selected:hover, .flat.login-dialog-button.login-dialog-auth-menu-button:selected:hover, .flat.login-dialog-button.login-dialog-session-list-button:selected:hover, .flat.screenshot-ui-show-pointer-button:selected:hover, .message .message-header .flat.message-expand-button:selected:hover,
     .message .message-header .flat.message-close-button:selected:hover, .message-notification-group .flat.message-collapse-button:selected:hover, .calendar .calendar-month-header .pager-button:selected:hover, .button.flat:selected:hover, .calendar .calendar-day-heading:active:hover, .calendar .calendar-day:active:hover, .calendar .calendar-month-header .calendar-month-label:active:hover, .icon-button.flat:active:hover, .flat.login-dialog-button.next-button:active:hover, .flat.login-dialog-button.a11y-button:active:hover, .flat.login-dialog-button.cancel-button:active:hover, .flat.login-dialog-button.switch-user-button:active:hover, .flat.login-dialog-button.login-dialog-auth-menu-button:active:hover, .flat.login-dialog-button.login-dialog-session-list-button:active:hover, .flat.screenshot-ui-show-pointer-button:active:hover, .message .message-header .flat.message-expand-button:active:hover,
     .message .message-header .flat.message-close-button:active:hover, .message-notification-group .flat.message-collapse-button:active:hover, .calendar .calendar-month-header .pager-button:active:hover, .button.flat:active:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
     .calendar .calendar-day-heading:selected:focus, .calendar .calendar-day:selected:focus, .calendar .calendar-month-header .calendar-month-label:selected:focus, .icon-button.flat:selected:focus, .flat.login-dialog-button.next-button:selected:focus, .flat.login-dialog-button.a11y-button:selected:focus, .flat.login-dialog-button.cancel-button:selected:focus, .flat.login-dialog-button.switch-user-button:selected:focus, .flat.login-dialog-button.login-dialog-auth-menu-button:selected:focus, .flat.login-dialog-button.login-dialog-session-list-button:selected:focus, .flat.screenshot-ui-show-pointer-button:selected:focus, .message .message-header .flat.message-expand-button:selected:focus,
     .message .message-header .flat.message-close-button:selected:focus, .message-notification-group .flat.message-collapse-button:selected:focus, .calendar .calendar-month-header .pager-button:selected:focus, .button.flat:selected:focus, .calendar .calendar-day-heading:active:focus, .calendar .calendar-day:active:focus, .calendar .calendar-month-header .calendar-month-label:active:focus, .icon-button.flat:active:focus, .flat.login-dialog-button.next-button:active:focus, .flat.login-dialog-button.a11y-button:active:focus, .flat.login-dialog-button.cancel-button:active:focus, .flat.login-dialog-button.switch-user-button:active:focus, .flat.login-dialog-button.login-dialog-auth-menu-button:active:focus, .flat.login-dialog-button.login-dialog-session-list-button:active:focus, .flat.screenshot-ui-show-pointer-button:active:focus, .message .message-header .flat.message-expand-button:active:focus,
     .message .message-header .flat.message-close-button:active:focus, .message-notification-group .flat.message-collapse-button:active:focus, .calendar .calendar-month-header .pager-button:active:focus, .button.flat:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
   .calendar .calendar-day-heading:checked, .calendar .calendar-day:checked, .calendar .calendar-month-header .calendar-month-label:checked, .icon-button.flat:checked, .flat.login-dialog-button.next-button:checked, .flat.login-dialog-button.a11y-button:checked, .flat.login-dialog-button.cancel-button:checked, .flat.login-dialog-button.switch-user-button:checked, .flat.login-dialog-button.login-dialog-auth-menu-button:checked, .flat.login-dialog-button.login-dialog-session-list-button:checked, .flat.screenshot-ui-show-pointer-button:checked, .message .message-header .flat.message-expand-button:checked,
   .message .message-header .flat.message-close-button:checked, .message-notification-group .flat.message-collapse-button:checked, .calendar .calendar-month-header .pager-button:checked, .button.flat:checked {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
+    background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
     .calendar .calendar-day-heading:checked:hover, .calendar .calendar-day:checked:hover, .calendar .calendar-month-header .calendar-month-label:checked:hover, .icon-button.flat:checked:hover, .flat.login-dialog-button.next-button:checked:hover, .flat.login-dialog-button.a11y-button:checked:hover, .flat.login-dialog-button.cancel-button:checked:hover, .flat.login-dialog-button.switch-user-button:checked:hover, .flat.login-dialog-button.login-dialog-auth-menu-button:checked:hover, .flat.login-dialog-button.login-dialog-session-list-button:checked:hover, .flat.screenshot-ui-show-pointer-button:checked:hover, .message .message-header .flat.message-expand-button:checked:hover,
     .message .message-header .flat.message-close-button:checked:hover, .message-notification-group .flat.message-collapse-button:checked:hover, .calendar .calendar-month-header .pager-button:checked:hover, .button.flat:checked:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
     .calendar .calendar-day-heading:checked:active, .calendar .calendar-day:checked:active, .calendar .calendar-month-header .calendar-month-label:checked:active, .icon-button.flat:checked:active, .flat.login-dialog-button.next-button:checked:active, .flat.login-dialog-button.a11y-button:checked:active, .flat.login-dialog-button.cancel-button:checked:active, .flat.login-dialog-button.switch-user-button:checked:active, .flat.login-dialog-button.login-dialog-auth-menu-button:checked:active, .flat.login-dialog-button.login-dialog-session-list-button:checked:active, .flat.screenshot-ui-show-pointer-button:checked:active, .message .message-header .flat.message-expand-button:checked:active,
     .message .message-header .flat.message-close-button:checked:active, .message-notification-group .flat.message-collapse-button:checked:active, .calendar .calendar-month-header .pager-button:checked:active, .button.flat:checked:active {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
 
 .keyboard-brightness-level .button:checked, .quick-toggle:checked, .calendar .calendar-day.calendar-today, .icon-button.default, .default.login-dialog-button.next-button, .default.login-dialog-button.a11y-button, .default.login-dialog-button.cancel-button, .default.login-dialog-button.switch-user-button, .default.login-dialog-button.login-dialog-auth-menu-button, .default.login-dialog-button.login-dialog-session-list-button, .default.screenshot-ui-show-pointer-button, .message .message-header .default.message-expand-button,
 .message .message-header .default.message-close-button, .message-notification-group .default.message-collapse-button, .calendar .calendar-month-header .default.pager-button, .button.default {
@@ -195,7 +195,7 @@ stage {
   border-radius: 12px;
   padding: 0.818em;
   margin: 4px;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(34, 34, 38, 0.08); }
 
@@ -203,25 +203,25 @@ stage {
 .world-clocks-button,
 .weather-button {
   color: #222226;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
   .quick-toggle-menu:hover, .message:hover, .events-button:hover,
   .world-clocks-button:hover,
   .weather-button:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%); }
   .quick-toggle-menu:active, .message:active, .events-button:active,
   .world-clocks-button:active,
   .weather-button:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%); }
     .quick-toggle-menu:active:hover, .message:active:hover, .events-button:active:hover,
     .world-clocks-button:active:hover,
     .weather-button:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%), 4%); }
     .quick-toggle-menu:active:focus, .message:active:focus, .events-button:active:focus,
     .world-clocks-button:active:focus,
     .weather-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%), 5%); }
   .quick-toggle-menu:focus, .message:focus, .events-button:focus,
   .world-clocks-button:focus,
   .weather-button:focus {
@@ -231,12 +231,12 @@ stage {
     .quick-toggle-menu:focus:hover, .message:focus:hover, .events-button:focus:hover,
     .world-clocks-button:focus:hover,
     .weather-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%), 5%); }
   .quick-toggle-menu:insensitive, .message:insensitive, .events-button:insensitive,
   .world-clocks-button:insensitive,
   .weather-button:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 3%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 3%); }
 
 .calendar, .datemenu-today-button {
   border: 1px solid transparent !important;
@@ -247,23 +247,23 @@ stage {
     background-color: transparent !important; }
   .calendar:hover, .datemenu-today-button:hover {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
   .calendar:active, .datemenu-today-button:active {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
     .calendar:active:hover, .datemenu-today-button:active:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
     .calendar:active:focus, .datemenu-today-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
   .calendar:focus, .datemenu-today-button:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
     background-color: st-mix(-st-accent-color, #ffffff, 5%); }
     .calendar:focus:hover, .datemenu-today-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 4%), 5%); }
   .calendar:insensitive, .datemenu-today-button:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 3%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 3%); }
 
 .unlock-dialog .login-dialog-prompt-entry, .login-dialog .login-dialog-prompt-entry, .app-folder-dialog .folder-name-container .folder-name-entry, .search-entry, .lg-dialog StEntry, StEntry {
   border-radius: 8px;
@@ -272,17 +272,17 @@ stage {
   selected-color: #222226; }
 
 StEntry {
-  background-color: st-mix(@@ACCENT@@, #e0e0e1, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #e0e0e1, @@TINT_STRENGTH@@);
   color: rgba(34, 34, 38, 0.7); }
   StEntry:hover {
-    background-color: st-mix(@@ACCENT@@, #d6d6d7, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #d6d6d7, @@TINT_STRENGTH@@);
     color: #222226; }
   StEntry:focus {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(@@ACCENT@@, #e0e0e1, @@TINT_STRENGTH@@), 5%);
+    background-color: st-mix(-st-accent-color, st-mix(@@TINT@@, #e0e0e1, @@TINT_STRENGTH@@), 5%);
     color: #222226; }
   StEntry:insensitive {
-    background-color: st-mix(@@ACCENT@@, #e8e8e9, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #e8e8e9, @@TINT_STRENGTH@@);
     color: rgba(34, 34, 38, 0.5); }
   StEntry StLabel.hint-text {
     color: rgba(34, 34, 38, 0.7); }
@@ -319,13 +319,13 @@ StEntry {
   .notification-button:checked, .message .message-header .message-expand-button:checked,
   .message .message-header .message-close-button:checked {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
     .notification-button:checked:hover, .message .message-header .message-expand-button:checked:hover,
     .message .message-header .message-close-button:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .notification-button:checked:active, .message .message-header .message-expand-button:checked:active,
     .message .message-header .message-close-button:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
   .notification-button:insensitive, .message .message-header .message-expand-button:insensitive,
   .message .message-header .message-close-button:insensitive {
     color: st-transparentize(#222226, 0.6);
@@ -355,17 +355,17 @@ StEntry {
       background-color: st-mix(-st-accent-color, rgba(34, 34, 38, 0.16), 5%); }
   .modal-dialog .modal-dialog-button-box .modal-dialog-button:checked {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
     .modal-dialog .modal-dialog-button-box .modal-dialog-button:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .modal-dialog .modal-dialog-button-box .modal-dialog-button:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
   .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
     color: st-transparentize(#222226, 0.6);
     background-color: rgba(34, 34, 38, 0.05); }
 
 .dash-label, .window-caption, .screenshot-ui-tooltip {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.9), @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.9), @@TINT_STRENGTH@@);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   border-radius: 999px;
@@ -419,7 +419,7 @@ StEntry {
 /* OSD Elements */
 #LookingGlassDialog {
   color: #222226;
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   border: 1px solid rgba(34, 34, 38, 0.06);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
   border-radius: 999px;
@@ -427,24 +427,24 @@ StEntry {
 
 .screenshot-ui-panel, .workspace-switcher, .switcher-list, .resize-popup, .osd-window {
   color: #222226;
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   border: 1px solid rgba(34, 34, 38, 0.06);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
   border-radius: 999px;
   padding: 12px; }
 
 .lg-dialog StEntry {
-  background-color: st-mix(@@ACCENT@@, #47474c, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #47474c, @@TINT_STRENGTH@@);
   color: rgba(255, 255, 255, 0.7); }
   .lg-dialog StEntry:hover {
-    background-color: st-mix(@@ACCENT@@, #515157, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #515157, @@TINT_STRENGTH@@);
     color: #ffffff; }
   .lg-dialog StEntry:focus {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(@@ACCENT@@, #47474c, @@TINT_STRENGTH@@), 5%);
+    background-color: st-mix(-st-accent-color, st-mix(@@TINT@@, #47474c, @@TINT_STRENGTH@@), 5%);
     color: #ffffff; }
   .lg-dialog StEntry:insensitive {
-    background-color: st-mix(@@ACCENT@@, #404044, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #404044, @@TINT_STRENGTH@@);
     color: rgba(255, 255, 255, 0.5); }
   .lg-dialog StEntry StLabel.hint-text {
     color: rgba(255, 255, 255, 0.7); }
@@ -452,73 +452,73 @@ StEntry {
 #LookingGlassDebugFlags .lg-debug-flag-button, #LookingGlassPropertyInspector .lg-obj-inspector-close-button,
 #LookingGlassPropertyInspector .lg-obj-inspector-button, #LookingGlassDialog > #Toolbar .lg-toolbar-button {
   color: #ffffff;
-  background-color: st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%); }
+  background-color: st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%); }
   #LookingGlassDebugFlags .lg-debug-flag-button:focus, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:focus,
   #LookingGlassPropertyInspector .lg-obj-inspector-button:focus, #LookingGlassDialog > #Toolbar .lg-toolbar-button:focus {
     color: #ffffff;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 5%); }
     #LookingGlassDebugFlags .lg-debug-flag-button:focus:hover, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:focus:hover,
     #LookingGlassPropertyInspector .lg-obj-inspector-button:focus:hover, #LookingGlassDialog > #Toolbar .lg-toolbar-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   #LookingGlassDebugFlags .lg-debug-flag-button:hover, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:hover,
   #LookingGlassPropertyInspector .lg-obj-inspector-button:hover, #LookingGlassDialog > #Toolbar .lg-toolbar-button:hover {
     color: #ffffff;
-    background-color: st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%); }
   #LookingGlassDebugFlags .lg-debug-flag-button:active, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:active,
   #LookingGlassPropertyInspector .lg-obj-inspector-button:active, #LookingGlassDialog > #Toolbar .lg-toolbar-button:active {
     color: #ffffff;
-    background-color: st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
     #LookingGlassDebugFlags .lg-debug-flag-button:active:hover, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:active:hover,
     #LookingGlassPropertyInspector .lg-obj-inspector-button:active:hover, #LookingGlassDialog > #Toolbar .lg-toolbar-button:active:hover {
-      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     #LookingGlassDebugFlags .lg-debug-flag-button:active:focus, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:active:focus,
     #LookingGlassPropertyInspector .lg-obj-inspector-button:active:focus, #LookingGlassDialog > #Toolbar .lg-toolbar-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   #LookingGlassDebugFlags .lg-debug-flag-button:checked, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:checked,
   #LookingGlassPropertyInspector .lg-obj-inspector-button:checked, #LookingGlassDialog > #Toolbar .lg-toolbar-button:checked {
     color: #ffffff;
-    background-color: st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%); }
     #LookingGlassDebugFlags .lg-debug-flag-button:checked:hover, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:checked:hover,
     #LookingGlassPropertyInspector .lg-obj-inspector-button:checked:hover, #LookingGlassDialog > #Toolbar .lg-toolbar-button:checked:hover {
-      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     #LookingGlassDebugFlags .lg-debug-flag-button:checked:active, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:checked:active,
     #LookingGlassPropertyInspector .lg-obj-inspector-button:checked:active, #LookingGlassDialog > #Toolbar .lg-toolbar-button:checked:active {
-      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
   #LookingGlassDebugFlags .lg-debug-flag-button:insensitive, #LookingGlassPropertyInspector .lg-obj-inspector-close-button:insensitive,
   #LookingGlassPropertyInspector .lg-obj-inspector-button:insensitive, #LookingGlassDialog > #Toolbar .lg-toolbar-button:insensitive {
     color: st-transparentize(#ffffff, 0.6);
-    background-color: st-darken(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 3%); }
+    background-color: st-darken(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 3%); }
 
 #LookingGlassDialog .notebook-tab {
   color: #ffffff;
-  background-color: st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@); }
   #LookingGlassDialog .notebook-tab:focus {
     color: #ffffff;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
     background-color: st-mix(-st-accent-color, rgba(46, 46, 51, 0.25), 5%); }
     #LookingGlassDialog .notebook-tab:focus:hover {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 7%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 7%), 5%); }
   #LookingGlassDialog .notebook-tab:hover {
     color: #ffffff;
-    background-color: st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 7%); }
   #LookingGlassDialog .notebook-tab:active {
     color: #ffffff;
-    background-color: st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 9%); }
     #LookingGlassDialog .notebook-tab:active:hover {
-      background-color: st-lighten(st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-lighten(st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 9%), 7%); }
     #LookingGlassDialog .notebook-tab:active:focus {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 9%), 5%); }
   #LookingGlassDialog .notebook-tab:checked {
     color: #ffffff;
-    background-color: st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 8%); }
+    background-color: st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 8%); }
     #LookingGlassDialog .notebook-tab:checked:hover {
-      background-color: st-lighten(st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 8%), 7%); }
+      background-color: st-lighten(st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 8%), 7%); }
     #LookingGlassDialog .notebook-tab:checked:active {
-      background-color: st-lighten(st-lighten(st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 8%), 9%); }
+      background-color: st-lighten(st-lighten(st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 8%), 9%); }
   #LookingGlassDialog .notebook-tab:insensitive {
     color: st-transparentize(#ffffff, 0.6);
-    background-color: st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@); }
 
 .screenshot-ui-show-pointer-button, .screenshot-ui-type-button {
   color: #222226;
@@ -552,67 +552,67 @@ StEntry {
 
 /* System Elements */
 .login-dialog .login-dialog-prompt-entry {
-  background-color: st-mix(@@ACCENT@@, #47474b, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #47474b, @@TINT_STRENGTH@@);
   color: rgba(250, 250, 251, 0.7); }
   .login-dialog .login-dialog-prompt-entry:hover {
-    background-color: st-mix(@@ACCENT@@, #515155, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #515155, @@TINT_STRENGTH@@);
     color: #fafafb; }
   .login-dialog .login-dialog-prompt-entry:focus {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(@@ACCENT@@, #47474b, @@TINT_STRENGTH@@), 5%);
+    background-color: st-mix(-st-accent-color, st-mix(@@TINT@@, #47474b, @@TINT_STRENGTH@@), 5%);
     color: #fafafb; }
   .login-dialog .login-dialog-prompt-entry:insensitive {
-    background-color: st-mix(@@ACCENT@@, #404043, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #404043, @@TINT_STRENGTH@@);
     color: rgba(250, 250, 251, 0.5); }
   .login-dialog .login-dialog-prompt-entry StLabel.hint-text, .app-folder-dialog .folder-name-container .folder-name-entry StLabel.hint-text, .search-entry StLabel.hint-text {
     color: rgba(250, 250, 251, 0.7); }
 
 .app-folder-dialog .folder-name-container .folder-name-entry, .search-entry {
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%);
   border: 1px solid rgba(34, 34, 38, 0.04);
   color: rgba(34, 34, 38, 0.75); }
   .app-folder-dialog .folder-name-container .folder-name-entry:hover, .search-entry:hover {
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 4%);
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 4%);
     color: #222226; }
   .app-folder-dialog .folder-name-container .folder-name-entry:focus, .search-entry:focus {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
     background-color: #ffffff;
     color: #222226; }
   .app-folder-dialog .folder-name-container .folder-name-entry:insensitive, .search-entry:insensitive {
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 3%);
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 3%);
     color: rgba(34, 34, 38, 0.5); }
   .app-folder-dialog .folder-name-container .folder-name-entry StLabel.hint-text, .search-entry StLabel.hint-text {
     color: rgba(34, 34, 38, 0.55); }
 
 .login-dialog-button.next-button, .login-dialog-button.a11y-button, .login-dialog-button.cancel-button, .login-dialog-button.switch-user-button, .login-dialog-button.login-dialog-auth-menu-button, .login-dialog-button.login-dialog-session-list-button {
   color: #fafafb;
-  background-color: st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%); }
+  background-color: st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%); }
   .login-dialog-button.next-button:insensitive, .login-dialog-button.a11y-button:insensitive, .login-dialog-button.cancel-button:insensitive, .login-dialog-button.switch-user-button:insensitive, .login-dialog-button.login-dialog-auth-menu-button:insensitive, .login-dialog-button.login-dialog-session-list-button:insensitive {
     color: st-transparentize(#fafafb, 0.6);
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 3%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 3%); }
   .login-dialog-button.next-button:focus, .login-dialog-button.a11y-button:focus, .login-dialog-button.cancel-button:focus, .login-dialog-button.switch-user-button:focus, .login-dialog-button.login-dialog-auth-menu-button:focus, .login-dialog-button.login-dialog-session-list-button:focus {
     color: #fafafb;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 5%); }
     .login-dialog-button.next-button:focus:hover, .login-dialog-button.a11y-button:focus:hover, .login-dialog-button.cancel-button:focus:hover, .login-dialog-button.switch-user-button:focus:hover, .login-dialog-button.login-dialog-auth-menu-button:focus:hover, .login-dialog-button.login-dialog-session-list-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .login-dialog-button.next-button:hover, .login-dialog-button.a11y-button:hover, .login-dialog-button.cancel-button:hover, .login-dialog-button.switch-user-button:hover, .login-dialog-button.login-dialog-auth-menu-button:hover, .login-dialog-button.login-dialog-session-list-button:hover {
     color: #fafafb;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 4%); }
   .login-dialog-button.next-button:active, .login-dialog-button.a11y-button:active, .login-dialog-button.cancel-button:active, .login-dialog-button.switch-user-button:active, .login-dialog-button.login-dialog-auth-menu-button:active, .login-dialog-button.login-dialog-session-list-button:active {
     color: #fafafb;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
     .login-dialog-button.next-button:active:hover, .login-dialog-button.a11y-button:active:hover, .login-dialog-button.cancel-button:active:hover, .login-dialog-button.switch-user-button:active:hover, .login-dialog-button.login-dialog-auth-menu-button:active:hover, .login-dialog-button.login-dialog-session-list-button:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     .login-dialog-button.next-button:active:focus, .login-dialog-button.a11y-button:active:focus, .login-dialog-button.cancel-button:active:focus, .login-dialog-button.switch-user-button:active:focus, .login-dialog-button.login-dialog-auth-menu-button:active:focus, .login-dialog-button.login-dialog-session-list-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .login-dialog-button.next-button:checked, .login-dialog-button.a11y-button:checked, .login-dialog-button.cancel-button:checked, .login-dialog-button.switch-user-button:checked, .login-dialog-button.login-dialog-auth-menu-button:checked, .login-dialog-button.login-dialog-session-list-button:checked {
     color: #fafafb;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%); }
     .login-dialog-button.next-button:checked:hover, .login-dialog-button.a11y-button:checked:hover, .login-dialog-button.cancel-button:checked:hover, .login-dialog-button.switch-user-button:checked:hover, .login-dialog-button.login-dialog-auth-menu-button:checked:hover, .login-dialog-button.login-dialog-session-list-button:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .login-dialog-button.next-button:checked:active, .login-dialog-button.a11y-button:checked:active, .login-dialog-button.cancel-button:checked:active, .login-dialog-button.switch-user-button:checked:active, .login-dialog-button.login-dialog-auth-menu-button:checked:active, .login-dialog-button.login-dialog-session-list-button:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
 
 /* Lockscreen Elements */
 .unlock-dialog-notifications-container .message StButton,
@@ -789,7 +789,7 @@ StEntry {
   .unlock-dialog .web-login-prompt-button:checked, .unlock-dialog .login-dialog-auth-list-item:checked,
   .unlock-dialog .login-dialog-auth-list-title:checked {
     color: #fafafb;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%); }
     .unlock-dialog-notifications-container .message StButton:checked:hover,
     .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:hover, .parental-controls-shield .parental-controls-shield-button:checked:hover, .unlock-dialog .button:checked:hover,
     .unlock-dialog .icon-button:checked:hover,
@@ -810,7 +810,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:checked:hover, .unlock-dialog .login-button:checked:hover,
     .unlock-dialog .web-login-prompt-button:checked:hover, .unlock-dialog .login-dialog-auth-list-item:checked:hover,
     .unlock-dialog .login-dialog-auth-list-title:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .unlock-dialog-notifications-container .message StButton:checked:active,
     .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:checked:active, .parental-controls-shield .parental-controls-shield-button:checked:active, .unlock-dialog .button:checked:active,
     .unlock-dialog .icon-button:checked:active,
@@ -831,7 +831,7 @@ StEntry {
     .unlock-dialog .login-dialog-button.login-dialog-session-list-button:checked:active, .unlock-dialog .login-button:checked:active,
     .unlock-dialog .web-login-prompt-button:checked:active, .unlock-dialog .login-dialog-auth-list-item:checked:active,
     .unlock-dialog .login-dialog-auth-list-title:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
   .unlock-dialog-notifications-container .message StButton:insensitive,
   .unlock-dialog-notifications-container .unlock-dialog-notification-source StButton:insensitive, .parental-controls-shield .parental-controls-shield-button:insensitive, .unlock-dialog .button:insensitive,
   .unlock-dialog .icon-button:insensitive,
@@ -866,7 +866,7 @@ StEntry {
     background-color: st-mix(-st-accent-color, rgba(250, 250, 251, 0.1), 5%);
     color: #fafafb;
     box-shadow: inset 0 0 0 2px st-transparentize(rgba(250, 250, 251, 0.4), 0.2) !important;
-    background-color: st-mix(st-mix(@@ACCENT@@, rgba(250, 250, 251, 0.4), @@TINT_STRENGTH@@), rgba(250, 250, 251, 0.1), 5%); }
+    background-color: st-mix(st-mix(@@TINT@@, rgba(250, 250, 251, 0.4), @@TINT_STRENGTH@@), rgba(250, 250, 251, 0.1), 5%); }
   .unlock-dialog .login-dialog-prompt-entry:insensitive {
     background-color: rgba(242, 242, 244, 0.1);
     color: rgba(250, 250, 251, 0.5); }
@@ -936,7 +936,7 @@ StEntry StLabel.hint-text {
   border-color: rgba(0, 0, 0, 0.2); }
 
 .check-box:active StIcon {
-  border-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
+  border-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
 
 .check-box:checked StIcon {
   background-color: -st-accent-color;
@@ -1008,13 +1008,13 @@ StScrollBar {
     background-color: transparent; }
   StScrollBar > .vhandle, StScrollBar > .hhandle {
     border-radius: 8px;
-    background-color: st-mix(@@ACCENT@@, #b9b9bb, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #b9b9bb, @@TINT_STRENGTH@@);
     border: 3px solid transparent;
     transition: 500ms all ease; }
     StScrollBar > .vhandle:hover, StScrollBar > .hhandle:hover {
-      background-color: st-mix(@@ACCENT@@, #8e8e91, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #8e8e91, @@TINT_STRENGTH@@); }
     StScrollBar > .vhandle:active, StScrollBar > .hhandle:active {
-      background-color: st-mix(@@ACCENT@@, #a4a4a6, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #a4a4a6, @@TINT_STRENGTH@@); }
 
 /* Popovers/Menus */
 .popup-menu-boxpointer, .candidate-popup-boxpointer {
@@ -1028,9 +1028,9 @@ StScrollBar {
 
 .popup-menu-content, .candidate-popup-content {
   padding: 6px;
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   border-radius: 20px;
-  border: 1px solid st-mix(@@ACCENT@@, #e6e6eb, @@TINT_STRENGTH@@);
+  border: 1px solid st-mix(@@TINT@@, #e6e6eb, @@TINT_STRENGTH@@);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); }
 
 .popup-menu-item {
@@ -1042,17 +1042,17 @@ StScrollBar {
     background-color: transparent !important; }
   .popup-menu-item:active {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-darken(st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 9%); }
     .popup-menu-item:active:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 9%), 7%); }
     .popup-menu-item:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 9%), 5%); }
   .popup-menu-item:hover, .popup-menu-item:selected, .popup-menu-item:checked {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-darken(st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 7%); }
   .popup-menu-item:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@); }
   .popup-menu-item:checked {
     border-radius: 12px 12px 0 0 !important; }
   .popup-menu-item .toggle-switch:ltr {
@@ -1079,7 +1079,7 @@ StScrollBar {
   border-radius: 0 0 13px 13px;
   margin-bottom: 6px;
   border: 1px solid transparent;
-  background-color: st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@); }
   .popup-sub-menu .popup-menu-item {
     border-radius: 0;
     border-top-width: 0;
@@ -1090,17 +1090,17 @@ StScrollBar {
       background-color: transparent !important; }
     .popup-sub-menu .popup-menu-item:active {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@), 9%); }
+      background-color: st-darken(st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@), 9%); }
       .popup-sub-menu .popup-menu-item:active:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@), 9%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@), 9%), 7%); }
       .popup-sub-menu .popup-menu-item:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@), 9%), 5%); }
     .popup-sub-menu .popup-menu-item:hover, .popup-sub-menu .popup-menu-item:selected, .popup-sub-menu .popup-menu-item:checked {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@), 7%); }
+      background-color: st-darken(st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@), 7%); }
     .popup-sub-menu .popup-menu-item:insensitive {
       color: st-transparentize(#222226, 0.6);
-      background-color: st-mix(@@ACCENT@@, #cacad4, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #cacad4, @@TINT_STRENGTH@@); }
     .popup-sub-menu .popup-menu-item:last-child {
       border-radius: 0 0 12px 12px;
       border-bottom-width: 0; }
@@ -1314,7 +1314,7 @@ StScrollBar {
     padding: 4px !important;
     border: 4px transparent solid; }
     .message-notification-group .message-collapse-button:hover {
-      background-color: st-mix(@@ACCENT@@, rgba(34, 34, 38, 0.3), @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, rgba(34, 34, 38, 0.3), @@TINT_STRENGTH@@); }
     .message-notification-group .message-collapse-button:active {
       background-color: rgba(34, 34, 38, 0.2); }
 
@@ -1322,14 +1322,14 @@ StScrollBar {
   padding: 6px;
   margin: 0;
   border-radius: 16px;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%);
   border: 1px solid rgba(34, 34, 38, 0.08); }
   .message:second-in-stack {
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 13%);
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 13%);
     border-color: rgba(34, 34, 38, 0.09);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.03); }
   .message:lower-in-stack {
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 17%);
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 17%);
     box-shadow: none;
     border-color: rgba(34, 34, 38, 0.1); }
   .message .message-header {
@@ -1408,10 +1408,10 @@ StScrollBar {
   color: #222226;
   border: 1px solid transparent; }
   .message-media-control:hover {
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%);
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%);
     color: #222226; }
   .message-media-control:active {
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%);
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 9%);
     color: #222226; }
   .message-media-control:insensitive {
     color: #858588; }
@@ -1440,7 +1440,7 @@ StScrollBar {
     background-color: -st-accent-color;
     color: -st-accent-fg-color; }
   .candidate-box:hover {
-    background-color: st-mix(@@ACCENT@@, #e1e1e7, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #e1e1e7, @@TINT_STRENGTH@@);
     color: #0c0c0e; }
 
 .candidate-page-button-box {
@@ -1467,9 +1467,9 @@ StScrollBar {
 /* Notifications & Message Tray */
 .notification-banner {
   min-height: 64px;
-  background-color: st-mix(@@ACCENT@@, #f6f6f8, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #f6f6f8, @@TINT_STRENGTH@@);
   border: 1px solid rgba(34, 34, 38, 0.06);
-  background-color: st-mix(@@ACCENT@@, #f6f6f8, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #f6f6f8, @@TINT_STRENGTH@@);
   border: 1px solid rgba(34, 34, 38, 0.12);
   width: 34em;
   box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.05);
@@ -1481,7 +1481,7 @@ StScrollBar {
 
 /* Modal Dialogs */
 .modal-dialog {
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   border-radius: 18px;
   padding: 24px;
   spacing: 18px;
@@ -1582,34 +1582,34 @@ StScrollBar {
     spacing: 12px; }
     .audio-device-selection-dialog .audio-selection-box .audio-selection-device {
       color: #222226;
-      background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+      background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
       background-color: transparent; }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:focus {
         color: #222226;
         box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
         background-color: st-mix(-st-accent-color, rgba(250, 250, 251, 0.25), 5%); }
         .audio-device-selection-dialog .audio-selection-box .audio-selection-device:focus:hover {
-          background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
+          background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:hover {
         color: #222226;
-        background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+        background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:active {
         color: #222226;
-        background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+        background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
         .audio-device-selection-dialog .audio-selection-box .audio-selection-device:active:hover {
-          background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+          background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
         .audio-device-selection-dialog .audio-selection-box .audio-selection-device:active:focus {
-          background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+          background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:highlighted, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:selected, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:checked {
         color: #222226;
-        background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
+        background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
         .audio-device-selection-dialog .audio-selection-box .audio-selection-device:highlighted:hover, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:selected:hover, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:checked:hover {
-          background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
+          background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
         .audio-device-selection-dialog .audio-selection-box .audio-selection-device:highlighted:active, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:selected:active, .audio-device-selection-dialog .audio-selection-box .audio-selection-device:checked:active {
-          background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
+          background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:insensitive {
         color: st-transparentize(#222226, 0.6);
-        background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+        background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
       .audio-device-selection-dialog .audio-selection-box .audio-selection-device:drop {
         background-color: st-transparentize(-st-accent-color, 0.8);
         box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2); }
@@ -1651,7 +1651,7 @@ StScrollBar {
     min-width: 160px;
     -barlevel-height: 6px;
     -barlevel-background-color: rgba(34, 34, 38, 0.15);
-    -barlevel-active-background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    -barlevel-active-background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     -barlevel-overdrive-color: #e01b24;
     -barlevel-overdrive-separator-width: 3px; }
     .osd-window .level:first-child {
@@ -1676,7 +1676,7 @@ StScrollBar {
 /* Pad OSD */
 .pad-osd-window {
   padding: 32px;
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.8), @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.8), @@TINT_STRENGTH@@); }
   .pad-osd-window .pad-osd-title-box {
     spacing: 12px; }
   .pad-osd-window .pad-osd-title-menu-box {
@@ -1698,34 +1698,34 @@ StScrollBar {
     spacing: 12px; }
   .switcher-list .item-box {
     color: #222226;
-    background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
     background-color: transparent; }
     .switcher-list .item-box:focus {
       color: #222226;
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
       background-color: st-mix(-st-accent-color, rgba(34, 34, 38, 0.08), 5%); }
       .switcher-list .item-box:focus:hover {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
     .switcher-list .item-box:hover {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
     .switcher-list .item-box:active {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
       .switcher-list .item-box:active:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
       .switcher-list .item-box:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
     .switcher-list .item-box:highlighted, .switcher-list .item-box:selected, .switcher-list .item-box:checked {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
       .switcher-list .item-box:highlighted:hover, .switcher-list .item-box:selected:hover, .switcher-list .item-box:checked:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
       .switcher-list .item-box:highlighted:active, .switcher-list .item-box:selected:active, .switcher-list .item-box:checked:active {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
     .switcher-list .item-box:insensitive {
       color: st-transparentize(#222226, 0.6);
-      background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
     .switcher-list .item-box:drop {
       background-color: st-transparentize(-st-accent-color, 0.8);
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2); }
@@ -1744,10 +1744,10 @@ StScrollBar {
     border-radius: 8px; }
 
 .switcher-arrow {
-  border-color: st-mix(@@ACCENT@@, rgba(34, 34, 38, 0.8), @@TINT_STRENGTH@@);
+  border-color: st-mix(@@TINT@@, rgba(34, 34, 38, 0.8), @@TINT_STRENGTH@@);
   color: rgba(34, 34, 38, 0.8); }
   .switcher-arrow:highlighted {
-    border-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    border-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     color: #222226; }
 
 .input-source-switcher-symbol {
@@ -1765,12 +1765,12 @@ StScrollBar {
   padding: 12px 18px; }
 
 .ws-switcher-indicator {
-  background-color: st-mix(@@ACCENT@@, rgba(34, 34, 38, 0.5), @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, rgba(34, 34, 38, 0.5), @@TINT_STRENGTH@@);
   padding: 2.6666666667px;
   margin: 13.3333333333px;
   border-radius: 32px; }
   .ws-switcher-indicator:active {
-    background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     padding: 5.3333333333px;
     margin: 10.6666666667px; }
 
@@ -1803,16 +1803,16 @@ StScrollBar {
   width: 32px;
   height: 32px;
   border-radius: 999px;
-  border: 4px st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+  border: 4px st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
   padding: 4px; }
   .screenshot-ui-capture-button .screenshot-ui-capture-button-circle {
-    background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     transition-duration: 200ms;
     border-radius: 999px; }
     .screenshot-ui-capture-button .screenshot-ui-capture-button-circle:hover, .screenshot-ui-capture-button .screenshot-ui-capture-button-circle:focus {
-      background-color: st-mix(@@ACCENT@@, #4f4f54, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #4f4f54, @@TINT_STRENGTH@@); }
   .screenshot-ui-capture-button:hover .screenshot-ui-capture-button-circle, .screenshot-ui-capture-button:focus .screenshot-ui-capture-button-circle {
-    background-color: st-mix(@@ACCENT@@, #3c3c42, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #3c3c42, @@TINT_STRENGTH@@); }
   .screenshot-ui-capture-button:active .screenshot-ui-capture-button-circle {
     background-color: #000000; }
   .screenshot-ui-capture-button:cast .screenshot-ui-capture-button-circle {
@@ -1837,15 +1837,15 @@ StScrollBar {
   .screenshot-ui-shot-cast-button:hover, .screenshot-ui-shot-cast-button:focus {
     background-color: rgba(34, 34, 38, 0.2); }
   .screenshot-ui-shot-cast-button:active {
-    background-color: st-mix(@@ACCENT@@, rgba(34, 34, 38, 0.5), @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, rgba(34, 34, 38, 0.5), @@TINT_STRENGTH@@); }
   .screenshot-ui-shot-cast-button:checked {
-    background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     color: #fafafb; }
   .screenshot-ui-shot-cast-button:insensitive {
     color: rgba(34, 34, 38, 0.5); }
 
 .screenshot-ui-area-indicator-shade {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
 
 .screenshot-ui-area-selector .screenshot-ui-area-indicator-shade {
   background-color: rgba(0, 0, 0, 0.5); }
@@ -1861,7 +1861,7 @@ StScrollBar {
   height: 24px; }
 
 .screenshot-ui-window-selector {
-  background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@); }
   .screenshot-ui-window-selector .screenshot-ui-window-selector-window-container {
     margin: 100px; }
   .screenshot-ui-window-selector:primary-monitor .screenshot-ui-window-selector-window-container {
@@ -1892,11 +1892,11 @@ StScrollBar {
 
 .screenshot-ui-screen-selector {
   transition-duration: 200ms;
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.5), @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.5), @@TINT_STRENGTH@@); }
   .screenshot-ui-screen-selector:hover {
-    background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.3), @@TINT_STRENGTH@@); }
   .screenshot-ui-screen-selector:active {
-    background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.7), @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.7), @@TINT_STRENGTH@@); }
   .screenshot-ui-screen-selector:checked {
     background-color: transparent;
     border: 2px #ffffff; }
@@ -1907,7 +1907,7 @@ StScrollBar {
 
 /* Top Bar */
 #panel {
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   font-weight: bold;
   height: 2.2em;
   transition-duration: 250ms;
@@ -1943,7 +1943,7 @@ StScrollBar {
       border-radius: 999px;
       min-width: 0.5455em;
       min-height: 0.5455em;
-      background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@); }
     #panel .panel-button.screen-recording-indicator StBoxLayout, #panel .panel-button.screen-sharing-indicator StBoxLayout {
       spacing: 0.409em; }
     #panel .panel-button.screen-recording-indicator StIcon, #panel .panel-button.screen-sharing-indicator StIcon {
@@ -2091,7 +2091,7 @@ StScrollBar {
       #panel:overview .panel-button:active:hover, #panel:overview .panel-button:checked:hover {
         box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.25); }
     #panel:overview .panel-button#panelActivities .workspace-dot {
-      background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@); }
     #panel:overview .panel-button.clock-display {
       transition-duration: 150ms;
       border: 3px solid transparent;
@@ -2206,43 +2206,43 @@ StScrollBar {
 
 .quick-toggle-has-menu .quick-toggle-menu-button {
   color: #222226;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%); }
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%); }
   .quick-toggle-has-menu .quick-toggle-menu-button:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 5%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .quick-toggle-has-menu .quick-toggle-menu-button:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 4%); }
   .quick-toggle-has-menu .quick-toggle-menu-button:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #ececf0, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .quick-toggle-has-menu .quick-toggle-menu-button:checked {
     color: -st-accent-fg-color;
-    background-color: st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%); }
+    background-color: st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:checked:focus {
       color: -st-accent-fg-color;
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
       box-shadow: inset 0 0 0 2px st-transparentize(st-darken(-st-accent-color, 20%), 0.2) !important;
-      background-color: st-mix(-st-accent-color, st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 5%); }
+      background-color: st-mix(-st-accent-color, st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 5%); }
       .quick-toggle-has-menu .quick-toggle-menu-button:checked:focus:hover {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 4%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 4%), 5%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
       color: -st-accent-fg-color;
-      background-color: st-darken(st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 4%); }
+      background-color: st-darken(st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 4%); }
     .quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
       color: -st-accent-fg-color;
-      background-color: st-darken(st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%); }
+      background-color: st-darken(st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%); }
       .quick-toggle-has-menu .quick-toggle-menu-button:checked:active:hover {
-        background-color: st-darken(st-darken(st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%), 4%); }
+        background-color: st-darken(st-darken(st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%), 4%); }
       .quick-toggle-has-menu .quick-toggle-menu-button:checked:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(-st-accent-color, st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(-st-accent-color, st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 92%), 9%), 5%); }
 
 .quick-toggle-has-menu:checked .quick-toggle-separator {
   background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%); }
@@ -2264,16 +2264,16 @@ StScrollBar {
   .quick-slider .slider-bin:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 5%); }
     .quick-slider .slider-bin:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
 
 .quick-toggle-menu {
   border-radius: 24px;
   margin: 12px 0 0; }
   .quick-toggle-menu:insensitive {
     color: #222226;
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
   .quick-toggle-menu .popup-menu-item > StIcon {
     -st-icon-style: symbolic;
     icon-size: 1.091em; }
@@ -2298,7 +2298,7 @@ StScrollBar {
   min-width: 0; }
   .quick-settings-system-item .power-item:insensitive {
     color: #222226;
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%);
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%);
     background-color: transparent; }
 
 .nm-network-item .wireless-secure-icon {
@@ -2339,7 +2339,7 @@ StScrollBar {
   .background-app-item .icon-button:active, .background-app-item .login-dialog-button.next-button:active, .background-app-item .login-dialog-button.a11y-button:active, .background-app-item .login-dialog-button.cancel-button:active, .background-app-item .login-dialog-button.switch-user-button:active, .background-app-item .login-dialog-button.login-dialog-auth-menu-button:active, .background-app-item .login-dialog-button.login-dialog-session-list-button:active, .background-app-item .calendar .calendar-month-header .pager-button:active, .calendar .calendar-month-header .background-app-item .pager-button:active, .background-app-item .message-notification-group .message-collapse-button:active, .message-notification-group .background-app-item .message-collapse-button:active, .background-app-item .message .message-header .message-expand-button:active, .message .message-header .background-app-item .message-expand-button:active,
   .background-app-item .message .message-header .message-close-button:active,
   .message .message-header .background-app-item .message-close-button:active, .background-app-item .screenshot-ui-show-pointer-button:active {
-    background-color: st-mix(@@ACCENT@@, rgba(34, 34, 38, 0.31), @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, rgba(34, 34, 38, 0.31), @@TINT_STRENGTH@@); }
 
 .background-app-item .spinner {
   padding: 6px; }
@@ -2352,14 +2352,14 @@ StScrollBar {
   spacing: 12px; }
 
 #overviewGroup {
-  background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@); }
 
 /* Window Picker */
 .window-picker {
   spacing: 6px; }
 
 .window-close, .screenshot-ui-close-button {
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%);
   color: #222226;
   border-radius: 999px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
@@ -2373,10 +2373,10 @@ StScrollBar {
     icon-size: 24px; }
   .window-close:hover, .screenshot-ui-close-button:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
   .window-close:active, .screenshot-ui-close-button:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
 
 .workspace-background {
   border-radius: 30px;
@@ -2407,7 +2407,7 @@ StScrollBar {
     background-color: transparent; }
 
 .search-section-content {
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%);
   color: #222226;
   border-radius: 24px;
   padding: 12px;
@@ -2486,7 +2486,7 @@ StScrollBar {
   padding-left: 6px;
   padding-right: 6px; }
   #dash .dash-background {
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%);
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%);
   border: 1px solid rgba(34, 34, 38, 0.04);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.03);
     border-radius: 28px;
@@ -2591,7 +2591,7 @@ StScrollBar {
 /* App Icons */
 .overview-tile, .grid-search-result {
   color: #222226;
-  background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@);
   background-color: transparent;
   border-radius: 24px;
   padding: 12px; }
@@ -2600,27 +2600,27 @@ StScrollBar {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
     background-color: st-mix(-st-accent-color, rgba(34, 34, 38, 0.08), 5%); }
     .overview-tile:focus:hover, .grid-search-result:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%), 5%); }
   .overview-tile:hover, .grid-search-result:hover {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%); }
   .overview-tile:active, .grid-search-result:active {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%); }
     .overview-tile:active:hover, .grid-search-result:active:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 7%); }
     .overview-tile:active:focus, .grid-search-result:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 5%); }
   .overview-tile:highlighted, .grid-search-result:highlighted, .overview-tile:selected, .grid-search-result:selected, .overview-tile:checked, .grid-search-result:checked {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%); }
+    background-color: st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%); }
     .overview-tile:highlighted:hover, .grid-search-result:highlighted:hover, .overview-tile:selected:hover, .grid-search-result:selected:hover, .overview-tile:checked:hover, .grid-search-result:checked:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 7%); }
     .overview-tile:highlighted:active, .grid-search-result:highlighted:active, .overview-tile:selected:active, .grid-search-result:selected:active, .overview-tile:checked:active, .grid-search-result:checked:active {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 8%), 9%); }
   .overview-tile:insensitive, .grid-search-result:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@); }
   .overview-tile:drop, .grid-search-result:drop {
     background-color: st-transparentize(-st-accent-color, 0.8);
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2); }
@@ -2629,34 +2629,34 @@ StScrollBar {
 
 .app-folder {
   color: #222226;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%);
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%);
   border: 1px solid rgba(34, 34, 38, 0.04); }
   .app-folder:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 5%); }
     .app-folder:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .app-folder:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 4%); }
   .app-folder:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%); }
     .app-folder:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     .app-folder:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .app-folder:highlighted, .app-folder:selected, .app-folder:checked {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%); }
     .app-folder:highlighted:hover, .app-folder:selected:hover, .app-folder:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
     .app-folder:highlighted:active, .app-folder:selected:active, .app-folder:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
   .app-folder:insensitive {
     color: st-transparentize(#222226, 0.6);
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 3%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 12%), 3%); }
   .app-folder:drop {
     background-color: st-transparentize(-st-accent-color, 0.8);
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2); }
@@ -2665,7 +2665,7 @@ StScrollBar {
   height: 5px;
   width: 5px;
   border-radius: 5px;
-  background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
   offset-y: 6px; }
 
 .app-folder-dialog-container {
@@ -2675,7 +2675,7 @@ StScrollBar {
   width: 720px;
   height: 720px;
   border-radius: 64px;
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   color: #222226;
   padding: 0 1px;
   border: 1px solid rgba(34, 34, 38, 0.05);
@@ -2689,70 +2689,70 @@ StScrollBar {
   .app-folder-dialog .message .message-header .message-close-button,
   .message .message-header .app-folder-dialog .message-close-button, .app-folder-dialog .screenshot-ui-show-pointer-button {
     color: #222226;
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%); }
     .app-folder-dialog .icon-button:hover, .app-folder-dialog .login-dialog-button.next-button:hover, .app-folder-dialog .login-dialog-button.a11y-button:hover, .app-folder-dialog .login-dialog-button.cancel-button:hover, .app-folder-dialog .login-dialog-button.switch-user-button:hover, .app-folder-dialog .login-dialog-button.login-dialog-auth-menu-button:hover, .app-folder-dialog .login-dialog-button.login-dialog-session-list-button:hover, .app-folder-dialog .calendar .calendar-month-header .pager-button:hover, .calendar .calendar-month-header .app-folder-dialog .pager-button:hover, .app-folder-dialog .message-notification-group .message-collapse-button:hover, .message-notification-group .app-folder-dialog .message-collapse-button:hover, .app-folder-dialog .message .message-header .message-expand-button:hover, .message .message-header .app-folder-dialog .message-expand-button:hover,
     .app-folder-dialog .message .message-header .message-close-button:hover,
     .message .message-header .app-folder-dialog .message-close-button:hover, .app-folder-dialog .screenshot-ui-show-pointer-button:hover {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 4%); }
     .app-folder-dialog .icon-button:active, .app-folder-dialog .login-dialog-button.next-button:active, .app-folder-dialog .login-dialog-button.a11y-button:active, .app-folder-dialog .login-dialog-button.cancel-button:active, .app-folder-dialog .login-dialog-button.switch-user-button:active, .app-folder-dialog .login-dialog-button.login-dialog-auth-menu-button:active, .app-folder-dialog .login-dialog-button.login-dialog-session-list-button:active, .app-folder-dialog .calendar .calendar-month-header .pager-button:active, .calendar .calendar-month-header .app-folder-dialog .pager-button:active, .app-folder-dialog .message-notification-group .message-collapse-button:active, .message-notification-group .app-folder-dialog .message-collapse-button:active, .app-folder-dialog .message .message-header .message-expand-button:active, .message .message-header .app-folder-dialog .message-expand-button:active,
     .app-folder-dialog .message .message-header .message-close-button:active,
     .message .message-header .app-folder-dialog .message-close-button:active, .app-folder-dialog .screenshot-ui-show-pointer-button:active {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%); }
       .app-folder-dialog .icon-button:active:hover, .app-folder-dialog .login-dialog-button.next-button:active:hover, .app-folder-dialog .login-dialog-button.a11y-button:active:hover, .app-folder-dialog .login-dialog-button.cancel-button:active:hover, .app-folder-dialog .login-dialog-button.switch-user-button:active:hover, .app-folder-dialog .login-dialog-button.login-dialog-auth-menu-button:active:hover, .app-folder-dialog .login-dialog-button.login-dialog-session-list-button:active:hover, .app-folder-dialog .calendar .calendar-month-header .pager-button:active:hover, .calendar .calendar-month-header .app-folder-dialog .pager-button:active:hover, .app-folder-dialog .message-notification-group .message-collapse-button:active:hover, .message-notification-group .app-folder-dialog .message-collapse-button:active:hover, .app-folder-dialog .message .message-header .message-expand-button:active:hover, .message .message-header .app-folder-dialog .message-expand-button:active:hover,
       .app-folder-dialog .message .message-header .message-close-button:active:hover,
       .message .message-header .app-folder-dialog .message-close-button:active:hover, .app-folder-dialog .screenshot-ui-show-pointer-button:active:hover {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
       .app-folder-dialog .icon-button:active:focus, .app-folder-dialog .login-dialog-button.next-button:active:focus, .app-folder-dialog .login-dialog-button.a11y-button:active:focus, .app-folder-dialog .login-dialog-button.cancel-button:active:focus, .app-folder-dialog .login-dialog-button.switch-user-button:active:focus, .app-folder-dialog .login-dialog-button.login-dialog-auth-menu-button:active:focus, .app-folder-dialog .login-dialog-button.login-dialog-session-list-button:active:focus, .app-folder-dialog .calendar .calendar-month-header .pager-button:active:focus, .calendar .calendar-month-header .app-folder-dialog .pager-button:active:focus, .app-folder-dialog .message-notification-group .message-collapse-button:active:focus, .message-notification-group .app-folder-dialog .message-collapse-button:active:focus, .app-folder-dialog .message .message-header .message-expand-button:active:focus, .message .message-header .app-folder-dialog .message-expand-button:active:focus,
       .app-folder-dialog .message .message-header .message-close-button:active:focus,
       .message .message-header .app-folder-dialog .message-close-button:active:focus, .app-folder-dialog .screenshot-ui-show-pointer-button:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .app-folder-dialog .page-indicators {
     margin-bottom: 24px; }
   .app-folder-dialog .page-navigation-arrow {
     color: #222226;
-    background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
     .app-folder-dialog .page-navigation-arrow:hover {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
     .app-folder-dialog .page-navigation-arrow:active {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
       .app-folder-dialog .page-navigation-arrow:active:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
       .app-folder-dialog .page-navigation-arrow:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
   .app-folder-dialog .overview-tile, .app-folder-dialog .grid-search-result {
     color: #222226;
-    background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
     background-color: transparent; }
     .app-folder-dialog .overview-tile:focus, .app-folder-dialog .grid-search-result:focus {
       color: #222226;
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
       background-color: st-mix(-st-accent-color, rgba(34, 34, 38, 0.08), 5%); }
       .app-folder-dialog .overview-tile:focus:hover, .app-folder-dialog .grid-search-result:focus:hover {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%), 5%); }
     .app-folder-dialog .overview-tile:hover, .app-folder-dialog .grid-search-result:hover {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 7%); }
     .app-folder-dialog .overview-tile:active, .app-folder-dialog .grid-search-result:active {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%); }
       .app-folder-dialog .overview-tile:active:hover, .app-folder-dialog .grid-search-result:active:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 7%); }
       .app-folder-dialog .overview-tile:active:focus, .app-folder-dialog .grid-search-result:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 9%), 5%); }
     .app-folder-dialog .overview-tile:highlighted, .app-folder-dialog .grid-search-result:highlighted, .app-folder-dialog .overview-tile:selected, .app-folder-dialog .grid-search-result:selected, .app-folder-dialog .overview-tile:checked, .app-folder-dialog .grid-search-result:checked {
       color: #222226;
-      background-color: st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
+      background-color: st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%); }
       .app-folder-dialog .overview-tile:highlighted:hover, .app-folder-dialog .grid-search-result:highlighted:hover, .app-folder-dialog .overview-tile:selected:hover, .app-folder-dialog .grid-search-result:selected:hover, .app-folder-dialog .overview-tile:checked:hover, .app-folder-dialog .grid-search-result:checked:hover {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 7%); }
       .app-folder-dialog .overview-tile:highlighted:active, .app-folder-dialog .grid-search-result:highlighted:active, .app-folder-dialog .overview-tile:selected:active, .app-folder-dialog .grid-search-result:selected:active, .app-folder-dialog .overview-tile:checked:active, .app-folder-dialog .grid-search-result:checked:active {
-        background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
+        background-color: st-darken(st-darken(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), 8%), 9%); }
     .app-folder-dialog .overview-tile:insensitive, .app-folder-dialog .grid-search-result:insensitive {
       color: st-transparentize(#222226, 0.6);
-      background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@); }
+      background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@); }
     .app-folder-dialog .overview-tile:drop, .app-folder-dialog .grid-search-result:drop {
       background-color: st-transparentize(-st-accent-color, 0.8);
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2); }
@@ -2769,7 +2769,7 @@ StScrollBar {
     width: 10px;
     height: 10px;
     border-radius: 999px;
-    background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
     transition-duration: 400ms; }
 
 .apps-scroll-view {
@@ -2804,19 +2804,19 @@ StScrollBar {
   border-radius: 999px;
   transition-duration: 100ms;
   color: #222226;
-  background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@); }
   .page-navigation-arrow > StIcon {
     color: #222226; }
   .page-navigation-arrow:hover {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 7%); }
   .page-navigation-arrow:active {
     color: #222226;
-    background-color: st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%); }
     .page-navigation-arrow:active:hover {
-      background-color: st-darken(st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-darken(st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 7%); }
     .page-navigation-arrow:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@), 9%), 5%); }
 
 /* Workspace pager */
 .workspace-thumbnails {
@@ -2825,7 +2825,7 @@ StScrollBar {
   padding: 6px; }
   .workspace-thumbnails .workspace-thumbnail {
     color: #222226;
-    background-color: st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@);
+    background-color: st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@);
     border-radius: 4px;
     border: 1px solid transparent; }
   .workspace-thumbnails .placeholder {
@@ -2887,7 +2887,7 @@ StScrollBar {
 
 /* Workspace animation */
 .workspace-animation {
-  background-color: st-mix(@@ACCENT@@, #f3f3f5, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #f3f3f5, @@TINT_STRENGTH@@); }
 
 /* Tiled window previews */
 .tile-preview {
@@ -2896,7 +2896,7 @@ StScrollBar {
 
 /* On-screen Keyboard */
 #keyboard {
-  background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   box-shadow: inset 0 1px 0 0 rgba(34, 34, 38, 0.02); }
   #keyboard .page-indicator {
     padding: 6px; }
@@ -2914,51 +2914,51 @@ StScrollBar {
   border-radius: 0.546em;
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.05);
   color: #222226;
-  background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%); }
+  background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%); }
   .keyboard-key:focus {
     color: #222226;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
     .keyboard-key:focus:hover {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .keyboard-key:hover {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 4%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 4%); }
   .keyboard-key:active {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%); }
     .keyboard-key:active:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 4%); }
     .keyboard-key:active:focus {
-      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 5%); }
   .keyboard-key:checked {
     color: #222226;
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%); }
     .keyboard-key:checked:hover {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 4%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 4%); }
     .keyboard-key:checked:active {
-      background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 9%); }
+      background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 9%); }
   .keyboard-key.default-key {
     color: #222226;
-    background-color: st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%);
+    background-color: st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%);
     border: none; }
     .keyboard-key.default-key:hover {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 4%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 4%); }
     .keyboard-key.default-key:active {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%); }
       .keyboard-key.default-key:active:hover {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
       .keyboard-key.default-key:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
     .keyboard-key.default-key:checked {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%); }
       .keyboard-key.default-key:checked:hover {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%), 4%); }
       .keyboard-key.default-key:checked:active {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #dcdce0, @@TINT_STRENGTH@@), 12%), 8%), 9%); }
     .keyboard-key.default-key:latched {
       background-color: -st-accent-color; }
   .keyboard-key StIcon {
@@ -2966,9 +2966,9 @@ StScrollBar {
 
 .keyboard-subkeys-boxpointer {
   -arrow-border-radius: 22px;
-  -arrow-background-color: st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@);
+  -arrow-background-color: st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@);
   -arrow-border-width: 1px;
-  -arrow-border-color: st-mix(@@ACCENT@@, #e6e6eb, @@TINT_STRENGTH@@);
+  -arrow-border-color: st-mix(@@TINT@@, #e6e6eb, @@TINT_STRENGTH@@);
   -arrow-base: 20px;
   -arrow-rise: 10px;
   -boxpointer-gap: 4px;
@@ -3005,26 +3005,26 @@ StScrollBar {
     .word-suggestions StButton:focus {
       color: #222226;
       box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-      background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
+      background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
       .word-suggestions StButton:focus:hover {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
     .word-suggestions StButton:hover {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 4%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 4%); }
     .word-suggestions StButton:active {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%); }
       .word-suggestions StButton:active:hover {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 4%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 4%); }
       .word-suggestions StButton:active:focus {
-        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 9%), 5%); }
     .word-suggestions StButton:checked {
       color: #222226;
-      background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%); }
+      background-color: st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%); }
       .word-suggestions StButton:checked:hover {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 4%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 4%); }
       .word-suggestions StButton:checked:active {
-        background-color: st-darken(st-darken(st-mix(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 9%); }
+        background-color: st-darken(st-darken(st-mix(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), #ffffff, 12%), 8%), 9%); }
 
 /* Looking Glass */
 .lg-dialog StEntry {
@@ -3050,7 +3050,7 @@ StScrollBar {
   font-style: italic; }
 
 #LookingGlassDialog {
-  background-color: st-mix(@@ACCENT@@, rgba(46, 46, 51, 0.98), @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, rgba(46, 46, 51, 0.98), @@TINT_STRENGTH@@);
   color: #ffffff;
   border-radius: 16px;
   margin-top: 4px;
@@ -3077,14 +3077,14 @@ StScrollBar {
     padding: 6px 12px; }
     #LookingGlassDialog .notebook-tab:selected {
       color: #ffffff;
-      background-color: st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
+      background-color: st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%); }
       #LookingGlassDialog .notebook-tab:selected:hover {
-        background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+        background-color: st-lighten(st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
       #LookingGlassDialog .notebook-tab:selected:focus {
-        background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+        background-color: st-mix(-st-accent-color, st-lighten(st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
 
 #LookingGlassPropertyInspector {
-  background-color: st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@);
   color: #ffffff;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3111,7 +3111,7 @@ StScrollBar {
   spacing: 6px; }
   #LookingGlassWindows .lg-window {
     color: #ffffff;
-    background-color: st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%);
+    background-color: st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%);
     margin: 0;
     padding: 12px; }
 
@@ -3121,7 +3121,7 @@ StScrollBar {
 
 #LookingGlassExtensions .lg-extension {
   color: #ffffff;
-  background-color: st-mix(#ffffff, st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@), 12%);
+  background-color: st-mix(#ffffff, st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@), 12%);
   margin: 0;
   spacing: 4px;
   padding: 12px; }
@@ -3160,8 +3160,8 @@ StScrollBar {
 .qr-code {
   border-radius: 4px;
   border-width: 1em;
-  background-color: st-mix(@@ACCENT@@, #e9e9ea, @@TINT_STRENGTH@@);
-  border-color: st-mix(@@ACCENT@@, #e9e9ea, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #e9e9ea, @@TINT_STRENGTH@@);
+  border-color: st-mix(@@TINT@@, #e9e9ea, @@TINT_STRENGTH@@);
   color: #222226; }
 
 .login-dialog,
@@ -3293,7 +3293,7 @@ StScrollBar {
 
 .login-dialog-not-listed-button {
   color: #fafafb;
-  background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@);
   padding: 0 6px;
   margin: 6px; }
   .login-dialog-not-listed-button:focus {
@@ -3301,17 +3301,17 @@ StScrollBar {
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
     background-color: st-mix(-st-accent-color, rgba(34, 34, 38, 0.25), 5%); }
     .login-dialog-not-listed-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 7%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 7%), 5%); }
   .login-dialog-not-listed-button:hover {
     color: #fafafb;
-    background-color: st-lighten(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 7%); }
+    background-color: st-lighten(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 7%); }
   .login-dialog-not-listed-button:active {
     color: #fafafb;
-    background-color: st-lighten(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 9%); }
+    background-color: st-lighten(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 9%); }
     .login-dialog-not-listed-button:active:hover {
-      background-color: st-lighten(st-lighten(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 9%), 7%); }
+      background-color: st-lighten(st-lighten(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 9%), 7%); }
     .login-dialog-not-listed-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 9%), 5%); }
 
 .login-dialog-auth-list-view {
   -st-vfade-offset: 3em; }
@@ -3407,7 +3407,7 @@ StScrollBar {
   padding: 4.2px 6px;
   border-radius: 8px; }
   .login-dialog-item-icon:hover {
-    background-color: st-mix(@@ACCENT@@, #2e2e33, @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, #2e2e33, @@TINT_STRENGTH@@); }
   .login-dialog-item-icon-popup.popup-menu {
     min-width: 0; }
   .login-dialog-item-icon-popup-box .login-dialog-item-icon-popup-labels {
@@ -3427,41 +3427,41 @@ StScrollBar {
     spacing: 12px; }
     .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item {
       color: #fafafb;
-      background-color: st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%);
+      background-color: st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%);
       border-radius: 16px;
       padding: 9px; }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:selected, .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:focus {
         color: #fafafb;
         box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-        background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
+        background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
         .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:selected:hover, .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:focus:hover {
-          background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+          background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:hover {
         color: #fafafb;
-        background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%); }
+        background-color: st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%); }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:active {
         color: #fafafb;
-        background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%); }
+        background-color: st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%); }
         .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:active:hover {
-          background-color: st-lighten(st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+          background-color: st-lighten(st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
         .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:active:focus {
-          background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+          background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:insensitive {
         color: st-transparentize(#fafafb, 0.6);
-        background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 3%); }
+        background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 3%); }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item .user-icon {
         border: 2px solid transparent; }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item .login-dialog-timed-login-indicator {
         height: 2px;
         margin-top: 6px;
-        background-color: st-mix(@@ACCENT@@, rgba(250, 250, 251, 0.7), @@TINT_STRENGTH@@); }
+        background-color: st-mix(@@TINT@@, rgba(250, 250, 251, 0.7), @@TINT_STRENGTH@@); }
       .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:logged-in .user-icon {
         border-color: -st-accent-color; }
         .login-dialog-user-list-view .login-dialog-user-list .login-dialog-user-list-item:logged-in .user-icon StIcon {
           background-color: st-transparentize(-st-accent-color, 0.7); }
 
 .web-login-spinner {
-  background-color: st-mix(@@ACCENT@@, rgba(0, 0, 0, 0.5), @@TINT_STRENGTH@@);
+  background-color: st-mix(@@TINT@@, rgba(0, 0, 0, 0.5), @@TINT_STRENGTH@@);
   border: 5px rgba(0, 0, 0, 0);
   border-radius: 50px; }
 
@@ -3506,7 +3506,7 @@ StScrollBar {
 .login-dialog .login-button,
 .login-dialog .web-login-prompt-button {
   color: #fafafb;
-  background-color: st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%);
+  background-color: st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%);
   font-size: 1.182em;
   color: #fafafb;
   text-align: center;
@@ -3517,29 +3517,29 @@ StScrollBar {
   .login-dialog .web-login-prompt-button:focus {
     color: #fafafb;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
-    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
+    background-color: st-mix(-st-accent-color, st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 5%); }
     .login-dialog .login-button:selected:hover, .login-dialog .login-button:focus:hover,
     .login-dialog .web-login-prompt-button:selected:hover,
     .login-dialog .web-login-prompt-button:focus:hover {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%), 5%); }
   .login-dialog .login-button:hover,
   .login-dialog .web-login-prompt-button:hover {
     color: #fafafb;
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 4%); }
   .login-dialog .login-button:active,
   .login-dialog .web-login-prompt-button:active {
     color: #fafafb;
-    background-color: st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%); }
+    background-color: st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%); }
     .login-dialog .login-button:active:hover,
     .login-dialog .web-login-prompt-button:active:hover {
-      background-color: st-lighten(st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
+      background-color: st-lighten(st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 4%); }
     .login-dialog .login-button:active:focus,
     .login-dialog .web-login-prompt-button:active:focus {
-      background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
+      background-color: st-mix(-st-accent-color, st-lighten(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 9%), 5%); }
   .login-dialog .login-button:insensitive,
   .login-dialog .web-login-prompt-button:insensitive {
     color: st-transparentize(#fafafb, 0.6);
-    background-color: st-darken(st-mix(st-mix(@@ACCENT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@), 12%), 3%); }
+    background-color: st-darken(st-mix(st-mix(@@TINT@@, #fafafb, @@TINT_STRENGTH@@), st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@), 12%), 3%); }
 
 .login-dialog .login-button {
   padding: 0;
@@ -3577,7 +3577,7 @@ StScrollBar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); }
 
 #lockDialogGroup {
-  background-color: st-mix(@@ACCENT@@, #222226, @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, #222226, @@TINT_STRENGTH@@); }
 
 .unlock-dialog-clock {
   color: #fafafb;
@@ -3608,9 +3608,9 @@ StScrollBar {
     border-radius: 999px; }
 
 #unlockDialogNotifications > .vhandle, #unlockDialogNotifications > .hhandle {
-  background-color: st-mix(@@ACCENT@@, rgba(250, 250, 251, 0.3), @@TINT_STRENGTH@@); }
+  background-color: st-mix(@@TINT@@, rgba(250, 250, 251, 0.3), @@TINT_STRENGTH@@); }
   #unlockDialogNotifications > .vhandle:hover, #unlockDialogNotifications > .vhandle:focus, #unlockDialogNotifications > .hhandle:hover, #unlockDialogNotifications > .hhandle:focus {
-    background-color: st-mix(@@ACCENT@@, rgba(250, 250, 251, 0.5), @@TINT_STRENGTH@@); }
+    background-color: st-mix(@@TINT@@, rgba(250, 250, 251, 0.5), @@TINT_STRENGTH@@); }
   #unlockDialogNotifications > .vhandle:active, #unlockDialogNotifications > .hhandle:active {
     background-color: st-transparentize(-st-accent-color, 0.5); }
 
