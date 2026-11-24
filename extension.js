@@ -455,6 +455,7 @@ export default class ChromaLeon extends Extension {
     }
   }
 
+  // Suppress changed::* signals during internal updates so _runOperation doesn't cancel itself.
   _setColorKey(key, value) {
     if (!value || this._settings.get_string(key) === value) return false;
     this._updatingColors = true;
@@ -548,7 +549,6 @@ export default class ChromaLeon extends Extension {
 
     throwIfCancelled(cancellable);
 
-    const gnomeColors = this._settings.get_boolean("gnome-colors");
     const tintShell = this._settings.get_boolean("tint-shell");
     const tintApps = this._settings.get_boolean("tint-apps");
 
@@ -558,10 +558,6 @@ export default class ChromaLeon extends Extension {
         true,
         cancellable,
       );
-      if (gnomeColors && tintChanged && tintApps) {
-        throwIfCancelled(cancellable);
-        await this._reloadGtkStylesheet(cancellable);
-      }
     } else if (tintChanged) {
       if (tintShell) {
         await this._updateShellStyles(cancellable);
