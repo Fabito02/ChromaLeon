@@ -141,9 +141,19 @@ export class PreferencesPage extends Adw.PreferencesPage {
     });
     this.add(colorsGroup);
 
+    const gnomeTintColorsRow = new Adw.SwitchRow({
+      title: _("GNOME Tint Colors"),
+      subtitle: _(
+        "Use native GNOME colors instead of wallpaper colors for window tinting.",
+      ),
+    });
+    colorsGroup.add(gnomeTintColorsRow);
+
     const gnomeColorsRow = new Adw.SwitchRow({
-      title: _("GNOME Colors"),
-      subtitle: _("Use native GNOME colors instead of wallpaper colors."),
+      title: _("GNOME Accent Colors"),
+      subtitle: _(
+        "Use native GNOME colors instead of wallpaper colors for accent color.",
+      ),
     });
     colorsGroup.add(gnomeColorsRow);
 
@@ -167,6 +177,13 @@ export class PreferencesPage extends Adw.PreferencesPage {
       ),
     });
     preferLightRow.add_row(fullLightRow);
+
+    this._settings.bind(
+      "gnome-tint-colors",
+      gnomeTintColorsRow,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
 
     this._settings.bind(
       "gnome-colors",
@@ -431,7 +448,7 @@ export class PreferencesPage extends Adw.PreferencesPage {
         heading: _("About the custom stylesheet"),
         body: _(
           "This file is used to apply custom CSS to GNOME Shell.\n\n" +
-            "The extension processes all content within this file, replacing the <b><tt>@@ACCENT@@</tt></b> and <b><tt>-st-accent-color</tt></b> variables with the color selected in the ChromaLeon settings before applying them to the system. This can be useful if an extension does not have the accent colors applied correctly.\n\n" +
+            "The extension processes all content within this file, replacing <b><tt>@@ACCENT@@</tt></b> / <b><tt>-st-accent-color</tt></b> with the selected accent color and <b><tt>@@TINT@@</tt></b> with the selected tint color before applying them to the system. This can be useful if an extension does not have the accent colors applied correctly.\n\n" +
             "<b>Tip:</b> If your changes do not take effect, try adding <b><tt>!important</tt></b> to your CSS rules.",
         ),
         body_use_markup: true,
