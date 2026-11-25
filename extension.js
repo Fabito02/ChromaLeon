@@ -34,7 +34,11 @@ import {
   Source,
   Notification,
 } from "resource:///org/gnome/shell/ui/messageTray.js";
-import { getColorCache, writeColorCacheFile } from "./utils/cacheUtils.js";
+import {
+  getColorCacheEntry,
+  getWallpaperStamp,
+  writeColorCacheFile,
+} from "./utils/cacheUtils.js";
 
 export default class ChromaLeon extends Extension {
   constructor(metadata) {
@@ -54,6 +58,9 @@ export default class ChromaLeon extends Extension {
     this._customStylesheet = null;
     this._lastErrorId = null;
     this._notifSource = null;
+    this._wallpaperMonitor = null;
+    this._wallpaperCheckId = null;
+    this._lastWallpaperKey = null;
   }
 
   enable() {
@@ -172,6 +179,10 @@ export default class ChromaLeon extends Extension {
         this._runOperation(async (cancellable) => {
           this._loadShellStylesheet(cancellable);
 
+          // The active wallpaper key depends on the color scheme.
+          this._watchWallpaperFile();
+          this._lastWallpaperKey = await this._getWallpaperKey(cancellable);
+
           await this._autoApplyWallpaperColor(null, cancellable);
         }),
       "changed::accent-color",
@@ -186,26 +197,30 @@ export default class ChromaLeon extends Extension {
       this,
     );
 
-    const handleWallpaperChange = async () => {
-      let currentUri = this._getWallpaperUri();
-
-      if (this._lastWallpaperUri === currentUri) return;
-      this._lastWallpaperUri = currentUri;
-
-      this._runOperation(async (cancellable) => {
-        this._settings.set_boolean("custom-color", false);
-        await this._autoApplyWallpaperColor(null, cancellable);
-      });
-      return GLib.SOURCE_REMOVE;
+    const handleWallpaperSettingChange = () => {
+      this._watchWallpaperFile();
+      this._queueWallpaperCheck();
     };
 
     this._bgSettings.connectObject(
       "changed::picture-uri-dark",
-      handleWallpaperChange,
+      handleWallpaperSettingChange,
       "changed::picture-uri",
-      handleWallpaperChange,
+      handleWallpaperSettingChange,
       this,
     );
+
+    // Apps that set the wallpaper through xdg-desktop-portal (Nautilus,
+    // Damask, Valhalla...) overwrite the same file (~/.config/background) and
+    // write back the same URI, which emits no GSettings signal. Watching the
+    // file itself catches those changes, as GNOME Shell's own background does.
+    this._watchWallpaperFile();
+    this._getWallpaperKey()
+      .then((key) => {
+        if (this._settings && this._lastWallpaperKey === null)
+          this._lastWallpaperKey = key;
+      })
+      .catch(() => {});
 
     this._configId = this._settings.connect("changed::create-shortcut", () => {
       this._updateDesktopFile();
@@ -240,6 +255,13 @@ export default class ChromaLeon extends Extension {
     this._bgSettings?.disconnectObject(this);
     this._interfaceSettings?.disconnectObject(this);
     sessionMode.disconnectObject(this);
+
+    this._unwatchWallpaperFile();
+    if (this._wallpaperCheckId) {
+      GLib.Source.remove(this._wallpaperCheckId);
+      this._wallpaperCheckId = null;
+    }
+    this._lastWallpaperKey = null;
 
     if (this._configId) {
       this._settings?.disconnect(this._configId);
@@ -406,8 +428,10 @@ export default class ChromaLeon extends Extension {
 
     if (!color) {
       const uri = this._getWallpaperUri();
-      const colorCache = await getColorCache(cancellable);
-      const cached = colorCache[uri];
+      const { entry: cached, stamp } = await getColorCacheEntry(
+        uri,
+        cancellable,
+      );
 
       if (
         cached?.persistentColor &&
@@ -420,12 +444,23 @@ export default class ChromaLeon extends Extension {
         color = await ColorUtils.calculateVibrantColor(uri);
 
         if (color) {
-          await writeColorCacheFile(uri, { vibrant: color }, cancellable);
+          await writeColorCacheFile(
+            uri,
+            { vibrant: color },
+            cancellable,
+            stamp,
+          );
         }
       }
     }
 
     throwIfCancelled(cancellable);
+
+    // No usable color (unsupported or unreadable image): keep the current one.
+    if (!color) {
+      await this._updateAppStyles(cancellable);
+      return;
+    }
 
     const currentColor = this._settings.get_string("accent-color");
 
@@ -612,6 +647,71 @@ export default class ChromaLeon extends Extension {
       GLib.Source.remove(this[key]);
       this[key] = null;
     }
+  }
+
+  _watchWallpaperFile() {
+    this._unwatchWallpaperFile();
+
+    const uri = this._getWallpaperUri();
+    if (!uri?.startsWith("file://")) return;
+
+    try {
+      this._wallpaperMonitor = Gio.File.new_for_uri(uri).monitor_file(
+        Gio.FileMonitorFlags.NONE,
+        null,
+      );
+      this._wallpaperMonitor.connectObject(
+        "changed",
+        () => this._queueWallpaperCheck(),
+        this,
+      );
+    } catch (e) {
+      console.warn(`ChromaLeon: cannot watch wallpaper ${uri}: ${e.message}`);
+      this._wallpaperMonitor = null;
+    }
+  }
+
+  _unwatchWallpaperFile() {
+    if (!this._wallpaperMonitor) return;
+
+    this._wallpaperMonitor.disconnectObject(this);
+    this._wallpaperMonitor.cancel();
+    this._wallpaperMonitor = null;
+  }
+
+  // Coalesces the bursts of events a file write produces (and the two
+  // picture-uri keys changing together) into one check once things settle.
+  _queueWallpaperCheck() {
+    if (this._wallpaperCheckId) GLib.Source.remove(this._wallpaperCheckId);
+
+    this._wallpaperCheckId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 500, () => {
+      this._wallpaperCheckId = null;
+      this._onWallpaperChanged().catch((e) =>
+        console.error("ChromaLeon: wallpaper check failed", e),
+      );
+      return GLib.SOURCE_REMOVE;
+    });
+  }
+
+  async _onWallpaperChanged() {
+    const key = await this._getWallpaperKey();
+
+    // Disabled while waiting, or nothing actually changed (e.g. an
+    // attribute-only file event).
+    if (!this._settings || key === this._lastWallpaperKey) return;
+    this._lastWallpaperKey = key;
+
+    this._runOperation(async (cancellable) => {
+      this._settings.set_boolean("custom-color", false);
+      await this._autoApplyWallpaperColor(null, cancellable);
+    });
+  }
+
+  // Identifies the wallpaper image, not just its path.
+  async _getWallpaperKey(cancellable = null) {
+    const uri = this._getWallpaperUri();
+    const stamp = await getWallpaperStamp(uri, cancellable);
+    return `${uri}|${stamp}`;
   }
 
   _getWallpaperUri() {

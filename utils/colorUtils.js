@@ -33,8 +33,23 @@ export function calculateVibrantColor(uri) {
 
     let file = Gio.File.new_for_uri(uri);
 
+    // Any failure (unreadable file, unsupported format such as an XML
+    // slideshow, a file caught mid-write) must still settle the promise:
+    // the extension's operation queue awaits it, and a promise that never
+    // settles would block every later wallpaper or accent update.
+    const fail = (e) => {
+      console.warn(`ChromaLeon: could not analyse wallpaper ${uri}: ${e?.message ?? e}`);
+      resolve(null);
+    };
+
     file.read_async(GLib.PRIORITY_DEFAULT, null, (source_object, res) => {
-      let stream = source_object.read_finish(res);
+      let stream;
+      try {
+        stream = source_object.read_finish(res);
+      } catch (e) {
+        fail(e);
+        return;
+      }
 
       GdkPixbuf.Pixbuf.new_from_stream_at_scale_async(
         stream,
@@ -43,12 +58,14 @@ export function calculateVibrantColor(uri) {
         true,
         null,
         (obj, asyncRes) => {
-          let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
-
           stream.close_async(GLib.PRIORITY_DEFAULT, null, () => {});
 
-          let color = _processPixbuf(pixbuf);
-          resolve(color);
+          try {
+            let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_finish(asyncRes);
+            resolve(_processPixbuf(pixbuf));
+          } catch (e) {
+            fail(e);
+          }
         },
       );
     });

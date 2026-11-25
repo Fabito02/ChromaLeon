@@ -37,7 +37,10 @@ import {
   toHex,
 } from "../utils/colorUtils.js";
 import { throwIfCancelled, isCancelledError } from "../utils/cancellation.js";
-import { getColorCache, writeColorCacheFile } from "../utils/cacheUtils.js";
+import {
+  getColorCacheEntry,
+  writeColorCacheFile,
+} from "../utils/cacheUtils.js";
 
 const thumbnailFactory = GnomeDesktop.DesktopThumbnailFactory.new(
   GnomeDesktop.DesktopThumbnailSize.LARGE,
@@ -97,7 +100,10 @@ export class WallpaperPage extends Adw.PreferencesPage {
     this._interfaceSettings = interfaceSettings;
 
     this._manualColor = false;
-    this._lastWallpaperUri = null;
+    this._lastWallpaperKey = null;
+    this._wallpaperMonitor = null;
+    this._wallpaperMonitorId = null;
+    this._wallpaperCheckId = null;
     this._cancellable = null;
     this._opChain = Promise.resolve();
     this._bgUpdateTimeoutId = null;
@@ -275,10 +281,15 @@ export class WallpaperPage extends Adw.PreferencesPage {
     );
 
     const handleBgChange = () => {
+      this._watchWallpaperFile();
       this._runOperation(async (cancellable) => {
         await this._updateWallpaperUI(cancellable);
       });
     };
+
+    // Wallpapers set through xdg-desktop-portal reuse the same file and URI,
+    // so only a file monitor notices them.
+    this._watchWallpaperFile();
 
     this._bgChangedId1 = this._bgSettings.connect(
       "changed::picture-uri-dark",
@@ -310,9 +321,73 @@ export class WallpaperPage extends Adw.PreferencesPage {
       this._bgUpdateTimeoutId = null;
     }
 
+    this._unwatchWallpaperFile();
+    if (this._wallpaperCheckId) {
+      GLib.Source.remove(this._wallpaperCheckId);
+      this._wallpaperCheckId = null;
+    }
+
     this._cancellable?.cancel();
     this._cancellable = null;
     this._opChain = Promise.resolve();
+  }
+
+  _getActiveWallpaperUri() {
+    const colorScheme = this._interfaceSettings.get_string("color-scheme");
+    let uri =
+      colorScheme === "prefer-dark"
+        ? this._bgSettings.get_string("picture-uri-dark")
+        : this._bgSettings.get_string("picture-uri");
+
+    if (uri && !uri.startsWith("file://") && uri.startsWith("/")) {
+      uri = Gio.File.new_for_path(uri).get_uri();
+    }
+    return uri;
+  }
+
+  _watchWallpaperFile() {
+    this._unwatchWallpaperFile();
+
+    const uri = this._getActiveWallpaperUri();
+    if (!uri?.startsWith("file://")) return;
+
+    try {
+      this._wallpaperMonitor = Gio.File.new_for_uri(uri).monitor_file(
+        Gio.FileMonitorFlags.NONE,
+        null,
+      );
+      this._wallpaperMonitorId = this._wallpaperMonitor.connect(
+        "changed",
+        () => {
+          if (this._wallpaperCheckId)
+            GLib.Source.remove(this._wallpaperCheckId);
+
+          this._wallpaperCheckId = GLib.timeout_add(
+            GLib.PRIORITY_DEFAULT,
+            500,
+            () => {
+              this._wallpaperCheckId = null;
+              this._runOperation(async (cancellable) => {
+                await this._updateWallpaperUI(cancellable);
+              });
+              return GLib.SOURCE_REMOVE;
+            },
+          );
+        },
+      );
+    } catch (e) {
+      this._wallpaperMonitor = null;
+    }
+  }
+
+  _unwatchWallpaperFile() {
+    if (!this._wallpaperMonitor) return;
+
+    if (this._wallpaperMonitorId)
+      this._wallpaperMonitor.disconnect(this._wallpaperMonitorId);
+    this._wallpaperMonitorId = null;
+    this._wallpaperMonitor.cancel();
+    this._wallpaperMonitor = null;
   }
 
   _applyTheme() {
@@ -422,6 +497,18 @@ export class WallpaperPage extends Adw.PreferencesPage {
     fileChooser.show();
   }
 
+  _haveSameContents(fileA, fileB) {
+    try {
+      const [, a] = fileA.load_contents(null);
+      const [, b] = fileB.load_contents(null);
+      const sum = (bytes) =>
+        GLib.compute_checksum_for_data(GLib.ChecksumType.SHA256, bytes);
+      return a.length === b.length && sum(a) === sum(b);
+    } catch (e) {
+      return false;
+    }
+  }
+
   _copyWallpaperToUserDir(sourceFile) {
     const destDir = Gio.File.new_for_path(
       `${GLib.get_user_data_dir()}/backgrounds`,
@@ -431,12 +518,24 @@ export class WallpaperPage extends Adw.PreferencesPage {
       destDir.make_directory_with_parents(null);
     }
 
-    const destFile = destDir.get_child(sourceFile.get_basename());
+    const basename = sourceFile.get_basename();
+    let destFile = destDir.get_child(basename);
 
     if (destFile.query_exists(null)) {
-      const toast = new Adw.Toast({ title: _("Wallpaper already exists!") });
-      this.get_root()?.add_toast(toast);
-      return;
+      if (this._haveSameContents(sourceFile, destFile)) {
+        const toast = new Adw.Toast({ title: _("Wallpaper already exists!") });
+        this.get_root()?.add_toast(toast);
+        return;
+      }
+
+      // Same name, different image (e.g. ~/.config/background, which the
+      // wallpaper portal reuses for every wallpaper): keep both rather than
+      // silently keeping the old one.
+      const dot = basename.lastIndexOf(".");
+      const stem = dot > 0 ? basename.slice(0, dot) : basename;
+      const ext = dot > 0 ? basename.slice(dot) : "";
+      for (let i = 2; destFile.query_exists(null); i++)
+        destFile = destDir.get_child(`${stem}-${i}${ext}`);
     }
 
     sourceFile.copy_async(
@@ -909,12 +1008,14 @@ export class WallpaperPage extends Adw.PreferencesPage {
     let colors = [];
     const isGnomeColor = this._settings.get_boolean("gnome-colors");
     let cached = null;
+    let stamp = null;
 
     if (isGnomeColor) {
       colors = await this._getColorsList(uri, cancellable);
     } else {
-      const colorCache = await getColorCache(cancellable);
-      cached = uri ? colorCache[uri] : null;
+      // getColorCacheEntry drops entries whose file has changed since they
+      // were written, e.g. a new image at the portal's fixed path.
+      ({ entry: cached, stamp } = await getColorCacheEntry(uri, cancellable));
 
       if (cached?.all_colors) {
         colors = cached.all_colors;
@@ -922,7 +1023,13 @@ export class WallpaperPage extends Adw.PreferencesPage {
         colors = await this._getColorsList(uri, cancellable);
 
         if (colors && colors.length > 0 && uri) {
-          await writeColorCacheFile(uri, { all_colors: colors }, cancellable);
+          const updated = await writeColorCacheFile(
+            uri,
+            { all_colors: colors },
+            cancellable,
+            stamp,
+          );
+          cached = updated[uri];
         }
       }
     }
@@ -947,8 +1054,9 @@ export class WallpaperPage extends Adw.PreferencesPage {
       return;
     }
 
-    const wallpaperChanged = this._lastWallpaperUri !== uri;
-    this._lastWallpaperUri = uri;
+    const wallpaperKey = `${uri}|${stamp}`;
+    const wallpaperChanged = this._lastWallpaperKey !== wallpaperKey;
+    this._lastWallpaperKey = wallpaperKey;
 
     this._colorsRow.set_subtitle("");
     this._wallpaperButtons = [];
